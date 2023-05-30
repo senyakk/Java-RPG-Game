@@ -5,14 +5,16 @@ public class Game implements Runnable {
     private GameScreen gameWindow;
     private GamePanel gamePanel;
     public Thread gameLoop;
+    private InventoryPanel inventoryPanel;
     private final int FPS = 120;
 
     /**
      * Game constructor that creates GamePanel and GameScreen
      */
     public Game() {
+        inventoryPanel = new InventoryPanel();
         gamePanel = new GamePanel();
-        gameWindow = new GameScreen(gamePanel);
+        gameWindow = new GameScreen(gamePanel, inventoryPanel);
         gamePanel.requestFocus();
         startGameLoop();
     }

@@ -10,7 +10,7 @@ public class GameScreen {
      * Game screen constructor responsible for game window
      * @param gamePanel panel that hosts the game
      */
-    public GameScreen(GamePanel gamePanel) {
+    public GameScreen(GamePanel gamePanel, InventoryPanel inventoryPanel) {
 
         frame = new JFrame();
 
