@@ -29,5 +29,5 @@ In addition, there are some general requirements that every team member should i
 - The program makes proper use of exceptions. That is, exceptions are added where appropriate, without abusing the exception mechanism.
 - The game should completely playable in at least two languages, one of them being English.
 - Each feature should be implemented in its own package. 
-- Each class should contain the `@author` Javadoc tag to indicate the java.main author. During the demo, questions about that class will be asked to the listed `@author`. Additionally, the progamming style and internal design choices of a class contribute only to the grade of the listed `@author`.
+- Each class should contain the `@author` Javadoc tag to indicate the main author. During the demo, questions about that class will be asked to the listed `@author`. Additionally, the progamming style and internal design choices of a class contribute only to the grade of the listed `@author`.
 

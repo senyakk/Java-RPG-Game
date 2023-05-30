@@ -1,4 +1,4 @@
-package java.main;
+package main;
 
 import javax.swing.*;
 
@@ -14,6 +14,7 @@ public class GameScreen {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         frame.add(gamePanel);
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
     }
