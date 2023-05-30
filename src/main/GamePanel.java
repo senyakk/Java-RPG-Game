@@ -1,9 +1,11 @@
 package main;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Random;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
 
 import inputs.KeyboardInputs;
 import inputs.MouseInputs;
@@ -12,20 +14,37 @@ public class GamePanel extends JPanel {
 
     private MouseInputs mouseInputs;
     private float xDelta = 100, yDelta = 100;
-    private float xDir = 1f, yDir = 1f;
-    private Color color = new Color(144, 67, 45);
-    private Random random;
+    private BufferedImage image, subImg;
 
     /**
      * GamePanel constructor adds mouse and keyboard listeners to the game
      */
     public GamePanel() {
 
-        random = new Random();
+        importImage();
+        setPanelSize();
         mouseInputs = new MouseInputs(this);
         addKeyListener(new KeyboardInputs(this));
         addMouseListener(mouseInputs);
         addMouseMotionListener(mouseInputs);
+    }
+
+    private void importImage() {
+        InputStream is = getClass().getResourceAsStream("/player_sprites.jpeg");
+
+        try {
+            image = ImageIO.read(is);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void setPanelSize() {
+        Dimension size = new Dimension(1280, 800);
+        setMinimumSize(size);
+        setPreferredSize(size);
+        setMaximumSize(size);
     }
 
     /**
@@ -57,31 +76,8 @@ public class GamePanel extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        //updateRectangle();
+        subImg = image.getSubimage(0,0, 64, 72);
+        g.drawImage(subImg, (int)xDelta, (int)yDelta, 128, 144, null);
 
-        g.setColor(color);
-        g.fillRect((int)xDelta, (int)yDelta, 200, 50);
     }
-
-    private void updateRectangle() {
-        xDelta += xDir;
-        if (xDelta > 400 || xDelta < 0) {
-            xDir *= -1;
-            color = getRndColor();
-        }
-        yDelta += yDir;
-        if (yDelta > 400 || yDelta < 0) {
-            yDir *= -1;
-            color = getRndColor();
-        }
-    }
-
-    private Color getRndColor() {
-        int r = random.nextInt(255);
-        int g = random.nextInt(255);
-        int b = random.nextInt(255);
-
-        return new Color(r, b, g);
-    }
-
 }
