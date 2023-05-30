@@ -6,6 +6,10 @@ public class GameScreen {
 
     private JFrame frame;
 
+    /**
+     * Game screen constructor responsible for game window
+     * @param gamePanel panel that hosts the game
+     */
     public GameScreen(GamePanel gamePanel) {
 
         frame = new JFrame();
