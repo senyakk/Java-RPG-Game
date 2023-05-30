@@ -12,6 +12,15 @@ import inputs.MouseInputs;
 
 public class GamePanel extends JPanel {
 
+    // SCREEN SETTINGS
+    final int originalTileSize = 64;
+    final int scale = 2;
+    final int tileSize = originalTileSize * scale;
+    final int maxScreenCol = 8;
+    final int maxScreenRow = 6;
+    final int screenWidth = tileSize * maxScreenCol;
+    final int screenHeight = tileSize * maxScreenRow;
+
     private MouseInputs mouseInputs;
     private float xDelta = 100, yDelta = 100;
     private BufferedImage image, subImg;
@@ -41,10 +50,12 @@ public class GamePanel extends JPanel {
     }
 
     private void setPanelSize() {
-        Dimension size = new Dimension(1280, 800);
+        Dimension size = new Dimension(screenWidth, screenHeight);
         setMinimumSize(size);
         setPreferredSize(size);
         setMaximumSize(size);
+        setBackground(new Color(100, 200, 90));
+        setDoubleBuffered(true);
     }
 
     /**
