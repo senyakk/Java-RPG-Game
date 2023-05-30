@@ -1,7 +1,6 @@
 package main;
 
 public class Game implements Runnable {
-
     private GameScreen gameWindow;
     private GamePanel gamePanel;
     public Thread gameLoop;
@@ -15,7 +14,9 @@ public class Game implements Runnable {
         inventoryPanel = new InventoryPanel();
         gamePanel = new GamePanel();
         gameWindow = new GameScreen(gamePanel, inventoryPanel);
-        gamePanel.requestFocus();
+
+        //gamePanel.requestFocus();
+
         startGameLoop();
     }
 
@@ -26,16 +27,14 @@ public class Game implements Runnable {
 
     @Override
     public void run() {
-
         double timePerFrame = 1000000000.0 / FPS;
         long lastFrame = System.nanoTime();
-        long now = System.nanoTime();
+        long now;
 
         int frames = 0;
         long lastCheck = System.currentTimeMillis();
 
-        while(true) {
-
+        while (true) {
             now = System.nanoTime();
             if (now - lastFrame >= timePerFrame) {
                 gamePanel.repaint();

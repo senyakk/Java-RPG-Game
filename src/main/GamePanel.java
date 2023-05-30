@@ -7,11 +7,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 
-import inputs.KeyboardInputs;
-import inputs.MouseInputs;
-
 public class GamePanel extends JPanel {
-
     // SCREEN SETTINGS
     final int originalTileSize = 64;
     final int scale = 2;
@@ -21,33 +17,30 @@ public class GamePanel extends JPanel {
     final int screenWidth = tileSize * maxScreenCol;
     final int screenHeight = tileSize * maxScreenRow;
 
-    private boolean isVisible;
-
-    private MouseInputs mouseInputs;
     private float xDelta = 100, yDelta = 100;
     private BufferedImage image, subImg;
+
+    private boolean isVisible;
 
     /**
      * GamePanel constructor adds mouse and keyboard listeners to the game
      */
     public GamePanel() {
-
         importImage();
         setPanelSize();
-        mouseInputs = new MouseInputs(this);
-        addKeyListener(new KeyboardInputs(this));
-        addMouseListener(mouseInputs);
-        addMouseMotionListener(mouseInputs);
+
+        setBackground(new Color(100, 200, 90));
+        setDoubleBuffered(true);
 
         this.isVisible = true;
         this.setVisible(true);
     }
 
     private void importImage() {
-        InputStream is = getClass().getResourceAsStream("/player_sprites.jpeg");
+        InputStream playerSprites = getClass().getResourceAsStream("/player_sprites.jpeg");
 
         try {
-            image = ImageIO.read(is);
+            image = ImageIO.read(playerSprites);
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -59,8 +52,6 @@ public class GamePanel extends JPanel {
         setMinimumSize(size);
         setPreferredSize(size);
         setMaximumSize(size);
-        setBackground(new Color(100, 200, 90));
-        setDoubleBuffered(true);
     }
 
     /**
@@ -89,12 +80,11 @@ public class GamePanel extends JPanel {
         this.yDelta = y;
     }
 
+    @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-
         subImg = image.getSubimage(0,0, 64, 72);
         g.drawImage(subImg, (int)xDelta, (int)yDelta, 128, 144, null);
-
     }
 
     public void switchVisibility(){
