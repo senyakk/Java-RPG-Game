@@ -21,6 +21,8 @@ public class GamePanel extends JPanel {
     final int screenWidth = tileSize * maxScreenCol;
     final int screenHeight = tileSize * maxScreenRow;
 
+    private boolean isVisible;
+
     private MouseInputs mouseInputs;
     private float xDelta = 100, yDelta = 100;
     private BufferedImage image, subImg;
@@ -36,6 +38,9 @@ public class GamePanel extends JPanel {
         addKeyListener(new KeyboardInputs(this));
         addMouseListener(mouseInputs);
         addMouseMotionListener(mouseInputs);
+
+        this.isVisible = true;
+        this.setVisible(true);
     }
 
     private void importImage() {
@@ -90,5 +95,11 @@ public class GamePanel extends JPanel {
         subImg = image.getSubimage(0,0, 64, 72);
         g.drawImage(subImg, (int)xDelta, (int)yDelta, 128, 144, null);
 
+    }
+
+    public void switchVisibility(){
+        this.isVisible = !isVisible;
+        this.setVisible(isVisible);
+        System.out.println("Switched game panel to ".concat(Boolean.toString(isVisible)));
     }
 }

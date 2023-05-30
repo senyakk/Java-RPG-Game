@@ -16,6 +16,7 @@ public class GameScreen {
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(gamePanel);
+        // frame.add(inventoryPanel);
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setResizable(false);
