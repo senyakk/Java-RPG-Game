@@ -1,5 +1,9 @@
 package main;
 
+import creatures.Player;
+
+import java.awt.*;
+
 public class Game implements Runnable {
     private GameScreen gameWindow;
     private GamePanel gamePanel;
@@ -8,17 +12,25 @@ public class Game implements Runnable {
     private final int FPS = 120;
     private final int UPS = 120;
 
+    private Player player;
+
     /**
      * Game constructor that creates GamePanel and GameScreen
      */
     public Game() {
+        initEntities();
         inventoryPanel = new InventoryPanel();
-        gamePanel = new GamePanel();
+        gamePanel = new GamePanel(this);
         gameWindow = new GameScreen(gamePanel, inventoryPanel);
 
         // gamePanel.requestFocus();
 
         startGameLoop();
+
+    }
+
+    private void initEntities() {
+        player = new Player(200, 200);
     }
 
     private void startGameLoop() {
@@ -27,7 +39,11 @@ public class Game implements Runnable {
     }
 
     public void update() {
-        gamePanel.updateGame();
+        player.update();
+    }
+
+    public void render(Graphics g) {
+        player.render(g);
     }
 
     @Override
@@ -70,5 +86,13 @@ public class Game implements Runnable {
                 updates = 0;
             }
         }
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void windowFocusLost() {
+        player.resetDirections();
     }
 }

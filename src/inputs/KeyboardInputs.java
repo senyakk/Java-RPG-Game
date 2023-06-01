@@ -29,27 +29,43 @@ public class KeyboardInputs implements KeyListener {
         switch (e.getKeyCode()) {
             // WASD for movement
             case KeyEvent.VK_W -> {
-                if (targetObject instanceof GamePanel) ((GamePanel) this.targetObject).setDirection(UP);
+                if (targetObject instanceof GamePanel) ((GamePanel) this.targetObject)
+                        .getGame().getPlayer().setUp(true);
             }
             case KeyEvent.VK_A -> {
-                if (targetObject instanceof GamePanel) ((GamePanel) this.targetObject).setDirection(LEFT);
-            }
-            case KeyEvent.VK_S -> {
-                if (targetObject instanceof GamePanel) ((GamePanel) this.targetObject).setDirection(DOWN);
+                if (targetObject instanceof GamePanel) ((GamePanel) this.targetObject)
+                        .getGame().getPlayer().setLeft(true);
             }
             case KeyEvent.VK_D -> {
-                if (targetObject instanceof GamePanel) ((GamePanel) this.targetObject).setDirection(RIGHT);
+                if (targetObject instanceof GamePanel) ((GamePanel) this.targetObject)
+                        .getGame().getPlayer().setRight(true);
+            }
+            case KeyEvent.VK_S -> {
+                if (targetObject instanceof GamePanel) ((GamePanel) this.targetObject)
+                        .getGame().getPlayer().setDown(true);
             }
         }
-
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
             // WASD for movement
-            case KeyEvent.VK_W, KeyEvent.VK_A, KeyEvent.VK_S, KeyEvent.VK_D -> {
-                if (targetObject instanceof GamePanel) ((GamePanel) this.targetObject).setMoving(false);
+            case KeyEvent.VK_W -> {
+                if (targetObject instanceof GamePanel) ((GamePanel) this.targetObject)
+                        .getGame().getPlayer().setUp(false);
+            }
+            case KeyEvent.VK_A -> {
+                if (targetObject instanceof GamePanel) ((GamePanel) this.targetObject)
+                        .getGame().getPlayer().setLeft(false);
+            }
+            case KeyEvent.VK_D -> {
+                if (targetObject instanceof GamePanel) ((GamePanel) this.targetObject)
+                        .getGame().getPlayer().setRight(false);
+            }
+            case KeyEvent.VK_S -> {
+                if (targetObject instanceof GamePanel) ((GamePanel) this.targetObject)
+                        .getGame().getPlayer().setDown(false);
             }
             // Inventory switch
             case KeyEvent.VK_I -> {

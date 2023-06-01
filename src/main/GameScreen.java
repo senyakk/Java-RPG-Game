@@ -5,6 +5,8 @@ import inputs.MouseInputs;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowFocusListener;
 
 public class GameScreen {
     private JFrame frame;
@@ -12,6 +14,7 @@ public class GameScreen {
     /**
      * Game screen constructor responsible for game window
      * @param gamePanel panel that hosts the game
+     * @param inventoryPanel panel that hosts the inventory
      */
     public GameScreen(GamePanel gamePanel, InventoryPanel inventoryPanel) {
         frame = new JFrame();
@@ -23,6 +26,17 @@ public class GameScreen {
         frame.setLocationRelativeTo(null);
         frame.setResizable(false);
         frame.setVisible(true);
+        frame.addWindowFocusListener(new WindowFocusListener() {
+            @Override
+            public void windowGainedFocus(WindowEvent e) {
+                gamePanel.getGame().windowFocusLost();
+            }
+
+            @Override
+            public void windowLostFocus(WindowEvent e) {
+
+            }
+        });
     }
 
     private void setCards(GamePanel gamePanel, InventoryPanel inventoryPanel){
