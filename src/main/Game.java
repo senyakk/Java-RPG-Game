@@ -1,6 +1,7 @@
 package main;
 
 import creatures.Player;
+import tile.TileManager;
 
 import java.awt.*;
 
@@ -10,8 +11,8 @@ public class Game implements Runnable {
     public final static int defaultTileSize = 64;
     public final static float scale = 2;
     public static final int tileSize = (int)(defaultTileSize * scale);
-    static final int maxTileCol = 8;
-    static final int maxTileRow = 6;
+    public static final int maxTileCol = 8;
+    public static final int maxTileRow = 6;
     public final static int screenWidth = tileSize * maxTileCol;
     public final static int screenHeight = tileSize * maxTileRow;
 
@@ -30,6 +31,7 @@ public class Game implements Runnable {
     private final int UPS = 120;
 
     private Player player;
+    private TileManager tileManager = new TileManager(this);
 
     /**
      * Game constructor that creates GamePanel and GameScreen
@@ -66,6 +68,7 @@ public class Game implements Runnable {
     }
 
     public void render(Graphics g) {
+        tileManager.draw(g);
         player.render(g);
     }
 
