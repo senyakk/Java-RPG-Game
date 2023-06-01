@@ -3,20 +3,19 @@ package inputs;
 import main.GamePanel;
 import main.InventoryPanel;
 
+import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import static utilz.Constants.Direction.*;
-
 public class KeyboardInputs implements KeyListener {
-    private Object targetObject;
+    private JPanel targetPanel;
 
     /**
-     * Creates keyboard listener connected to the target object
-     * @param targetObject x
+     * Creates keyboard listener connected to the target panel
+     * @param targetPanel x
      */
-    public KeyboardInputs(Object targetObject){
-        this.targetObject = targetObject;
+    public KeyboardInputs(JPanel targetPanel){
+        this.targetPanel = targetPanel;
     }
 
     @Override
@@ -29,20 +28,32 @@ public class KeyboardInputs implements KeyListener {
         switch (e.getKeyCode()) {
             // WASD for movement
             case KeyEvent.VK_W -> {
-                if (targetObject instanceof GamePanel) ((GamePanel) this.targetObject)
+                if (targetPanel instanceof GamePanel) ((GamePanel) this.targetPanel)
                         .getGame().getPlayer().setUp(true);
             }
             case KeyEvent.VK_A -> {
-                if (targetObject instanceof GamePanel) ((GamePanel) this.targetObject)
+                if (targetPanel instanceof GamePanel) ((GamePanel) this.targetPanel)
                         .getGame().getPlayer().setLeft(true);
             }
             case KeyEvent.VK_D -> {
-                if (targetObject instanceof GamePanel) ((GamePanel) this.targetObject)
+                if (targetPanel instanceof GamePanel) ((GamePanel) this.targetPanel)
                         .getGame().getPlayer().setRight(true);
             }
             case KeyEvent.VK_S -> {
-                if (targetObject instanceof GamePanel) ((GamePanel) this.targetObject)
+                if (targetPanel instanceof GamePanel) ((GamePanel) this.targetPanel)
                         .getGame().getPlayer().setDown(true);
+            }
+            // P for pause
+            case KeyEvent.VK_P -> {
+                int gameState = ((GamePanel) this.targetPanel).getGame().gameState;
+                if (gameState ==
+                        ((GamePanel) this.targetPanel).getGame().playing) {
+                    gameState = ((GamePanel) this.targetPanel).getGame().pause;
+                }
+                else if (gameState ==
+                        ((GamePanel) this.targetPanel).getGame().pause) {
+                    gameState = ((GamePanel) this.targetPanel).getGame().playing;
+                }
             }
         }
     }
@@ -52,25 +63,25 @@ public class KeyboardInputs implements KeyListener {
         switch (e.getKeyCode()) {
             // WASD for movement
             case KeyEvent.VK_W -> {
-                if (targetObject instanceof GamePanel) ((GamePanel) this.targetObject)
+                if (targetPanel instanceof GamePanel) ((GamePanel) this.targetPanel)
                         .getGame().getPlayer().setUp(false);
             }
             case KeyEvent.VK_A -> {
-                if (targetObject instanceof GamePanel) ((GamePanel) this.targetObject)
+                if (targetPanel instanceof GamePanel) ((GamePanel) this.targetPanel)
                         .getGame().getPlayer().setLeft(false);
             }
             case KeyEvent.VK_D -> {
-                if (targetObject instanceof GamePanel) ((GamePanel) this.targetObject)
+                if (targetPanel instanceof GamePanel) ((GamePanel) this.targetPanel)
                         .getGame().getPlayer().setRight(false);
             }
             case KeyEvent.VK_S -> {
-                if (targetObject instanceof GamePanel) ((GamePanel) this.targetObject)
+                if (targetPanel instanceof GamePanel) ((GamePanel) this.targetPanel)
                         .getGame().getPlayer().setDown(false);
             }
             // Inventory switch
             case KeyEvent.VK_I -> {
-                if (this.targetObject instanceof InventoryPanel) ((InventoryPanel) this.targetObject).switchVisibility();
-                if (this.targetObject instanceof GamePanel) ((GamePanel) this.targetObject).switchVisibility();
+                if (this.targetPanel instanceof InventoryPanel) ((InventoryPanel) this.targetPanel).switchVisibility();
+                if (this.targetPanel instanceof GamePanel) ((GamePanel) this.targetPanel).switchVisibility();
             }
         }
     }

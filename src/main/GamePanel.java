@@ -13,6 +13,7 @@ public class GamePanel extends JPanel {
 
     // GAME VARIABLE
     private Game game;
+    public UI ui = new UI(this);
 
     public GamePanel(Game game) {
 
@@ -52,7 +53,9 @@ public class GamePanel extends JPanel {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+        Graphics2D g2 = (Graphics2D)g;
 
-        game.render(g);
+        game.render(g2);
+        ui.draw(g2);
     }
 }

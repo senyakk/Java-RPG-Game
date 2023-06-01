@@ -53,7 +53,7 @@ public class GameScreen {
     }
 
     private void addListeners(Object listenerTarget){
-        this.frame.addKeyListener(new KeyboardInputs(listenerTarget));
+        this.frame.addKeyListener(new KeyboardInputs((JPanel) listenerTarget));
 
         MouseInputs mouseInputs = new MouseInputs(listenerTarget);
         this.frame.addMouseListener(mouseInputs);

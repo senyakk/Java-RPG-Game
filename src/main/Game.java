@@ -15,6 +15,13 @@ public class Game implements Runnable {
     public final static int screenWidth = tileSize * maxTileCol;
     public final static int screenHeight = tileSize * maxTileRow;
 
+    // GAME STATE
+    public int gameState;
+    public final int playing = 1;
+    public final int pause = 2;
+
+    // WINDOW SETTINGS
+
     private GameScreen gameWindow;
     private GamePanel gamePanel;
     public Thread gameLoop;
@@ -32,6 +39,7 @@ public class Game implements Runnable {
         inventoryPanel = new InventoryPanel();
         gamePanel = new GamePanel(this);
         gameWindow = new GameScreen(gamePanel, inventoryPanel);
+        gameState = playing;
 
         // gamePanel.requestFocus();
 
@@ -49,7 +57,12 @@ public class Game implements Runnable {
     }
 
     public void update() {
-        player.update();
+        if (gameState == playing) {
+            player.update();
+        }
+        if (gameState == pause) {
+            // nothing
+        }
     }
 
     public void render(Graphics g) {

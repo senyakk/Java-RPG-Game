@@ -1,15 +1,10 @@
 package creatures;
 
+import equipment.Object;
 import utilz.SaveLoad;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
-
-import static utilz.Constants.Direction.*;
-import static utilz.Constants.Direction.DOWN;
 import static utilz.Constants.PlayerConstants.*;
 import static utilz.Constants.PlayerConstants.WALKING_DOWN;
 
@@ -23,9 +18,28 @@ public class Player extends Creature {
     private boolean moving = false;
     private float speed = 2.0f;
 
+    // PLAYER VARIABLES
+    private int level;
+    private int strength;
+    private int defense;
+    private int charisma;
+    private int exp;
+    private int nextLevelExp;
+    private Object weapon;
+    private Object shield;
+
     public Player(float x, float y) {
         super(x, y);
         loadAnimations();
+        setDefaultVariables();
+    }
+
+    public void setDefaultVariables() {
+        strength = 1;
+        charisma = 1;
+        defense = 1;
+        exp = 0;
+        nextLevelExp = 5;
     }
 
     public void update() {
