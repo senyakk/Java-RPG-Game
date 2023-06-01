@@ -2,16 +2,11 @@ package main;
 
 import javax.swing.*;
 import java.awt.*;
+import static main.Game.screenHeight;
+import static main.Game.screenWidth;
 
 public class GamePanel extends JPanel {
-    // SCREEN SETTINGS
-    final int originalTileSize = 64;
-    final int scale = 2;
-    final int tileSize = originalTileSize * scale;
-    final int maxScreenCol = 8;
-    final int maxScreenRow = 6;
-    final int screenWidth = tileSize * maxScreenCol;
-    final int screenHeight = tileSize * maxScreenRow;
+
 
     // INVENTORY STATUS
     private boolean isVisible;

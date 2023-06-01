@@ -5,6 +5,16 @@ import creatures.Player;
 import java.awt.*;
 
 public class Game implements Runnable {
+
+    // SCREEN SETTINGS
+    public final static int defaultTileSize = 64;
+    public final static float scale = 2;
+    public static final int tileSize = (int)(defaultTileSize * scale);
+    static final int maxTileCol = 8;
+    static final int maxTileRow = 6;
+    public final static int screenWidth = tileSize * maxTileCol;
+    public final static int screenHeight = tileSize * maxTileRow;
+
     private GameScreen gameWindow;
     private GamePanel gamePanel;
     public Thread gameLoop;

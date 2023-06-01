@@ -1,5 +1,7 @@
 package creatures;
 
+import utilz.SaveLoad;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -98,29 +100,13 @@ public class Player extends Creature {
     }
 
     private void loadAnimations() {
-
-        InputStream playerSprites = getClass().getResourceAsStream("/player_sprites.jpeg");
-
-        try {
-            BufferedImage image = ImageIO.read(playerSprites);
-
+            BufferedImage image = SaveLoad.GetSpriteImg(SaveLoad.PLAYER_IMAGE);
             animations = new BufferedImage[4][4];
-
             for (int j = 0; j < animations.length; j++) {
                 for (int i = 0; i < animations[j].length; i++) {
                     animations[j][i] = image.getSubimage(i * 64, j * 64, 64, 64);
                 }
             }
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                playerSprites.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
     }
 
     public boolean isLeft() {
