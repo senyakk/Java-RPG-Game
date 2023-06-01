@@ -24,11 +24,6 @@ public class KeyboardInputs implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
             // WASD for movement
             case KeyEvent.VK_W -> {
@@ -43,11 +38,16 @@ public class KeyboardInputs implements KeyListener {
             case KeyEvent.VK_D -> {
                 if (targetObject instanceof GamePanel) ((GamePanel) this.targetObject).changeXDelta(+5);
             }
-            // Inventory switch
-            case KeyEvent.VK_I -> {
-                if (this.targetObject instanceof InventoryPanel) ((InventoryPanel) this.targetObject).switchVisibility();
-                if (this.targetObject instanceof GamePanel) ((GamePanel) this.targetObject).switchVisibility();
-            }
+        }
+
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        // Inventory switch
+        if (e.getKeyCode() == KeyEvent.VK_I) {
+            if (this.targetObject instanceof InventoryPanel) ((InventoryPanel) this.targetObject).switchVisibility();
+            if (this.targetObject instanceof GamePanel) ((GamePanel) this.targetObject).switchVisibility();
         }
 
     }

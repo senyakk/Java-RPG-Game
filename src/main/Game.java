@@ -15,7 +15,7 @@ public class Game implements Runnable {
         gamePanel = new GamePanel();
         gameWindow = new GameScreen(gamePanel, inventoryPanel);
 
-        //gamePanel.requestFocus();
+        // gamePanel.requestFocus();
 
         startGameLoop();
     }
@@ -34,7 +34,7 @@ public class Game implements Runnable {
         int frames = 0;
         long lastCheck = System.currentTimeMillis();
 
-        while (true) {
+        while (gameLoop != null) {
             now = System.nanoTime();
             if (now - lastFrame >= timePerFrame) {
                 gamePanel.repaint();

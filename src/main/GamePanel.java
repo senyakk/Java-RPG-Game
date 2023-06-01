@@ -17,7 +17,7 @@ public class GamePanel extends JPanel {
     final int screenWidth = tileSize * maxScreenCol;
     final int screenHeight = tileSize * maxScreenRow;
 
-    private float xDelta = 100, yDelta = 100;
+    private float xDelta = 200, yDelta = 200;
     private BufferedImage image, subImg;
 
     private boolean isVisible;
