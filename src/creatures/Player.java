@@ -1,6 +1,7 @@
 package creatures;
 
 import equipment.Object;
+import main.Game;
 import utilz.SaveLoad;
 
 import java.awt.*;
@@ -10,13 +11,16 @@ import static utilz.Constants.PlayerConstants.WALKING_DOWN;
 
 public class Player extends Creature {
 
+    // CAMERA SETTINGS
+    private final int screenX;
+    public final int screenY;
+
     // SPRITES AND MOTION SETTINGS
     private BufferedImage[][] animations;
-    private int animTick, animIndex, animSpeed = 25;
+    private int animTick, animIndex, animationSpeed = 25;
     private int playerAction;
     private boolean left, up, right, down;
     private boolean moving = false;
-    private float speed = 2.0f;
 
     // PLAYER VARIABLES
     private int level;
@@ -28,13 +32,32 @@ public class Player extends Creature {
     private Object weapon;
     private Object shield;
 
-    public Player(float x, float y) {
-        super(x, y);
-        loadAnimations();
+    public Player() {
+        worldX = Game.tileSize * 23;
+        worldY = Game.tileSize * 21;
+        screenX = Game.screenWidth/2 - (Game.tileSize/2);
+        screenY = Game.screenHeight/2 - (Game.tileSize/2);
         setDefaultVariables();
+        loadAnimations();
+    }
+
+    public int getScreenX() {
+        return screenX;
+    }
+    public int getScreenY() {
+        return screenY;
+    }
+
+    public int getWorldX() {
+        return worldX;
+    }
+
+    public int getWorldY() {
+        return worldY;
     }
 
     public void setDefaultVariables() {
+        speed = 2.0f;
         strength = 1;
         charisma = 1;
         defense = 1;
@@ -49,7 +72,7 @@ public class Player extends Creature {
     }
 
     public void render(Graphics g) {
-        g.drawImage(animations[playerAction][animIndex], (int)x, (int)y, 128, 144, null);
+        g.drawImage(animations[playerAction][animIndex], (int)screenX, (int)screenY, 128, 144, null);
     }
 
     private void updatePos() {
@@ -57,18 +80,18 @@ public class Player extends Creature {
         moving = false;
 
         if (left && !right) {
-            x-=speed;
+            worldX-=speed;
             moving = true;
         } else if (right && !left) {
-            x+=speed;
+            worldX+=speed;
             moving = true;
         }
 
         if (up && !down) {
-            y-= speed;
+            worldY-= speed;
             moving = true;
         } else if (down && !up) {
-            y+= speed;
+            worldY+= speed;
             moving = true;
         }
     }
@@ -103,7 +126,7 @@ public class Player extends Creature {
 
     private void updateAnimation() {
         animTick++;
-        if (animTick >= animSpeed) {
+        if (animTick >= animationSpeed) {
             animTick = 0;
             animIndex++;
             int spriteAmount = moving ? getSpriteAmount(playerAction) : 0;

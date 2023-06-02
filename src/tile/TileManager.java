@@ -18,10 +18,10 @@ public class TileManager {
     public TileManager(Game game) {
         this.game = game;
         tile = new Tile[10];
-        mapTileNumber = new int[Game.maxTileCol][Game.maxTileRow];
+        mapTileNumber = new int[Game.maxWorldCol][Game.maxWorldRow];
 
         getTileImage();
-        loadMap("/maps/map01.txt");
+        loadMap("/maps/world01.txt");
     }
 
     public void getTileImage() {
@@ -30,22 +30,19 @@ public class TileManager {
             tile[0].image = ImageIO.read(getClass().getResourceAsStream("/tiles/grass01.png"));
 
             tile[1]= new Tile();
-            tile[1].image = ImageIO.read(getClass().getResourceAsStream("/tiles/water00.png"));
+            tile[1].image = ImageIO.read(getClass().getResourceAsStream("/tiles/wall.png"));
 
             tile[2]= new Tile();
-            tile[2].image = ImageIO.read(getClass().getResourceAsStream("/tiles/earth.png"));
+            tile[2].image = ImageIO.read(getClass().getResourceAsStream("/tiles/water00.png"));
 
             tile[3]= new Tile();
-            tile[3].image = ImageIO.read(getClass().getResourceAsStream("/tiles/wall.png"));
+            tile[3].image = ImageIO.read(getClass().getResourceAsStream("/tiles/earth.png"));
 
             tile[4]= new Tile();
-            tile[4].image = ImageIO.read(getClass().getResourceAsStream("/tiles/grass00.png"));
+            tile[4].image = ImageIO.read(getClass().getResourceAsStream("/tiles/tree.png"));
 
             tile[5]= new Tile();
-            tile[5].image = ImageIO.read(getClass().getResourceAsStream("/tiles/water01.png"));
-
-            tile[6]= new Tile();
-            tile[6].image = ImageIO.read(getClass().getResourceAsStream("/tiles/water02.png"));
+            tile[5].image = ImageIO.read(getClass().getResourceAsStream("/tiles/earth.png"));
         }
         catch (IOException e){
             e.printStackTrace();
@@ -60,15 +57,15 @@ public class TileManager {
             int col = 0;
             int row = 0;
 
-            while (col < Game.maxTileCol && row < Game.maxTileRow) {
+            while (col < Game.maxWorldCol && row < Game.maxWorldRow) {
                 String line  = br.readLine();
-                while (col < Game.maxTileCol) {
+                while (col < Game.maxWorldCol) {
                     String numbers[] = line.split(" ");
                     int num = Integer.parseInt(numbers[col]);
                     mapTileNumber[col][row] = num;
                     col++;
                 }
-                if (col == Game.maxTileCol) {
+                if (col == Game.maxWorldCol) {
                     col = 0;
                     row++;
                 }
@@ -81,23 +78,32 @@ public class TileManager {
     }
     public void draw(Graphics g) {
 
-        int col = 0;
-        int row = 0;
-        int x = 0;
-        int y = 0;
+        int worldCol = 0;
+        int worldRow = 0;
 
-        while(col < Game.maxTileCol && row < Game.maxTileRow) {
+        while(worldCol < Game.maxWorldCol && worldRow < Game.maxWorldRow) {
 
-            int tileNum = mapTileNumber[col][row];
-            g.drawImage(tile[tileNum].image, x, y, Game.tileSize, Game.tileSize, null);
-            col++;
-            x+=Game.tileSize;
+            int tileNum = mapTileNumber[worldCol][worldRow];
 
-            if (col == Game.maxTileCol) {
-                col = 0;
-                x = 0;
-                row++;
-                y += Game.tileSize;
+            // Code for camera following the player
+            int worldX = worldCol * Game.tileSize;
+            int worldY = worldRow * Game.tileSize;
+            int screenX = worldX - game.getPlayer().getWorldX() + game.getPlayer().getScreenX();
+            int screenY = worldY - game.getPlayer().getWorldY() + game.getPlayer().getScreenY();
+
+            // Condition for drawing only the world in the boundaries of the game screen
+            if (worldX + Game.tileSize > game.getPlayer().getWorldX() - game.getPlayer().getScreenX() &&
+                worldX - Game.tileSize < game.getPlayer().getWorldX() + game.getPlayer().getScreenX() &&
+                worldY + Game.tileSize > game.getPlayer().getWorldY() - game.getPlayer().getScreenY() &&
+                worldY - Game.tileSize < game.getPlayer().getWorldY() + game.getPlayer().getScreenY()) {
+
+                g.drawImage(tile[tileNum].image, screenX, screenY, Game.tileSize, Game.tileSize, null);
+            }
+            worldCol++;
+
+            if (worldCol == Game.maxWorldCol) {
+                worldCol = 0;
+                worldRow++;
             }
         }
     }

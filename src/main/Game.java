@@ -33,6 +33,12 @@ public class Game implements Runnable {
     private Player player;
     private TileManager tileManager = new TileManager(this);
 
+    // WORLD SETTINGS - change them based on the world size
+    public static final int maxWorldCol = 50;
+    public static final int maxWorldRow = 50;
+    public final static int worldWidth = tileSize * maxWorldCol;
+    public final static int worldHeight = tileSize * maxWorldRow;
+
     /**
      * Game constructor that creates GamePanel and GameScreen
      */
@@ -50,7 +56,8 @@ public class Game implements Runnable {
     }
 
     private void initEntities() {
-        player = new Player(200, 200);
+        // Starting position
+        player = new Player();
     }
 
     private void startGameLoop() {

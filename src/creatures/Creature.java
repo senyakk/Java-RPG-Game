@@ -3,12 +3,7 @@ package creatures;
 public abstract class Creature {
 
     // Position variables
-    protected float x, y;
+    protected int worldX, worldY;
+    protected float speed;
 
-
-    public Creature(float x, float y) {
-
-        this.x = x;
-        this.y = y;
-    }
 }
