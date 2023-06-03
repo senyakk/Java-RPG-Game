@@ -1,4 +1,6 @@
-package main;
+package ui;
+
+import main.GamePanel;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
