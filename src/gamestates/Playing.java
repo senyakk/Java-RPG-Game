@@ -82,7 +82,8 @@ public class Playing extends State implements Statemethods {
                 }
             }
             case KeyEvent.VK_ESCAPE -> {
-                    paused = true;
+                if (targetPanel instanceof GamePanel)
+                    paused = !paused;
             }
         }
     }
@@ -113,8 +114,10 @@ public class Playing extends State implements Statemethods {
             }
             // Inventory switch
             case KeyEvent.VK_I -> {
-                if (targetPanel instanceof InventoryPanel) ((InventoryPanel) targetPanel).switchVisibility();
-                if (targetPanel instanceof GamePanel) ((GamePanel) targetPanel).switchVisibility();
+                if (!paused) {
+                    if (targetPanel instanceof InventoryPanel) ((InventoryPanel) targetPanel).switchVisibility();
+                    if (targetPanel instanceof GamePanel) ((GamePanel) targetPanel).switchVisibility();
+                }
             }
         }
     }
