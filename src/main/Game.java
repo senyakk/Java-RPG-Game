@@ -1,10 +1,8 @@
 package main;
 
-import creatures.Player;
 import gamestates.Gamestate;
 import gamestates.Playing;
 import gamestates.Menu;
-import tile.TileManager;
 
 import java.awt.*;
 
@@ -20,24 +18,16 @@ public class Game implements Runnable {
     public final static int screenHeight = tileSize * maxTileRow;
 
     // WINDOW SETTINGS
-
     private GameScreen gameWindow;
     private GamePanel gamePanel;
     private Menu menu;
     private Playing playing;
     public Thread gameLoop;
     private InventoryPanel inventoryPanel;
+
+    // GAME LOOP SETTINGS
     private final int FPS = 120;
     private final int UPS = 120;
-
-    private Player player;
-    private TileManager tileManager = new TileManager(this);
-
-    // WORLD SETTINGS - change them based on the world size
-    public static final int maxWorldCol = 50;
-    public static final int maxWorldRow = 50;
-    public final static int worldWidth = tileSize * maxWorldCol;
-    public final static int worldHeight = tileSize * maxWorldRow;
 
     /**
      * Game constructor that creates GamePanel and GameScreen
@@ -56,7 +46,7 @@ public class Game implements Runnable {
 
     private void init() {
         menu = new Menu(this);
-        playing = new Playing(this, tileManager);
+        playing = new Playing(this);
     }
 
     private void startGameLoop() {

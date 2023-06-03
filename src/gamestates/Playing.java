@@ -15,13 +15,11 @@ import java.awt.event.MouseEvent;
 public class Playing extends State implements Statemethods {
 
     private Player player;
-    private TileManager tileManager;
-
+    private TileManager tileManager = new TileManager();
     private Pause pause;
     private boolean paused = false;
-    public Playing(Game game, TileManager tileManager) {
+    public Playing(Game game) {
         super(game);
-        this.tileManager = tileManager;
         init();
     }
 
@@ -49,7 +47,7 @@ public class Playing extends State implements Statemethods {
 
     @Override
     public void draw(Graphics g) {
-        tileManager.draw(g);
+        tileManager.draw(g, player);
         player.render(g);
         if (paused) {
             pause.draw(g);
