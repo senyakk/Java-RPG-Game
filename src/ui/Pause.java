@@ -11,6 +11,7 @@ import java.awt.image.BufferedImage;
 
 import static utilz.Constants.UI.PauseButtons.SOUND_SIZE;
 import static utilz.Constants.UI.PauseButtons.URM_SIZE;
+import static utilz.Constants.UI.VolumeButton.*;
 
 public class Pause {
 
@@ -18,6 +19,7 @@ public class Pause {
     private int posX, posY, width, heigth;
     private SoundButton musicButton, sfxButton;
     private ReplayButton menuButton, replayButton, unpauseButton;
+    private VolumeButton volumeButton;
     private Playing playing;
 
     public Pause(Playing playing) {
@@ -25,6 +27,13 @@ public class Pause {
         loadBackground();
         addSoundButtons();
         addReplayButtons();
+        addVolumeButton();
+    }
+
+    private void addVolumeButton() {
+        int x = (int)(214 * Game.scale);
+        int y = (int)(278 * Game.scale);
+        volumeButton = new VolumeButton(x, y, SLIDER_WIDTH, VOLUME_HEIGHT);
     }
 
     private void addReplayButtons() {
@@ -59,6 +68,7 @@ public class Pause {
         menuButton.update();
         unpauseButton.update();
         replayButton.update();
+        volumeButton.update();
     }
 
     public void draw (Graphics g) {
@@ -71,11 +81,14 @@ public class Pause {
         menuButton.draw(g);
         unpauseButton.draw(g);
         replayButton.draw(g);
+        volumeButton.draw(g);
 
     }
 
     public void mouseDragged(MouseEvent e) {
-
+        if (volumeButton.isMousePressed()) {
+            volumeButton.changeSlider(e.getX());
+        }
     }
 
     public void mousePressed(MouseEvent e) {
@@ -93,6 +106,9 @@ public class Pause {
         }
         else if (isInOBorder(e, unpauseButton)) {
             unpauseButton.setMousePressed(true);
+        }
+        else if (isInOBorder(e, volumeButton)) {
+            volumeButton.setMousePressed(true);
         }
     }
 
@@ -128,6 +144,7 @@ public class Pause {
         menuButton.reset();
         replayButton.reset();
         unpauseButton.reset();
+        volumeButton.reset();
     }
 
 
@@ -137,6 +154,7 @@ public class Pause {
         menuButton.setMouseOver(false);
         replayButton.setMouseOver(false);
         unpauseButton.setMouseOver(false);
+        volumeButton.setMouseOver(false);
 
         if (isInOBorder(e, musicButton)) {
             musicButton.setMouseOver(true);
@@ -153,10 +171,14 @@ public class Pause {
         else if (isInOBorder(e, unpauseButton)) {
             unpauseButton.setMouseOver(true);
         }
+        else if (isInOBorder(e, volumeButton)) {
+            volumeButton.setMouseOver(true);
+        }
     }
 
     private boolean isInOBorder(MouseEvent e, PauseButton b) {
         return b.getBounds().contains(e.getX(), e.getY());
     }
+
 
 }

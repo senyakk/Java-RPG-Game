@@ -25,13 +25,13 @@ public class Menu extends State implements Statemethods{
         menuWidth = (int) (background.getWidth() * Game.scale);
         menuHeight = (int) (background.getHeight() * Game.scale);
         menuX = Game.screenWidth / 2 - menuWidth / 2;
-        menuY = (int)(45 * Game.scale);
+        menuY = (int)(60 * Game.scale);
     }
 
     private void loadButtons() {
-        buttons[0] = new MenuButton(Game.screenWidth / 2, (int) (150 * Game.scale), 0 ,Gamestate.PLAYING);
-        buttons[1] = new MenuButton(Game.screenWidth / 2, (int) (220 * Game.scale), 1 ,Gamestate.OPTIONS);
-        buttons[2] = new MenuButton(Game.screenWidth / 2, (int) (290 * Game.scale), 2 ,Gamestate.QUIT);
+        buttons[0] = new MenuButton(Game.screenWidth / 2, (int) (165 * Game.scale), 0 ,Gamestate.PLAYING);
+        buttons[1] = new MenuButton(Game.screenWidth / 2, (int) (235 * Game.scale), 1 ,Gamestate.OPTIONS);
+        buttons[2] = new MenuButton(Game.screenWidth / 2, (int) (305 * Game.scale), 2 ,Gamestate.QUIT);
     }
 
 
@@ -53,9 +53,7 @@ public class Menu extends State implements Statemethods{
 
     @Override
     public void keyPressed(KeyEvent e, JPanel targetPanel) {
-        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-            Gamestate.state = Gamestate.PLAYING;
-        }
+
     }
 
     @Override

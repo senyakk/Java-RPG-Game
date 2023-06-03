@@ -82,7 +82,7 @@ public class Playing extends State implements Statemethods {
                 }
             }
             case KeyEvent.VK_ESCAPE -> {
-                paused = true;
+                    paused = true;
             }
         }
     }
@@ -147,5 +147,11 @@ public class Playing extends State implements Statemethods {
 
     public void unpause() {
         paused = false;
+    }
+
+    public void mouseDragged(MouseEvent e) {
+        if (paused) {
+            pause.mouseDragged(e);
+        }
     }
 }
