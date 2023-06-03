@@ -7,7 +7,9 @@ import java.io.InputStream;
 
 public class SaveLoad {
 
-    public static final String PLAYER_IMAGE = "player_sprites.jpeg";
+    public static final String PLAYER_IMAGE = "player_sprites.png";
+    public static final String MENU_BACKGROUND = "menu_background.png";
+    public static final String MENU_BUTTONS = "button_atlas.png";
 
     public static BufferedImage GetSpriteImg(String name) {
         BufferedImage image = null;

@@ -13,14 +13,13 @@ public class GamePanel extends JPanel {
 
     // GAME VARIABLE
     private Game game;
-    public UI ui = new UI(this);
 
     public GamePanel(Game game) {
 
         this.game = game;
         setPanelSize();
 
-        setBackground(new Color(100, 200, 90));
+        setBackground(new Color(100, 180, 100));
         setDoubleBuffered(true);
 
         this.isVisible = true;
@@ -56,6 +55,5 @@ public class GamePanel extends JPanel {
         Graphics2D g2 = (Graphics2D)g;
 
         game.render(g2);
-        ui.draw(g2);
     }
 }
