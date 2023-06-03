@@ -79,6 +79,9 @@ public class Player extends Creature {
 
         moving = false;
 
+        if ((left && right) || (up && down))
+            return;
+
         if (left && !right) {
             worldX-=speed;
             moving = true;
