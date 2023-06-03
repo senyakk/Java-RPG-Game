@@ -57,7 +57,7 @@ public class Player extends Creature {
     }
 
     public void setDefaultVariables() {
-        speed = 2.0f;
+        speed = 2.0f * Game.scale;
         strength = 1;
         charisma = 1;
         defense = 1;

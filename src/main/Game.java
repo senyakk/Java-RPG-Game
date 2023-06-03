@@ -1,6 +1,9 @@
 package main;
 
 import creatures.Player;
+import gamestates.Gamestate;
+import gamestates.Playing;
+import gamestates.Menu;
 import tile.TileManager;
 
 import java.awt.*;
@@ -16,15 +19,12 @@ public class Game implements Runnable {
     public final static int screenWidth = tileSize * maxTileCol;
     public final static int screenHeight = tileSize * maxTileRow;
 
-    // GAME STATE
-    public int gameState;
-    public final int playing = 1;
-    public final int pause = 2;
-
     // WINDOW SETTINGS
 
     private GameScreen gameWindow;
     private GamePanel gamePanel;
+    private Menu menu;
+    private Playing playing;
     public Thread gameLoop;
     private InventoryPanel inventoryPanel;
     private final int FPS = 120;
@@ -43,11 +43,10 @@ public class Game implements Runnable {
      * Game constructor that creates GamePanel and GameScreen
      */
     public Game() {
-        initEntities();
+        init();
         inventoryPanel = new InventoryPanel();
         gamePanel = new GamePanel(this);
-        gameWindow = new GameScreen(gamePanel, inventoryPanel);
-        gameState = playing;
+        gameWindow = new GameScreen(gamePanel, inventoryPanel, this);
 
         // gamePanel.requestFocus();
 
@@ -55,9 +54,9 @@ public class Game implements Runnable {
 
     }
 
-    private void initEntities() {
-        // Starting position
-        player = new Player();
+    private void init() {
+        menu = new Menu(this);
+        playing = new Playing(this, tileManager);
     }
 
     private void startGameLoop() {
@@ -66,17 +65,22 @@ public class Game implements Runnable {
     }
 
     public void update() {
-        if (gameState == playing) {
-            player.update();
-        }
-        if (gameState == pause) {
-            // nothing
+        switch (Gamestate.state) {
+            case MENU -> menu.update();
+            case PLAYING -> playing.update();
+            case OPTIONS -> System.exit(0);
+            case QUIT -> System.exit(0);
+            default -> System.exit(0);
         }
     }
 
     public void render(Graphics g) {
-        tileManager.draw(g);
-        player.render(g);
+        switch (Gamestate.state) {
+            case MENU -> menu.draw(g);
+            case PLAYING -> playing.draw(g);
+            default -> {
+            }
+        }
     }
 
     @Override
@@ -121,11 +125,17 @@ public class Game implements Runnable {
         }
     }
 
-    public Player getPlayer() {
-        return player;
+    public void windowFocusLost() {
+        if (Gamestate.state == Gamestate.PLAYING) {
+            playing.getPlayer().resetDirections();
+        }
     }
 
-    public void windowFocusLost() {
-        player.resetDirections();
+    public Menu getMenu() {
+        return menu;
+    }
+
+    public Playing getPlaying() {
+        return playing;
     }
 }

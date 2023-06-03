@@ -10,13 +10,15 @@ import java.awt.event.WindowFocusListener;
 
 public class GameScreen {
     private JFrame frame;
+    private Game game;
 
     /**
      * Game screen constructor responsible for game window
      * @param gamePanel panel that hosts the game
      * @param inventoryPanel panel that hosts the inventory
      */
-    public GameScreen(GamePanel gamePanel, InventoryPanel inventoryPanel) {
+    public GameScreen(GamePanel gamePanel, InventoryPanel inventoryPanel, Game game) {
+        this.game = game;
         frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -53,9 +55,9 @@ public class GameScreen {
     }
 
     private void addListeners(Object listenerTarget){
-        this.frame.addKeyListener(new KeyboardInputs((JPanel) listenerTarget));
+        this.frame.addKeyListener(new KeyboardInputs((JPanel) listenerTarget, game));
 
-        MouseInputs mouseInputs = new MouseInputs(listenerTarget);
+        MouseInputs mouseInputs = new MouseInputs(listenerTarget, game);
         this.frame.addMouseListener(mouseInputs);
         this.frame.addMouseMotionListener(mouseInputs);
     }

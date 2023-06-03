@@ -1,5 +1,6 @@
 package tile;
 
+import creatures.Player;
 import main.Game;
 
 import javax.imageio.ImageIO;
@@ -81,6 +82,8 @@ public class TileManager {
         int worldCol = 0;
         int worldRow = 0;
 
+        Player player = game.getPlaying().getPlayer();
+
         while(worldCol < Game.maxWorldCol && worldRow < Game.maxWorldRow) {
 
             int tileNum = mapTileNumber[worldCol][worldRow];
@@ -88,14 +91,14 @@ public class TileManager {
             // Code for camera following the player
             int worldX = worldCol * Game.tileSize;
             int worldY = worldRow * Game.tileSize;
-            int screenX = worldX - game.getPlayer().getWorldX() + game.getPlayer().getScreenX();
-            int screenY = worldY - game.getPlayer().getWorldY() + game.getPlayer().getScreenY();
+            int screenX = worldX - player.getWorldX() + player.getScreenX();
+            int screenY = worldY - player.getWorldY() + player.getScreenY();
 
             // Condition for drawing only the world in the boundaries of the game screen
-            if (worldX + Game.tileSize > game.getPlayer().getWorldX() - game.getPlayer().getScreenX() &&
-                worldX - Game.tileSize < game.getPlayer().getWorldX() + game.getPlayer().getScreenX() &&
-                worldY + Game.tileSize > game.getPlayer().getWorldY() - game.getPlayer().getScreenY() &&
-                worldY - Game.tileSize < game.getPlayer().getWorldY() + game.getPlayer().getScreenY()) {
+            if (worldX + Game.tileSize > player.getWorldX() - player.getScreenX() &&
+                worldX - Game.tileSize < player.getWorldX() + player.getScreenX() &&
+                worldY + Game.tileSize > player.getWorldY() - player.getScreenY() &&
+                worldY - Game.tileSize < player.getWorldY() + player.getScreenY()) {
 
                 g.drawImage(tile[tileNum].image, screenX, screenY, Game.tileSize, Game.tileSize, null);
             }
