@@ -8,8 +8,12 @@ import java.io.InputStream;
 public class SaveLoad {
 
     public static final String PLAYER_IMAGE = "player_sprites.png";
-    public static final String MENU_BACKGROUND = "menu_background.png";
-    public static final String MENU_BUTTONS = "button_atlas.png";
+    public static final String MENU_BACKGROUND = "UI/menu_background.png";
+    public static final String MENU_BUTTONS = "UI/button_atlas.png";
+    public static final String PAUSE = "UI/pause_menu.png";
+    public static final String URM = "UI/urm_buttons.png";
+    public static final String SOUND = "UI/sound_button.png";
+    public static final String VOLUME = "UI/volume_buttons.png";
 
     public static BufferedImage GetSpriteImg(String name) {
         BufferedImage image = null;

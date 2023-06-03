@@ -5,6 +5,7 @@ import main.Game;
 import main.GamePanel;
 import main.InventoryPanel;
 import tile.TileManager;
+import ui.Pause;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,6 +16,9 @@ public class Playing extends State implements Statemethods {
 
     private Player player;
     private TileManager tileManager;
+
+    private Pause pause;
+    private boolean paused = false;
     public Playing(Game game, TileManager tileManager) {
         super(game);
         this.tileManager = tileManager;
@@ -23,6 +27,7 @@ public class Playing extends State implements Statemethods {
 
     private void init() {
         player = new Player();
+        pause = new Pause(this);
     }
 
     public Player getPlayer() {
@@ -35,13 +40,20 @@ public class Playing extends State implements Statemethods {
 
     @Override
     public void update() {
-        player.update();
+        if (!paused) {
+            player.update();
+        } else {
+            pause.update();
+        }
     }
 
     @Override
     public void draw(Graphics g) {
         tileManager.draw(g);
         player.render(g);
+        if (paused) {
+            pause.draw(g);
+        }
 
     }
 
@@ -70,7 +82,7 @@ public class Playing extends State implements Statemethods {
                 }
             }
             case KeyEvent.VK_ESCAPE -> {
-                Gamestate.state = Gamestate.MENU;
+                paused = true;
             }
         }
     }
@@ -109,21 +121,31 @@ public class Playing extends State implements Statemethods {
 
     @Override
     public void mousePressed(MouseEvent e) {
-
+        if (paused) {
+            pause.mousePressed(e);
+        }
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-
+        if (paused) {
+            pause.mouseReleased(e);
+        }
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
-
+        if (paused) {
+            pause.mouseMoved(e);
+        }
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
 
+    }
+
+    public void unpause() {
+        paused = false;
     }
 }
