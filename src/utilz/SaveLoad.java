@@ -14,6 +14,7 @@ public class SaveLoad {
     public static final String URM = "UI/urm_buttons.png";
     public static final String SOUND = "UI/sound_button.png";
     public static final String VOLUME = "UI/volume_buttons.png";
+    public static final String BACKGROUND_IMG = "UI/Path 1.png";
 
     public static BufferedImage GetSpriteImg(String name) {
         BufferedImage image = null;

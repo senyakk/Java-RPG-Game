@@ -50,6 +50,8 @@ public class Playing extends State implements Statemethods {
         tileManager.draw(g, player);
         player.render(g);
         if (paused) {
+            g.setColor(new Color(0,0,0,150));
+            g.fillRect(0,0, Game.screenWidth, Game.screenHeight);
             pause.draw(g);
         }
 
