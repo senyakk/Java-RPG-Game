@@ -1,11 +1,11 @@
 package ui;
 
-import utilz.Load;
+import utilities.Load;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-import static utilz.Constants.UI.VolumeButton.*;
+import static utilities.Constants.UI.VolumeButton.*;
 
 
 public class VolumeButton extends PauseButton {

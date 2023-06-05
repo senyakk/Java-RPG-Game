@@ -1,11 +1,11 @@
 package ui;
 
-import utilz.Load;
+import utilities.Load;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-import static utilz.Constants.UI.PauseButtons.*;
+import static utilities.Constants.UI.PauseButtons.*;
 
 public class ReplayButton extends PauseButton {
 

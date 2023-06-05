@@ -1,6 +1,6 @@
 package creatures;
 
-import static utilz.Constants.Direction.*;
+import static utilities.Constants.Direction.*;
 
 public abstract class Creature {
 

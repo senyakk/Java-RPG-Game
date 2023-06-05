@@ -3,15 +3,15 @@ package ui;
 import gamestates.Gamestate;
 import gamestates.Playing;
 import main.Game;
-import utilz.Load;
+import utilities.Load;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
-import static utilz.Constants.UI.PauseButtons.SOUND_SIZE;
-import static utilz.Constants.UI.PauseButtons.URM_SIZE;
-import static utilz.Constants.UI.VolumeButton.*;
+import static utilities.Constants.UI.PauseButtons.SOUND_SIZE;
+import static utilities.Constants.UI.PauseButtons.URM_SIZE;
+import static utilities.Constants.UI.VolumeButton.*;
 
 public class Pause {
 

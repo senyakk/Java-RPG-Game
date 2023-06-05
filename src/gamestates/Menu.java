@@ -2,7 +2,7 @@ package gamestates;
 
 import main.Game;
 import ui.MenuButton;
-import utilz.Load;
+import utilities.Load;
 
 import javax.swing.*;
 import java.awt.*;

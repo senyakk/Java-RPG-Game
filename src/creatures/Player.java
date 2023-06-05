@@ -2,14 +2,14 @@ package creatures;
 
 import equipment.Object;
 import main.Game;
-import utilz.Load;
+import utilities.Load;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-import static utilz.Constants.Direction.DOWN;
-import static utilz.Constants.PlayerConstants.*;
-import static utilz.Constants.PlayerConstants.WALKING_DOWN;
+import static utilities.Constants.Direction.DOWN;
+import static utilities.Constants.PlayerConstants.*;
+import static utilities.Constants.PlayerConstants.WALKING_DOWN;
 
 public class Player extends Creature {
 
