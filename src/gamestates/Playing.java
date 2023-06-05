@@ -2,12 +2,9 @@ package gamestates;
 
 import creatures.Player;
 import main.Game;
-import main.GamePanel;
-import main.InventoryPanel;
 import tile.TileManager;
 import ui.Pause;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -63,65 +60,31 @@ public class Playing extends State implements Statemethods {
     }
 
     @Override
-    public void keyPressed(KeyEvent e, JPanel targetPanel) {
+    public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()) {
             // WASD for movement
-            case KeyEvent.VK_W -> {
-                if (targetPanel instanceof GamePanel) {
-                    player.setUp(true);
-                }
-            }
-            case KeyEvent.VK_A -> {
-                if (targetPanel instanceof GamePanel) {
-                    player.setLeft(true);
-                }
-            }
-            case KeyEvent.VK_D -> {
-                if (targetPanel instanceof GamePanel) {
-                    player.setRight(true);
-                }
-            }
-            case KeyEvent.VK_S -> {
-                if (targetPanel instanceof GamePanel) {
-                    player.setDown(true);
-                }
-            }
-            case KeyEvent.VK_ESCAPE -> {
-                if (targetPanel instanceof GamePanel)
-                    paused = !paused;
-            }
+            case KeyEvent.VK_W -> player.setUp(true);
+            case KeyEvent.VK_A ->  player.setLeft(true);
+            case KeyEvent.VK_D -> player.setRight(true);
+            case KeyEvent.VK_S -> player.setDown(true);
+
+            case KeyEvent.VK_ESCAPE -> paused = !paused;
         }
     }
 
     @Override
-    public void keyReleased(KeyEvent e, JPanel targetPanel) {
+    public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
-            // WASD for movement
-            case KeyEvent.VK_W -> {
-                if (targetPanel instanceof GamePanel) {
-                    player.setUp(false);
-                }
-            }
-            case KeyEvent.VK_A -> {
-                if (targetPanel instanceof GamePanel) {
-                    player.setLeft(false);
-                }
-            }
-            case KeyEvent.VK_D -> {
-                if (targetPanel instanceof GamePanel) {
-                    player.setRight(false);
-                }
-            }
-            case KeyEvent.VK_S -> {
-                if (targetPanel instanceof GamePanel) {
-                    player.setDown(false);
-                }
-            }
+
+            case KeyEvent.VK_W -> player.setUp(false);
+            case KeyEvent.VK_A -> player.setLeft(false);
+            case KeyEvent.VK_D -> player.setRight(false);
+            case KeyEvent.VK_S -> player.setDown(false);
+
             // Inventory switch
             case KeyEvent.VK_I -> {
                 if (!paused) {
-                    if (targetPanel instanceof InventoryPanel) ((InventoryPanel) targetPanel).switchVisibility();
-                    if (targetPanel instanceof GamePanel) ((GamePanel) targetPanel).switchVisibility();
+                    Gamestate.state = Gamestate.INVENTORY;
                 }
             }
         }

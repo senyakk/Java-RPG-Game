@@ -1,5 +1,8 @@
 package main;
 
+import inputs.KeyboardInputs;
+import inputs.MouseInputs;
+
 import javax.swing.*;
 import java.awt.*;
 import static main.Game.screenHeight;
@@ -18,6 +21,11 @@ public class GamePanel extends JPanel {
 
         this.game = game;
         setPanelSize();
+
+        addKeyListener(new KeyboardInputs(this));
+        MouseInputs mouseInputs = new MouseInputs(this);
+        addMouseListener(mouseInputs);
+        addMouseMotionListener(mouseInputs);
 
         setBackground(new Color(100, 180, 100));
         setDoubleBuffered(true);

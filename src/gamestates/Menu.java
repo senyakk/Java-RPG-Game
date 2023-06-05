@@ -54,12 +54,12 @@ public class Menu extends State implements Statemethods{
     }
 
     @Override
-    public void keyPressed(KeyEvent e, JPanel targetPanel) {
+    public void keyPressed(KeyEvent e) {
 
     }
 
     @Override
-    public void keyReleased(KeyEvent e, JPanel targetPanel) {
+    public void keyReleased(KeyEvent e) {
 
     }
 

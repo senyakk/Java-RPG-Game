@@ -15,14 +15,12 @@ public class GameScreen {
     /**
      * Game screen constructor responsible for game window
      * @param gamePanel panel that hosts the game
-     * @param inventoryPanel panel that hosts the inventory
      */
-    public GameScreen(GamePanel gamePanel, InventoryPanel inventoryPanel, Game game) {
-        this.game = game;
+    public GameScreen(GamePanel gamePanel) {
         frame = new JFrame();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        setCards(gamePanel, inventoryPanel);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(gamePanel);
 
         frame.pack();
         frame.setLocationRelativeTo(null);
@@ -41,24 +39,4 @@ public class GameScreen {
         });
     }
 
-    private void setCards(GamePanel gamePanel, InventoryPanel inventoryPanel){
-        JPanel overlay = new JPanel();
-        overlay.setLayout(new CardLayout());
-
-        overlay.add(gamePanel, "GAMEPANEL");
-        addListeners(gamePanel);
-
-        overlay.add(inventoryPanel, "INVENTORYPANEL");
-        addListeners(inventoryPanel);
-
-        frame.getContentPane().add(overlay, BorderLayout.CENTER);
-    }
-
-    private void addListeners(Object listenerTarget){
-        this.frame.addKeyListener(new KeyboardInputs((JPanel) listenerTarget, game));
-
-        MouseInputs mouseInputs = new MouseInputs(listenerTarget, game);
-        this.frame.addMouseListener(mouseInputs);
-        this.frame.addMouseMotionListener(mouseInputs);
-    }
 }

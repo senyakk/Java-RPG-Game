@@ -1,25 +1,16 @@
 package inputs;
 
 import gamestates.Gamestate;
-import main.Game;
 import main.GamePanel;
-import main.InventoryPanel;
 
-import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class KeyboardInputs implements KeyListener {
-    private JPanel targetPanel;
-    private Game game;
+    private GamePanel gamePanel;
 
-    /**
-     * Creates keyboard listener connected to the target panel
-     * @param targetPanel x
-     */
-    public KeyboardInputs(JPanel targetPanel, Game game){
-        this.targetPanel = targetPanel;
-        this.game = game;
+    public KeyboardInputs(GamePanel gamePanel){
+        this.gamePanel = gamePanel;
     }
 
     @Override
@@ -30,9 +21,9 @@ public class KeyboardInputs implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         switch (Gamestate.state) {
-            case MENU -> game.getMenu().keyPressed(e, targetPanel);
-            case PLAYING -> game.getPlaying().keyPressed(e, targetPanel);
-            case OPTIONS -> game.getOptions().keyPressed(e,targetPanel);
+            case MENU -> gamePanel.getGame().getMenu().keyPressed(e);
+            case PLAYING -> gamePanel.getGame().getPlaying().keyPressed(e);
+            case OPTIONS -> gamePanel.getGame().getOptions().keyPressed(e);
             default -> {
             }
         }
@@ -41,14 +32,11 @@ public class KeyboardInputs implements KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
         switch (Gamestate.state) {
-            case MENU:
-                game.getMenu().keyReleased(e, targetPanel);
-                break;
-            case PLAYING:
-                game.getPlaying().keyReleased(e, targetPanel);
-                break;
-            default:
-                break;
+            case MENU -> gamePanel.getGame().getMenu().keyReleased(e);
+            case PLAYING -> gamePanel.getGame().getPlaying().keyReleased(e);
+            case INVENTORY -> gamePanel.getGame().getInventory().keyReleased(e);
+            default -> {
+            }
         }
     }
 }

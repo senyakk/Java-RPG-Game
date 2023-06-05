@@ -60,14 +60,14 @@ public class Options extends State implements Statemethods {
     }
 
     @Override
-    public void keyPressed(KeyEvent e, JPanel targetPanel) {
+    public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
             Gamestate.state = Gamestate.MENU;
         }
     }
 
     @Override
-    public void keyReleased(KeyEvent e, JPanel targetPanel) {
+    public void keyReleased(KeyEvent e) {
 
     }
 

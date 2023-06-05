@@ -1,12 +1,11 @@
 package main;
 
-import gamestates.Gamestate;
-import gamestates.Options;
-import gamestates.Playing;
+import gamestates.*;
 import gamestates.Menu;
 import ui.Audio;
 
 import java.awt.*;
+import java.awt.event.KeyListener;
 
 public class Game implements Runnable {
 
@@ -26,8 +25,8 @@ public class Game implements Runnable {
     private Playing playing;
     private Audio audio;
     private Options options;
+    private Inventory inventory;
     public Thread gameLoop;
-    private InventoryPanel inventoryPanel;
 
     // GAME LOOP SETTINGS
     private final int FPS = 120;
@@ -38,11 +37,10 @@ public class Game implements Runnable {
      */
     public Game() {
         init();
-        inventoryPanel = new InventoryPanel();
         gamePanel = new GamePanel(this);
-        gameWindow = new GameScreen(gamePanel, inventoryPanel, this);
+        gameWindow = new GameScreen(gamePanel);
 
-        // gamePanel.requestFocus();
+        gamePanel.requestFocus();
 
         startGameLoop();
 
@@ -53,6 +51,7 @@ public class Game implements Runnable {
         menu = new Menu(this);
         playing = new Playing(this);
         options = new Options(this);
+        inventory = new Inventory(this);
     }
 
     private void startGameLoop() {
@@ -65,6 +64,7 @@ public class Game implements Runnable {
             case MENU -> menu.update();
             case PLAYING -> playing.update();
             case OPTIONS -> options.update();
+            case INVENTORY -> inventory.update();
             case QUIT -> System.exit(0);
             default -> System.exit(0);
         }
@@ -75,6 +75,7 @@ public class Game implements Runnable {
             case MENU -> menu.draw(g);
             case PLAYING -> playing.draw(g);
             case OPTIONS -> options.draw(g);
+            case INVENTORY -> inventory.draw(g);
             default -> {
             }
         }
@@ -142,5 +143,9 @@ public class Game implements Runnable {
 
     public Options getOptions() {
         return options;
+    }
+
+    public Inventory getInventory() {
+        return inventory;
     }
 }
