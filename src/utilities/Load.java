@@ -20,6 +20,7 @@ public class Load {
     public static final String VOLUME = "UI/volume_buttons.png";
     public static final String BACKGROUND_IMG = "UI/Path 1.png";
     public static final String OPTIONS_IMG = "UI/options_background.png";
+    public static final String INVENTORY = "UI/InventoryScreenRealReso.png";
 
     public static BufferedImage GetSpriteImg(String name) {
         BufferedImage image = null;

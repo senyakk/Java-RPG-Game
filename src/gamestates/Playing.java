@@ -85,6 +85,7 @@ public class Playing extends State implements Statemethods {
             case KeyEvent.VK_I -> {
                 if (!paused) {
                     Gamestate.state = Gamestate.INVENTORY;
+                    game.getPlaying().getPlayer().resetDirections();
                 }
             }
         }
