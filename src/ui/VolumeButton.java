@@ -1,6 +1,6 @@
 package ui;
 
-import utilz.SaveLoad;
+import utilz.Load;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -27,7 +27,7 @@ public class VolumeButton extends PauseButton {
     }
 
     private void loadImages() {
-        BufferedImage temp = SaveLoad.GetSpriteImg(SaveLoad.VOLUME);
+        BufferedImage temp = Load.GetSpriteImg(Load.VOLUME);
         images = new BufferedImage[3];
         for (int i = 0; i <images.length; i++) {
             images[i] = temp.getSubimage(i* VOLUME_DEFAULT_WIDTH,0,

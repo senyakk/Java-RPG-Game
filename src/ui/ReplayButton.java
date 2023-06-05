@@ -1,6 +1,6 @@
 package ui;
 
-import utilz.SaveLoad;
+import utilz.Load;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -19,7 +19,7 @@ public class ReplayButton extends PauseButton {
     }
 
     private void loadImages() {
-        BufferedImage temp = SaveLoad.GetSpriteImg(SaveLoad.URM);
+        BufferedImage temp = Load.GetSpriteImg(Load.URM);
         images = new BufferedImage[3];
         for (int i = 0; i < images.length; i++) {
             images[i] = temp.getSubimage(i* URM_SIZE_DEFAULT,rowIndex* URM_SIZE_DEFAULT,

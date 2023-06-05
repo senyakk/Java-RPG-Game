@@ -2,7 +2,7 @@ package creatures;
 
 import equipment.Object;
 import main.Game;
-import utilz.SaveLoad;
+import utilz.Load;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -143,7 +143,7 @@ public class Player extends Creature {
     }
 
     private void loadAnimations() {
-            BufferedImage image = SaveLoad.GetSpriteImg(SaveLoad.PLAYER_IMAGE);
+            BufferedImage image = Load.GetSpriteImg(Load.PLAYER_IMAGE);
             animations = new BufferedImage[4][4];
             for (int j = 0; j < animations.length; j++) {
                 for (int i = 0; i < animations[j].length; i++) {

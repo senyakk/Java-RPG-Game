@@ -3,7 +3,7 @@ package ui;
 import gamestates.Gamestate;
 import gamestates.Playing;
 import main.Game;
-import utilz.SaveLoad;
+import utilz.Load;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -55,7 +55,7 @@ public class Pause {
     }
 
     private void loadBackground() {
-        background = SaveLoad.GetSpriteImg(SaveLoad.PAUSE);
+        background = Load.GetSpriteImg(Load.PAUSE);
         width = (int)(background.getWidth() * Game.scale);
         heigth =(int) (background.getHeight() * Game.scale);
         posX = Game.screenWidth / 2 - width / 2;

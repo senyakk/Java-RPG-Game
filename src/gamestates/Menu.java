@@ -2,7 +2,7 @@ package gamestates;
 
 import main.Game;
 import ui.MenuButton;
-import utilz.SaveLoad;
+import utilz.Load;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,11 +18,11 @@ public class Menu extends State implements Statemethods{
         super(game);
         loadButtons();
         loadBackground();
-        backgroundImage = SaveLoad.GetSpriteImg(SaveLoad.BACKGROUND_IMG);
+        backgroundImage = Load.GetSpriteImg(Load.BACKGROUND_IMG);
     }
 
     private void loadBackground() {
-        background = SaveLoad.GetSpriteImg(SaveLoad.MENU_BACKGROUND);
+        background = Load.GetSpriteImg(Load.MENU_BACKGROUND);
         menuWidth = (int) (background.getWidth() * Game.scale);
         menuHeight = (int) (background.getHeight() * Game.scale);
         menuX = Game.screenWidth / 2 - menuWidth / 2;

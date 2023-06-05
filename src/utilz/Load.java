@@ -5,9 +5,9 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class SaveLoad {
+public class Load {
 
-    public static final String PLAYER_IMAGE = "player_sprites.png";
+    public static final String PLAYER_IMAGE = "characters/player_sprites.png";
     public static final String MENU_BACKGROUND = "UI/menu_background.png";
     public static final String MENU_BUTTONS = "UI/button_atlas.png";
     public static final String PAUSE = "UI/pause_menu.png";
@@ -18,7 +18,7 @@ public class SaveLoad {
 
     public static BufferedImage GetSpriteImg(String name) {
         BufferedImage image = null;
-        InputStream playerSprites = SaveLoad.class.getResourceAsStream("/" + name);
+        InputStream playerSprites = Load.class.getResourceAsStream("/" + name);
         try {
             image = ImageIO.read(playerSprites);
         }

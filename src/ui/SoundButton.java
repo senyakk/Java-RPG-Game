@@ -1,6 +1,6 @@
 package ui;
 
-import utilz.SaveLoad;
+import utilz.Load;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -17,7 +17,7 @@ public class SoundButton extends PauseButton {
     }
 
     private void loadImages() {
-        BufferedImage temp = SaveLoad.GetSpriteImg(SaveLoad.SOUND);
+        BufferedImage temp = Load.GetSpriteImg(Load.SOUND);
         images = new BufferedImage[2][3];
         for (int j = 0; j < images.length; j++) {
             for (int i = 0; i <images[j].length; i++) {
