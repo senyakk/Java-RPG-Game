@@ -7,10 +7,10 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
-public class Inventory extends State implements Statemethods {
+public class InventoryState extends State implements Statemethods {
     inventory.Inventory inventory;
 
-    public Inventory(Game game) {
+    public InventoryState(Game game) {
         super(game);
 
         JLabel inventory = new JLabel("inventory");
