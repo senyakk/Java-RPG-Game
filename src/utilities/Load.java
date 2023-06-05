@@ -19,18 +19,19 @@ public class Load {
     public static final String SOUND = "UI/sound_button.png";
     public static final String VOLUME = "UI/volume_buttons.png";
     public static final String BACKGROUND_IMG = "UI/Path 1.png";
+    public static final String OPTIONS_IMG = "UI/options_background.png";
 
     public static BufferedImage GetSpriteImg(String name) {
         BufferedImage image = null;
-        InputStream playerSprites = Load.class.getResourceAsStream("/" + name);
+        InputStream sprite = Load.class.getResourceAsStream("/" + name);
         try {
-            image = ImageIO.read(playerSprites);
+            image = ImageIO.read(sprite);
         }
         catch (IOException e) {
             e.printStackTrace();
         } finally {
             try {
-                playerSprites.close();
+                sprite.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
