@@ -1,5 +1,6 @@
 package gamestates;
 
+import inventory.Inventory;
 import main.Game;
 
 import javax.swing.*;
@@ -8,7 +9,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 public class InventoryState extends State implements Statemethods {
-    inventory.Inventory inventory;
+    Inventory inventory;
 
     public InventoryState(Game game) {
         super(game);
