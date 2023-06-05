@@ -126,25 +126,25 @@ public class Load {
 
         try {
             tile[0] = new Tile();
-            tile[0].image = ImageIO.read(Load.class.getResourceAsStream("/tiles/grass01.png"));
+            tile[0].image = ImageIO.read(Load.class.getResourceAsStream("/tiles/Set1/002.png"));
 
             tile[1]= new Tile();
-            tile[1].image = ImageIO.read(Load.class.getResourceAsStream("/tiles/wall.png"));
+            tile[1].image = ImageIO.read(Load.class.getResourceAsStream("/tiles/Set1/032.png"));
             tile[1].collision = true;
 
             tile[2]= new Tile();
-            tile[2].image = ImageIO.read(Load.class.getResourceAsStream("/tiles/water00.png"));
+            tile[2].image = ImageIO.read(Load.class.getResourceAsStream("/tiles/Set1/019.png"));
             tile[2].collision = true;
 
             tile[3]= new Tile();
-            tile[3].image = ImageIO.read(Load.class.getResourceAsStream("/tiles/earth.png"));
+            tile[3].image = ImageIO.read(Load.class.getResourceAsStream("/tiles/Set1/003.png"));
 
             tile[4]= new Tile();
-            tile[4].image = ImageIO.read(Load.class.getResourceAsStream("/tiles/tree.png"));
+            tile[4].image = ImageIO.read(Load.class.getResourceAsStream("/tiles/Set1/016.png"));
             tile[4].collision = true;
 
             tile[5]= new Tile();
-            tile[5].image = ImageIO.read(Load.class.getResourceAsStream("/tiles/earth.png"));
+            tile[5].image = ImageIO.read(Load.class.getResourceAsStream("/tiles/Set1/017.png"));
         }
         catch (IOException e){
             e.printStackTrace();
