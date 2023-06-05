@@ -36,6 +36,11 @@ public class Playing extends State implements Statemethods {
         player.resetDirections();
     }
 
+    public void resetAll() {
+        paused = false;
+        player.resetAll();
+    }
+
     @Override
     public void update() {
         if (!paused) {

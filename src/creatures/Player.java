@@ -6,6 +6,8 @@ import utilz.SaveLoad;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+
+import static utilz.Constants.Direction.DOWN;
 import static utilz.Constants.PlayerConstants.*;
 import static utilz.Constants.PlayerConstants.WALKING_DOWN;
 
@@ -187,5 +189,13 @@ public class Player extends Creature {
         right = false;
         up = false;
         down = false;
+    }
+
+    public void resetAll() {
+        resetDirections();
+        moving = false;
+        walkDir = DOWN;
+        worldX = 23 * Game.tileSize;
+        worldY = 21 * Game.tileSize;
     }
 }

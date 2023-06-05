@@ -131,7 +131,7 @@ public class Pause {
         }
         else if (isInOBorder(e, replayButton)) {
             if (replayButton.isMousePressed()) {
-                System.out.println("Replay the game!");
+                playing.resetAll();
             }
         }
         else if (isInOBorder(e, unpauseButton)) {
