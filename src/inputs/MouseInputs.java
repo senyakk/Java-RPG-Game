@@ -13,7 +13,6 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
 
     /**
      * Creates MouseListener and MouseMotionListener object connected to the target object
-     * @param targetObject x
      */
     public MouseInputs (GamePanel gamePanel) {
         this.gamePanel = gamePanel;

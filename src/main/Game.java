@@ -25,7 +25,6 @@ public class Game implements Runnable {
     private Playing playing;
     private Audio audio;
     private Options options;
-    private InventoryState inventoryState;
     public Thread gameLoop;
 
     // GAME LOOP SETTINGS
@@ -51,7 +50,6 @@ public class Game implements Runnable {
         menu = new Menu(this);
         playing = new Playing(this);
         options = new Options(this);
-        inventoryState = new InventoryState(this);
     }
 
     private void startGameLoop() {
@@ -64,7 +62,6 @@ public class Game implements Runnable {
             case MENU -> menu.update();
             case PLAYING -> playing.update();
             case OPTIONS -> options.update();
-            case INVENTORY -> inventoryState.update();
             case QUIT -> System.exit(0);
             default -> System.exit(0);
         }
@@ -75,7 +72,6 @@ public class Game implements Runnable {
             case MENU -> menu.draw(g);
             case PLAYING -> playing.draw(g);
             case OPTIONS -> options.draw(g);
-            case INVENTORY -> inventoryState.draw(g);
             default -> {
             }
         }
@@ -145,7 +141,4 @@ public class Game implements Runnable {
         return options;
     }
 
-    public InventoryState getInventory() {
-        return inventoryState;
-    }
 }

@@ -9,9 +9,7 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
-import static utilities.Constants.UI.PauseButtons.SOUND_SIZE;
 import static utilities.Constants.UI.PauseButtons.URM_SIZE;
-import static utilities.Constants.UI.VolumeButton.*;
 
 public class Pause {
 

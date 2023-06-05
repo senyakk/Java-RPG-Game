@@ -1,6 +1,7 @@
 package gamestates;
 
 import creatures.Player;
+import inventory.Inventory;
 import main.Game;
 import tile.TileManager;
 import ui.Pause;
@@ -14,7 +15,10 @@ public class Playing extends State implements Statemethods {
     private Player player;
     private TileManager tileManager = new TileManager();
     private Pause pause;
+    private Inventory inventory;
     private boolean paused = false;
+    private boolean inventoryOn = false;
+
     public Playing(Game game) {
         super(game);
         init();
@@ -23,6 +27,7 @@ public class Playing extends State implements Statemethods {
     private void init() {
         player = new Player();
         pause = new Pause(this);
+        inventory = new Inventory(this);
     }
 
     public Player getPlayer() {
@@ -36,12 +41,14 @@ public class Playing extends State implements Statemethods {
     public void resetAll() {
         paused = false;
         player.resetAll();
+        inventory.resetAll();
     }
 
     @Override
     public void update() {
         if (!paused) {
             player.update();
+            inventory.update();
         } else {
             pause.update();
         }
@@ -55,6 +62,8 @@ public class Playing extends State implements Statemethods {
             g.setColor(new Color(0,0,0,150));
             g.fillRect(0,0, Game.screenWidth, Game.screenHeight);
             pause.draw(g);
+        } else if (inventoryOn) {
+            inventory.draw(g);
         }
 
     }
@@ -84,8 +93,7 @@ public class Playing extends State implements Statemethods {
             // Inventory switch
             case KeyEvent.VK_I -> {
                 if (!paused) {
-                    Gamestate.state = Gamestate.INVENTORY;
-                    game.getPlaying().getPlayer().resetDirections();
+                    inventoryOn = !inventoryOn;
                 }
             }
         }
