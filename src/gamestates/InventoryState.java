@@ -8,6 +8,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 public class Inventory extends State implements Statemethods {
+    inventory.Inventory inventory;
+
     public Inventory(Game game) {
         super(game);
 
