@@ -19,6 +19,7 @@ public class GameScreen {
     public GameScreen(GamePanel gamePanel) {
         frame = new JFrame();
 
+        frame.setTitle("Dragonbrew: The Alchemist's Quest");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(gamePanel);
 
