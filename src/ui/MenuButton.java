@@ -13,6 +13,7 @@ public class MenuButton {
     private int posX, posY, row, index;
     private int offsetX = B_WIDTH / 2;
     private Gamestate state;
+    private BufferedImage start, actStart, options, actOptions, quit, actQuit;
     private BufferedImage[] images;
     private boolean mousePressed, mouseOver;
     private Rectangle bounds;
@@ -33,12 +34,27 @@ public class MenuButton {
     }
 
     private void loadImages() {
-        images = new BufferedImage[3];
-        BufferedImage temp = Load.GetSpriteImg(Load.MENU_BUTTONS);
-        for (int i = 0; i < images.length; i++) {
-            images[i] = temp.getSubimage(i * B_WIDTH_DEFAULT, row * B_HEIGHT_DEFAULT, B_WIDTH_DEFAULT, B_HEIGHT_DEFAULT );
-        }
-
+        images = new BufferedImage[2];
+         switch (row) {
+             case 0 -> {
+             start = Load.GetSpriteImg(Load.START_BUTTON);
+             images[0] = start;
+             actStart = Load.GetSpriteImg(Load.ACTIVATED_START_BUTTON);
+             images[1] = actStart;
+             }
+            case 1 -> {
+                options = Load.GetSpriteImg(Load.OPTIONS_BUTTON);
+                images[0] = options;
+                actOptions = Load.GetSpriteImg(Load.ACTIVATED_OPTIONS_BUTTON);
+                images[1] = actOptions;
+            }
+            case 2 -> {
+                quit = Load.GetSpriteImg(Load.QUIT_BUTTON);
+                images[0] = quit;
+                actQuit = Load.GetSpriteImg(Load.ACTIVATED_QUIT_BUTTON);
+                images[1] = actQuit;
+            }
+         }
     }
 
     public void draw(Graphics g) {
@@ -51,7 +67,7 @@ public class MenuButton {
             index = 1;
         }
         if(mousePressed) {
-            index = 2;
+            //index = 2;
         }
     }
 

@@ -17,22 +17,13 @@ public class Menu extends State implements Statemethods{
     public Menu(Game game) {
         super(game);
         loadButtons();
-        loadBackground();
         backgroundImage = Load.GetSpriteImg(Load.BACKGROUND_IMG);
     }
 
-    private void loadBackground() {
-        background = Load.GetSpriteImg(Load.MENU_BACKGROUND);
-        menuWidth = (int) (background.getWidth() * Game.scale);
-        menuHeight = (int) (background.getHeight() * Game.scale);
-        menuX = Game.screenWidth / 2 - menuWidth / 2;
-        menuY = (int)(60 * Game.scale);
-    }
-
     private void loadButtons() {
-        buttons[0] = new MenuButton(Game.screenWidth / 2, (int) (165 * Game.scale), 0 ,Gamestate.PLAYING);
-        buttons[1] = new MenuButton(Game.screenWidth / 2, (int) (235 * Game.scale), 1 ,Gamestate.OPTIONS);
-        buttons[2] = new MenuButton(Game.screenWidth / 2, (int) (305 * Game.scale), 2 ,Gamestate.QUIT);
+        buttons[0] = new MenuButton((int) (165 * Game.scale), (int)(170 * Game.scale),  0 ,Gamestate.PLAYING);
+        buttons[1] = new MenuButton((int)(320 * Game.scale), (int)(170 * Game.scale),  1 ,Gamestate.OPTIONS);
+        buttons[2] = new MenuButton((int) (475 * Game.scale), (int)(170 * Game.scale), 2 ,Gamestate.QUIT);
     }
 
 
@@ -46,10 +37,9 @@ public class Menu extends State implements Statemethods{
     @Override
     public void draw(Graphics g) {
 
-        g.drawImage(backgroundImage,0,0,Game.screenWidth, Game.screenHeight, null);
-        g.drawImage(background, menuX, menuY, menuWidth, menuHeight, null);
+        g.drawImage(backgroundImage,0,0, Game.screenWidth, Game.screenHeight, null);
         for(MenuButton button : buttons) {
-            button.draw(g);
+           button.draw(g);
         }
     }
 

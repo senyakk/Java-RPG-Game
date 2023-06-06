@@ -15,7 +15,7 @@ public class Game implements Runnable {
     public final static float scale = 2;
     public static final int tileSize = (int)(defaultTileSize * scale);
     public static final int maxTileCol = 10;
-    public static final int maxTileRow = 8;
+    public static final int maxTileRow = 6;
     public final static int screenWidth = tileSize * maxTileCol;
     public final static int screenHeight = tileSize * maxTileRow;
 

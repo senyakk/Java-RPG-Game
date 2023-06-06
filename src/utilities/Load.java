@@ -18,10 +18,16 @@ public class Load {
     public static final String URM = "UI/urm_buttons.png";
     public static final String SOUND = "UI/sound_button.png";
     public static final String VOLUME = "UI/volume_buttons.png";
-    public static final String BACKGROUND_IMG = "UI/Path 1.png";
+    public static final String BACKGROUND_IMG = "UI/Startscreen.png";
     public static final String OPTIONS_IMG = "UI/options_background.png";
     public static final String INVENTORY = "UI/InventoryScreenRealReso.png";
     public static final String INVENTORY_BUTTON = "UI/inventoryButton.png";
+    public static final String START_BUTTON = "UI/MenuButtons/startButton.png";
+    public static final String ACTIVATED_START_BUTTON = "UI/MenuButtons/ActivatedstartButton.png";
+    public static final String OPTIONS_BUTTON = "UI/MenuButtons/OptionsButton.png";
+    public static final String ACTIVATED_OPTIONS_BUTTON = "UI/MenuButtons/ActivatedOptionsButton.png";
+    public static final String QUIT_BUTTON = "UI/MenuButtons/QuitButton.png";
+    public static final String ACTIVATED_QUIT_BUTTON = "UI/MenuButtons/activatedQuitButton.png";
 
     public static BufferedImage GetSpriteImg(String name) {
         BufferedImage image = null;
