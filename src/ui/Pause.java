@@ -28,10 +28,10 @@ public class Pause {
 
 
     private void addReplayButtons() {
-        int menuX = (int)(218 * Game.scale);
-        int replayX = (int)(292 * Game.scale);
-        int unpauseX = (int) (367 * Game.scale);
-        int y  = (int) (325 * Game.scale);
+        int menuX = (int)(252 * Game.scale);
+        int replayX = (int)(300 * Game.scale);
+        int unpauseX = (int) (351 * Game.scale);
+        int y  = (int) (230 * Game.scale);
         menuButton = new ReplayButton(menuX,y, URM_SIZE, URM_SIZE, 2);
         replayButton = new ReplayButton(replayX,y, URM_SIZE, URM_SIZE, 1);
         unpauseButton = new ReplayButton(unpauseX, y, URM_SIZE, URM_SIZE, 0);
@@ -40,8 +40,8 @@ public class Pause {
 
     private void loadBackground() {
         background = Load.GetSpriteImg(Load.PAUSE);
-        width = (int)(background.getWidth() * Game.scale);
-        heigth =(int) (background.getHeight() * Game.scale);
+        width = (int)(background.getWidth() * Game.scale/1.5);
+        heigth =(int) (background.getHeight() * Game.scale/1.5);
         posX = Game.screenWidth / 2 - width / 2;
         posY = (int)(25 * Game.scale);
     }

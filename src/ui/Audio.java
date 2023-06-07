@@ -25,15 +25,15 @@ public class Audio {
     }
 
     private void addVolumeButton() {
-        int x = (int)(214 * Game.scale);
-        int y = (int)(278 * Game.scale);
+        int x = (int)(248 * Game.scale);
+        int y = (int)(198 * Game.scale);
         volumeButton = new VolumeButton(x, y, (int) (SLIDER_WIDTH), (int) (VOLUME_HEIGHT));
     }
 
     private void addSoundButtons() {
-        int x = (int)(355 * Game.scale);
-        int musicY = (int)(140 * Game.scale);
-        int sfxY = (int) (186 * Game.scale);
+        int x = (int)(345 * Game.scale);
+        int musicY = (int)(105 * Game.scale);
+        int sfxY = (int) (135 * Game.scale);
         musicButton = new SoundButton(x,musicY, SOUND_SIZE, SOUND_SIZE);
         sfxButton = new SoundButton(x,sfxY, SOUND_SIZE, SOUND_SIZE);
     }

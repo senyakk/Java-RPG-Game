@@ -27,8 +27,8 @@ public class Options extends State implements Statemethods {
     }
 
     private void loadButtons() {
-        int menuX = (int) (292 * Game.scale);
-        int menuY = (int) (325 * Game.scale);
+        int menuX = (int) (300 * Game.scale);
+        int menuY = (int) (235 * Game.scale);
         menuB = new ReplayButton(menuX, menuY, URM_SIZE, URM_SIZE, 2);
     }
 
@@ -37,8 +37,8 @@ public class Options extends State implements Statemethods {
         backgroundImage = Load.GetSpriteImg(Load.BACKGROUND_IMG);
         optionsBackgroundImage = Load.GetSpriteImg(Load.OPTIONS_IMG);
 
-        bgW = (int) (optionsBackgroundImage.getWidth() * Game.scale);
-        bgH = (int) (optionsBackgroundImage.getHeight() * Game.scale);
+        bgW = (int) (optionsBackgroundImage.getWidth() * Game.scale/1.5);
+        bgH = (int) (optionsBackgroundImage.getHeight() * Game.scale/1.5);
         bgX = Game.screenWidth / 2 - bgW / 2;
         bgY = (int) (33 * Game.scale);
 
