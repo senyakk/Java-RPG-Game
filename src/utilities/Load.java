@@ -1,7 +1,7 @@
 package utilities;
 
-import tile.Level;
-import tile.Tile;
+import locations.Level;
+import locations.Tile;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;

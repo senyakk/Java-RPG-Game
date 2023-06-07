@@ -1,9 +1,9 @@
 package gamestates;
 
-import creatures.Player;
+import playerclasses.Player;
 import inventory.Inventory;
 import main.Game;
-import tile.TileManager;
+import locations.TileManager;
 import ui.Pause;
 
 import java.awt.*;

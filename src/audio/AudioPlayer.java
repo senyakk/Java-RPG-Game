@@ -37,7 +37,7 @@ public class AudioPlayer {
     public static int LIGHT_AMBIENCE_5 = 27;
     private Clip[] songs, effects;
     private int currentSongInd;
-    private float volume = 0.5f;
+    private float volume = 0.75f;
     private boolean muteSong, muteEffect;
     private Random random = new Random();
 

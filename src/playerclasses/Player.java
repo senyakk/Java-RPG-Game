@@ -1,7 +1,8 @@
-package creatures;
+package playerclasses;
 
 import equipment.Object;
 import main.Game;
+import npcs.Creature;
 import utilities.Load;
 
 import java.awt.*;

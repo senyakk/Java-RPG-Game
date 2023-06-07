@@ -1,4 +1,4 @@
-package tile;
+package locations;
 
 public class Level {
 

@@ -1,4 +1,4 @@
-package creatures;
+package npcs;
 
 import static utilities.Constants.Direction.*;
 
