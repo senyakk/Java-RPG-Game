@@ -25,9 +25,9 @@ public class Audio {
     }
 
     private void addVolumeButton() {
-        int x = (int)(214 * Game.scale + 45);
-        int y = (int)(278 * Game.scale/1.2);
-        volumeButton = new VolumeButton(x, y, (int) (SLIDER_WIDTH/1.2), (int) (VOLUME_HEIGHT/1.2));
+        int x = (int)(214 * Game.scale);
+        int y = (int)(278 * Game.scale);
+        volumeButton = new VolumeButton(x, y, (int) (SLIDER_WIDTH), (int) (VOLUME_HEIGHT));
     }
 
     private void addSoundButtons() {

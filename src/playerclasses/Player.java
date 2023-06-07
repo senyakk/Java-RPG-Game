@@ -75,7 +75,8 @@ public class Player extends Creature {
     }
 
     public void render(Graphics g) {
-        g.drawImage(animations[playerAction][animIndex], (int)screenX, (int)screenY, 128, 144, null);
+        g.drawImage(animations[playerAction][animIndex], (int)screenX, (int)screenY,
+                Game.tileSize, (int)(Game.tileSize), null);
     }
 
     private void updatePos() {
