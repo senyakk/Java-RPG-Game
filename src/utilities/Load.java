@@ -2,8 +2,10 @@ package utilities;
 
 import locations.Level;
 import locations.Tile;
+import main.Game;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URISyntaxException;
@@ -28,6 +30,8 @@ public class Load {
     public static final String ACTIVATED_OPTIONS_BUTTON = "UI/MenuButtons/ActivatedOptionsButton.png";
     public static final String QUIT_BUTTON = "UI/MenuButtons/QuitButton.png";
     public static final String ACTIVATED_QUIT_BUTTON = "UI/MenuButtons/activatedQuitButton.png";
+
+    private static Tile[] tile = new Tile[10];
 
     public static BufferedImage GetSpriteImg(String name) {
         BufferedImage image = null;
@@ -131,34 +135,38 @@ public class Load {
     }
 
     public static Tile[] getTiles() {
-        Tile[] tile = new Tile[10];
+
+        setup(0, "002", false);
+        setup(1, "032", true);
+        setup(2, "019", false);
+        setup(3, "017", false);
+        setup(4, "016", true);
+        setup(5, "003", false);
+        setup(6, "033", true);
+
+        return tile;
+    }
+
+    private static BufferedImage scaleImage(BufferedImage original, int width, int height) {
+        BufferedImage scaledImage = new BufferedImage(width, height, original.getType());
+        Graphics g = scaledImage.createGraphics();
+        g.drawImage(original, 0, 0, width, height, null);
+        g.dispose();
+
+        return scaledImage;
+    }
+
+    public static void setup(int index, String imagePath, boolean collision) {
 
         try {
-            tile[0] = new Tile();
-            tile[0].image = ImageIO.read(Load.class.getResourceAsStream("/tiles/Set1/002.png"));
-
-            tile[1]= new Tile();
-            tile[1].image = ImageIO.read(Load.class.getResourceAsStream("/tiles/Set1/032.png"));
-            tile[1].collision = true;
-
-            tile[2]= new Tile();
-            tile[2].image = ImageIO.read(Load.class.getResourceAsStream("/tiles/Set1/019.png"));
-            tile[2].collision = true;
-
-            tile[3]= new Tile();
-            tile[3].image = ImageIO.read(Load.class.getResourceAsStream("/tiles/Set1/003.png"));
-
-            tile[4]= new Tile();
-            tile[4].image = ImageIO.read(Load.class.getResourceAsStream("/tiles/Set1/016.png"));
-            tile[4].collision = true;
-
-            tile[5]= new Tile();
-            tile[5].image = ImageIO.read(Load.class.getResourceAsStream("/tiles/Set1/017.png"));
+            tile[index] = new Tile();
+            tile[index].image = ImageIO.read(Load.class.getResourceAsStream("/tiles/Set1/" + imagePath + ".png"));
+            tile[index].image = scaleImage(tile[index].image, Game.tileSize, Game.tileSize);
+            tile[index].collision = collision;
         }
-        catch (IOException e){
+        catch (IOException e) {
             e.printStackTrace();
         }
 
-        return tile;
     }
 }
