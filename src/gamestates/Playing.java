@@ -3,9 +3,11 @@ package gamestates;
 import playerclasses.Player;
 import inventory.Inventory;
 import main.Game;
-import locations.TileManager;
+import locations.LevelManager;
 import ui.Pause;
 import ui.PlayingUI;
+import objects.ObjectManager;
+import locations.CollisionChecker;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -15,7 +17,9 @@ public class Playing extends State implements Statemethods {
 
     private Player player;
     private PlayingUI ui;
-    private TileManager tileManager = new TileManager();
+    private LevelManager levelManager = new LevelManager();
+    private ObjectManager placer;
+    private CollisionChecker collisionChecker;
     private Pause pause;
     private Inventory inventory;
     private boolean paused = false;
@@ -23,13 +27,32 @@ public class Playing extends State implements Statemethods {
 
     public Playing(Game game) {
         super(game);
-        init();
+        initLevel();
     }
 
-    private void init() {
-        player = new Player();
-        ui = new PlayingUI(this);
+    private void initLevel() {
+        levelManager = new LevelManager();
+        loadLevel();
         pause = new Pause(this);
+
+    }
+
+    private void loadLevel() {
+        levelManager.setCurrentLevel(0);
+        placer = new ObjectManager(this);
+        collisionChecker = new CollisionChecker(levelManager);
+        //npcManager = new NPCManager(this, collisionChecker);
+        putPlayer();
+    }
+
+    private void putPlayer() {
+        switch (getLevelManager().getCurrentLevelId()) {
+            case 0 -> {
+                player = new Player(23, 21, this);
+            }
+        }
+        player.addCollisionChecker(collisionChecker);
+        ui = new PlayingUI(this);
         inventory = new Inventory(this);
     }
 
@@ -47,13 +70,18 @@ public class Playing extends State implements Statemethods {
 
     public void resetAll() {
         paused = false;
+        inventoryOn = false;
         player.resetAll();
+        placer.resetAll();
         inventory.resetAll();
     }
 
     @Override
     public void update() {
         if (!paused) {
+            levelManager.update();
+            placer.update();
+            //npcManager.update();
             player.update();
             inventory.update();
         } else {
@@ -63,17 +91,18 @@ public class Playing extends State implements Statemethods {
 
     @Override
     public void draw(Graphics g) {
-        tileManager.draw(g, player);
+        levelManager.draw(g, player);
+        placer.drawObjects(g);
+
         player.render(g);
         ui.draw(g);
-        if (paused) {
-            g.setColor(new Color(0,0,0,150));
-            g.fillRect(0,0, Game.screenWidth, Game.screenHeight);
-            pause.draw(g);
-        } else if (inventoryOn) {
+        if (inventoryOn)
             inventory.draw(g);
+        if (paused) {
+            g.setColor(new Color(0, 0, 0, 150));
+            g.fillRect(0, 0, Game.screenWidth, Game.screenHeight);
+            pause.draw(g);
         }
-
     }
 
     @Override
@@ -141,5 +170,9 @@ public class Playing extends State implements Statemethods {
         if (paused) {
             pause.mouseDragged(e);
         }
+    }
+
+    public LevelManager getLevelManager() {
+        return levelManager;
     }
 }

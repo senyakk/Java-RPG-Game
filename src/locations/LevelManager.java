@@ -6,14 +6,13 @@ import utilities.Load;
 
 import java.awt.*;
 
-public class TileManager {
+public class LevelManager {
 
-    Tile[] tile;
+    private Tile[] tile;
     private Level[] levels;
     private int levelInd = 0;
 
-
-    public TileManager() {
+    public LevelManager() {
         tile = Load.getTiles();
         levels = Load.getAllLevels();
     }
@@ -32,8 +31,8 @@ public class TileManager {
             int worldY = worldRow * Game.tileSize;
 
             // Code for camera following the player
-            int screenX = worldX - player.getWorldX() + player.getScreenX();
-            int screenY = worldY - player.getWorldY() + player.getScreenY();
+            int screenX = (int) (worldX - player.getWorldX() + player.getScreenX());
+            int screenY = (int) (worldY - player.getWorldY() + player.getScreenY());
 
             // Condition for drawing only the world in the boundaries of the game screen
             if (worldX + Game.tileSize > player.getWorldX() - player.getScreenX() &&
@@ -63,6 +62,14 @@ public class TileManager {
 
     public Level getCurrentLevel() {
         return levels[levelInd];
+    }
+
+    public int getCurrentLevelId() {
+        return levelInd;
+    }
+
+    public void setCurrentLevel(int id) {
+        levelInd = id;
     }
 
 }

@@ -1,8 +1,10 @@
 package playerclasses;
 
 import equipment.Object;
+import gamestates.Playing;
 import main.Game;
 import npcs.Creature;
+import objects.GameObject;
 import utilities.Load;
 
 import java.awt.*;
@@ -14,16 +16,16 @@ import static utilities.Constants.PlayerConstants.WALKING_DOWN;
 
 public class Player extends Creature {
 
+    private Playing playing;
+
     // CAMERA SETTINGS
     private final int screenX;
     public final int screenY;
 
     // SPRITES AND MOTION SETTINGS
     private BufferedImage[][] animations;
-    private int animTick, animIndex, animationSpeed = 25;
     private int playerAction;
     private boolean left, up, right, down;
-    private boolean moving = false;
 
     // PLAYER VARIABLES
     private int level;
@@ -35,13 +37,15 @@ public class Player extends Creature {
     private Object weapon;
     private Object shield;
 
-    public Player() {
-        worldX = Game.tileSize * 23;
-        worldY = Game.tileSize * 21;
+    public Player(int worldX, int worldY, Playing playing) {
+        this.playing = playing;
+        this.worldX = Game.tileSize * worldX;
+        this.worldY = Game.tileSize * worldY;
         screenX = Game.screenWidth/2 - (Game.tileSize/2);
         screenY = Game.screenHeight/2 - (Game.tileSize/2);
         setDefaultVariables();
         loadAnimations();
+        initHitArea(22, 24, 18, 32);
     }
 
     public int getScreenX() {
@@ -49,14 +53,6 @@ public class Player extends Creature {
     }
     public int getScreenY() {
         return screenY;
-    }
-
-    public int getWorldX() {
-        return worldX;
-    }
-
-    public int getWorldY() {
-        return worldY;
     }
 
     public void setDefaultVariables() {
@@ -70,13 +66,21 @@ public class Player extends Creature {
 
     public void update() {
         updatePos();
+
+        // CHECK COLLISIONS
+        collisionOn = false;
+        collisionChecker.checkTile(this);
+        GameObject object = collisionChecker.checkObject(this, true);
+        //pickUpObject(object);
+
         updateAnimation();
         setAnimation();
     }
 
     public void render(Graphics g) {
-        g.drawImage(animations[playerAction][animIndex], (int)screenX, (int)screenY,
-                Game.tileSize, (int)(Game.tileSize), null);
+        g.drawImage(animations[state][animIndex], (int)screenX, (int)screenY,
+                Game.tileSize, Game.tileSize, null);
+        drawPlayerHitArea(g);
     }
 
     private void updatePos() {
@@ -87,42 +91,46 @@ public class Player extends Creature {
             return;
         }
 
+        float xSpeed = 0, ySpeed = 0;
+
         if (left && !right) {
-            worldX-=speed;
-            moving = true;
+            xSpeed -= speed;
         } else if (right && !left) {
-            worldX+=speed;
-            moving = true;
+            xSpeed += speed;
         }
 
         if (up && !down) {
-            worldY-= speed;
-            moving = true;
+            ySpeed -= speed;
         } else if (down && !up) {
-            worldY+= speed;
+            ySpeed += speed;
+        }
+
+        if (!collisionOn) {
+            this.worldX += xSpeed;
+            this.worldY += ySpeed;
             moving = true;
         }
     }
 
     private void setAnimation() {
 
-        int startAnim = playerAction;
+        int startAnim = state;
 
         if (moving) {
             if (left && !right) {
-                playerAction = WALKING_LEFT;
+                state = WALKING_LEFT;
             } else if (right && !left) {
-                playerAction = WALKING_RIGHT;
+                state = WALKING_RIGHT;
             }
 
             if (up && !down) {
-                playerAction = WALKING_UP;
+                state = WALKING_UP;
             } else if (down && !up) {
-                playerAction = WALKING_DOWN;
+                state = WALKING_DOWN;
             }
         }
 
-        if (startAnim != playerAction){
+        if (startAnim != state){
             resetAnimation();
         }
     }
@@ -134,10 +142,10 @@ public class Player extends Creature {
 
     private void updateAnimation() {
         animTick++;
-        if (animTick >= animationSpeed) {
+        if (animTick >= animSpeed) {
             animTick = 0;
             animIndex++;
-            int spriteAmount = moving ? getSpriteAmount(playerAction) : 0;
+            int spriteAmount = moving ? getSpriteAmount(state) : 0;
             if (animIndex >= spriteAmount) {
                 animIndex = 0;
             }
@@ -199,5 +207,10 @@ public class Player extends Creature {
         walkDir = DOWN;
         worldX = 23 * Game.tileSize;
         worldY = 21 * Game.tileSize;
+    }
+
+    protected void drawPlayerHitArea(Graphics g) {
+        g.setColor(Color.PINK);
+        g.drawRect(screenX + solidArea.x,screenY + solidArea.y, solidArea.width, solidArea.height);
     }
 }

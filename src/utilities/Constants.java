@@ -4,6 +4,12 @@ import main.Game;
 
 public class Constants {
 
+
+    public static class Objects {
+
+        public static final int OBJECT_SIZE_DEFAULT = 16;
+        public static final int OBJECT_SIZE = (int) (16 * Game.scale);
+    }
     public static class UI {
         public static class MenuButtons {
             public static final int B_WIDTH_DEFAULT = (int) (100 * 1.5);

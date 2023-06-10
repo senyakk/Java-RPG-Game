@@ -34,6 +34,8 @@ public class Load {
     public static final String ALCHEMIST_HOUSE = "locations/Alchemisthouse.png";
     public static final String WITCH_HOUSE = "locations/WitchHouse.png";
 
+    public static final String KEY = "objects/Key.png";
+
     private static Tile[] tile = new Tile[10];
 
     public static BufferedImage GetSpriteImg(String name) {
