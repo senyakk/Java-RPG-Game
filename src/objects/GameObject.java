@@ -1,5 +1,6 @@
 package objects;
 
+import locations.CollisionChecker;
 import main.Game;
 
 import javax.imageio.ImageIO;
@@ -21,7 +22,7 @@ public class GameObject {
 
     // Position variables on the screen
     protected int screenX, screenY;
-    //protected CollisionChecker collisionChecker;
+    protected CollisionChecker collisionChecker;
     protected boolean collisionOn = false;
     protected Rectangle solidArea = new Rectangle(0,0, Game.tileSize, Game.tileSize);
 
@@ -70,9 +71,9 @@ public class GameObject {
                 solidArea.width, solidArea.height);
     }
 
-    //public void addCollisionChecker(CollisionChecker collisionChecker) {
-    //    this.collisionChecker = collisionChecker;
-    //}
+    public void addCollisionChecker(CollisionChecker collisionChecker) {
+        this.collisionChecker = collisionChecker;
+    }
 
     public Rectangle getHitArea() { return solidArea; }
 

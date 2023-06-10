@@ -11,6 +11,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 import static utilities.Constants.Direction.DOWN;
+import static utilities.Constants.Direction.*;
 import static utilities.Constants.PlayerConstants.*;
 import static utilities.Constants.PlayerConstants.WALKING_DOWN;
 
@@ -38,9 +39,8 @@ public class Player extends Creature {
     private Object shield;
 
     public Player(int worldX, int worldY, Playing playing) {
+        super(worldX, worldY, Game.tileSize, Game.tileSize);
         this.playing = playing;
-        this.worldX = Game.tileSize * worldX;
-        this.worldY = Game.tileSize * worldY;
         screenX = Game.screenWidth/2 - (Game.tileSize/2);
         screenY = Game.screenHeight/2 - (Game.tileSize/2);
         setDefaultVariables();
@@ -168,6 +168,7 @@ public class Player extends Creature {
 
     public void setLeft(boolean left) {
         this.left = left;
+        walkDir = LEFT;
     }
 
     public boolean isUp() {
@@ -176,6 +177,7 @@ public class Player extends Creature {
 
     public void setUp(boolean up) {
         this.up = up;
+        walkDir = UP;
     }
 
     public boolean isRight() {
@@ -184,6 +186,7 @@ public class Player extends Creature {
 
     public void setRight(boolean right) {
         this.right = right;
+        walkDir = RIGHT;
     }
 
     public boolean isDown() {
@@ -192,6 +195,7 @@ public class Player extends Creature {
 
     public void setDown(boolean down) {
         this.down = down;
+        walkDir = DOWN;
     }
 
     public void resetDirections() {
@@ -200,7 +204,6 @@ public class Player extends Creature {
         up = false;
         down = false;
     }
-
     public void resetAll() {
         resetDirections();
         moving = false;

@@ -8,7 +8,7 @@ public class Constants {
     public static class Objects {
 
         public static final int OBJECT_SIZE_DEFAULT = 16;
-        public static final int OBJECT_SIZE = (int) (16 * Game.scale);
+        public static final int OBJECT_SIZE = (int) (OBJECT_SIZE_DEFAULT * Game.scale);
     }
     public static class UI {
         public static class MenuButtons {

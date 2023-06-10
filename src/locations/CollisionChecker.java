@@ -1,11 +1,14 @@
 package locations;
 
 
+import locations.Level;
+import locations.LevelManager;
 import main.Game;
 import npcs.Creature;
 import objects.GameObject;
 
 import static utilities.Constants.Direction.*;
+
 
 
 public class CollisionChecker {
@@ -18,6 +21,7 @@ public class CollisionChecker {
     }
 
     public void checkTile(Creature entity) {
+
 
         int entityLeftWorldX = (int) (entity.getWorldX() + entity.getHitArea().x);
         int entityRightWorldX = (int) (entity.getWorldX() + entity.getHitArea().x + entity.getHitArea().width);
