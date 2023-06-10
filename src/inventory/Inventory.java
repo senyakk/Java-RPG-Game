@@ -41,7 +41,7 @@ public class Inventory {
         invWidth = (int) (inventoryImage.getWidth() * Game.scale);
         invHeight = (int) (inventoryImage.getHeight() * Game.scale);
         invX = Game.screenWidth / 2 - invWidth / 2;
-        invY = (int)(260 * Game.scale);
+        invY = (int)(200 * Game.scale);
     }
 
     public void draw(Graphics g) {

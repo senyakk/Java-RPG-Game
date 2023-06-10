@@ -5,6 +5,7 @@ import inventory.Inventory;
 import main.Game;
 import locations.TileManager;
 import ui.Pause;
+import ui.PlayingUI;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -13,6 +14,7 @@ import java.awt.event.MouseEvent;
 public class Playing extends State implements Statemethods {
 
     private Player player;
+    private PlayingUI ui;
     private TileManager tileManager = new TileManager();
     private Pause pause;
     private Inventory inventory;
@@ -26,12 +28,17 @@ public class Playing extends State implements Statemethods {
 
     private void init() {
         player = new Player();
+        ui = new PlayingUI(this);
         pause = new Pause(this);
         inventory = new Inventory(this);
     }
 
     public Player getPlayer() {
         return player;
+    }
+
+    public PlayingUI getUi() {
+        return ui;
     }
 
     public void windowFocusLost() {
@@ -58,6 +65,7 @@ public class Playing extends State implements Statemethods {
     public void draw(Graphics g) {
         tileManager.draw(g, player);
         player.render(g);
+        ui.draw(g);
         if (paused) {
             g.setColor(new Color(0,0,0,150));
             g.fillRect(0,0, Game.screenWidth, Game.screenHeight);

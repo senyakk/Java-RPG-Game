@@ -31,6 +31,9 @@ public class Load {
     public static final String QUIT_BUTTON = "UI/MenuButtons/QuitButton.png";
     public static final String ACTIVATED_QUIT_BUTTON = "UI/MenuButtons/activatedQuitButton.png";
 
+    public static final String ALCHEMIST_HOUSE = "locations/Alchemisthouse.png";
+    public static final String WITCH_HOUSE = "locations/WitchHouse.png";
+
     private static Tile[] tile = new Tile[10];
 
     public static BufferedImage GetSpriteImg(String name) {

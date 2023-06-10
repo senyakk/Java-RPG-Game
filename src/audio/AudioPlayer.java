@@ -3,6 +3,7 @@ package audio;
 import javax.sound.sampled.*;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.Random;
 
 public class AudioPlayer {
@@ -35,14 +36,36 @@ public class AudioPlayer {
     public static int LIGHT_AMBIENCE_3 = 25;
     public static int LIGHT_AMBIENCE_4 = 26;
     public static int LIGHT_AMBIENCE_5 = 27;
+    public static int MERCHANT = 27;
+
+    public static int BLOCKED = 0;
+    public static int BURNING = 1;
+    public static int CHIPWALL = 2;
+    public static int COIN = 3;
+    public static int CURSOR = 4;
+    public static int CUTTREE = 5;
+    public static int DOOROPEN = 6;
+    public static int FANFARE = 7;
+    public static int GAMEOVER = 8;
+    public static int HITMONSTER = 9;
+    public static int LEVELUP = 10;
+    public static int PARRY = 11;
+    public static int POWERUP = 12;
+    public static int RECEIVE_DAMAGE = 13;
+    public static int SLEEP = 14;
+    public static int SPEAK = 15;
+    public static int STAIRS = 16;
+    public static int UNLOCK = 17;
+
     private Clip[] songs, effects;
     private int currentSongInd;
-    private float volume = 0.75f;
+    private float volume = 0.85f;
     private boolean muteSong, muteEffect;
     private Random random = new Random();
 
     public AudioPlayer() {
         loadSongs();
+        loadEffects();
         playLightAmbient();
     }
 
@@ -51,49 +74,60 @@ public class AudioPlayer {
                 "Ambient 3", "Ambient 4", "Ambient 5", "Ambient 6", "Ambient 7", "Ambient 8", "Ambient 9", "Ambient 10"
                 ,"Dark Ambient 1", "Dark Ambient 2", "Dark Ambient 3", "Dark Ambient 4", "Dark Ambient 5"
                 , "Fx 1", "Fx 2", "Fx 3", "Light Ambience 1", "Light Ambience 2", "Light Ambience 3",
-                "Light Ambience 4", "Light Ambience 5"};
+                "Light Ambience 4", "Light Ambience 5", "Merchant"};
         songs = new Clip[songNames.length];
         for (int i =0; i < songs.length; i ++) {
-            songs[i] = getClip(songNames[i]);
+            songs[i] = getClip(songNames[i], "songs");
         }
     }
 
     private void loadEffects() {
-        String[] effectNames = {};
-        effects = new Clip[0];
-        for (int i =0; i < effects.length; i ++) {
-            songs[i] = getClip(effectNames[i]);
+        String[] effectNames = {"blocked", "burning", "chipwall", "coin", "cursor", "cuttree", "dooropen", "fanfare",
+                "gameover", "hitmonster", "levelup", "parry", "powerup", "receivedamage", "sleep", "speak",
+                "stairs", "unlock"};
+        effects = new Clip[effectNames.length];
+        for (int i =0; i < effectNames.length; i ++) {
+            effects[i] = getClip(effectNames[i], "sfx");
         }
 
         updateEffectsVolume();
     }
 
     public void playAmbient() {
-        int start = 5;
+        int start = AMBIENT_1;
         start += random.nextInt(10);
         playSong(start);
     }
 
     public void playLightAmbient() {
-        int start = 23;
+        int start = LIGHT_AMBIENCE_1;
         start += random.nextInt(5);
         playSong(start);
     }
 
     public void playDarkAmbient() {
-        int start = 15;
+        int start = DARK_AMBIENT_1;
         start += random.nextInt(5);
         playSong(start);
     }
 
     public void playAction() {
-        int start = 0;
+        int start = ACTION_1;
         start += random.nextInt(5);
         playSong(start);
     }
 
-    private Clip getClip (String name) {
-        URL url = getClass().getResource("/audio/" + name + ".wav");
+    public void playMerchant() {
+        playSong(MERCHANT);
+    }
+
+    private Clip getClip (String name, String type) {
+        URL url = null;
+        if (Objects.equals(type, "songs")) {
+            url = getClass().getResource("/audio/music/" + name + ".wav");
+        } else if (Objects.equals(type, "sfx")) {
+            url = getClass().getResource("/audio/sfx/" + name + ".wav");
+        }
         AudioInputStream audio;
 
         try {
@@ -111,7 +145,7 @@ public class AudioPlayer {
     public void setVolume(float volume) {
         this.volume = volume;
         updateSongVolume();
-        //updateEffectsVolume();
+        updateEffectsVolume();
     }
 
     public void stopSong() {
@@ -151,7 +185,7 @@ public class AudioPlayer {
             booleanControl.setValue(muteEffect);
         }
         if (!muteEffect) {
-            //playEffect(name);
+            playEffect(CURSOR);
         }
     }
 
