@@ -139,13 +139,13 @@ public class Load {
 
     public static Tile[] getTiles() {
 
-        setup(0, "002", false);
-        setup(1, "032", true);
-        setup(2, "019", false);
-        setup(3, "017", false);
-        setup(4, "016", true);
-        setup(5, "003", false);
-        setup(6, "033", true);
+        setup(0, "002", false, "grass");
+        setup(1, "032", true, "wall");
+        setup(2, "019", true, "water");
+        setup(3, "017", false, "dirt");
+        setup(4, "016", true, "tree");
+        setup(5, "003", false, "sand");
+        setup(6, "033", true, "house");
 
         return tile;
     }
@@ -159,7 +159,7 @@ public class Load {
         return scaledImage;
     }
 
-    public static void setup(int index, String imagePath, boolean collision) {
+    public static void setup(int index, String imagePath, boolean collision, String name) {
 
         try {
             tile[index] = new Tile();
