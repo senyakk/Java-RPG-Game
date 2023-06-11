@@ -32,6 +32,8 @@ public class Player extends Creature {
     private int playerClass;
 
     // PLAYER VARIABLES
+    private int maxHealth;
+    private int currentHealth;
     private int level;
     private int strength;
     private int defense;
@@ -59,10 +61,31 @@ public class Player extends Creature {
      * Sets default variables of thr player
      */
     public void setDefaultVariables() {
-        speed = 2.0f * Game.scale;
-        strength = 1;
-        charisma = 1;
-        defense = 1;
+
+        switch (playerClass) {
+            case WARRIOR -> {
+                maxHealth = 5;
+                strength = 3;
+                defense = 2;
+                charisma = 1;
+                speed = Game.scale;
+            }
+            case ARCHER -> {
+                maxHealth = 4;
+                strength = 2;
+                defense = 3;
+                charisma = 2;
+                speed = 2.0f * Game.scale;
+            }
+            case BARD -> {
+                maxHealth = 3;
+                strength = 1;
+                defense = 2;
+                charisma = 3;
+                speed = 1.5f * Game.scale;
+            }
+        }
+
         exp = 0;
         nextLevelExp = 5;
     }
@@ -237,6 +260,7 @@ public class Player extends Creature {
      */
     public void resetAll() {
         resetDirections();
+        setDefaultVariables();
         moving = false;
         walkDir = DOWN;
         worldX = 23 * Game.tileSize;

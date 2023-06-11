@@ -115,6 +115,7 @@ public class ClassSelection extends State implements Statemethods {
             if (isInOBorder(e, button)) {
                 if (button.isMousePressed()) {
                     game.getPlaying().getPlayer().setClass(button.getGameClassClass());
+                    game.getPlaying().getPlayer().resetAll();
                     setGameState(Gamestate.PLAYING);
                 }
                 break;
@@ -125,6 +126,7 @@ public class ClassSelection extends State implements Statemethods {
                 Gamestate.state = Gamestate.MENU;
             }
         }
+        resetButtons();
     }
 
     private void resetButtons() {
