@@ -47,7 +47,7 @@ public class ClassSelection extends State implements Statemethods {
         buttons[2].setText("BARD");
 
         returnButton = new MenuButton(Game.screenWidth/2, (int) (Game.screenHeight/1.3),
-                B_WIDTH, B_WIDTH, 2, Gamestate.MENU);
+                B_WIDTH, B_WIDTH, 3, Gamestate.MENU);
 
     }
 
@@ -122,7 +122,7 @@ public class ClassSelection extends State implements Statemethods {
         }
         if (isInOBorder(e, returnButton)) {
             if (returnButton.isMousePressed()) {
-                setGameState(Gamestate.MENU);
+                Gamestate.state = Gamestate.MENU;
             }
         }
     }

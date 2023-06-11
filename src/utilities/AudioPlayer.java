@@ -90,7 +90,7 @@ public class AudioPlayer {
      */
     public void playAmbient() {
         int start = AMBIENT_1;
-        start += random.nextInt(3);
+        start += random.nextInt(2);
         playSong(start);
     }
 
@@ -99,7 +99,7 @@ public class AudioPlayer {
      */
     public void playLightAmbient() {
         int start = LIGHT_AMBIENCE_1;
-        start += random.nextInt(2);
+        start += random.nextInt(1);
         playSong(start);
     }
 
@@ -108,7 +108,7 @@ public class AudioPlayer {
      */
     public void playDarkAmbient() {
         int start = DARK_AMBIENT_1;
-        start += random.nextInt(2);
+        start += random.nextInt(1);
         playSong(start);
     }
 
@@ -117,7 +117,7 @@ public class AudioPlayer {
      */
     public void playAction() {
         int start = ACTION_1;
-        start += random.nextInt(2);
+        start += random.nextInt(1);
         playSong(start);
     }
 

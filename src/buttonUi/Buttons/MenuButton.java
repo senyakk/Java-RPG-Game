@@ -14,7 +14,7 @@ public class MenuButton extends GameButton {
     private int posX, posY, row, index;
     private int offsetX = B_WIDTH / 2;
     private Gamestate state;
-    private BufferedImage start, actStart, options, actOptions, quit, actQuit;
+    private BufferedImage start, actStart, options, actOptions, quit, actQuit, returnB, actReturnB;
     private BufferedImage[] images;
     private boolean mousePressed, mouseOver;
 
@@ -29,13 +29,13 @@ public class MenuButton extends GameButton {
     }
 
     private void loadImages() {
-        images = new BufferedImage[2];
+        images = new BufferedImage[4];
          switch (row) {
              case 0 -> {
-             start = Load.GetSpriteImg("UI/MenuButtons/startButton.png");
-             images[0] = start;
-             actStart = Load.GetSpriteImg("UI/MenuButtons/ActivatedstartButton.png");
-             images[1] = actStart;
+                start = Load.GetSpriteImg("UI/MenuButtons/startButton.png");
+                images[0] = start;
+                actStart = Load.GetSpriteImg("UI/MenuButtons/ActivatedstartButton.png");
+                images[1] = actStart;
              }
             case 1 -> {
                 options = Load.GetSpriteImg("UI/MenuButtons/OptionsButton.png");
@@ -48,6 +48,12 @@ public class MenuButton extends GameButton {
                 images[0] = quit;
                 actQuit = Load.GetSpriteImg("UI/MenuButtons/activatedQuitButton.png");
                 images[1] = actQuit;
+            }
+            case 3 -> {
+                returnB = Load.GetSpriteImg("UI/MenuButtons/returnButton.png");
+                images[0] = returnB;
+                actReturnB = Load.GetSpriteImg("UI/MenuButtons/ActivatedreturnButton.png");
+                images[1] = actReturnB;
             }
          }
     }
