@@ -23,6 +23,7 @@ public class Game implements Runnable {
     private GamePanel gamePanel;
     private Menu menu;
     private Playing playing;
+    private ClassSelection classSelection;
     private Audio audio;
     private AudioPlayer audioPlayer;
     private Options options;
@@ -50,6 +51,7 @@ public class Game implements Runnable {
         audio = new Audio(this);
         audioPlayer = new AudioPlayer();
         menu = new Menu(this);
+        classSelection = new ClassSelection(this);
         playing = new Playing(this);
         options = new Options(this);
     }
@@ -62,6 +64,7 @@ public class Game implements Runnable {
     public void update() {
         switch (Gamestate.state) {
             case MENU -> menu.update();
+            case CLASS_SELECTION -> classSelection.update();
             case PLAYING -> playing.update();
             case OPTIONS -> options.update();
             case QUIT -> System.exit(0);
@@ -72,6 +75,7 @@ public class Game implements Runnable {
     public void render(Graphics g) {
         switch (Gamestate.state) {
             case MENU -> menu.draw(g);
+            case CLASS_SELECTION -> classSelection.draw(g);
             case PLAYING -> playing.draw(g);
             case OPTIONS -> options.draw(g);
             default -> {
@@ -130,6 +134,8 @@ public class Game implements Runnable {
     public Menu getMenu() {
         return menu;
     }
+
+    public ClassSelection getClassSelection() {return classSelection;}
 
     public Playing getPlaying() {
         return playing;
