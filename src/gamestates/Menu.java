@@ -1,14 +1,16 @@
 package gamestates;
 
 import main.Game;
-import ui.MenuButton;
+import ui.Button;
+import ui.Buttons.MenuButton;
 import utilities.Load;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+
+import static utilities.Constants.UI.MenuButtons.*;
 
 public class Menu extends State implements Statemethods{
     private MenuButton[] buttons = new MenuButton[3];
@@ -21,9 +23,12 @@ public class Menu extends State implements Statemethods{
     }
 
     private void loadButtons() {
-        buttons[0] = new MenuButton((int) (165 * Game.scale), (int)(170 * Game.scale),  0 ,Gamestate.CLASS_SELECTION);
-        buttons[1] = new MenuButton((int)(320 * Game.scale), (int)(170 * Game.scale),  1 ,Gamestate.OPTIONS);
-        buttons[2] = new MenuButton((int) (475 * Game.scale), (int)(170 * Game.scale), 2 ,Gamestate.QUIT);
+        buttons[0] = new MenuButton((int) (165 * Game.scale), (int)(170 * Game.scale),
+                B_WIDTH, B_HEIGHT,0,Gamestate.CLASS_SELECTION);
+        buttons[1] = new MenuButton((int)(320 * Game.scale), (int)(170 * Game.scale),
+                B_WIDTH, B_HEIGHT, 1 ,Gamestate.OPTIONS);
+        buttons[2] = new MenuButton((int) (475 * Game.scale), (int)(170 * Game.scale),
+                B_WIDTH, B_HEIGHT, 2 ,Gamestate.QUIT);
     }
 
 
@@ -61,7 +66,7 @@ public class Menu extends State implements Statemethods{
     @Override
     public void mousePressed(MouseEvent e) {
         for(MenuButton button : buttons) {
-            if (inBounds(e, button)) {
+            if (isInOBorder(e, button)) {
                 button.setMousePressed(true);
                 break;
             }
@@ -72,7 +77,7 @@ public class Menu extends State implements Statemethods{
     @Override
     public void mouseReleased(MouseEvent e) {
         for(MenuButton button : buttons) {
-            if (inBounds(e, button)) {
+            if (isInOBorder(e, button)) {
                 if (button.isMousePressed()) {
                     button.setGameState();
                 }
@@ -98,11 +103,14 @@ public class Menu extends State implements Statemethods{
         }
 
         for (MenuButton button : buttons) {
-            if (inBounds(e, button)) {
+            if (isInOBorder(e, button)) {
                 button.setMouseOver(true);
                 break;
             }
         }
+    }
+    private boolean isInOBorder(MouseEvent e, Button b) {
+        return b.getBounds().contains(e.getX(), e.getY());
     }
 
 }

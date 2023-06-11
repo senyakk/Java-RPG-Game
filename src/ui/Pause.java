@@ -3,6 +3,8 @@ package ui;
 import gamestates.Gamestate;
 import gamestates.Playing;
 import main.Game;
+import ui.Buttons.Audio;
+import ui.Buttons.ReplayButton;
 import utilities.Load;
 
 import java.awt.*;
@@ -127,7 +129,7 @@ public class Pause {
             audio.mouseMoved(e);
     }
 
-    private boolean isInOBorder(MouseEvent e, PauseButton b) {
+    private boolean isInOBorder(MouseEvent e, Button b) {
         return b.getBounds().contains(e.getX(), e.getY());
     }
 

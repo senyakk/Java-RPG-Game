@@ -1,5 +1,6 @@
-package ui;
+package ui.Buttons;
 
+import ui.Button;
 import utilities.Load;
 
 import java.awt.*;
@@ -8,7 +9,7 @@ import java.awt.image.BufferedImage;
 import static utilities.Constants.UI.VolumeButton.*;
 
 
-public class VolumeButton extends PauseButton {
+public class VolumeButton extends Button {
 
     private BufferedImage[]images;
     private BufferedImage slider;

@@ -3,7 +3,7 @@ package main;
 import audio.AudioPlayer;
 import gamestates.*;
 import gamestates.Menu;
-import ui.Audio;
+import ui.Buttons.Audio;
 
 import java.awt.*;
 

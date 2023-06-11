@@ -1,7 +1,9 @@
-package ui;
+package ui.Buttons;
 
-import gamestates.Gamestate;
 import main.Game;
+import ui.Button;
+import ui.Buttons.SoundButton;
+import ui.Buttons.VolumeButton;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -108,7 +110,7 @@ public class Audio {
         }
     }
 
-    private boolean isInOBorder(MouseEvent e, PauseButton b) {
+    private boolean isInOBorder(MouseEvent e, Button b) {
         return b.getBounds().contains(e.getX(), e.getY());
     }
 

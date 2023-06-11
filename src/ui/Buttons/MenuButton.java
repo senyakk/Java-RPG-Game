@@ -1,14 +1,15 @@
-package ui;
+package ui.Buttons;
 
 
 import gamestates.Gamestate;
+import ui.Button;
 import utilities.Load;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import static utilities.Constants.UI.MenuButtons.*;
 
-public class MenuButton {
+public class MenuButton extends Button {
 
     private int posX, posY, row, index;
     private int offsetX = B_WIDTH / 2;
@@ -16,21 +17,15 @@ public class MenuButton {
     private BufferedImage start, actStart, options, actOptions, quit, actQuit;
     private BufferedImage[] images;
     private boolean mousePressed, mouseOver;
-    private Rectangle bounds;
 
-    public MenuButton (int posX, int posY, int row, Gamestate state) {
+    public MenuButton (int x, int y, int width, int height,  int row, Gamestate state) {
 
-        this.posX = posX;
-        this.posY = posY;
+        super(x- (B_WIDTH / 2), y, width, height);
+        this.posX = x;
+        this.posY = y;
         this.row = row;
         this.state = state;
         loadImages();
-        initBounds();
-
-    }
-
-    private void initBounds() {
-        bounds = new Rectangle(posX - offsetX, posY, B_WIDTH, B_HEIGHT);
     }
 
     private void loadImages() {
@@ -66,9 +61,6 @@ public class MenuButton {
         if(mouseOver) {
             index = 1;
         }
-        if(mousePressed) {
-            //index = 2;
-        }
     }
 
     public boolean isMousePressed() {
@@ -94,10 +86,6 @@ public class MenuButton {
     public void resetBool() {
         mouseOver = false;
         mousePressed = false;
-    }
-
-    public Rectangle getBounds() {
-        return bounds;
     }
 
     public Gamestate getState() {

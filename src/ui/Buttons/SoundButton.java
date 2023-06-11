@@ -1,12 +1,13 @@
-package ui;
+package ui.Buttons;
 
+import ui.Button;
 import utilities.Load;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import static utilities.Constants.UI.PauseButtons.*;
 
-public class SoundButton extends PauseButton {
+public class SoundButton extends Button {
 
     private boolean isMouseOver, isMousePressed, isMuted;
     private BufferedImage[][] images;

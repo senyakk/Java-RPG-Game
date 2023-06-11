@@ -1,12 +1,11 @@
 package gamestates;
 
 import main.Game;
-import ui.Audio;
-import ui.PauseButton;
-import ui.ReplayButton;
+import ui.Buttons.Audio;
+import ui.Button;
+import ui.Buttons.ReplayButton;
 import utilities.Load;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -113,7 +112,7 @@ public class Options extends State implements Statemethods {
         }
     }
 
-    private boolean isInOBorder(MouseEvent e, PauseButton b) {
+    private boolean isInOBorder(MouseEvent e, Button b) {
         return b.getBounds().contains(e.getX(), e.getY());
     }
 

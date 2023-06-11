@@ -1,5 +1,6 @@
-package ui;
+package ui.Buttons;
 
+import ui.Button;
 import utilities.Load;
 
 import java.awt.*;
@@ -7,7 +8,7 @@ import java.awt.image.BufferedImage;
 
 import static utilities.Constants.UI.PauseButtons.*;
 
-public class ReplayButton extends PauseButton {
+public class ReplayButton extends Button {
 
     private BufferedImage[] images;
     private int index, rowIndex;
