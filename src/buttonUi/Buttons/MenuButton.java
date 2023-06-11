@@ -2,14 +2,14 @@ package buttonUi.Buttons;
 
 
 import gamestates.Gamestate;
-import buttonUi.Button;
+import buttonUi.GameButton;
 import utilities.Load;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import static utilities.Constants.UI.MenuButtons.*;
 
-public class MenuButton extends Button {
+public class MenuButton extends GameButton {
 
     private int posX, posY, row, index;
     private int offsetX = B_WIDTH / 2;
@@ -79,7 +79,7 @@ public class MenuButton extends Button {
         this.mouseOver = mouseOver;
     }
 
-    public void setGameState() {
+    public void setState() {
         Gamestate.state = state;
     }
 

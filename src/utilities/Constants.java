@@ -45,6 +45,11 @@ public class Constants {
 
     public static class PlayerConstants {
 
+        // PLAYER CLASSES
+        public static final int WARRIOR = 0;
+        public static final int ARCHER = 1;
+        public static final int BARD = 2;
+
         // ANIMATIONS OF THE PLAYER
         public static final int WALKING_DOWN = 0;
         public static final int WALKING_LEFT = 1;

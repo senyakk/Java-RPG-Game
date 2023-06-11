@@ -1,7 +1,7 @@
 package gamestates;
 
 import main.Game;
-import buttonUi.Button;
+import buttonUi.GameButton;
 import buttonUi.Buttons.MenuButton;
 import utilities.Load;
 
@@ -79,7 +79,7 @@ public class Menu extends State implements Statemethods{
         for(MenuButton button : buttons) {
             if (isInOBorder(e, button)) {
                 if (button.isMousePressed()) {
-                    button.setGameState();
+                    button.setState();
                 }
                 if (button.getState() == Gamestate.PLAYING)
                     game.getAudioPlayer().playAmbient();
@@ -109,7 +109,7 @@ public class Menu extends State implements Statemethods{
             }
         }
     }
-    private boolean isInOBorder(MouseEvent e, Button b) {
+    private boolean isInOBorder(MouseEvent e, GameButton b) {
         return b.getBounds().contains(e.getX(), e.getY());
     }
 

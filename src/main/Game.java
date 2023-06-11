@@ -3,7 +3,7 @@ package main;
 import utilities.AudioPlayer;
 import gamestates.*;
 import gamestates.Menu;
-import buttonUi.Buttons.Audio;
+import buttonUi.AudioHandler;
 
 import java.awt.*;
 
@@ -28,7 +28,7 @@ public class Game implements Runnable {
     private Menu menu;
     private Playing playing;
     private ClassSelection classSelection;
-    private Audio audio;
+    private AudioHandler audio;
     private AudioPlayer audioPlayer;
     private Options options;
     public Thread gameLoop;
@@ -50,7 +50,7 @@ public class Game implements Runnable {
     }
 
     private void init() {
-        audio = new Audio(this);
+        audio = new AudioHandler(this);
         audioPlayer = new AudioPlayer();
         menu = new Menu(this);
         classSelection = new ClassSelection(this);
@@ -134,7 +134,7 @@ public class Game implements Runnable {
         return playing;
     }
 
-    public Audio getAudio() {
+    public AudioHandler getAudio() {
         return audio;
     }
 

@@ -3,7 +3,6 @@ package buttonUi;
 import gamestates.Gamestate;
 import gamestates.Playing;
 import main.Game;
-import buttonUi.Buttons.Audio;
 import buttonUi.Buttons.ReplayButton;
 import utilities.Load;
 
@@ -19,7 +18,7 @@ public class Pause {
     private int posX, posY, width, heigth;
     private ReplayButton menuButton, replayButton, unpauseButton;
     private Playing playing;
-    private Audio audio;
+    private AudioHandler audio;
 
     public Pause(Playing playing) {
         this.playing = playing;
@@ -129,7 +128,7 @@ public class Pause {
             audio.mouseMoved(e);
     }
 
-    private boolean isInOBorder(MouseEvent e, Button b) {
+    private boolean isInOBorder(MouseEvent e, GameButton b) {
         return b.getBounds().contains(e.getX(), e.getY());
     }
 

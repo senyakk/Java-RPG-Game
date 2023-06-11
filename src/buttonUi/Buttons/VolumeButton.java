@@ -1,6 +1,6 @@
 package buttonUi.Buttons;
 
-import buttonUi.Button;
+import buttonUi.GameButton;
 import utilities.Load;
 
 import java.awt.*;
@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
 import static utilities.Constants.UI.VolumeButton.*;
 
 
-public class VolumeButton extends Button {
+public class VolumeButton extends GameButton {
 
     private BufferedImage[]images;
     private BufferedImage slider;

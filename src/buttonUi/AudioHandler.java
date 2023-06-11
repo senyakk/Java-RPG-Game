@@ -1,7 +1,9 @@
-package buttonUi.Buttons;
+package buttonUi;
 
+import buttonUi.Buttons.SoundButton;
+import buttonUi.Buttons.VolumeButton;
 import main.Game;
-import buttonUi.Button;
+import buttonUi.GameButton;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -10,14 +12,14 @@ import static utilities.Constants.UI.PauseButtons.SOUND_SIZE;
 import static utilities.Constants.UI.VolumeButton.SLIDER_WIDTH;
 import static utilities.Constants.UI.VolumeButton.VOLUME_HEIGHT;
 
-public class Audio {
+public class AudioHandler {
 
     private SoundButton musicButton, sfxButton;
     private VolumeButton volumeButton;
 
     private Game game;
 
-    public Audio(Game game) {
+    public AudioHandler(Game game) {
         this.game = game;
         addSoundButtons();
         addVolumeButton();
@@ -108,7 +110,7 @@ public class Audio {
         }
     }
 
-    private boolean isInOBorder(MouseEvent e, Button b) {
+    private boolean isInOBorder(MouseEvent e, GameButton b) {
         return b.getBounds().contains(e.getX(), e.getY());
     }
 

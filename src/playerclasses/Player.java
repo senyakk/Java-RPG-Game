@@ -28,6 +28,9 @@ public class Player extends Creature {
     private BufferedImage[][] animations;
     private boolean left, up, right, down;
 
+    // PLAYER CLASSES
+    private int playerClass;
+
     // PLAYER VARIABLES
     private int level;
     private int strength;
@@ -261,5 +264,9 @@ public class Player extends Creature {
      */
     public int getScreenY() {
         return screenY;
+    }
+
+    public void setClass(int playerClass) {
+        this.playerClass = playerClass;
     }
 }

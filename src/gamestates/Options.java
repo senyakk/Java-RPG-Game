@@ -1,8 +1,8 @@
 package gamestates;
 
 import main.Game;
-import buttonUi.Buttons.Audio;
-import buttonUi.Button;
+import buttonUi.AudioHandler;
+import buttonUi.GameButton;
 import buttonUi.Buttons.ReplayButton;
 import utilities.Load;
 
@@ -14,7 +14,7 @@ import java.awt.image.BufferedImage;
 import static utilities.Constants.UI.PauseButtons.URM_SIZE;
 
 public class Options extends State implements Statemethods {
-    private Audio audio;
+    private AudioHandler audio;
     private BufferedImage backgroundImage, optionsBackgroundImage;
     private int bgX, bgY, bgW, bgH;
     private ReplayButton menuB;
@@ -112,7 +112,7 @@ public class Options extends State implements Statemethods {
         }
     }
 
-    private boolean isInOBorder(MouseEvent e, Button b) {
+    private boolean isInOBorder(MouseEvent e, GameButton b) {
         return b.getBounds().contains(e.getX(), e.getY());
     }
 

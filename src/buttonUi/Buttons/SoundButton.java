@@ -1,13 +1,13 @@
 package buttonUi.Buttons;
 
-import buttonUi.Button;
+import buttonUi.GameButton;
 import utilities.Load;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import static utilities.Constants.UI.PauseButtons.*;
 
-public class SoundButton extends Button {
+public class SoundButton extends GameButton {
 
     private boolean isMouseOver, isMousePressed, isMuted;
     private BufferedImage[][] images;
