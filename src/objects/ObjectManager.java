@@ -12,16 +12,24 @@ import java.util.ArrayList;
 
 public class ObjectManager {
 
+    // Game Playing class
     private Playing playing;
+    // Lists of GameObjects
     private ArrayList<GameObject> gameObjects;
-    private BufferedImage key;
 
+    /**
+     * Creates object manager that operates objects in a given level
+     * @param playing Playing state class
+     */
     public ObjectManager(Playing playing) {
         this.playing = playing;
         gameObjects = playing.getLevelManager().getCurrentLevel().getObjects();
         placeObject();
     }
 
+    /**
+     * Adds objects in a given level
+     */
     public void placeObject() {
         switch (playing.getLevelManager().getCurrentLevelId()) {
             case 0 -> {
@@ -30,6 +38,9 @@ public class ObjectManager {
         }
     }
 
+    /**
+     * Update the status of objects
+     */
     public void update() {
         for (GameObject k : gameObjects) {
             if (k.checkActive()) {
@@ -38,6 +49,10 @@ public class ObjectManager {
         }
     }
 
+    /**
+     * Draw objects
+     * @param g Graphics class
+     */
     public void drawObjects(Graphics g) {
         for (GameObject k : gameObjects) {
             if (k.checkActive()) {
@@ -55,6 +70,9 @@ public class ObjectManager {
     }
 
 
+    /**
+     * Resets objects in a level
+     */
     public void resetAll() {
         gameObjects.clear();
         placeObject();

@@ -13,9 +13,8 @@ import java.net.URL;
 
 public class Load {
 
+    // Below are shortcuts for resource files locations
     public static final String PLAYER_IMAGE = "characters/player_sprites.png";
-    public static final String MENU_BACKGROUND = "UI/menu_background.png";
-    public static final String MENU_BUTTONS = "UI/button_atlas.png";
     public static final String PAUSE = "UI/pause_menu.png";
     public static final String URM = "UI/urm_buttons.png";
     public static final String SOUND = "UI/sound_button.png";
@@ -30,7 +29,6 @@ public class Load {
     public static final String ACTIVATED_OPTIONS_BUTTON = "UI/MenuButtons/ActivatedOptionsButton.png";
     public static final String QUIT_BUTTON = "UI/MenuButtons/QuitButton.png";
     public static final String ACTIVATED_QUIT_BUTTON = "UI/MenuButtons/activatedQuitButton.png";
-
     public static final String ALCHEMIST_HOUSE = "locations/Alchemisthouse.png";
     public static final String WITCH_HOUSE = "locations/WitchHouse.png";
 
