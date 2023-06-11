@@ -13,27 +13,15 @@ import java.net.URL;
 
 public class Load {
 
-    // Below are shortcuts for resource files locations
-    public static final String PLAYER_IMAGE = "characters/player_sprites.png";
-    public static final String PAUSE = "UI/pause_menu.png";
-    public static final String URM = "UI/urm_buttons.png";
-    public static final String SOUND = "UI/sound_button.png";
-    public static final String VOLUME = "UI/volume_buttons.png";
-    public static final String BACKGROUND_IMG = "UI/Startscreen.png";
-    public static final String OPTIONS_IMG = "UI/options_background.png";
     public static final String INVENTORY = "UI/InventoryScreenRealReso.png";
-    public static final String INVENTORY_BUTTON = "UI/inventoryButton.png";
-    public static final String START_BUTTON = "UI/MenuButtons/startButton.png";
-    public static final String ACTIVATED_START_BUTTON = "UI/MenuButtons/ActivatedstartButton.png";
-    public static final String OPTIONS_BUTTON = "UI/MenuButtons/OptionsButton.png";
-    public static final String ACTIVATED_OPTIONS_BUTTON = "UI/MenuButtons/ActivatedOptionsButton.png";
-    public static final String QUIT_BUTTON = "UI/MenuButtons/QuitButton.png";
-    public static final String ACTIVATED_QUIT_BUTTON = "UI/MenuButtons/activatedQuitButton.png";
-    public static final String ALCHEMIST_HOUSE = "locations/Alchemisthouse.png";
-    public static final String WITCH_HOUSE = "locations/WitchHouse.png";
 
     private static Tile[] tile = new Tile[10];
 
+    /**
+     * Load sprite images
+     * @param name name of the sprite image
+     * @return Buffered Image
+     */
     public static BufferedImage GetSpriteImg(String name) {
         BufferedImage image = null;
         InputStream sprite = Load.class.getResourceAsStream("/" + name);
@@ -52,6 +40,10 @@ public class Load {
         return image;
     }
 
+    /**
+     * Loads all level from maps folder
+     * @return array of Levels
+     */
     public static Level[] getAllLevels() {
         URL url = Load.class.getResource("/maps");
         File file = null;
@@ -78,6 +70,11 @@ public class Load {
         return levels;
     }
 
+    /**
+     * Loads level map
+     * @param file Map txt file
+     * @return array of tiles
+     */
     private static int[][] loadMap(File file) {
 
         int width = getWidth(file);
@@ -109,6 +106,11 @@ public class Load {
         return mapTileNumber;
     }
 
+    /**
+     * Gets height of a level map
+     * @param file Map txt file
+     * @return number of rows
+     */
     private static int getHeight(File file) {
         int height = 0;
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
@@ -121,6 +123,11 @@ public class Load {
         return height;
     }
 
+    /**
+     * Gets width of a level map
+     * @param file Map txt file
+     * @return number of columns
+     */
     private static int getWidth(File file) {
         int width = 0;
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
@@ -135,6 +142,10 @@ public class Load {
         return width;
     }
 
+    /**
+     * Loads tiles
+     * @return array of game tiles
+     */
     public static Tile[] getTiles() {
 
         setup(0, "002", false, "grass");
@@ -148,15 +159,13 @@ public class Load {
         return tile;
     }
 
-    private static BufferedImage scaleImage(BufferedImage original, int width, int height) {
-        BufferedImage scaledImage = new BufferedImage(width, height, original.getType());
-        Graphics g = scaledImage.createGraphics();
-        g.drawImage(original, 0, 0, width, height, null);
-        g.dispose();
-
-        return scaledImage;
-    }
-
+    /**
+     * Loads tile image, scales it, and sets a collision
+     * @param index tile index
+     * @param imagePath path to the tile in resource folder
+     * @param collision collision on/off
+     * @param name name of the tile
+     */
     public static void setup(int index, String imagePath, boolean collision, String name) {
 
         try {
@@ -170,4 +179,22 @@ public class Load {
         }
 
     }
+
+    /**
+     * Scales tile image
+     * @param original tile image
+     * @param width tile width
+     * @param height tile height
+     * @return scaled Image
+     */
+    private static BufferedImage scaleImage(BufferedImage original, int width, int height) {
+        BufferedImage scaledImage = new BufferedImage(width, height, original.getType());
+        Graphics g = scaledImage.createGraphics();
+        g.drawImage(original, 0, 0, width, height, null);
+        g.dispose();
+
+        return scaledImage;
+    }
+
+
 }

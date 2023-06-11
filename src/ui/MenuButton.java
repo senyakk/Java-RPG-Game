@@ -37,21 +37,21 @@ public class MenuButton {
         images = new BufferedImage[2];
          switch (row) {
              case 0 -> {
-             start = Load.GetSpriteImg(Load.START_BUTTON);
+             start = Load.GetSpriteImg("UI/MenuButtons/startButton.png");
              images[0] = start;
-             actStart = Load.GetSpriteImg(Load.ACTIVATED_START_BUTTON);
+             actStart = Load.GetSpriteImg("UI/MenuButtons/ActivatedstartButton.png");
              images[1] = actStart;
              }
             case 1 -> {
-                options = Load.GetSpriteImg(Load.OPTIONS_BUTTON);
+                options = Load.GetSpriteImg("UI/MenuButtons/OptionsButton.png");
                 images[0] = options;
-                actOptions = Load.GetSpriteImg(Load.ACTIVATED_OPTIONS_BUTTON);
+                actOptions = Load.GetSpriteImg("UI/MenuButtons/ActivatedOptionsButton.png");
                 images[1] = actOptions;
             }
             case 2 -> {
-                quit = Load.GetSpriteImg(Load.QUIT_BUTTON);
+                quit = Load.GetSpriteImg("UI/MenuButtons/QuitButton.png");
                 images[0] = quit;
-                actQuit = Load.GetSpriteImg(Load.ACTIVATED_QUIT_BUTTON);
+                actQuit = Load.GetSpriteImg("UI/MenuButtons/activatedQuitButton.png");
                 images[1] = actQuit;
             }
          }

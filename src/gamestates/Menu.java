@@ -12,12 +12,12 @@ import java.awt.image.BufferedImage;
 
 public class Menu extends State implements Statemethods{
     private MenuButton[] buttons = new MenuButton[3];
-    private BufferedImage background, backgroundImage;
-    private int menuX, menuY, menuWidth, menuHeight;
+    private BufferedImage backgroundImage;
+
     public Menu(Game game) {
         super(game);
         loadButtons();
-        backgroundImage = Load.GetSpriteImg(Load.BACKGROUND_IMG);
+        backgroundImage = Load.GetSpriteImg("UI/Startscreen.png");
     }
 
     private void loadButtons() {

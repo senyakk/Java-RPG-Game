@@ -28,7 +28,7 @@ public class VolumeButton extends PauseButton {
     }
 
     private void loadImages() {
-        BufferedImage temp = Load.GetSpriteImg(Load.VOLUME);
+        BufferedImage temp = Load.GetSpriteImg("UI/volume_buttons.png");
         images = new BufferedImage[3];
         for (int i = 0; i <images.length; i++) {
             images[i] = temp.getSubimage(i* VOLUME_DEFAULT_WIDTH,0,

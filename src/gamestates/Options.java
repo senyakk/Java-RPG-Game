@@ -34,8 +34,8 @@ public class Options extends State implements Statemethods {
 
     private void loadImages() {
 
-        backgroundImage = Load.GetSpriteImg(Load.BACKGROUND_IMG);
-        optionsBackgroundImage = Load.GetSpriteImg(Load.OPTIONS_IMG);
+        backgroundImage = Load.GetSpriteImg("UI/Startscreen.png");
+        optionsBackgroundImage = Load.GetSpriteImg("UI/options_background.png");
 
         bgW = (int) (optionsBackgroundImage.getWidth() * Game.scale/1.5);
         bgH = (int) (optionsBackgroundImage.getHeight() * Game.scale/1.5);

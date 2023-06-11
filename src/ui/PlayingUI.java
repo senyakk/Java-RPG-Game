@@ -10,10 +10,7 @@ public class PlayingUI {
 
     private Playing playing;
     private Font arial_40, arial_80B;
-    private boolean isMessage = false;
     private String message = "";
-    int messageTimer = 0;
-    private boolean isFinished = false;
 
 
     public PlayingUI(Playing playing) {
@@ -21,11 +18,6 @@ public class PlayingUI {
 
         arial_40 = new Font ("Arial", Font.PLAIN, 40);
         arial_80B = new Font ("Arial", Font.BOLD, 80);
-    }
-
-    public void showMessage(String text) {
-        message = text;
-        isMessage = true;
     }
 
     public void draw(Graphics g) {

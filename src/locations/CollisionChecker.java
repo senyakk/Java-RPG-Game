@@ -6,6 +6,7 @@ import locations.LevelManager;
 import main.Game;
 import npcs.Creature;
 import objects.GameObject;
+import playerclasses.Player;
 
 import static utilities.Constants.Direction.*;
 
@@ -15,11 +16,20 @@ public class CollisionChecker {
 
     private LevelManager levelManager;
     private Level lvl;
+
+    /**
+     * Creates a collision checker
+     * @param levelManager LevelManager
+     */
     public CollisionChecker(LevelManager levelManager) {
         this.levelManager = levelManager;
         lvl = levelManager.getCurrentLevel();
     }
 
+    /**
+     * Checks tile for the collision with it
+     * @param entity Creature class that collides with a tile
+     */
     public void checkTile(Creature entity) {
 
 
@@ -78,7 +88,12 @@ public class CollisionChecker {
         }
     }
 
-    public GameObject checkObject(Creature entity, boolean isPlayer) {
+    /**
+     * Function for checking player's collision with an object
+     * @param entity Player object
+     * @return Object that player collided with
+     */
+    public GameObject checkObject(Player entity) {
 
         GameObject selectedObject = null;
 
@@ -100,9 +115,7 @@ public class CollisionChecker {
                             if (obj.getCollision()) {
                                 entity.setCollision();
                             }
-                            if (isPlayer) {
-                                selectedObject = obj;
-                            }
+                            selectedObject = obj;
                         }
                     }
                     case DOWN -> {
@@ -111,9 +124,7 @@ public class CollisionChecker {
                             if (obj.getCollision()) {
                                 entity.setCollision();
                             }
-                            if (isPlayer) {
-                                selectedObject = obj;
-                            }
+                            selectedObject = obj;
                         }
                     }
                     case LEFT -> {
@@ -122,9 +133,7 @@ public class CollisionChecker {
                             if (obj.getCollision()) {
                                 entity.setCollision();
                             }
-                            if (isPlayer) {
-                                selectedObject = obj;
-                            }
+                            selectedObject = obj;
                         }
                     }
                     case RIGHT -> {
@@ -133,9 +142,7 @@ public class CollisionChecker {
                             if (obj.getCollision()) {
                                 entity.setCollision();
                             }
-                            if (isPlayer) {
-                                selectedObject = obj;
-                            }
+                            selectedObject = obj;
                         }
                     }
                 }

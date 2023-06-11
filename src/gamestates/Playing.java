@@ -25,11 +25,18 @@ public class Playing extends State implements Statemethods {
     private boolean paused = false;
     private boolean inventoryOn = false;
 
+    /**
+     * State for playing the game
+     * @param game Game object
+     */
     public Playing(Game game) {
         super(game);
         initLevel();
     }
 
+    /**
+     * Creates LevelManager and loads Level
+     */
     private void initLevel() {
         levelManager = new LevelManager();
         loadLevel();
@@ -37,6 +44,9 @@ public class Playing extends State implements Statemethods {
 
     }
 
+    /**
+     * Loads current level, creates object manager, collision checker, and puts player on the level
+     */
     private void loadLevel() {
         levelManager.setCurrentLevel(0);
         placer = new ObjectManager(this);
@@ -45,6 +55,9 @@ public class Playing extends State implements Statemethods {
         putPlayer();
     }
 
+    /**
+     * Puts player on a level, adds collision checker to it, draws UI and inventory
+     */
     private void putPlayer() {
         switch (getLevelManager().getCurrentLevelId()) {
             case 0 -> {
@@ -56,10 +69,16 @@ public class Playing extends State implements Statemethods {
         inventory = new Inventory(this);
     }
 
+    /**
+     * @return player object
+     */
     public Player getPlayer() {
         return player;
     }
 
+    /**
+     * @return ui object
+     */
     public PlayingUI getUi() {
         return ui;
     }
@@ -68,6 +87,9 @@ public class Playing extends State implements Statemethods {
         player.resetDirections();
     }
 
+    /**
+     * Resets the game
+     */
     public void resetAll() {
         paused = false;
         inventoryOn = false;

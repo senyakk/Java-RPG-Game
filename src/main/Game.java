@@ -13,7 +13,9 @@ public class Game implements Runnable {
     public final static int defaultTileSize = 64;
     public final static float scale = 2.5f;
     public static final int tileSize = (int)(defaultTileSize * scale);
+    // MAXIMUM NUMBER OF TILES IN A COLUMN
     public static final int maxTileCol = 10;
+    // MAXIMUM NUMBER OF ROWS IN A COLUMN
     public static final int maxTileRow = 6;
     public final static int screenWidth = tileSize * maxTileCol;
     public final static int screenHeight = tileSize * maxTileRow;
@@ -21,6 +23,8 @@ public class Game implements Runnable {
     // WINDOW SETTINGS
     private GameScreen gameWindow;
     private GamePanel gamePanel;
+
+    // GAME STATES SETTINGS
     private Menu menu;
     private Playing playing;
     private ClassSelection classSelection;
@@ -34,17 +38,15 @@ public class Game implements Runnable {
     private final int UPS = 120;
 
     /**
-     * Game constructor that creates GamePanel and GameScreen
+     * Game constructor that initialises all game states, then
+     * creates GamePanel and GameWindow and starts the game loop
      */
     public Game() {
         init();
         gamePanel = new GamePanel(this);
         gameWindow = new GameScreen(gamePanel);
-
         gamePanel.requestFocus();
-
         startGameLoop();
-
     }
 
     private void init() {
@@ -61,6 +63,9 @@ public class Game implements Runnable {
         gameLoop.start();
     }
 
+    /**
+     * Update the game status for each given state
+     */
     public void update() {
         switch (Gamestate.state) {
             case MENU -> menu.update();
@@ -72,6 +77,10 @@ public class Game implements Runnable {
         }
     }
 
+    /**
+     * Draw game for each given state
+     * @param g Graphics object
+     */
     public void render(Graphics g) {
         switch (Gamestate.state) {
             case MENU -> menu.draw(g);
@@ -83,51 +92,35 @@ public class Game implements Runnable {
         }
     }
 
+    /**
+     * Run a game thread, updating the game UPS time per second and drawing the game FPS time per second
+     */
     @Override
     public void run() {
         double timePerFrame = 1000000000.0 / FPS;
         double timePerUpdate = 1000000000.0 / UPS;
-
         long previousTime = System.nanoTime();
-
-        int frames = 0;
-        int updates = 0;
         long lastCheck = System.currentTimeMillis();
-
         double deltaU = 0;
         double deltaF = 0;
 
         while (gameLoop != null) {
             long currentTime = System.nanoTime();
-
             deltaU += (currentTime - previousTime) / timePerUpdate;
             deltaF += (currentTime - previousTime) / timePerFrame;
             previousTime = currentTime;
 
             if (deltaU >= 1) {
                 update();
-                updates++;
                 deltaU--;
             }
-
             if (deltaF >= 1) {
                 gamePanel.repaint();
-                frames++;
                 deltaF--;
             }
-
             if (System.currentTimeMillis() - lastCheck >= 1000) {
                 lastCheck = System.currentTimeMillis();
-                System.out.println("FPS: " + frames + " | UPS: " + updates);
-                frames = 0;
-                updates = 0;
             }
-        }
-    }
-
-    public void windowFocusLost() {
-        if (Gamestate.state == Gamestate.PLAYING) {
-            playing.getPlayer().resetDirections();
         }
     }
 

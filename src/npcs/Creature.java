@@ -28,6 +28,7 @@ public abstract class Creature {
     protected int maxHealth;
     protected int currentHealth;
 
+
     public Creature(float worldX, float worldY, float width, float height) {
         this.worldX = (worldX * Game.tileSize) - width /2 + (float) Game.tileSize / 2;
         this.worldY = (worldY * Game.tileSize) - height /2 + (float) Game.tileSize / 2;

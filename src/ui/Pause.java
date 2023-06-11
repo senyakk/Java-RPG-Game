@@ -39,7 +39,7 @@ public class Pause {
 
 
     private void loadBackground() {
-        background = Load.GetSpriteImg(Load.PAUSE);
+        background = Load.GetSpriteImg("UI/pause_menu.png");
         width = (int)(background.getWidth() * Game.scale/1.5);
         heigth =(int) (background.getHeight() * Game.scale/1.5);
         posX = Game.screenWidth / 2 - width / 2;

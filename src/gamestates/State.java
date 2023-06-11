@@ -8,19 +8,20 @@ import java.awt.event.MouseEvent;
 public class State {
 
     protected Game game;
-
     public State (Game game) {
         this.game = game;
     }
-
     public Game getGame() {
         return game;
     }
-
     public boolean inBounds(MouseEvent e, MenuButton b) {
         return b.getBounds().contains(e.getX(), e.getY());
     }
 
+    /**
+     * Sets game state and changes music
+     * @param state Gamestate
+     */
     public void setGameState(Gamestate state) {
         switch (state) {
             case MENU -> game.getAudioPlayer().playLightAmbient();

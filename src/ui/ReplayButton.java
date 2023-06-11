@@ -19,7 +19,7 @@ public class ReplayButton extends PauseButton {
     }
 
     private void loadImages() {
-        BufferedImage temp = Load.GetSpriteImg(Load.URM);
+        BufferedImage temp = Load.GetSpriteImg("UI/urm_buttons.png");
         images = new BufferedImage[3];
         for (int i = 0; i < images.length; i++) {
             images[i] = temp.getSubimage(i* URM_SIZE_DEFAULT,rowIndex* URM_SIZE_DEFAULT,

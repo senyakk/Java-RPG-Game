@@ -10,9 +10,7 @@ public class Level {
     private int[][] lvlData;
     private int width;
     private int heigth;
-   // private ArrayList<NPC> npcs = new ArrayList<>(10);
     private ArrayList<GameObject> gameObjects = new ArrayList<>(10);
-
 
     public Level(int[][] lvlData) {
         this.lvlData = lvlData;
@@ -36,14 +34,9 @@ public class Level {
         return heigth;
     }
 
-    public void addObject(GameObject gameObject) {
-        gameObjects.add(gameObject);
-    }
-
-    //public ArrayList<NPC> getNpcs() {
-    //    return npcs;
-    //}
-
+    /**
+     * @return List of GameObjects on a level
+     */
     public ArrayList<GameObject> getObjects() {
         return gameObjects;
     }

@@ -1,6 +1,5 @@
 package playerclasses;
 
-import equipment.Object;
 import gamestates.Playing;
 import main.Game;
 import npcs.Creature;
@@ -10,10 +9,8 @@ import utilities.Load;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-import static utilities.Constants.Direction.DOWN;
 import static utilities.Constants.Direction.*;
 import static utilities.Constants.PlayerConstants.*;
-import static utilities.Constants.PlayerConstants.WALKING_DOWN;
 
 public class Player extends Creature {
 
@@ -25,7 +22,6 @@ public class Player extends Creature {
 
     // SPRITES AND MOTION SETTINGS
     private BufferedImage[][] animations;
-    private int playerAction;
     private boolean left, up, right, down;
 
     // PLAYER VARIABLES
@@ -35,9 +31,13 @@ public class Player extends Creature {
     private int charisma;
     private int exp;
     private int nextLevelExp;
-    private Object weapon;
-    private Object shield;
 
+    /**
+     * Creates a player in a game
+     * @param worldX x coordinates in the world
+     * @param worldY y coordinates in the world
+     * @param playing game Playing state
+     */
     public Player(int worldX, int worldY, Playing playing) {
         super(worldX, worldY, Game.tileSize, Game.tileSize);
         this.playing = playing;
@@ -48,13 +48,9 @@ public class Player extends Creature {
         initHitArea(22, 24, 18, 32);
     }
 
-    public int getScreenX() {
-        return screenX;
-    }
-    public int getScreenY() {
-        return screenY;
-    }
-
+    /**
+     * Sets default variables of thr player
+     */
     public void setDefaultVariables() {
         speed = 2.0f * Game.scale;
         strength = 1;
@@ -64,25 +60,34 @@ public class Player extends Creature {
         nextLevelExp = 5;
     }
 
+    /**
+     * Update position of the player, check collisions with tiles and objects, update and set animation
+     */
     public void update() {
         updatePos();
-
-        // CHECK COLLISIONS
         collisionOn = false;
         collisionChecker.checkTile(this);
-        GameObject object = collisionChecker.checkObject(this, true);
+        GameObject object = collisionChecker.checkObject(this);
         //pickUpObject(object);
-
         updateAnimation();
         setAnimation();
     }
 
+    /**
+     * Draw player
+     * @param g Graphics object
+     */
     public void render(Graphics g) {
+        // Draws the player
         g.drawImage(animations[state][animIndex], (int)screenX, (int)screenY,
                 Game.tileSize, Game.tileSize, null);
+        // Draws hitbox of the player
         drawPlayerHitArea(g);
     }
 
+    /**
+     * Update movement position of the player
+     */
     private void updatePos() {
 
         moving = false;
@@ -93,15 +98,15 @@ public class Player extends Creature {
 
         float xSpeed = 0, ySpeed = 0;
 
-        if (left && !right) {
+        if (left) {
             xSpeed -= speed;
-        } else if (right && !left) {
+        } else if (right) {
             xSpeed += speed;
         }
 
-        if (up && !down) {
+        if (up) {
             ySpeed -= speed;
-        } else if (down && !up) {
+        } else if (down) {
             ySpeed += speed;
         }
 
@@ -112,6 +117,9 @@ public class Player extends Creature {
         }
     }
 
+    /**
+     * Set player's animation
+     */
     private void setAnimation() {
 
         int startAnim = state;
@@ -135,11 +143,17 @@ public class Player extends Creature {
         }
     }
 
+    /**
+     * Reset player animation
+     */
     private void resetAnimation() {
         animTick = 0;
         animIndex = 0;
     }
 
+    /**
+     * Update player's animation
+     */
     private void updateAnimation() {
         animTick++;
         if (animTick >= animSpeed) {
@@ -152,8 +166,11 @@ public class Player extends Creature {
         }
     }
 
+    /**
+     * Load player sprites
+     */
     private void loadAnimations() {
-            BufferedImage image = Load.GetSpriteImg(Load.PLAYER_IMAGE);
+            BufferedImage image = Load.GetSpriteImg("characters/player_sprites.png");
             animations = new BufferedImage[4][4];
             for (int j = 0; j < animations.length; j++) {
                 for (int i = 0; i < animations[j].length; i++) {
@@ -162,48 +179,55 @@ public class Player extends Creature {
             }
     }
 
-    public boolean isLeft() {
-        return left;
-    }
-
+    /**
+     * Set's player walking left direction
+     * @param left true/false
+     */
     public void setLeft(boolean left) {
         this.left = left;
         walkDir = LEFT;
     }
 
-    public boolean isUp() {
-        return up;
-    }
-
+    /**
+     * Set's player walking up direction
+     * @param up true/false
+     */
     public void setUp(boolean up) {
         this.up = up;
         walkDir = UP;
     }
 
-    public boolean isRight() {
-        return right;
-    }
-
+    /**
+     * Set's player walking right direction
+     * @param right true/false
+     */
     public void setRight(boolean right) {
         this.right = right;
         walkDir = RIGHT;
     }
 
-    public boolean isDown() {
-        return down;
-    }
-
+    /**
+     * Set's player walking down direction
+     * @param down true/false
+     */
     public void setDown(boolean down) {
         this.down = down;
         walkDir = DOWN;
     }
 
+    /**
+     * Resets directions of the player
+     */
     public void resetDirections() {
         left = false;
         right = false;
         up = false;
         down = false;
     }
+
+    /**
+     * Resets all the variables of the player
+     */
     public void resetAll() {
         resetDirections();
         moving = false;
@@ -212,8 +236,26 @@ public class Player extends Creature {
         worldY = 21 * Game.tileSize;
     }
 
+    /**
+     * Draw player's hitbox
+     * @param g Graphics object
+     */
     protected void drawPlayerHitArea(Graphics g) {
         g.setColor(Color.PINK);
         g.drawRect(screenX + solidArea.x,screenY + solidArea.y, solidArea.width, solidArea.height);
+    }
+
+    /**
+     * @return Player's x position on the screen
+     */
+    public int getScreenX() {
+        return screenX;
+    }
+
+    /**
+     * @return Player's y position on the screen
+     */
+    public int getScreenY() {
+        return screenY;
     }
 }

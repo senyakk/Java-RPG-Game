@@ -12,7 +12,7 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
     private GamePanel gamePanel;
 
     /**
-     * Creates MouseListener and MouseMotionListener object connected to the target object
+     * Creates MouseListener and MouseMotionListener object connected to the game panel
      */
     public MouseInputs (GamePanel gamePanel) {
         this.gamePanel = gamePanel;

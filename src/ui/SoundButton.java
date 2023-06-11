@@ -17,7 +17,7 @@ public class SoundButton extends PauseButton {
     }
 
     private void loadImages() {
-        BufferedImage temp = Load.GetSpriteImg(Load.SOUND);
+        BufferedImage temp = Load.GetSpriteImg("UI/sound_button.png");
         images = new BufferedImage[2][3];
         for (int j = 0; j < images.length; j++) {
             for (int i = 0; i <images[j].length; i++) {

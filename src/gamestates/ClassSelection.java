@@ -17,9 +17,14 @@ public class ClassSelection extends State implements Statemethods {
     private Font arial_80B;
 
     private Graphics g;
+
+    /**
+     * State for class selection
+     * @param game
+     */
     public ClassSelection(Game game) {
         super(game);
-        backgroundImage = Load.GetSpriteImg(Load.BACKGROUND_IMG);
+        backgroundImage = Load.GetSpriteImg("UI/Startscreen.png");
         arial_80B = new Font ("Arial", Font.BOLD, 80);
     }
 
@@ -28,6 +33,10 @@ public class ClassSelection extends State implements Statemethods {
 
     }
 
+    /**
+     * Draw the class selection state
+     * @param g Graphics object
+     */
     @Override
     public void draw(Graphics g) {
         this.g = g;

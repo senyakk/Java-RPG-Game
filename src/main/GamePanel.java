@@ -10,13 +10,12 @@ import static main.Game.screenWidth;
 
 public class GamePanel extends JPanel {
 
-
-    // INVENTORY STATUS
-    private boolean isVisible;
-
-    // GAME VARIABLE
     private Game game;
 
+    /**
+     * Creates a game panel and adds even listeners to the panel;
+     * @param game Game object
+     */
     public GamePanel(Game game) {
 
         this.game = game;
@@ -29,9 +28,6 @@ public class GamePanel extends JPanel {
 
         setBackground(new Color(100, 180, 100));
         setDoubleBuffered(true);
-
-        this.isVisible = true;
-        this.setVisible(true);
     }
 
     /**
@@ -44,24 +40,14 @@ public class GamePanel extends JPanel {
         setMaximumSize(size);
     }
 
-    public void updateGame() {
-    }
-
     public Game getGame() {
         return game;
-    }
-
-    public void switchVisibility(){
-        this.isVisible = !isVisible;
-        this.setVisible(isVisible);
-        System.out.println("Switched game panel to ".concat(Boolean.toString(isVisible)));
     }
 
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;
-
         game.render(g2);
     }
 }
