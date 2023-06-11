@@ -170,7 +170,7 @@ public class Load {
 
         try {
             tile[index] = new Tile();
-            tile[index].image = ImageIO.read(Load.class.getResourceAsStream("/tiles/Set1/" + imagePath + ".png"));
+            tile[index].image = ImageIO.read(Load.class.getResourceAsStream("/tiles/" + imagePath + ".png"));
             tile[index].image = scaleImage(tile[index].image, Game.tileSize, Game.tileSize);
             tile[index].collision = collision;
         }
@@ -187,7 +187,7 @@ public class Load {
      * @param height tile height
      * @return scaled Image
      */
-    private static BufferedImage scaleImage(BufferedImage original, int width, int height) {
+    public static BufferedImage scaleImage(BufferedImage original, int width, int height) {
         BufferedImage scaledImage = new BufferedImage(width, height, original.getType());
         Graphics g = scaledImage.createGraphics();
         g.drawImage(original, 0, 0, width, height, null);

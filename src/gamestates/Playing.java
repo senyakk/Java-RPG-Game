@@ -24,6 +24,7 @@ public class Playing extends State implements Statemethods {
     private Inventory inventory;
     private boolean paused = false;
     private boolean inventoryOn = false;
+    private boolean statusOn = false;
 
     /**
      * State for playing the game
@@ -153,6 +154,11 @@ public class Playing extends State implements Statemethods {
             case KeyEvent.VK_I -> {
                 if (!paused) {
                     inventoryOn = !inventoryOn;
+                }
+            }
+            case KeyEvent.VK_Q -> {
+                if (!paused) {
+                    ui.toggleStatus();
                 }
             }
         }

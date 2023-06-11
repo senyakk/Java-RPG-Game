@@ -4,6 +4,10 @@ import gamestates.Playing;
 import main.Game;
 import npcs.Creature;
 import objects.GameObject;
+import objects.objectsclasses.Bow;
+import objects.objectsclasses.Flower;
+import objects.objectsclasses.Sword;
+import objects.objectsclasses.Weapon;
 import utilities.Load;
 
 import java.awt.*;
@@ -34,12 +38,15 @@ public class Player extends Creature {
     // PLAYER VARIABLES
     private int maxHealth;
     private int currentHealth;
+    private float attack;
     private int level;
     private int strength;
     private int defense;
     private int charisma;
     private int exp;
     private int nextLevelExp;
+
+    private Weapon currentWeapon;
 
     /**
      * Creates a player in a game
@@ -64,11 +71,13 @@ public class Player extends Creature {
 
         switch (playerClass) {
             case WARRIOR -> {
-                maxHealth = 5;
+                maxHealth = 6;
                 strength = 3;
                 defense = 2;
                 charisma = 1;
                 speed = Game.scale;
+                currentWeapon = new Sword(-1,-1);
+
             }
             case ARCHER -> {
                 maxHealth = 4;
@@ -76,16 +85,20 @@ public class Player extends Creature {
                 defense = 3;
                 charisma = 2;
                 speed = 2.0f * Game.scale;
+                currentWeapon = new Bow(-1,-1);
             }
             case BARD -> {
-                maxHealth = 3;
+                maxHealth = 4;
                 strength = 1;
                 defense = 2;
                 charisma = 3;
                 speed = 1.5f * Game.scale;
+                currentWeapon = new Flower(-1,-1);
             }
         }
-
+        currentHealth = maxHealth;
+        attack = strength * currentWeapon.getAttack();
+        level = 1;
         exp = 0;
         nextLevelExp = 5;
     }
@@ -292,5 +305,60 @@ public class Player extends Creature {
 
     public void setClass(int playerClass) {
         this.playerClass = playerClass;
+    }
+
+    public int getMaxHealth() {
+        return maxHealth;
+    }
+
+    public int getCurrentHealth() {
+        return currentHealth;
+    }
+
+    public float getAttack() {
+        return attack;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public int getStrength() {
+        return strength;
+    }
+
+    public int getDefense() {
+        return defense;
+    }
+
+    public int getCharisma() {
+        return charisma;
+    }
+
+    public int getExp() {
+        return exp;
+    }
+
+    public int getNextLevelExp() {
+        return nextLevelExp;
+    }
+
+    public Weapon getCurrentWeapon() {
+        return currentWeapon;
+    }
+
+    public String getPlayerClass() {
+        switch (playerClass) {
+            case WARRIOR -> {
+                return "Warrior";
+            }
+            case ARCHER -> {
+                return "Archer";
+            }
+            case BARD -> {
+                return "Bard";
+            }
+        }
+        return null;
     }
 }
