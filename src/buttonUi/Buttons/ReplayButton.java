@@ -1,6 +1,6 @@
-package ui.Buttons;
+package buttonUi.Buttons;
 
-import ui.Button;
+import buttonUi.Button;
 import utilities.Load;
 
 import java.awt.*;

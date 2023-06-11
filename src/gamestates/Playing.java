@@ -4,8 +4,8 @@ import playerclasses.Player;
 import inventory.Inventory;
 import main.Game;
 import locations.LevelManager;
-import ui.Pause;
-import ui.PlayingUI;
+import buttonUi.Pause;
+import playerclasses.PlayerUI;
 import objects.ObjectManager;
 import locations.CollisionChecker;
 
@@ -16,7 +16,7 @@ import java.awt.event.MouseEvent;
 public class Playing extends State implements Statemethods {
 
     private Player player;
-    private PlayingUI ui;
+    private PlayerUI ui;
     private LevelManager levelManager = new LevelManager();
     private ObjectManager placer;
     private CollisionChecker collisionChecker;
@@ -65,7 +65,7 @@ public class Playing extends State implements Statemethods {
             }
         }
         player.addCollisionChecker(collisionChecker);
-        ui = new PlayingUI(this);
+        ui = new PlayerUI(this);
         inventory = new Inventory(this);
     }
 
@@ -79,7 +79,7 @@ public class Playing extends State implements Statemethods {
     /**
      * @return ui object
      */
-    public PlayingUI getUi() {
+    public PlayerUI getUi() {
         return ui;
     }
 

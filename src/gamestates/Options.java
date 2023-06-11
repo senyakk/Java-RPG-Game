@@ -1,9 +1,9 @@
 package gamestates;
 
 import main.Game;
-import ui.Buttons.Audio;
-import ui.Button;
-import ui.Buttons.ReplayButton;
+import buttonUi.Buttons.Audio;
+import buttonUi.Button;
+import buttonUi.Buttons.ReplayButton;
 import utilities.Load;
 
 import java.awt.*;

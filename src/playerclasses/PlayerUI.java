@@ -1,4 +1,4 @@
-package ui;
+package playerclasses;
 
 import gamestates.Playing;
 import main.Game;
@@ -6,14 +6,14 @@ import main.Game;
 import java.awt.*;
 
 
-public class PlayingUI {
+public class PlayerUI {
 
     private Playing playing;
     private Font arial_40, arial_80B;
     private String message = "";
 
 
-    public PlayingUI(Playing playing) {
+    public PlayerUI(Playing playing) {
         this.playing = playing;
 
         arial_40 = new Font ("Arial", Font.PLAIN, 40);

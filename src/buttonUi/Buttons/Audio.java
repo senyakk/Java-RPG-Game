@@ -1,9 +1,7 @@
-package ui.Buttons;
+package buttonUi.Buttons;
 
 import main.Game;
-import ui.Button;
-import ui.Buttons.SoundButton;
-import ui.Buttons.VolumeButton;
+import buttonUi.Button;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;

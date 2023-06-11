@@ -12,6 +12,10 @@ import java.awt.image.BufferedImage;
 import static utilities.Constants.Direction.*;
 import static utilities.Constants.PlayerConstants.*;
 
+/**
+ * @author arseniy
+ * Class that handles the player and it's interaction with the game
+ */
 public class Player extends Creature {
 
     private Playing playing;

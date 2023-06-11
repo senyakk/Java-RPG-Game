@@ -1,8 +1,8 @@
 package gamestates;
 
 import main.Game;
-import ui.Button;
-import ui.Buttons.MenuButton;
+import buttonUi.Button;
+import buttonUi.Buttons.MenuButton;
 import utilities.Load;
 
 import java.awt.*;

@@ -1,7 +1,6 @@
-package ui;
+package buttonUi;
 
 import java.awt.*;
-import java.awt.event.MouseEvent;
 
 public class Button {
     protected int x, y, width, height;
@@ -14,11 +13,9 @@ public class Button {
         this.height = height;
         createBounds();
     }
-
     private void createBounds() {
         bounds = new Rectangle(x, y, width, height);
     }
-
     public Rectangle getBounds() {
         return bounds;
     }

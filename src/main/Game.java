@@ -1,9 +1,9 @@
 package main;
 
-import audio.AudioPlayer;
+import utilities.AudioPlayer;
 import gamestates.*;
 import gamestates.Menu;
-import ui.Buttons.Audio;
+import buttonUi.Buttons.Audio;
 
 import java.awt.*;
 

@@ -1,10 +1,10 @@
-package ui;
+package buttonUi;
 
 import gamestates.Gamestate;
 import gamestates.Playing;
 import main.Game;
-import ui.Buttons.Audio;
-import ui.Buttons.ReplayButton;
+import buttonUi.Buttons.Audio;
+import buttonUi.Buttons.ReplayButton;
 import utilities.Load;
 
 import java.awt.*;
