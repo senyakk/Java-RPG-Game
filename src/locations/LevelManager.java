@@ -37,7 +37,7 @@ public class LevelManager {
         int worldCol = 0;
         int worldRow = 0;
 
-        while(worldCol < level.getWidth() && worldRow < level.getHeigth()) {
+        while(worldCol < level.getWidth() && worldRow < level.getHeight()) {
 
             int tileNum = getCurrentLevel().getTileIndex(worldCol, worldRow);
 
