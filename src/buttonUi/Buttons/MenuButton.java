@@ -1,6 +1,5 @@
 package buttonUi.Buttons;
 
-
 import gamestates.Gamestate;
 import buttonUi.GameButton;
 import utilities.Load;

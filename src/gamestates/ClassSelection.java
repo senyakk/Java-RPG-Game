@@ -22,7 +22,6 @@ public class ClassSelection extends State implements Statemethods {
     private BufferedImage backgroundImage;
     private ClassButton[] buttons = new ClassButton[3];
     private MenuButton returnButton;
-    private Graphics g;
 
     /**
      * State for class selection
@@ -36,53 +35,34 @@ public class ClassSelection extends State implements Statemethods {
 
     private void loadButtons() {
 
-        buttons[0] = new ClassButton(Game.screenWidth/4, (int) (Game.screenHeight/1.8),
-                Game.tileSize, 100, WARRIOR);
-        buttons[0].setText("WARRIOR");
-        buttons[1] = new ClassButton(Game.screenWidth/2 - Game.tileSize/2, (int) (Game.screenHeight/1.8),
-                Game.tileSize, 100, ARCHER);
-        buttons[1].setText("ARCHER");
-        buttons[2] = new ClassButton((int) (Game.screenWidth/1.5), (int) (Game.screenHeight/1.8),
-                Game.tileSize, 100, BARD);
-        buttons[2].setText("BARD");
+        buttons[0] = new ClassButton((int) (165 * Game.scale), (int)(170 * Game.scale),
+                B_WIDTH, B_HEIGHT, WARRIOR);
+        buttons[1] = new ClassButton((int)(320 * Game.scale), (int)(170 * Game.scale),
+                B_WIDTH, B_HEIGHT, ARCHER);
+        buttons[2] = new ClassButton((int) (475 * Game.scale), (int)(170 * Game.scale),
+                B_WIDTH, B_HEIGHT, BARD);
 
         returnButton = new MenuButton(Game.screenWidth/2, (int) (Game.screenHeight/1.3),
                 B_WIDTH, B_WIDTH, 3, Gamestate.MENU);
 
     }
 
-
     @Override
     public void update() {
+        for(ClassButton button : buttons) {
+            button.update();
+        }
         returnButton.update();
     }
 
-    /**
-     * Draw the class selection state
-     * @param g Graphics object
-     */
     @Override
     public void draw(Graphics g) {
-        this.g = g;
 
-        // Draw background image
-        g.drawImage(backgroundImage, 0, 0, Game.screenWidth, Game.screenHeight, null);
-
-        // Set font and color
-        g.setFont(new Font("Arial", Font.BOLD, 50));
-        g.setColor(Color.WHITE);
-
+        g.drawImage(backgroundImage,0,0, Game.screenWidth, Game.screenHeight, null);
         for(ClassButton button : buttons) {
             button.draw(g);
         }
-
         returnButton.draw(g);
-    }
-
-    public int getCenterTextX(String text) {
-        int length = (int)g.getFontMetrics().getStringBounds(text, g).getWidth();
-        int x = Game.screenWidth/2 - length/2;
-        return x;
     }
 
     @Override
@@ -100,7 +80,6 @@ public class ClassSelection extends State implements Statemethods {
         }
         if (isInOBorder(e, returnButton))
             returnButton.setMousePressed(true);
-
     }
 
     @Override
@@ -124,11 +103,20 @@ public class ClassSelection extends State implements Statemethods {
     }
 
     private void resetButtons() {
-
+        for(ClassButton button : buttons)  {
+            button.resetBool();
+        }
+        returnButton.resetBool();
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
+        for (ClassButton button : buttons) {
+            button.setMouseOver(false);
+            if (isInOBorder(e, button))
+                button.setMouseOver(true);
+        }
+
             returnButton.setMouseOver(false);
             if (isInOBorder(e, returnButton))
                 returnButton.setMouseOver(true);
