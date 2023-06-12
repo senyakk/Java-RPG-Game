@@ -30,7 +30,7 @@ public class ClassSelection extends State implements Statemethods {
      */
     public ClassSelection(Game game) {
         super(game);
-        backgroundImage = Load.GetSpriteImg("UI/Startscreen.png");
+        backgroundImage = Load.GetSpriteImg("UI/StartscreenSelectClass.png");
         loadButtons();
     }
 
@@ -71,12 +71,6 @@ public class ClassSelection extends State implements Statemethods {
         // Set font and color
         g.setFont(new Font("Arial", Font.BOLD, 50));
         g.setColor(Color.WHITE);
-
-        // Draw title
-        String title = "Select your class!";
-        int titleX = getCenterTextX(title);
-        int titleY = (int) (Game.screenHeight / 2);
-        g.drawString(title, titleX, titleY);
 
         for(ClassButton button : buttons) {
             button.draw(g);
