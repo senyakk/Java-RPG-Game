@@ -1,17 +1,19 @@
 package locations;
 
+import gamestates.Playing;
 import playerclasses.Player;
 import main.Game;
 import utilities.Load;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 /**
  * Class that handles Levels
  */
 public class LevelManager {
 
+
+    private Playing playing;
     // Array of tiles in the game
     private Tile[] tile;
     // Array of levels in the game
@@ -23,7 +25,8 @@ public class LevelManager {
     /**
      * Loads tiles and levels to the game
      */
-    public LevelManager() {
+    public LevelManager(Playing playing) {
+        this.playing = playing;
         tile = Load.getTiles();
         levels = Load.getAllLevels();
 
@@ -45,12 +48,12 @@ public class LevelManager {
             player.lockScreen();
             g.drawImage(level.getBackground(), 0, 0, Game.screenWidth, Game.screenHeight, null);
 
+            // Following loop is for drawing tile grid
             int y = 0;
-
             for (int worldRow = 0; worldRow < Game.maxTileRow; worldRow++) {
                 int x = 0;
                 for (int worldCol = 0; worldCol < Game.maxTileCol; worldCol++) {
-                    g.drawRect(x, y, Game.tileSize, Game.tileSize);
+                    // g.drawRect(x, y, Game.tileSize, Game.tileSize);
                     x+= Game.tileSize;
                 }
                 y+= Game.tileSize;
@@ -119,8 +122,14 @@ public class LevelManager {
      * Sets current level id
      * @param id index
      */
-    public void setCurrentLevel(int id) {
+    public void setStartLevel(int id) {
         levelInd = id;
+    }
+
+    public void changeLevel(int id) {
+        int origin = getCurrentLevelId();
+        levelInd = id;
+        playing.movePlayer(origin);
     }
 
 }

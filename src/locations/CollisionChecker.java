@@ -24,6 +24,9 @@ public class CollisionChecker {
         lvl = levelManager.getCurrentLevel();
     }
 
+    public void updateLevel() {
+        lvl = levelManager.getCurrentLevel();
+    }
     /**
      * Checks tile for the collision with it
      * @param entity Creature class that collides with a tile
@@ -55,6 +58,7 @@ public class CollisionChecker {
                 entityTopRow = (entityTopWorldY - (int) (entity.getSpeed())) / Game.tileSize;
                 tileNum1 = lvl.getTileIndex(entityLeftCol, entityTopRow);
                 tileNum2 = lvl.getTileIndex(entityRightCol, entityTopRow);
+                checkEvent(levelManager.getTile(tileNum1), levelManager.getTile(tileNum2));
                 if (levelManager.getTile(tileNum1).collision && levelManager.getTile(tileNum2).collision) {
                     entity.setCollision();
                 }
@@ -63,6 +67,7 @@ public class CollisionChecker {
                 entityBottomRow = (entityBottomWorldY + (int) (entity.getSpeed())) / Game.tileSize;
                 tileNum1 = lvl.getTileIndex(entityLeftCol, entityBottomRow);
                 tileNum2 = lvl.getTileIndex(entityRightCol, entityBottomRow);
+                checkEvent(levelManager.getTile(tileNum1), levelManager.getTile(tileNum2));
                 if (levelManager.getTile(tileNum1).collision && levelManager.getTile(tileNum2).collision) {
                     entity.setCollision();
                 }
@@ -71,6 +76,7 @@ public class CollisionChecker {
                 entityRightCol = (entityRightWorldX + (int) (entity.getSpeed())) / Game.tileSize;
                 tileNum1 = lvl.getTileIndex(entityRightCol, entityTopRow);
                 tileNum2 = lvl.getTileIndex(entityRightCol, entityBottomRow);
+                checkEvent(levelManager.getTile(tileNum1), levelManager.getTile(tileNum2));
                 if (levelManager.getTile(tileNum1).collision && levelManager.getTile(tileNum2).collision) {
                     entity.setCollision();
                 }
@@ -79,11 +85,21 @@ public class CollisionChecker {
                 entityLeftCol = (entityLeftWorldX - (int) (entity.getSpeed())) / Game.tileSize;
                 tileNum1 = lvl.getTileIndex(entityLeftCol, entityTopRow);
                 tileNum2 = lvl.getTileIndex(entityLeftCol, entityBottomRow);
+                checkEvent(levelManager.getTile(tileNum1), levelManager.getTile(tileNum2));
                 if (levelManager.getTile(tileNum1).collision && levelManager.getTile(tileNum2).collision) {
                     entity.setCollision();
                 }
             }
         }
+    }
+
+    public void checkEvent(Tile tile1, Tile tile2) {
+        if ((tile1.getName().equals("house")) || (tile2.getName().equals("house")))
+            levelManager.changeLevel(1);
+        else if (((tile1.getName().equals("transparentExit")) || (tile2.getName().equals("transparentExit"))))
+            levelManager.changeLevel(0);
+        else if (((tile1.getName().equals("stairs")) || (tile2.getName().equals("stairs"))))
+            levelManager.changeLevel(2);
     }
 
     /**

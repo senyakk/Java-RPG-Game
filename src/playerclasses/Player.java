@@ -428,5 +428,10 @@ public class Player extends Creature {
         lockedScreen = false;
     }
 
+    public void setCoordinates(float x, float y) {
+        worldX = (x * Game.tileSize) - width /2 + (float) Game.tileSize / 2;;
+        worldY = (y * Game.tileSize) - width /2 + (float) Game.tileSize / 2;;
+    }
+
 
 }

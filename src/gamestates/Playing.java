@@ -2,7 +2,6 @@ package gamestates;
 
 import inventory.InventoryManager;
 import playerclasses.Player;
-import inventory.Inventory;
 import main.Game;
 import locations.LevelManager;
 import buttonUi.Pause;
@@ -18,7 +17,7 @@ public class Playing extends State implements Statemethods {
 
     private Player player;
     private PlayerUI ui;
-    private LevelManager levelManager = new LevelManager();
+    private LevelManager levelManager;
     private ObjectManager placer;
     private CollisionChecker collisionChecker;
     private Pause pause;
@@ -39,7 +38,7 @@ public class Playing extends State implements Statemethods {
      * Creates LevelManager and loads Level
      */
     private void initLevel() {
-        levelManager = new LevelManager();
+        levelManager = new LevelManager(this);
         loadLevel();
         pause = new Pause(this);
 
@@ -49,7 +48,7 @@ public class Playing extends State implements Statemethods {
      * Loads current level, creates object manager, collision checker, and puts player on the level
      */
     private void loadLevel() {
-        levelManager.setCurrentLevel(0);
+        levelManager.setStartLevel(0);
         placer = new ObjectManager(this);
         collisionChecker = new CollisionChecker(levelManager);
         //npcManager = new NPCManager(this, collisionChecker);
@@ -61,19 +60,25 @@ public class Playing extends State implements Statemethods {
      */
     private void putPlayer() {
         switch (getLevelManager().getCurrentLevelId()) {
-            case 0 -> {
-                player = new Player(22, 21, this);
-            }
-            case 1 -> {
-                player = new Player(3, 5, this);
-            }
-            case 2 -> {
-                player = new Player(4, 5, this);
-            }
+            case 0 -> player = new Player(22, 21, this);
         }
         player.addCollisionChecker(collisionChecker);
         ui = new PlayerUI(this);
         inventoryManager = new InventoryManager(this);
+    }
+
+    public void movePlayer(int origin) {
+        switch (getLevelManager().getCurrentLevelId()) {
+            case 0 -> {
+                if (origin == 1)
+                    player.setCoordinates(22, 19);
+                else if (origin == 2)
+                    player.setCoordinates(24, 20);
+            }
+            case 1 -> player.setCoordinates(3, 5);
+            case 2 -> player.setCoordinates(4, 5);
+        }
+        collisionChecker.updateLevel();
     }
 
     /**
@@ -98,6 +103,7 @@ public class Playing extends State implements Statemethods {
      * Resets the game
      */
     public void resetAll() {
+        levelManager.setStartLevel(0);
         paused = false;
         inventoryOn = false;
         player.resetAll();
@@ -211,4 +217,5 @@ public class Playing extends State implements Statemethods {
     public LevelManager getLevelManager() {
         return levelManager;
     }
+
 }

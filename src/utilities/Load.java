@@ -15,7 +15,7 @@ public class Load {
 
     public static final String INVENTORY = "UI/InventoryScreenRealReso.png";
 
-    private static Tile[] tile = new Tile[10];
+    private static Tile[] tile = new Tile[12];
 
     /**
      * Load sprite images
@@ -154,9 +154,11 @@ public class Load {
         setup(3, "017", false, "dirt");
         setup(4, "016", true, "tree");
         setup(5, "003", false, "sand");
-        setup(6, "033", true, "house");
+        setup(6, "033", false, "house");
         setup(7, "transparent", false, "transparent");
         setup(8, "transparent", true, "transparentCol");
+        setup(9, "transparent", true, "transparentExit");
+        setup(10, "036", true, "stairs");
         return tile;
     }
 
@@ -170,7 +172,7 @@ public class Load {
     public static void setup(int index, String imagePath, boolean collision, String name) {
 
         try {
-            tile[index] = new Tile();
+            tile[index] = new Tile(name);
             tile[index].image = ImageIO.read(Load.class.getResourceAsStream("/tiles/" + imagePath + ".png"));
             tile[index].image = scaleImage(tile[index].image, Game.tileSize, Game.tileSize);
             tile[index].collision = collision;
