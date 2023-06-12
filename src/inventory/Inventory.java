@@ -1,61 +1,25 @@
 package inventory;
 
-import buttonUi.Buttons.InventoryButton;
-import buttonUi.Buttons.MenuButton;
-import gamestates.Playing;
-import main.Game;
-import utilities.Load;
-
-import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 /**
  * Represents a player's inventory
  */
 public class Inventory {
-    private int MAX_INVENTORY_SIZE = 12;
+    public static int MAX_INVENTORY_SIZE = 12;
 
-    private InventoryButton[] inventoryButtons = new InventoryButton[12];
     private int usedSlots;
     private boolean fullInventory;
 
-    private Playing playing;
-    private BufferedImage inventoryImage;
-    private int invWidth, invHeight, invX, invY;
-
     private ArrayList<Item> itemList;
 
-    public Inventory(Playing playing){
-
-        this.playing = playing;
-        loadInventoryImage();
-
+    public Inventory(){
         for (int i = 0; i < MAX_INVENTORY_SIZE; i++){
             addItem(new Item("0"));
         }
 
         usedSlots = 0;
         fullInventory = false;
-    }
-
-    private void loadInventoryImage() {
-
-        inventoryImage = Load.GetSpriteImg(Load.INVENTORY);
-        invWidth = (int) (inventoryImage.getWidth() * Game.scale);
-        invHeight = (int) (inventoryImage.getHeight() * Game.scale);
-        invX = Game.screenWidth / 2 - invWidth / 2;
-        invY = (int)(200 * Game.scale);
-
-
-        inventoryButtons[0] = (new InventoryButton(Game.screenWidth/2, Game.screenHeight, 50, 50));
-    }
-
-    public void draw(Graphics g) {
-        g.drawImage(inventoryImage, invX, invY, invWidth, invHeight, null);
-        for(InventoryButton button : inventoryButtons) {
-           // button.draw(g);
-        }
     }
 
     private void updateFullInventory(){
@@ -92,11 +56,5 @@ public class Inventory {
         usedSlots--;
         fullInventory = false;
         return removedItem;
-    }
-
-    public void resetAll() {
-    }
-
-    public void update() {
     }
 }

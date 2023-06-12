@@ -10,8 +10,9 @@ import static utilities.Constants.UI.MenuButtons.B_HEIGHT;
 import static utilities.Constants.UI.MenuButtons.B_WIDTH;
 
 public class InventoryButton extends GameButton {
+    private final BufferedImage BUTTON_BG = Load.GetSpriteImg("UI/inventoryButton.png");
+    private BufferedImage sprite;
 
-    private BufferedImage image = Load.GetSpriteImg("UI/inventoryButton.png");
     /**
      * Parent class for the buttons in game
      *
@@ -20,12 +21,15 @@ public class InventoryButton extends GameButton {
      * @param width  buttons' width
      * @param height buttons' height
      */
-    public InventoryButton(int x, int y, int width, int height) {
+
+    public InventoryButton(String spriteLoc, int x, int y, int width, int height) {
         super(x, y, width, height);
+        this.sprite = Load.GetSpriteImg(spriteLoc);
     }
 
     public void draw(Graphics g) {
-        g.drawImage(image, x, y, 50, 50, null);
+        g.drawImage(BUTTON_BG, x, y, 100, 100, null);
+        g.drawImage(sprite, x, y, 100, 100, null);
     }
 
 }

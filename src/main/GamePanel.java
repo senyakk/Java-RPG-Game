@@ -25,6 +25,7 @@ public class GamePanel extends JPanel {
         MouseInputs mouseInputs = new MouseInputs(this);
         addMouseListener(mouseInputs);
         addMouseMotionListener(mouseInputs);
+        requestFocus();
 
         setBackground(new Color(100, 180, 100));
         setDoubleBuffered(true);
