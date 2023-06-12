@@ -5,6 +5,7 @@ import main.Game;
 import utilities.Load;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 /**
  * Class that handles Levels
@@ -16,7 +17,9 @@ public class LevelManager {
     // Array of levels in the game
     private Level[] levels;
     // Current level index
-    private int levelInd = 0;
+    private int levelInd = 1;
+
+    private BufferedImage backgroundImage;
 
     /**
      * Loads tiles and levels to the game
@@ -25,6 +28,8 @@ public class LevelManager {
         tile = Load.getTiles();
         levels = Load.getAllLevels();
     }
+
+
 
     /**
      * Draws current level and updates the camera when player moves
