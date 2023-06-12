@@ -1,5 +1,7 @@
 package inventory;
 
+import buttonUi.Buttons.InventoryButton;
+import buttonUi.Buttons.MenuButton;
 import gamestates.Playing;
 import main.Game;
 import utilities.Load;
@@ -13,6 +15,8 @@ import java.util.ArrayList;
  */
 public class Inventory {
     private int MAX_INVENTORY_SIZE = 12;
+
+    private InventoryButton[] inventoryButtons = new InventoryButton[12];
     private int usedSlots;
     private boolean fullInventory;
 
@@ -42,10 +46,16 @@ public class Inventory {
         invHeight = (int) (inventoryImage.getHeight() * Game.scale);
         invX = Game.screenWidth / 2 - invWidth / 2;
         invY = (int)(200 * Game.scale);
+
+
+        inventoryButtons[0] = (new InventoryButton(Game.screenWidth/2, Game.screenHeight, 50, 50));
     }
 
     public void draw(Graphics g) {
         g.drawImage(inventoryImage, invX, invY, invWidth, invHeight, null);
+        for(InventoryButton button : inventoryButtons) {
+           // button.draw(g);
+        }
     }
 
     private void updateFullInventory(){
