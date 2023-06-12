@@ -28,6 +28,7 @@ public class LevelManager {
         levels = Load.getAllLevels();
 
         levels[1].setBackground(Load.GetSpriteImg("locations/Alchemisthouse.png"));
+        levels[2].setBackground(Load.GetSpriteImg("locations/WitchHouse.png"));
     }
 
 
@@ -44,13 +45,15 @@ public class LevelManager {
             player.lockScreen();
             g.drawImage(level.getBackground(), 0, 0, Game.screenWidth, Game.screenHeight, null);
 
-            for (int worldRow = 0; worldRow < level.getHeight(); worldRow++) {
-                for (int worldCol = 0; worldCol < level.getWidth(); worldCol++) {
-                    int worldX = worldCol * Game.tileSize;
-                    int worldY = worldRow * Game.tileSize;
+            int y = 0;
 
-                    g.drawRect(worldX, worldY, Game.tileSize, Game.tileSize);
+            for (int worldRow = 0; worldRow < Game.maxTileRow; worldRow++) {
+                int x = 0;
+                for (int worldCol = 0; worldCol < Game.maxTileCol; worldCol++) {
+                    g.drawRect(x, y, Game.tileSize, Game.tileSize);
+                    x+= Game.tileSize;
                 }
+                y+= Game.tileSize;
             }
 
         } else {

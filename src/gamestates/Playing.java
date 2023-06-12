@@ -25,7 +25,6 @@ public class Playing extends State implements Statemethods {
     private InventoryManager inventoryManager;
     private boolean paused = false;
     private boolean inventoryOn = false;
-    private boolean statusOn = false;
 
     /**
      * State for playing the game
@@ -50,7 +49,7 @@ public class Playing extends State implements Statemethods {
      * Loads current level, creates object manager, collision checker, and puts player on the level
      */
     private void loadLevel() {
-        levelManager.setCurrentLevel(0);
+        levelManager.setCurrentLevel(2);
         placer = new ObjectManager(this);
         collisionChecker = new CollisionChecker(levelManager);
         //npcManager = new NPCManager(this, collisionChecker);
@@ -66,7 +65,10 @@ public class Playing extends State implements Statemethods {
                 player = new Player(22, 21, this);
             }
             case 1 -> {
-                player = new Player(22, 21, this);
+                player = new Player(3, 5, this);
+            }
+            case 2 -> {
+                player = new Player(4, 5, this);
             }
         }
         player.addCollisionChecker(collisionChecker);

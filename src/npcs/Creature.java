@@ -13,8 +13,6 @@ public abstract class Creature {
     protected float worldX, worldY;
     protected float width, height;
 
-    protected float startX, startY;
-
     // Position variables on the screen
     protected int screenX, screenY;
     protected float speed;
@@ -34,8 +32,6 @@ public abstract class Creature {
     public Creature(float X, float Y, float width, float height) {
         this.worldX = (X * Game.tileSize) - width /2 + (float) Game.tileSize / 2;
         this.worldY = (Y * Game.tileSize) - height /2 + (float) Game.tileSize / 2;
-        this.startX = worldX;
-        this.startY = worldY;
         this.width = width;
         this.height = height;
     }
