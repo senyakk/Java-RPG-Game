@@ -155,6 +155,8 @@ public class Load {
         setup(4, "016", true, "tree");
         setup(5, "003", false, "sand");
         setup(6, "033", true, "house");
+        setup(7, "transparent", false, "transparent");
+        setup(8, "transparent", true, "transparentCol");
 
         return tile;
     }
