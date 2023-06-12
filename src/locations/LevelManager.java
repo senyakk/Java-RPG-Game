@@ -18,7 +18,7 @@ public class LevelManager {
     private Level[] levels;
 
     // Current level index
-    private int levelInd = 1;
+    private int levelInd;
 
     private BufferedImage backgroundImage;
 
@@ -28,6 +28,8 @@ public class LevelManager {
     public LevelManager() {
         tile = Load.getTiles();
         levels = Load.getAllLevels();
+
+        levels[1].setBackground(Load.GetSpriteImg("locations/Alchemisthouse.png"));
 
     }
 
@@ -41,35 +43,40 @@ public class LevelManager {
     public void draw(Graphics g, Player player) {
         Level level = getCurrentLevel();
 
+        if (level.hasBackground()) {
+            player.lockScreen();
+            g.drawImage(level.getBackground(), 0, 0, Game.screenWidth, Game.screenHeight, null);
+        }
+        else {
+            int worldCol = 0;
+            int worldRow = 0;
 
-        int worldCol = 0;
-        int worldRow = 0;
+            while (worldCol < level.getWidth() && worldRow < level.getHeight()) {
 
-        while(worldCol < level.getWidth() && worldRow < level.getHeigth()) {
+                int tileNum = getCurrentLevel().getTileIndex(worldCol, worldRow);
 
-            int tileNum = getCurrentLevel().getTileIndex(worldCol, worldRow);
+                int worldX = worldCol * Game.tileSize;
+                int worldY = worldRow * Game.tileSize;
 
-            int worldX = worldCol * Game.tileSize;
-            int worldY = worldRow * Game.tileSize;
+                // Code for camera following the player
+                int screenX = (int) (worldX - player.getWorldX() + player.getScreenX());
+                int screenY = (int) (worldY - player.getWorldY() + player.getScreenY());
 
-            // Code for camera following the player
-            int screenX = (int) (worldX - player.getWorldX() + player.getScreenX());
-            int screenY = (int) (worldY - player.getWorldY() + player.getScreenY());
+                // Condition for drawing only the world in the boundaries of the game screen
+                if (worldX + Game.tileSize > player.getWorldX() - player.getScreenX() &&
+                        worldX - Game.tileSize < player.getWorldX() + player.getScreenX() &&
+                        worldY + Game.tileSize > player.getWorldY() - player.getScreenY() &&
+                        worldY - Game.tileSize < player.getWorldY() + player.getScreenY()) {
 
-            // Condition for drawing only the world in the boundaries of the game screen
-            if (worldX + Game.tileSize > player.getWorldX() - player.getScreenX() &&
-                    worldX - Game.tileSize < player.getWorldX() + player.getScreenX() &&
-                    worldY + Game.tileSize > player.getWorldY() - player.getScreenY() &&
-                    worldY - Game.tileSize < player.getWorldY() + player.getScreenY()) {
+                    g.drawImage(tile[tileNum].image, screenX, screenY, Game.tileSize, Game.tileSize, null);
+                }
 
-                g.drawImage(tile[tileNum].image, screenX, screenY, Game.tileSize, Game.tileSize, null);
-            }
+                worldCol++;
 
-            worldCol++;
-
-            if (worldCol == level.getWidth()) {
-                worldCol = 0;
-                worldRow++;
+                if (worldCol == level.getWidth()) {
+                    worldCol = 0;
+                    worldRow++;
+                }
             }
         }
     }

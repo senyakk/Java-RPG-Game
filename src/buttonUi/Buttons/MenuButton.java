@@ -28,7 +28,7 @@ public class MenuButton extends GameButton {
     }
 
     private void loadImages() {
-        images = new BufferedImage[4];
+        images = new BufferedImage[2];
          switch (row) {
              case 0 -> {
                 start = Load.GetSpriteImg("UI/MenuButtons/startButton.png");

@@ -24,13 +24,11 @@ public class Player extends Creature {
 
     private Playing playing;
 
-    // CAMERA SETTINGS
-    private final int screenX;
-    private final int screenY;
-
     // SPRITES AND MOTION SETTINGS
     private BufferedImage[][] animations;
     private boolean left, up, right, down;
+
+    private boolean lockScreen = false;
 
     // PLAYER CLASSES
     private int playerClass;
@@ -129,13 +127,19 @@ public class Player extends Creature {
      * @param g Graphics object
      */
     public void render(Graphics g) {
-        // Draws the player
-        g.drawImage(animations[state][animIndex], (int)screenX, (int)screenY,
-                Game.tileSize, Game.tileSize, null);
-        // Draws hitbox of the player
-        drawPlayerHitArea(g);
-        if (attacking)
-            drawAttackHitArea(g);
+        if (!lockScreen) {
+            // Draws the player
+            g.drawImage(animations[state][animIndex], (int) screenX, (int) screenY,
+                    Game.tileSize, Game.tileSize, null);
+            // Draws hitbox of the player
+            drawPlayerHitArea(g);
+            if (attacking)
+                drawAttackHitArea(g);
+        }
+        else {
+            g.drawImage(animations[state][animIndex], (int) worldX, (int) worldY,
+                    Game.tileSize, Game.tileSize, null);
+        }
     }
 
     private void drawAttackHitArea(Graphics g) {
@@ -403,4 +407,10 @@ public class Player extends Creature {
         }
         return null;
     }
+
+    public void lockScreen() {
+        lockScreen = true;
+    }
+
+
 }

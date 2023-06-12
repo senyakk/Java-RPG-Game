@@ -1,8 +1,6 @@
 package locations;
 
 
-import locations.Level;
-import locations.LevelManager;
 import main.Game;
 import npcs.Creature;
 import objects.GameObject;
@@ -47,7 +45,7 @@ public class CollisionChecker {
         // Can't move behind world borders
         if (entityLeftCol < 0 || entityRightCol >= lvl.getWidth() * Game.tileSize)
             entity.setCollision();
-        if (entityTopRow < 0 || entityBottomRow >= lvl.getHeigth() * Game.tileSize)
+        if (entityTopRow < 0 || entityBottomRow >= lvl.getHeight() * Game.tileSize)
             entity.setCollision();
 
         int tileNum1, tileNum2;

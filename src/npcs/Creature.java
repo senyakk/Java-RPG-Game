@@ -45,6 +45,14 @@ public abstract class Creature {
     public int getScreenX() {
         return screenX;
     }
+
+    public void setScreenX(float screenX) {
+        this.screenX = (int) screenX;
+    }
+
+    public void setScreenY(float screenY) {
+        this.screenY = (int) screenY;
+    }
     public int getScreenY() {
         return screenY;
     }
