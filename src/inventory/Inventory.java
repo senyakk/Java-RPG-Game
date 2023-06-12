@@ -54,7 +54,7 @@ public class Inventory {
     public void draw(Graphics g) {
         g.drawImage(inventoryImage, invX, invY, invWidth, invHeight, null);
         for(InventoryButton button : inventoryButtons) {
-           button.draw(g);
+           //button.draw(g);
         }
     }
 
