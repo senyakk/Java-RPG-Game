@@ -55,13 +55,14 @@ public class PlayerUI {
         drawWindow(frX, frY, frW, frH);
 
         g.setColor(Color.white);
+        int fontSize = (int) (Game.scale*16);
         g.setFont(g.getFont().deriveFont(40F));
         String playerClass = playing.getPlayer().getPlayerClass();
-        g.drawString(playerClass, frX + xAlignCenterText(playerClass, frW), frY + 55);
+        g.drawString(playerClass, frX + xAlignCenterText(playerClass, frW), (int) (frY + Game.scale * 20));
 
         g.setFont(g.getFont().deriveFont(32F));
 
-        int textX = frX + 20;
+        int textX = (int) (frX + Game.scale * 8);
         int textY = (int) (frY + Game.tileSize / 1.5);
         final int lineHeight = 36;
 
@@ -70,7 +71,7 @@ public class PlayerUI {
                 "Defense", "Charisma", "Speed", "Weapon"
         };
 
-        int rightX = frX + frW - 20;
+        int rightX = (int) (frX + frW - Game.scale*8);
         textY = (int) (frY + Game.tileSize / 1.5);
 
         for (String attribute : attributes) {

@@ -3,6 +3,7 @@ package locations;
 
 import objects.GameObject;
 
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class Level {
@@ -10,6 +11,7 @@ public class Level {
     private int[][] lvlData;
     private int width;
     private int heigth;
+    private BufferedImage background;
     private ArrayList<GameObject> gameObjects = new ArrayList<>(10);
 
     public Level(int[][] lvlData) {
@@ -39,5 +41,9 @@ public class Level {
      */
     public ArrayList<GameObject> getObjects() {
         return gameObjects;
+    }
+
+    public void setBackground(BufferedImage background) {
+        this.background = background;
     }
 }
