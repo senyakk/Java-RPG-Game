@@ -125,7 +125,9 @@ public class PlayerUI {
 
         color = new Color(255, 255, 255);
         g.setColor(color);
-        g.drawRoundRect(x+5, y+5, width-10, height-10, 25, 25);
+        g.drawRoundRect((int) (x+(Game.scale*2)), (int) (y+(Game.scale*2)),
+                (int) (width-(Game.scale*5)), (int) (height-(Game.scale*5)),
+                (int) (Game.scale*10), (int) (Game.scale*10));
     }
 
     private void drawPlayerLife() {
