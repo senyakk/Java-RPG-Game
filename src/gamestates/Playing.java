@@ -63,10 +63,10 @@ public class Playing extends State implements Statemethods {
     private void putPlayer() {
         switch (getLevelManager().getCurrentLevelId()) {
             case 0 -> {
-                player = new Player(23, 21, this);
+                player = new Player(22, 21, this);
             }
             case 1 -> {
-                player = new Player(20, 20, this);
+                player = new Player(22, 21, this);
             }
         }
         player.addCollisionChecker(collisionChecker);

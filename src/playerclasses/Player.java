@@ -28,7 +28,8 @@ public class Player extends Creature {
     private BufferedImage[][] animations;
     private boolean left, up, right, down;
 
-    private boolean lockScreen = false;
+    private boolean lockedScreen = false;
+
 
     // PLAYER CLASSES
     private int playerClass;
@@ -127,19 +128,24 @@ public class Player extends Creature {
      * @param g Graphics object
      */
     public void render(Graphics g) {
-        if (!lockScreen) {
-            // Draws the player
-            g.drawImage(animations[state][animIndex], (int) screenX, (int) screenY,
-                    Game.tileSize, Game.tileSize, null);
-            // Draws hitbox of the player
-            drawPlayerHitArea(g);
-            if (attacking)
-                drawAttackHitArea(g);
+        int drawX, drawY;
+        if (lockedScreen) {
+            drawX = (int) (screenX + worldX - startX);
+            drawY = (int) (screenY + worldY - startY);
         }
         else {
-            g.drawImage(animations[state][animIndex], (int) worldX, (int) worldY,
-                    Game.tileSize, Game.tileSize, null);
+            drawX = screenX;
+            drawY = screenY;
         }
+
+        // Draws the player
+        g.drawImage(animations[state][animIndex], (int) drawX, (int) drawY,
+                Game.tileSize, Game.tileSize, null);
+        System.out.println("X: " + worldX/Game.tileSize + " Y: " + worldY/Game.tileSize);
+        // Draws hitbox of the player
+        drawPlayerHitArea(g, drawX, drawY);
+        if (attacking)
+            drawAttackHitArea(g);
     }
 
     private void drawAttackHitArea(Graphics g) {
@@ -326,9 +332,9 @@ public class Player extends Creature {
      * Draw player's hitbox
      * @param g Graphics object
      */
-    protected void drawPlayerHitArea(Graphics g) {
+    protected void drawPlayerHitArea(Graphics g, int drawX, int drawY) {
         g.setColor(Color.PINK);
-        g.drawRect(screenX + solidArea.x,screenY + solidArea.y, solidArea.width, solidArea.height);
+        g.drawRect(drawX + solidArea.x,drawY + solidArea.y, solidArea.width, solidArea.height);
     }
 
     public void setAttacking() {
@@ -409,7 +415,10 @@ public class Player extends Creature {
     }
 
     public void lockScreen() {
-        lockScreen = true;
+        lockedScreen = true;
+    }
+    public void unlockScreen() {
+        lockedScreen = false;
     }
 
 

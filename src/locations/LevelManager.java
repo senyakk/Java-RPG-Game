@@ -20,8 +20,6 @@ public class LevelManager {
     // Current level index
     private int levelInd;
 
-    private BufferedImage backgroundImage;
-
     /**
      * Loads tiles and levels to the game
      */
@@ -30,7 +28,6 @@ public class LevelManager {
         levels = Load.getAllLevels();
 
         levels[1].setBackground(Load.GetSpriteImg("locations/Alchemisthouse.png"));
-
     }
 
 
@@ -46,39 +43,44 @@ public class LevelManager {
         if (level.hasBackground()) {
             player.lockScreen();
             g.drawImage(level.getBackground(), 0, 0, Game.screenWidth, Game.screenHeight, null);
-        }
-        else {
-            int worldCol = 0;
-            int worldRow = 0;
 
-            while (worldCol < level.getWidth() && worldRow < level.getHeight()) {
+            for (int worldRow = 0; worldRow < level.getHeight(); worldRow++) {
+                for (int worldCol = 0; worldCol < level.getWidth(); worldCol++) {
+                    int worldX = worldCol * Game.tileSize;
+                    int worldY = worldRow * Game.tileSize;
 
-                int tileNum = getCurrentLevel().getTileIndex(worldCol, worldRow);
-
-                int worldX = worldCol * Game.tileSize;
-                int worldY = worldRow * Game.tileSize;
-
-                // Code for camera following the player
-                int screenX = (int) (worldX - player.getWorldX() + player.getScreenX());
-                int screenY = (int) (worldY - player.getWorldY() + player.getScreenY());
-
-                // Condition for drawing only the world in the boundaries of the game screen
-                if (worldX + Game.tileSize > player.getWorldX() - player.getScreenX() &&
-                        worldX - Game.tileSize < player.getWorldX() + player.getScreenX() &&
-                        worldY + Game.tileSize > player.getWorldY() - player.getScreenY() &&
-                        worldY - Game.tileSize < player.getWorldY() + player.getScreenY()) {
-
-                    g.drawImage(tile[tileNum].image, screenX, screenY, Game.tileSize, Game.tileSize, null);
+                    g.drawRect(worldX, worldY, Game.tileSize, Game.tileSize);
                 }
+            }
 
-                worldCol++;
+        } else {
 
-                if (worldCol == level.getWidth()) {
-                    worldCol = 0;
-                    worldRow++;
+            player.unlockScreen();
+
+            for (int worldRow = 0; worldRow < level.getHeight(); worldRow++) {
+                for (int worldCol = 0; worldCol < level.getWidth(); worldCol++) {
+                    int tileNum = getCurrentLevel().getTileIndex(worldCol, worldRow);
+                    int worldX = worldCol * Game.tileSize;
+                    int worldY = worldRow * Game.tileSize;
+
+                    int screenX = (int) (worldX - player.getWorldX() + player.getScreenX());
+                    int screenY = (int) (worldY - player.getWorldY() + player.getScreenY());
+
+                    if (isTileInBounds(screenX, screenY, player)) {
+                        g.drawImage(tile[tileNum].image, screenX, screenY, Game.tileSize, Game.tileSize, null);
+                    }
                 }
             }
         }
+
+    }
+
+    // Check if a tile is within the bounds of the game screen
+    private boolean isTileInBounds(int screenX, int screenY, Player player) {
+        return screenX + Game.tileSize > player.getScreenX() - Game.screenWidth / 2 &&
+                screenX - Game.tileSize < player.getScreenX() + Game.screenWidth / 2 &&
+                screenY + Game.tileSize > player.getScreenY() - Game.screenHeight / 2 &&
+                screenY - Game.tileSize < player.getScreenY() + Game.screenHeight / 2;
     }
 
     /**
