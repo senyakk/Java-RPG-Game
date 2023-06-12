@@ -47,6 +47,9 @@ public class Player extends Creature {
     private int nextLevelExp;
 
     private Weapon currentWeapon;
+    private boolean attacking = false;
+    private int attackCounter = 0;
+    private Rectangle attackArea = new Rectangle(0,0,0,0);
 
     /**
      * Creates a player in a game
@@ -96,6 +99,8 @@ public class Player extends Creature {
                 currentWeapon = new Flower(-1,-1);
             }
         }
+        attackArea.width = Game.tileSize/2;
+        attackArea.height = Game.tileSize/4;
         currentHealth = maxHealth;
         attack = strength * currentWeapon.getAttack();
         level = 1;
@@ -112,9 +117,12 @@ public class Player extends Creature {
         collisionChecker.checkTile(this);
         GameObject object = collisionChecker.checkObject(this);
         //pickUpObject(object);
+        if (attacking)
+            attack();
         updateAnimation();
         setAnimation();
     }
+
 
     /**
      * Draw player
@@ -126,6 +134,35 @@ public class Player extends Creature {
                 Game.tileSize, Game.tileSize, null);
         // Draws hitbox of the player
         drawPlayerHitArea(g);
+        if (attacking)
+            drawAttackHitArea(g);
+    }
+
+    private void drawAttackHitArea(Graphics g) {
+        g.setColor(Color.ORANGE);
+        switch (walkDir) {
+            case DOWN ->
+                    g.drawRect(screenX + solidArea.x, screenY + solidArea.y + solidArea.height,
+                            attackArea.height, attackArea.width);
+            case UP ->
+                    g.drawRect(screenX + solidArea.x, screenY + solidArea.y - attackArea.height,
+                            attackArea.height, attackArea.width);
+            case LEFT ->
+                    g.drawRect(screenX + solidArea.x - attackArea.width, screenY + solidArea.y + solidArea.height/2,
+                            attackArea.width, attackArea.height);
+            case RIGHT ->
+                    g.drawRect(screenX + attackArea.width, screenY + solidArea.y + solidArea.height/2,
+                            attackArea.width, attackArea.height);
+        }
+    }
+
+    private void attack() {
+        attackCounter++;
+
+        if (attackCounter == 60) {
+            attacking = false;
+            attackCounter = 0;
+        }
     }
 
     /**
@@ -275,6 +312,7 @@ public class Player extends Creature {
         resetDirections();
         setDefaultVariables();
         moving = false;
+        attacking = false;
         walkDir = DOWN;
         worldX = 23 * Game.tileSize;
         worldY = 21 * Game.tileSize;
@@ -287,6 +325,10 @@ public class Player extends Creature {
     protected void drawPlayerHitArea(Graphics g) {
         g.setColor(Color.PINK);
         g.drawRect(screenX + solidArea.x,screenY + solidArea.y, solidArea.width, solidArea.height);
+    }
+
+    public void setAttacking() {
+        attacking = true;
     }
 
     /**

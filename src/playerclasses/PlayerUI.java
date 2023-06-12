@@ -66,8 +66,8 @@ public class PlayerUI {
         final int lineHeight = 36;
 
         String[] attributes = {
-                "Level", "Next Level", "Life", "Strength", "Attack",
-                "Defense", "Charisma", "Speed", "Experience", "Weapon"
+                "Level", "XP", "Life", "Strength", "Attack",
+                "Defense", "Charisma", "Speed", "Weapon"
         };
 
         int rightX = frX + frW - 20;
@@ -80,9 +80,6 @@ public class PlayerUI {
             switch (attribute) {
                 case "Level":
                     value = String.valueOf(playing.getPlayer().getLevel());
-                    break;
-                case "Next Level":
-                    value = String.valueOf(playing.getPlayer().getNextLevelExp());
                     break;
                 case "Life":
                     value = String.valueOf(playing.getPlayer().getCurrentHealth() + "/" + playing.getPlayer().getMaxHealth());
@@ -102,8 +99,8 @@ public class PlayerUI {
                 case "Speed":
                     value = String.valueOf(playing.getPlayer().getSpeed());
                     break;
-                case "Experience":
-                    value = String.valueOf(playing.getPlayer().getExp());
+                case "XP":
+                    value = String.valueOf(playing.getPlayer().getExp() + "/" + String.valueOf(playing.getPlayer().getNextLevelExp()));
                     break;
                 case "Weapon":
                     valueX = rightX - Game.tileSize / 4;
