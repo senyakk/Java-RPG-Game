@@ -56,15 +56,15 @@ public class PlayerUI {
 
         g.setColor(Color.white);
         int fontSize = (int) (Game.scale*16);
-        g.setFont(g.getFont().deriveFont(40F));
+        g.setFont(g.getFont().deriveFont( Font.PLAIN, fontSize));
         String playerClass = playing.getPlayer().getPlayerClass();
         g.drawString(playerClass, frX + xAlignCenterText(playerClass, frW), (int) (frY + Game.scale * 20));
 
-        g.setFont(g.getFont().deriveFont(32F));
+        g.setFont(g.getFont().deriveFont( Font.PLAIN, (float) (fontSize/1.25)));
 
         int textX = (int) (frX + Game.scale * 8);
         int textY = (int) (frY + Game.tileSize / 1.5);
-        final int lineHeight = 36;
+        final int lineHeight = (int) (fontSize/1.1);
 
         String[] attributes = {
                 "Level", "XP", "Life", "Strength", "Attack",

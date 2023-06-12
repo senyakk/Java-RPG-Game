@@ -36,7 +36,7 @@ public class InventoryManager {
         this.invWidth = (int) (inventoryImage.getWidth() * Game.scale);
         this.invHeight = (int) (inventoryImage.getHeight() * Game.scale);
         this.invX = Game.screenWidth / 2 - invWidth / 2;
-        this.invY = Game.screenHeight * 3/4 - invHeight / 2;
+        this.invY = (int) (Game.screenHeight /1.25 - invHeight / 2);
         //this.invY = (int)(200 * Game.scale);
     }
 
