@@ -157,7 +157,6 @@ public class Load {
         setup(6, "033", true, "house");
         setup(7, "transparent", false, "transparent");
         setup(8, "transparent", true, "transparentCol");
-
         return tile;
     }
 
