@@ -150,23 +150,25 @@ public class Player extends Creature {
         // Draws hitbox of the player
         drawPlayerHitArea(g, drawX, drawY);
         if (attacking)
-            drawAttackHitArea(g);
+            drawAttackHitArea(g, drawX, drawY);
     }
 
-    private void drawAttackHitArea(Graphics g) {
+    private void drawAttackHitArea(Graphics g, float drawX, float drawY) {
         g.setColor(Color.ORANGE);
         switch (walkDir) {
             case DOWN ->
-                    g.drawRect(screenX + solidArea.x, screenY + solidArea.y + solidArea.height,
+                    g.drawRect((int) (drawX + solidArea.x), (int) (drawY + solidArea.y + solidArea.height),
                             attackArea.height, attackArea.width);
             case UP ->
-                    g.drawRect(screenX + solidArea.x, screenY + solidArea.y - attackArea.height,
+                    g.drawRect((int) (drawX + solidArea.x), (int) (drawY + solidArea.y - attackArea.height),
                             attackArea.height, attackArea.width);
             case LEFT ->
-                    g.drawRect(screenX + solidArea.x - attackArea.width, screenY + solidArea.y + solidArea.height/2,
+                    g.drawRect((int) (drawX + solidArea.x - attackArea.width),
+                            (int) (drawY + solidArea.y + solidArea.height/2),
                             attackArea.width, attackArea.height);
             case RIGHT ->
-                    g.drawRect(screenX + attackArea.width, screenY + solidArea.y + solidArea.height/2,
+                    g.drawRect((int) (drawX + attackArea.width),
+                            (int) (drawY + solidArea.y + solidArea.height/2),
                             attackArea.width, attackArea.height);
         }
     }

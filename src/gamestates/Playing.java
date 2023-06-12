@@ -49,7 +49,7 @@ public class Playing extends State implements Statemethods {
      * Loads current level, creates object manager, collision checker, and puts player on the level
      */
     private void loadLevel() {
-        levelManager.setCurrentLevel(2);
+        levelManager.setCurrentLevel(0);
         placer = new ObjectManager(this);
         collisionChecker = new CollisionChecker(levelManager);
         //npcManager = new NPCManager(this, collisionChecker);
