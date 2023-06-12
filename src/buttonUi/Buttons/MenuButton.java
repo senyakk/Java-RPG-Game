@@ -52,7 +52,7 @@ public class MenuButton extends GameButton {
             case 3 -> {
                 returnB = Load.GetSpriteImg("UI/MenuButtons/returnButton.png");
                 images[0] = returnB;
-                actReturnB = Load.GetSpriteImg("UI/MenuButtons/ActivatedreturnButton.png");
+                actReturnB = Load.GetSpriteImg("UI/MenuButtons/ReturnActivatedButton.png");
                 images[1] = actReturnB;
             }
          }

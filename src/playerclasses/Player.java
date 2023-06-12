@@ -26,7 +26,7 @@ public class Player extends Creature {
 
     // CAMERA SETTINGS
     private final int screenX;
-    public final int screenY;
+    private final int screenY;
 
     // SPRITES AND MOTION SETTINGS
     private BufferedImage[][] animations;

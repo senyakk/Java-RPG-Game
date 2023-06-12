@@ -16,6 +16,7 @@ public class LevelManager {
     private Tile[] tile;
     // Array of levels in the game
     private Level[] levels;
+
     // Current level index
     private int levelInd = 1;
 
@@ -27,6 +28,7 @@ public class LevelManager {
     public LevelManager() {
         tile = Load.getTiles();
         levels = Load.getAllLevels();
+
     }
 
 
@@ -38,6 +40,7 @@ public class LevelManager {
      */
     public void draw(Graphics g, Player player) {
         Level level = getCurrentLevel();
+
 
         int worldCol = 0;
         int worldRow = 0;

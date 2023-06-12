@@ -1,5 +1,6 @@
 package gamestates;
 
+import inventory.InventoryManager;
 import playerclasses.Player;
 import inventory.Inventory;
 import main.Game;
@@ -21,7 +22,7 @@ public class Playing extends State implements Statemethods {
     private ObjectManager placer;
     private CollisionChecker collisionChecker;
     private Pause pause;
-    private Inventory inventory;
+    private InventoryManager inventoryManager;
     private boolean paused = false;
     private boolean inventoryOn = false;
     private boolean statusOn = false;
@@ -49,7 +50,7 @@ public class Playing extends State implements Statemethods {
      * Loads current level, creates object manager, collision checker, and puts player on the level
      */
     private void loadLevel() {
-        levelManager.setCurrentLevel(0);
+        levelManager.setCurrentLevel(1);
         placer = new ObjectManager(this);
         collisionChecker = new CollisionChecker(levelManager);
         //npcManager = new NPCManager(this, collisionChecker);
@@ -64,10 +65,13 @@ public class Playing extends State implements Statemethods {
             case 0 -> {
                 player = new Player(23, 21, this);
             }
+            case 1 -> {
+                player = new Player(20, 20, this);
+            }
         }
         player.addCollisionChecker(collisionChecker);
         ui = new PlayerUI(this);
-        inventory = new Inventory(this);
+        inventoryManager = new InventoryManager(this);
     }
 
     /**
@@ -96,7 +100,7 @@ public class Playing extends State implements Statemethods {
         inventoryOn = false;
         player.resetAll();
         placer.resetAll();
-        inventory.resetAll();
+        inventoryManager.resetAll();
     }
 
     @Override
@@ -106,7 +110,7 @@ public class Playing extends State implements Statemethods {
             placer.update();
             //npcManager.update();
             player.update();
-            inventory.update();
+            inventoryManager.update();
         } else {
             pause.update();
         }
@@ -120,7 +124,7 @@ public class Playing extends State implements Statemethods {
         player.render(g);
         ui.draw(g);
         if (inventoryOn)
-            inventory.draw(g);
+            inventoryManager.draw(g);
         if (paused) {
             g.setColor(new Color(0, 0, 0, 150));
             g.fillRect(0, 0, Game.screenWidth, Game.screenHeight);
