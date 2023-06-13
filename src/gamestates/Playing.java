@@ -1,10 +1,11 @@
 package gamestates;
 
 import inventory.InventoryManager;
+import main.GameController;
+import main.GameModel;
 import playerclasses.Player;
 import main.Game;
 import locations.LevelManager;
-import playerclasses.Pause;
 import playerclasses.PlayerController;
 import playerclasses.PlayingUI;
 import objects.ObjectManager;
@@ -19,30 +20,35 @@ import java.awt.event.MouseEvent;
  * State for playing the game.
  * Class that acts a central coordinator, bringing together the model, view, and controller
  */
-public class Playing extends State implements Statemethods {
+public class Playing extends State {
 
     // MODEL COMPONENTS
     private Player player;
+    // holds information about the player's position, attributes, and state.
     private LevelManager levelManager;
+    // manages the game levels and handles loading and switching between different levels.
     private ObjectManager objectManager;
+    // manages the game objects and their behavior within the game.
     private CollisionChecker collisionChecker;
+    // checks for collisions between game entities and handles collision resolution.
     private InventoryManager inventoryManager;
+    // manages the player's inventory and handles interactions with inventory items.
 
     // CONTROLLER COMPONENT
     private PlayerController playerController;
+    //  handles player input and translates it into actions and movements for the player character.
 
     // VIEW COMPONENT
     private PlayingUI ui;
-
+    // renders the game interface and responds to user input for the UI.
 
     private boolean paused = false;
 
     /**
      * State for playing the game.
-     * @param game Game object
      */
-    public Playing(Game game) {
-        super(game);
+    public Playing(GameModel gameModel) {
+        super(gameModel);
         loadGame();
     }
 
@@ -93,13 +99,6 @@ public class Playing extends State implements Statemethods {
      */
     public Player getPlayer() {
         return player;
-    }
-
-    /**
-     * @return ui object
-     */
-    public PlayingUI getUi() {
-        return ui;
     }
 
     public void windowFocusLost() {
@@ -171,11 +170,6 @@ public class Playing extends State implements Statemethods {
     @Override
     public void mouseMoved(MouseEvent e) {
         ui.mouseMoved(e);
-    }
-
-    @Override
-    public void mouseClicked(MouseEvent e) {
-
     }
 
     public void unpause() {

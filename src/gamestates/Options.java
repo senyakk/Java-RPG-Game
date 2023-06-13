@@ -1,9 +1,9 @@
 package gamestates;
 
-import main.Game;
 import buttonUi.AudioHandler;
 import buttonUi.GameButton;
 import buttonUi.Buttons.ReplayButton;
+import main.GameModel;
 import utilities.Load;
 
 import java.awt.*;
@@ -19,26 +19,26 @@ import static utilities.Constants.UI.PauseButtons.URM_SIZE;
  * @author Arsenijs
  * Class that handles options state
  */
-public class Options extends State implements Statemethods {
+public class Options extends State {
     private AudioHandler audio;
     private BufferedImage backgroundImage, optionsBackgroundImage;
     private int bgX, bgY, bgW, bgH;
     private ReplayButton menuB;
-    public Options(Game game) {
-        super(game);
+    public Options(GameModel gameModel) {
+        super(gameModel);
         loadImages();
         loadButtons();
-        audio = game.getAudio();
+        audio = gameModel.getAudio();
     }
 
     private void loadButtons() {
-        int menuX = (int) (300 * Game.scale);
-        int menuY = (int) (235 * Game.scale);
+        int menuX = (int) (300 * GameModel.scale);
+        int menuY = (int) (235 * GameModel.scale);
         menuB = new ReplayButton(menuX, menuY, URM_SIZE, URM_SIZE, 2);
     }
 
     private void loadImages() {
-        switch (game.getLanguage()) {
+        switch (gameModel.getLanguage()) {
             case ENGLISH -> {
                 backgroundImage = Load.GetSpriteImg("UI/English/Startscreen.png");
                 optionsBackgroundImage = Load.GetSpriteImg("UI/English/Options/options_background.png");
@@ -49,10 +49,10 @@ public class Options extends State implements Statemethods {
                 optionsBackgroundImage = Load.GetSpriteImg("UI/Dutch/Options/options_background_Dutch.png");
             }
         }
-        bgW = (int) (optionsBackgroundImage.getWidth() * Game.scale/1.5);
-        bgH = (int) (optionsBackgroundImage.getHeight() * Game.scale/1.5);
-        bgX = Game.screenWidth / 2 - bgW / 2;
-        bgY = (int) (33 * Game.scale);
+        bgW = (int) (optionsBackgroundImage.getWidth() * GameModel.scale/1.5);
+        bgH = (int) (optionsBackgroundImage.getHeight() * GameModel.scale/1.5);
+        bgX = GameModel.screenWidth / 2 - bgW / 2;
+        bgY = (int) (33 * GameModel.scale);
 
     }
 
@@ -64,7 +64,7 @@ public class Options extends State implements Statemethods {
 
     @Override
     public void draw(Graphics g) {
-        g.drawImage(backgroundImage, 0,0, Game.screenWidth, Game.screenHeight, null);
+        g.drawImage(backgroundImage, 0,0, GameModel.screenWidth, GameModel.screenHeight, null);
         g.drawImage(optionsBackgroundImage, bgX,bgY, bgW, bgH, null);
 
         menuB.draw(g);
@@ -74,7 +74,7 @@ public class Options extends State implements Statemethods {
     @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-            Gamestate.state = Gamestate.MENU;
+            gameModel.setGameState(Gamestate.MENU);
         }
     }
 
@@ -105,7 +105,7 @@ public class Options extends State implements Statemethods {
     public void mouseReleased(MouseEvent e) {
         if (isInOBorder(e, menuB)) {
             if (menuB.isMousePressed()) {
-                Gamestate.state = Gamestate.MENU;
+                gameModel.setGameState(Gamestate.MENU);
             }
         }
         else {

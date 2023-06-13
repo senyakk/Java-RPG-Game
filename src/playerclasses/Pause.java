@@ -4,8 +4,8 @@ import buttonUi.AudioHandler;
 import buttonUi.GameButton;
 import gamestates.Gamestate;
 import gamestates.Playing;
-import main.Game;
 import buttonUi.Buttons.ReplayButton;
+import main.GameModel;
 import utilities.Load;
 
 import java.awt.*;
@@ -25,21 +25,21 @@ public class Pause {
     private int posX, posY, width, heigth;
     private ReplayButton menuButton, replayButton, unpauseButton;
     private Playing playing;
-    private AudioHandler audio;
+    private AudioHandler audioHandler;
 
     public Pause(Playing playing) {
         this.playing = playing;
         loadBackground();
-        audio = playing.getGame().getAudio();
+        audioHandler = playing.getGameModel().getAudio();
         addReplayButtons();
     }
 
 
     private void addReplayButtons() {
-        int menuX = (int)(252 * Game.scale);
-        int replayX = (int)(300 * Game.scale);
-        int unpauseX = (int) (351 * Game.scale);
-        int y  = (int) (230 * Game.scale);
+        int menuX = (int)(252 * GameModel.scale);
+        int replayX = (int)(300 * GameModel.scale);
+        int unpauseX = (int) (351 * GameModel.scale);
+        int y  = (int) (230 * GameModel.scale);
         menuButton = new ReplayButton(menuX,y, URM_SIZE, URM_SIZE, 2);
         replayButton = new ReplayButton(replayX,y, URM_SIZE, URM_SIZE, 1);
         unpauseButton = new ReplayButton(unpauseX, y, URM_SIZE, URM_SIZE, 0);
@@ -47,7 +47,7 @@ public class Pause {
 
 
     private void loadBackground() {
-        switch (playing.getGame().getLanguage()) {
+        switch (playing.getGameModel().getLanguage()) {
             case ENGLISH -> {
                 background = Load.GetSpriteImg("UI/English/Options/pause_menu.png");
             }
@@ -56,10 +56,10 @@ public class Pause {
                 background = Load.GetSpriteImg("UI/Dutch/Options/pause_menu_Dutch.png");
             }
         }
-        width = (int)(background.getWidth() * Game.scale/1.5);
-        heigth =(int) (background.getHeight() * Game.scale/1.5);
-        posX = Game.screenWidth / 2 - width / 2;
-        posY = (int)(25 * Game.scale);
+        width = (int)(background.getWidth() * GameModel.scale/1.5);
+        heigth =(int) (background.getHeight() * GameModel.scale/1.5);
+        posX = GameModel.screenWidth / 2 - width / 2;
+        posY = (int)(25 * GameModel.scale);
     }
 
     public void update() {
@@ -67,7 +67,7 @@ public class Pause {
         menuButton.update();
         unpauseButton.update();
         replayButton.update();
-        audio.update();
+        audioHandler.update();
     }
 
     public void draw (Graphics g) {
@@ -78,12 +78,12 @@ public class Pause {
         menuButton.draw(g);
         unpauseButton.draw(g);
         replayButton.draw(g);
-        audio.draw(g);
+        audioHandler.draw(g);
 
     }
 
     public void mouseDragged(MouseEvent e) {
-        audio.mouseDragged(e);
+        audioHandler.mouseDragged(e);
     }
 
     public void mousePressed(MouseEvent e) {
@@ -97,13 +97,13 @@ public class Pause {
             unpauseButton.setMousePressed(true);
         }
         else
-            audio.mousePressed(e);
+            audioHandler.mousePressed(e);
     }
 
     public void mouseReleased(MouseEvent e) {
         if (isInOBorder(e, menuButton)) {
             if (menuButton.isMousePressed()) {
-                Gamestate.state = Gamestate.MENU;
+                playing.getGameModel().setGameState(Gamestate.MENU);
                 playing.resetAll();
                 playing.unpause();
             }
@@ -119,7 +119,7 @@ public class Pause {
                 playing.unpause();
             }
         } else
-            audio.mouseReleased(e);
+            audioHandler.mouseReleased(e);
         menuButton.reset();
         replayButton.reset();
         unpauseButton.reset();
@@ -141,7 +141,7 @@ public class Pause {
             unpauseButton.setMouseOver(true);
         }
         else
-            audio.mouseMoved(e);
+            audioHandler.mouseMoved(e);
     }
 
     private boolean isInOBorder(MouseEvent e, GameButton b) {

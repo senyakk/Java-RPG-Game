@@ -84,10 +84,6 @@ public class MenuButton extends GameButton {
         this.mouseOver = mouseOver;
     }
 
-    public void setState() {
-        Gamestate.state = state;
-    }
-
     public void resetBool() {
         mouseOver = false;
         mousePressed = false;
