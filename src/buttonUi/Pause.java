@@ -102,6 +102,7 @@ public class Pause {
         if (isInOBorder(e, menuButton)) {
             if (menuButton.isMousePressed()) {
                 Gamestate.state = Gamestate.MENU;
+                playing.resetAll();
                 playing.unpause();
             }
         }

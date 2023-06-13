@@ -30,33 +30,25 @@ public class Playing extends State implements Statemethods {
     private boolean inventoryOn = false;
 
     /**
-     * State for playing the game
+     * State for playing the game. Creates LevelManager and loads game
      * @param game Game object
      */
     public Playing(Game game) {
         super(game);
-        initLevel();
-    }
-
-    /**
-     * Creates LevelManager and loads Level
-     */
-    private void initLevel() {
         levelManager = new LevelManager(this);
-        loadLevel();
-        pause = new Pause(this);
-
+        loadGame();
     }
 
     /**
      * Loads current level, creates object manager, collision checker, and puts player on the level
      */
-    private void loadLevel() {
+    public void loadGame() {
         levelManager.setStartLevel(0);
         placer = new ObjectManager(this);
         collisionChecker = new CollisionChecker(levelManager);
         //npcManager = new NPCManager(this, collisionChecker);
         putPlayer();
+        pause = new Pause(this);
     }
 
     /**
@@ -78,6 +70,8 @@ public class Playing extends State implements Statemethods {
                     player.setCoordinates(22, 19);
                 else if (origin == 2)
                     player.setCoordinates(24, 20);
+                else if (origin == 0)
+                    player.setCoordinates(22, 21);
             }
             case 1 -> player.setCoordinates(3, 5);
             case 2 -> player.setCoordinates(4, 5);
@@ -108,6 +102,7 @@ public class Playing extends State implements Statemethods {
      */
     public void resetAll() {
         levelManager.setStartLevel(0);
+        movePlayer(0);
         paused = false;
         inventoryOn = false;
         player.resetAll();
