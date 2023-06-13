@@ -13,7 +13,7 @@ public class Game implements Runnable {
 
     // SCREEN SETTINGS
     public final static int defaultTileSize = 64;
-    public final static float scale = 2.5f;
+    public final static float scale = 1.5f;
     public static final int tileSize = (int)(defaultTileSize * scale);
     // MAXIMUM NUMBER OF TILES IN A COLUMN
     public static final int maxTileCol = 10;
