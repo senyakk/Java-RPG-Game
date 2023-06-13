@@ -17,8 +17,7 @@ public class ClassButton extends GameButton {
 
     private int posX, posY, row, index;
     private int offsetX = B_WIDTH / 2;
-    private Gamestate state;
-    private BufferedImage warrior, warAct, archer, archAct, bard, bardAct, returnB, actReturnB;
+    private BufferedImage warrior, warAct, archer, archAct, bard, bardAct;
     private BufferedImage[] images;
     private boolean mousePressed, mouseOver;
     private int gameClass;
@@ -87,17 +86,10 @@ public class ClassButton extends GameButton {
         this.mouseOver = mouseOver;
     }
 
-    public void setState() {
-        Gamestate.state = state;
-    }
-
     public void resetBool() {
         mouseOver = false;
         mousePressed = false;
     }
 
-    public Gamestate getState() {
-        return state;
-    }
 
 }

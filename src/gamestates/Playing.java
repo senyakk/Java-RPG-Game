@@ -1,10 +1,11 @@
 package gamestates;
 
 import inventory.InventoryManager;
+import main.GameController;
+import main.GameModel;
 import playerclasses.Player;
 import main.Game;
 import locations.LevelManager;
-import playerclasses.Pause;
 import playerclasses.PlayerController;
 import playerclasses.PlayingUI;
 import objects.ObjectManager;
@@ -19,7 +20,7 @@ import java.awt.event.MouseEvent;
  * State for playing the game.
  * Class that acts a central coordinator, bringing together the model, view, and controller
  */
-public class Playing extends State implements Statemethods {
+public class Playing extends State {
 
     // MODEL COMPONENTS
     private Player player;
@@ -39,10 +40,9 @@ public class Playing extends State implements Statemethods {
 
     /**
      * State for playing the game.
-     * @param game Game object
      */
-    public Playing(Game game) {
-        super(game);
+    public Playing(GameModel gameModel) {
+        super(gameModel);
         loadGame();
     }
 

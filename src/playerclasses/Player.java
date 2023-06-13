@@ -3,7 +3,6 @@ package playerclasses;
 import gamestates.Playing;
 import main.Game;
 import npcs.Creature;
-import objects.GameObject;
 import objects.objectsclasses.Bow;
 import objects.objectsclasses.Flower;
 import objects.objectsclasses.Sword;
@@ -421,7 +420,7 @@ public class Player extends Creature {
     public String getPlayerClass() {
         switch (playerClass) {
             case WARRIOR -> {
-                switch (playing.getGame().getLanguage()) {
+                switch (playing.getGameModel().getLanguage()) {
                     case ENGLISH -> {
                         return "Warrior";
                     }
@@ -431,7 +430,7 @@ public class Player extends Creature {
                 }
             }
             case ARCHER -> {
-                switch (playing.getGame().getLanguage()) {
+                switch (playing.getGameModel().getLanguage()) {
                     case ENGLISH -> {
                         return "Archer";
                     }
@@ -441,7 +440,7 @@ public class Player extends Creature {
                 }
             }
             case BARD -> {
-                switch (playing.getGame().getLanguage()) {
+                switch (playing.getGameModel().getLanguage()) {
                     case ENGLISH -> {
                         return "Bard";
                     }

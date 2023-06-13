@@ -101,7 +101,7 @@ public class PlayingUI {
 
             Map<String, String> attributeTranslations = new HashMap<>();
 
-            switch (playing.getGame().getLanguage()) {
+            switch (playing.getGameModel().getLanguage()) {
                 case ENGLISH -> {
                     attributeTranslations.put("Level", "Level");
                     attributeTranslations.put("Life", "Life");

@@ -3,6 +3,8 @@ package gamestates;
 import main.Game;
 import buttonUi.GameButton;
 import buttonUi.Buttons.MenuButton;
+import main.GameController;
+import main.GameModel;
 import utilities.Load;
 
 import java.awt.*;
@@ -17,17 +19,18 @@ import static utilities.Constants.UI.MenuButtons.*;
  * @author Arsenijs
  * Class that handles menu state
  */
-public class Menu extends State implements Statemethods{
+public class Menu extends State {
     private MenuButton[] buttons = new MenuButton[3];
     private BufferedImage backgroundImage;
 
-    public Menu(Game game) {
-        super(game);
+    public Menu(GameModel gameModel) {
+        super(gameModel);
         loadSprites();
     }
 
     private void loadSprites() {
-        switch(game.getLanguage()) {
+
+        switch(gameModel.getLanguage()) {
             case ENGLISH -> {
                 backgroundImage = Load.GetSpriteImg("UI/English/Startscreen.png");
             }
@@ -92,10 +95,8 @@ public class Menu extends State implements Statemethods{
         for(MenuButton button : buttons) {
             if (isInOBorder(e, button)) {
                 if (button.isMousePressed()) {
-                    button.setState();
+                    gameModel.setGameState(button.getState());
                 }
-                if (button.getState() == Gamestate.PLAYING)
-                    game.getAudioPlayer().playAmbient();
                 break;
             }
         }

@@ -3,7 +3,7 @@ package buttonUi;
 import buttonUi.Buttons.SoundButton;
 import buttonUi.Buttons.VolumeButton;
 import main.Game;
-import buttonUi.GameButton;
+import main.GameModel;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -17,10 +17,10 @@ public class AudioHandler {
     private SoundButton musicButton, sfxButton;
     private VolumeButton volumeButton;
 
-    private Game game;
+    private GameModel gameModel;
 
-    public AudioHandler(Game game) {
-        this.game = game;
+    public AudioHandler(GameModel gameModel) {
+        this.gameModel = gameModel;
         addSoundButtons();
         addVolumeButton();
 
@@ -58,7 +58,7 @@ public class AudioHandler {
             volumeButton.changeSlider(e.getX());
             float valueA = volumeButton.getFloatValue();
             if (valueB != valueA)
-                game.getAudioPlayer().setVolume(valueA);
+                gameModel.getAudioPlayer().setVolume(valueA);
         }
     }
 
@@ -78,13 +78,13 @@ public class AudioHandler {
         if (isInOBorder(e, musicButton)) {
             if (musicButton.isMousePressed()) {
                 musicButton.setMuted(!musicButton.isMuted());
-                game.getAudioPlayer().turnSongMute();
+                gameModel.getAudioPlayer().turnSongMute();
             }
         }
         else if (isInOBorder(e, sfxButton)) {
             if (sfxButton.isMousePressed()) {
                 sfxButton.setMuted(!sfxButton.isMuted());
-                game.getAudioPlayer().turnEffectMute();
+                gameModel.getAudioPlayer().turnEffectMute();
             }
         }
         musicButton.reset();

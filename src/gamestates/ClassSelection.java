@@ -4,6 +4,8 @@ import buttonUi.Buttons.ClassButton;
 import buttonUi.Buttons.MenuButton;
 import buttonUi.GameButton;
 import main.Game;
+import main.GameController;
+import main.GameModel;
 import utilities.Load;
 
 import java.awt.*;
@@ -21,7 +23,7 @@ import static utilities.Constants.UI.MenuButtons.B_WIDTH;
  * @author Arsenijs
  * Class that handles class selection state
  */
-public class ClassSelection extends State implements Statemethods {
+public class ClassSelection extends State {
 
     private BufferedImage backgroundImage;
     private ClassButton[] buttons = new ClassButton[3];
@@ -29,15 +31,14 @@ public class ClassSelection extends State implements Statemethods {
 
     /**
      * State for class selection
-     * @param game
      */
-    public ClassSelection(Game game) {
-        super(game);
+    public ClassSelection(GameModel gameModel) {
+        super(gameModel);
         loadSprites();
     }
 
     private void loadSprites() {
-        switch (game.getLanguage()) {
+        switch (gameModel.getLanguage()) {
             case ENGLISH -> {
                 backgroundImage = Load.GetSpriteImg("UI/English/StartscreenSelectClass.png");
             }
@@ -97,16 +98,16 @@ public class ClassSelection extends State implements Statemethods {
         for(ClassButton button : buttons) {
             if (isInOBorder(e, button)) {
                 if (button.isMousePressed()) {
-                    game.getPlaying().getPlayer().setClass(button.getGameClassClass());
-                    game.getPlaying().getPlayer().resetAll();
-                    setGameState(Gamestate.PLAYING);
+                    gameModel.getPlaying().getPlayer().setClass(button.getGameClassClass());
+                    gameModel.getPlaying().getPlayer().resetAll();
+                    gameModel.setGameState(Gamestate.PLAYING);
                 }
                 break;
             }
         }
         if (isInOBorder(e, returnButton)) {
             if (returnButton.isMousePressed()) {
-                Gamestate.state = Gamestate.MENU;
+                gameModel.setGameState(Gamestate.MENU);
             }
         }
         resetButtons();
