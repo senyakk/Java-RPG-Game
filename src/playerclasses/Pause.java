@@ -1,5 +1,7 @@
-package buttonUi;
+package playerclasses;
 
+import buttonUi.AudioHandler;
+import buttonUi.GameButton;
 import gamestates.Gamestate;
 import gamestates.Playing;
 import main.Game;

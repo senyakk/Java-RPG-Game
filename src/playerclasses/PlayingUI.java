@@ -6,6 +6,8 @@ import utilities.Load;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.HashMap;
@@ -15,18 +17,20 @@ import static utilities.Constants.GameLanguage.*;
 
 /**
  * @author Arsenijs
- * View class that handles player's ui
+ * Class for UI related logic to handle the View
  */
-public class PlayerUI {
+public class PlayingUI {
 
     private Playing playing;
+    private Pause pause;
     private Font arial_40, arial_80B;
     private BufferedImage heart_full, heart_half, heart_blank;
-    private boolean statusOn = false;
+    private boolean statsOn = false;
+    private boolean inventoryOn = false;
     private Graphics g;
 
 
-    public PlayerUI(Playing playing) {
+    public PlayingUI(Playing playing) {
         this.playing = playing;
 
         arial_40 = new Font ("Arial", Font.PLAIN, 40);
@@ -42,6 +46,7 @@ public class PlayerUI {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        pause = new Pause(playing);
     }
 
     public void draw(Graphics g) {
@@ -50,8 +55,17 @@ public class PlayerUI {
         g.setFont(arial_40);
         g.setColor(Color.white);
         drawPlayerLife();
-        if (statusOn)
+        if (statsOn)
             drawCharacterScreen();
+
+        if (inventoryOn)
+            playing.getInventoryManager().draw(g);
+        if (playing.isPaused()) {
+            g.setColor(new Color(0, 0, 0, 150));
+            g.fillRect(0, 0, Game.screenWidth, Game.screenHeight);
+            pause.draw(g);
+        }
+
     }
 
     private void drawCharacterScreen() {
@@ -168,32 +182,28 @@ public class PlayerUI {
     }
 
     private void drawPlayerLife() {
-        int x = Game.tileSize/2;
-        int y = Game.tileSize/4;
+        int x = Game.tileSize / 2;
+        int y = Game.tileSize / 4;
         int i = 0;
 
-        while (i < playing.getPlayer().getMaxHealth()/2) {
+        while (i < playing.getPlayer().getMaxHealth() / 2) {
             g.drawImage(heart_blank, x, y, null);
             i++;
-            x+= Game.tileSize/2;
+            x += Game.tileSize / 2;
         }
 
-        x = Game.tileSize/2;
-        y = Game.tileSize/4;
+        x = Game.tileSize / 2;
+        y = Game.tileSize / 4;
         i = 0;
 
         while (i < playing.getPlayer().getCurrentHealth()) {
             g.drawImage(heart_half, x, y, null);
             i++;
-            if (i <playing.getPlayer().getCurrentHealth())
+            if (i < playing.getPlayer().getCurrentHealth())
                 g.drawImage(heart_full, x, y, null);
             i++;
-            x+= Game.tileSize/2;
+            x += Game.tileSize / 2;
         }
-    }
-
-    public void toggleStats() {
-        statusOn = !statusOn;
     }
 
     private int xAlignRightText (String text, int rightX) {
@@ -206,5 +216,51 @@ public class PlayerUI {
         int length = (int) g.getFontMetrics().getStringBounds(text, g).getWidth();
         int x = width/2 - length/2;
         return x;
+    }
+
+
+    public Pause getPause() {
+        return pause;
+    }
+
+    public void keyReleased(KeyEvent e) {
+        switch (e.getKeyCode()) {
+            // Inventory switch
+            case KeyEvent.VK_I -> {
+                if (!playing.isPaused()) {
+                    inventoryOn = !inventoryOn;
+                }
+            }
+            // Stats switch
+            case KeyEvent.VK_Q -> {
+                if (!playing.isPaused()) {
+                    statsOn = !statsOn;
+                }
+            }
+        }
+    }
+
+    public void mousePressed(MouseEvent e) {
+        if (playing.isPaused()) {
+            pause.mousePressed(e);
+        }
+    }
+
+    public void mouseDragged(MouseEvent e) {
+        if (playing.isPaused()) {
+            pause.mouseDragged(e);
+        }
+    }
+
+    public void mouseMoved(MouseEvent e) {
+        if (playing.isPaused()) {
+            pause.mouseMoved(e);
+        }
+    }
+
+    public void mouseReleased(MouseEvent e) {
+        if (playing.isPaused()) {
+            pause.mouseReleased(e);
+        }
     }
 }
