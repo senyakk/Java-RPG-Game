@@ -2,6 +2,9 @@ package buttonUi;
 
 import java.awt.*;
 
+/**
+ * Parent button of all buttons
+ */
 public class GameButton {
 
     protected int x, y, width, height;

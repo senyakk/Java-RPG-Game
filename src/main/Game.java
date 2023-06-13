@@ -7,6 +7,8 @@ import buttonUi.AudioHandler;
 
 import java.awt.*;
 
+import static utilities.Constants.GameLanguage.*;
+
 public class Game implements Runnable {
 
     // SCREEN SETTINGS
@@ -32,6 +34,8 @@ public class Game implements Runnable {
     private AudioPlayer audioPlayer;
     private Options options;
     public Thread gameLoop;
+
+    public int language = DUTCH;
 
     // GAME LOOP SETTINGS
     private final int FPS = 120;
@@ -146,5 +150,14 @@ public class Game implements Runnable {
 
     public AudioPlayer getAudioPlayer() {
         return audioPlayer;
+    }
+
+
+    public int getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(int language) {
+        this.language = language;
     }
 }

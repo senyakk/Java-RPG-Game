@@ -1,5 +1,7 @@
-package buttonUi;
+package playerclasses;
 
+import buttonUi.AudioHandler;
+import buttonUi.GameButton;
 import gamestates.Gamestate;
 import gamestates.Playing;
 import main.Game;
@@ -10,8 +12,13 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
+import static utilities.Constants.GameLanguage.*;
 import static utilities.Constants.UI.PauseButtons.URM_SIZE;
 
+/**
+ * @author Arsenijs
+ * Class that handles Pause view in UI
+ */
 public class Pause {
 
     BufferedImage background;
@@ -40,7 +47,15 @@ public class Pause {
 
 
     private void loadBackground() {
-        background = Load.GetSpriteImg("UI/pause_menu.png");
+        switch (playing.getGame().getLanguage()) {
+            case ENGLISH -> {
+                background = Load.GetSpriteImg("UI/English/Options/pause_menu.png");
+            }
+            case DUTCH -> {
+                // Dutch pause here
+                background = Load.GetSpriteImg("UI/Dutch/Options/pause_menu_Dutch.png");
+            }
+        }
         width = (int)(background.getWidth() * Game.scale/1.5);
         heigth =(int) (background.getHeight() * Game.scale/1.5);
         posX = Game.screenWidth / 2 - width / 2;
@@ -89,6 +104,7 @@ public class Pause {
         if (isInOBorder(e, menuButton)) {
             if (menuButton.isMousePressed()) {
                 Gamestate.state = Gamestate.MENU;
+                playing.resetAll();
                 playing.unpause();
             }
         }

@@ -1,7 +1,9 @@
 package locations;
 
 
+import main.Game;
 import objects.GameObject;
+import utilities.Load;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -11,7 +13,8 @@ public class Level {
     private int[][] lvlData;
     private int width;
     private int heigth;
-    private BufferedImage background;
+    private BufferedImage background = null;
+    private boolean hasBackground = false;
     private ArrayList<GameObject> gameObjects = new ArrayList<>(10);
 
     public Level(int[][] lvlData) {
@@ -32,7 +35,7 @@ public class Level {
         return width;
     }
 
-    public int getHeigth() {
+    public int getHeight() {
         return heigth;
     }
 
@@ -44,6 +47,16 @@ public class Level {
     }
 
     public void setBackground(BufferedImage background) {
-        this.background = background;
+        this.background = Load.scaleImage(background, Game.screenWidth, Game.screenHeight);
+        hasBackground = true;
     }
+    public BufferedImage getBackground() {
+        return background;
+    }
+
+    public boolean hasBackground() {
+        return hasBackground;
+    }
+
+
 }

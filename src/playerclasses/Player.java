@@ -14,23 +14,27 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 import static utilities.Constants.Direction.*;
+import static utilities.Constants.GameLanguage.*;
 import static utilities.Constants.PlayerConstants.*;
 
 /**
- * @author arseniy
- * Class that handles the player and it's interaction with the game
+ * @author Arsenijs
+ * Class that handles the player, and it's interaction with the game
  */
 public class Player extends Creature {
 
     private Playing playing;
 
-    // CAMERA SETTINGS
-    private final int screenX;
-    public final int screenY;
+    // Starting world coordinates
+    private int playerX, playerY;
+
 
     // SPRITES AND MOTION SETTINGS
     private BufferedImage[][] animations;
     private boolean left, up, right, down;
+
+    private boolean lockedScreen = false;
+
 
     // PLAYER CLASSES
     private int playerClass;
@@ -51,21 +55,34 @@ public class Player extends Creature {
     private int attackCounter = 0;
     private Rectangle attackArea = new Rectangle(0,0,0,0);
 
+
+    private static Player instance;
+
     /**
-     * Creates a player in a game
-     * @param worldX x coordinates in the world
-     * @param worldY y coordinates in the world
+     * Creates a singleton player instance in a game. If instance exists, returns existing player
+     * @param playerX x coordinates in the world
+     * @param playerY y coordinates in the world
      * @param playing game Playing state
      */
-    public Player(int worldX, int worldY, Playing playing) {
-        super(worldX, worldY, Game.tileSize, Game.tileSize);
+    public static Player getInstance(int playerX, int playerY, Playing playing) {
+        if (instance == null) {
+            instance = new Player(playerX, playerY, playing);
+        }
+        return instance;
+    }
+
+    private Player(int playerX, int playerY, Playing playing) {
+        super(playerX, playerY, Game.tileSize, Game.tileSize);
         this.playing = playing;
+        this.playerX = playerX;
+        this.playerY = playerY;
         screenX = Game.screenWidth/2 - (Game.tileSize/2);
         screenY = Game.screenHeight/2 - (Game.tileSize/2);
         setDefaultVariables();
         loadAnimations();
         initHitArea(22, 24, 18, 32);
     }
+
 
     /**
      * Sets default variables of thr player
@@ -115,7 +132,7 @@ public class Player extends Creature {
         updatePos();
         collisionOn = false;
         collisionChecker.checkTile(this);
-        GameObject object = collisionChecker.checkObject(this);
+        //GameObject object = collisionChecker.checkObject(this);
         //pickUpObject(object);
         if (attacking)
             attack();
@@ -129,29 +146,41 @@ public class Player extends Creature {
      * @param g Graphics object
      */
     public void render(Graphics g) {
+        float drawX, drawY;
+        if (lockedScreen) {
+            drawX = worldX;
+            drawY = worldY;
+        }
+        else {
+            drawX = screenX;
+            drawY = screenY;
+        }
+
         // Draws the player
-        g.drawImage(animations[state][animIndex], (int)screenX, (int)screenY,
+        g.drawImage(animations[state][animIndex], (int)drawX, (int) drawY,
                 Game.tileSize, Game.tileSize, null);
         // Draws hitbox of the player
-        drawPlayerHitArea(g);
+        drawPlayerHitArea(g, drawX, drawY);
         if (attacking)
-            drawAttackHitArea(g);
+            drawAttackHitArea(g, drawX, drawY);
     }
 
-    private void drawAttackHitArea(Graphics g) {
+    private void drawAttackHitArea(Graphics g, float drawX, float drawY) {
         g.setColor(Color.ORANGE);
         switch (walkDir) {
             case DOWN ->
-                    g.drawRect(screenX + solidArea.x, screenY + solidArea.y + solidArea.height,
+                    g.drawRect((int) (drawX + solidArea.x), (int) (drawY + solidArea.y + solidArea.height),
                             attackArea.height, attackArea.width);
             case UP ->
-                    g.drawRect(screenX + solidArea.x, screenY + solidArea.y - attackArea.height,
+                    g.drawRect((int) (drawX + solidArea.x), (int) (drawY + solidArea.y - attackArea.height),
                             attackArea.height, attackArea.width);
             case LEFT ->
-                    g.drawRect(screenX + solidArea.x - attackArea.width, screenY + solidArea.y + solidArea.height/2,
+                    g.drawRect((int) (drawX + solidArea.x - attackArea.width),
+                            (int) (drawY + solidArea.y + solidArea.height/2),
                             attackArea.width, attackArea.height);
             case RIGHT ->
-                    g.drawRect(screenX + attackArea.width, screenY + solidArea.y + solidArea.height/2,
+                    g.drawRect((int) (drawX + attackArea.width),
+                            (int) (drawY + solidArea.y + solidArea.height/2),
                             attackArea.width, attackArea.height);
         }
     }
@@ -314,17 +343,17 @@ public class Player extends Creature {
         moving = false;
         attacking = false;
         walkDir = DOWN;
-        worldX = 23 * Game.tileSize;
-        worldY = 21 * Game.tileSize;
+        worldX = (playerX * Game.tileSize) - width /2 + (float) Game.tileSize / 2;
+        worldY = (playerY * Game.tileSize) - width /2 + (float) Game.tileSize / 2;
     }
 
     /**
      * Draw player's hitbox
      * @param g Graphics object
      */
-    protected void drawPlayerHitArea(Graphics g) {
+    protected void drawPlayerHitArea(Graphics g, float drawX, float drawY) {
         g.setColor(Color.PINK);
-        g.drawRect(screenX + solidArea.x,screenY + solidArea.y, solidArea.width, solidArea.height);
+        g.drawRect((int) (drawX + solidArea.x), (int) (drawY + solidArea.y), solidArea.width, solidArea.height);
     }
 
     public void setAttacking() {
@@ -392,15 +421,51 @@ public class Player extends Creature {
     public String getPlayerClass() {
         switch (playerClass) {
             case WARRIOR -> {
-                return "Warrior";
+                switch (playing.getGame().getLanguage()) {
+                    case ENGLISH -> {
+                        return "Warrior";
+                    }
+                    case DUTCH -> {
+                        return "Krijger";
+                    }
+                }
             }
             case ARCHER -> {
-                return "Archer";
+                switch (playing.getGame().getLanguage()) {
+                    case ENGLISH -> {
+                        return "Archer";
+                    }
+                    case DUTCH -> {
+                        return "Boogschutter";
+                    }
+                }
             }
             case BARD -> {
-                return "Bard";
+                switch (playing.getGame().getLanguage()) {
+                    case ENGLISH -> {
+                        return "Bard";
+                    }
+                    case DUTCH -> {
+                        return "Bard";
+                    }
+                }
             }
         }
         return null;
     }
+
+
+    public void lockScreen() {
+        lockedScreen = true;
+    }
+    public void unlockScreen() {
+        lockedScreen = false;
+    }
+
+    public void setCoordinates(float x, float y) {
+        worldX = (x * Game.tileSize) - width /2 + (float) Game.tileSize / 2;;
+        worldY = (y * Game.tileSize) - width /2 + (float) Game.tileSize / 2;;
+    }
+
+
 }

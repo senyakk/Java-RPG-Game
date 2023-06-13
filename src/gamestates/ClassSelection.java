@@ -6,23 +6,26 @@ import buttonUi.GameButton;
 import main.Game;
 import utilities.Load;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
+import static utilities.Constants.GameLanguage.DUTCH;
+import static utilities.Constants.GameLanguage.ENGLISH;
 import static utilities.Constants.PlayerConstants.*;
 import static utilities.Constants.UI.MenuButtons.B_HEIGHT;
 import static utilities.Constants.UI.MenuButtons.B_WIDTH;
 
-
+/**
+ * @author Arsenijs
+ * Class that handles class selection state
+ */
 public class ClassSelection extends State implements Statemethods {
 
     private BufferedImage backgroundImage;
     private ClassButton[] buttons = new ClassButton[3];
     private MenuButton returnButton;
-    private Graphics g;
 
     /**
      * State for class selection
@@ -30,65 +33,46 @@ public class ClassSelection extends State implements Statemethods {
      */
     public ClassSelection(Game game) {
         super(game);
-        backgroundImage = Load.GetSpriteImg("UI/Startscreen.png");
-        loadButtons();
+        loadSprites();
     }
 
-    private void loadButtons() {
+    private void loadSprites() {
+        switch (game.getLanguage()) {
+            case ENGLISH -> {
+                backgroundImage = Load.GetSpriteImg("UI/English/StartscreenSelectClass.png");
+            }
+            case DUTCH -> {
+                // Dutch background here
+                backgroundImage = Load.GetSpriteImg("UI/English/StartscreenSelectClass.png");
+            }
+        }
+        buttons[0] = new ClassButton((int) (165 * Game.scale), (int) (170 * Game.scale),
+                B_WIDTH, B_HEIGHT, WARRIOR);
+        buttons[1] = new ClassButton((int) (320 * Game.scale), (int) (170 * Game.scale),
+                B_WIDTH, B_HEIGHT, ARCHER);
+        buttons[2] = new ClassButton((int) (475 * Game.scale), (int) (170 * Game.scale),
+                B_WIDTH, B_HEIGHT, BARD);
 
-        buttons[0] = new ClassButton(Game.screenWidth/4, (int) (Game.screenHeight/1.8),
-                Game.tileSize, 100, WARRIOR);
-        buttons[0].setText("WARRIOR");
-        buttons[1] = new ClassButton(Game.screenWidth/2 - Game.tileSize/2, (int) (Game.screenHeight/1.8),
-                Game.tileSize, 100, ARCHER);
-        buttons[1].setText("ARCHER");
-        buttons[2] = new ClassButton((int) (Game.screenWidth/1.5), (int) (Game.screenHeight/1.8),
-                Game.tileSize, 100, BARD);
-        buttons[2].setText("BARD");
-
-        returnButton = new MenuButton(Game.screenWidth/2, (int) (Game.screenHeight/1.3),
+        returnButton = new MenuButton(Game.screenWidth / 2, (int) (Game.screenHeight / 1.3),
                 B_WIDTH, B_WIDTH, 3, Gamestate.MENU);
-
     }
-
 
     @Override
     public void update() {
+        for(ClassButton button : buttons) {
+            button.update();
+        }
         returnButton.update();
     }
 
-    /**
-     * Draw the class selection state
-     * @param g Graphics object
-     */
     @Override
     public void draw(Graphics g) {
-        this.g = g;
 
-        // Draw background image
-        g.drawImage(backgroundImage, 0, 0, Game.screenWidth, Game.screenHeight, null);
-
-        // Set font and color
-        g.setFont(new Font("Arial", Font.BOLD, 50));
-        g.setColor(Color.WHITE);
-
-        // Draw title
-        String title = "Select your class!";
-        int titleX = getCenterTextX(title);
-        int titleY = (int) (Game.screenHeight / 2);
-        g.drawString(title, titleX, titleY);
-
+        g.drawImage(backgroundImage,0,0, Game.screenWidth, Game.screenHeight, null);
         for(ClassButton button : buttons) {
             button.draw(g);
         }
-
         returnButton.draw(g);
-    }
-
-    public int getCenterTextX(String text) {
-        int length = (int)g.getFontMetrics().getStringBounds(text, g).getWidth();
-        int x = Game.screenWidth/2 - length/2;
-        return x;
     }
 
     @Override
@@ -106,7 +90,6 @@ public class ClassSelection extends State implements Statemethods {
         }
         if (isInOBorder(e, returnButton))
             returnButton.setMousePressed(true);
-
     }
 
     @Override
@@ -130,11 +113,20 @@ public class ClassSelection extends State implements Statemethods {
     }
 
     private void resetButtons() {
-
+        for(ClassButton button : buttons)  {
+            button.resetBool();
+        }
+        returnButton.resetBool();
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
+        for (ClassButton button : buttons) {
+            button.setMouseOver(false);
+            if (isInOBorder(e, button))
+                button.setMouseOver(true);
+        }
+
             returnButton.setMouseOver(false);
             if (isInOBorder(e, returnButton))
                 returnButton.setMouseOver(true);

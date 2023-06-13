@@ -6,20 +6,31 @@ import utilities.Load;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
+import static utilities.Constants.GameLanguage.*;
 
-public class PlayerUI {
+/**
+ * @author Arsenijs
+ * Class for UI related logic to handle the View
+ */
+public class PlayingUI {
 
     private Playing playing;
+    private Pause pause;
     private Font arial_40, arial_80B;
     private BufferedImage heart_full, heart_half, heart_blank;
-    private boolean statusOn = false;
+    private boolean statsOn = false;
+    private boolean inventoryOn = false;
     private Graphics g;
 
 
-    public PlayerUI(Playing playing) {
+    public PlayingUI(Playing playing) {
         this.playing = playing;
 
         arial_40 = new Font ("Arial", Font.PLAIN, 40);
@@ -35,6 +46,7 @@ public class PlayerUI {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        pause = new Pause(playing);
     }
 
     public void draw(Graphics g) {
@@ -43,8 +55,17 @@ public class PlayerUI {
         g.setFont(arial_40);
         g.setColor(Color.white);
         drawPlayerLife();
-        if (statusOn)
+        if (statsOn)
             drawCharacterScreen();
+
+        if (inventoryOn)
+            playing.getInventoryManager().draw(g);
+        if (playing.isPaused()) {
+            g.setColor(new Color(0, 0, 0, 150));
+            g.fillRect(0, 0, Game.screenWidth, Game.screenHeight);
+            pause.draw(g);
+        }
+
     }
 
     private void drawCharacterScreen() {
@@ -56,17 +77,17 @@ public class PlayerUI {
 
         g.setColor(Color.white);
         int fontSize = (int) (Game.scale*16);
-        g.setFont(g.getFont().deriveFont(40F));
+        g.setFont(g.getFont().deriveFont( Font.PLAIN, fontSize));
         String playerClass = playing.getPlayer().getPlayerClass();
         g.drawString(playerClass, frX + xAlignCenterText(playerClass, frW), (int) (frY + Game.scale * 20));
 
-        g.setFont(g.getFont().deriveFont(32F));
+        g.setFont(g.getFont().deriveFont( Font.PLAIN, (float) (fontSize/1.25)));
 
         int textX = (int) (frX + Game.scale * 8);
         int textY = (int) (frY + Game.tileSize / 1.5);
-        final int lineHeight = 36;
+        final int lineHeight = (int) (fontSize/1.1);
 
-        String[] attributes = {
+        String[] attributes = new String[]{
                 "Level", "XP", "Life", "Strength", "Attack",
                 "Defense", "Charisma", "Speed", "Weapon"
         };
@@ -77,6 +98,35 @@ public class PlayerUI {
         for (String attribute : attributes) {
             String value = "";
             int valueX = rightX;
+
+            Map<String, String> attributeTranslations = new HashMap<>();
+
+            switch (playing.getGame().getLanguage()) {
+                case ENGLISH -> {
+                    attributeTranslations.put("Level", "Level");
+                    attributeTranslations.put("Life", "Life");
+                    attributeTranslations.put("Strength", "Strength");
+                    attributeTranslations.put("Attack", "Attack");
+                    attributeTranslations.put("Defense", "Defense");
+                    attributeTranslations.put("Charisma", "Charisma");
+                    attributeTranslations.put("Speed", "Speed");
+                    attributeTranslations.put("XP", "XP");
+                    attributeTranslations.put("Weapon", "Weapon");
+                }
+                case DUTCH -> {
+                    attributeTranslations.put("Level", "Niveau");
+                    attributeTranslations.put("Life", "Leven");
+                    attributeTranslations.put("Strength", "Kracht");
+                    attributeTranslations.put("Attack", "Aanval");
+                    attributeTranslations.put("Defense", "Verdediging");
+                    attributeTranslations.put("Charisma", "Charisma");
+                    attributeTranslations.put("Speed", "Snelheid");
+                    attributeTranslations.put("XP", "XP");
+                    attributeTranslations.put("Weapon", "Wapen");
+                }
+            }
+
+            String translatedAttribute = attributeTranslations.getOrDefault(attribute, attribute);
 
             switch (attribute) {
                 case "Level":
@@ -101,7 +151,7 @@ public class PlayerUI {
                     value = String.valueOf(playing.getPlayer().getSpeed());
                     break;
                 case "XP":
-                    value = String.valueOf(playing.getPlayer().getExp() + "/" + String.valueOf(playing.getPlayer().getNextLevelExp()));
+                    value = playing.getPlayer().getExp() + "/" + String.valueOf(playing.getPlayer().getNextLevelExp());
                     break;
                 case "Weapon":
                     valueX = rightX - Game.tileSize / 4;
@@ -112,7 +162,7 @@ public class PlayerUI {
                     break;
             }
 
-            g.drawString(attribute, textX, textY);
+            g.drawString(translatedAttribute, textX, textY);
             valueX = xAlignRightText(value, valueX);
             g.drawString(value, valueX, textY);
             textY += lineHeight;
@@ -132,32 +182,28 @@ public class PlayerUI {
     }
 
     private void drawPlayerLife() {
-        int x = Game.tileSize/2;
-        int y = Game.tileSize/4;
+        int x = Game.tileSize / 2;
+        int y = Game.tileSize / 4;
         int i = 0;
 
-        while (i < playing.getPlayer().getMaxHealth()/2) {
+        while (i < playing.getPlayer().getMaxHealth() / 2) {
             g.drawImage(heart_blank, x, y, null);
             i++;
-            x+= Game.tileSize/2;
+            x += Game.tileSize / 2;
         }
 
-        x = Game.tileSize/2;
-        y = Game.tileSize/4;
+        x = Game.tileSize / 2;
+        y = Game.tileSize / 4;
         i = 0;
 
         while (i < playing.getPlayer().getCurrentHealth()) {
             g.drawImage(heart_half, x, y, null);
             i++;
-            if (i <playing.getPlayer().getCurrentHealth())
+            if (i < playing.getPlayer().getCurrentHealth())
                 g.drawImage(heart_full, x, y, null);
             i++;
-            x+= Game.tileSize/2;
+            x += Game.tileSize / 2;
         }
-    }
-
-    public void toggleStatus() {
-        statusOn = !statusOn;
     }
 
     private int xAlignRightText (String text, int rightX) {
@@ -170,5 +216,51 @@ public class PlayerUI {
         int length = (int) g.getFontMetrics().getStringBounds(text, g).getWidth();
         int x = width/2 - length/2;
         return x;
+    }
+
+
+    public Pause getPause() {
+        return pause;
+    }
+
+    public void keyReleased(KeyEvent e) {
+        switch (e.getKeyCode()) {
+            // Inventory switch
+            case KeyEvent.VK_I -> {
+                if (!playing.isPaused()) {
+                    inventoryOn = !inventoryOn;
+                }
+            }
+            // Stats switch
+            case KeyEvent.VK_Q -> {
+                if (!playing.isPaused()) {
+                    statsOn = !statsOn;
+                }
+            }
+        }
+    }
+
+    public void mousePressed(MouseEvent e) {
+        if (playing.isPaused()) {
+            pause.mousePressed(e);
+        }
+    }
+
+    public void mouseDragged(MouseEvent e) {
+        if (playing.isPaused()) {
+            pause.mouseDragged(e);
+        }
+    }
+
+    public void mouseMoved(MouseEvent e) {
+        if (playing.isPaused()) {
+            pause.mouseMoved(e);
+        }
+    }
+
+    public void mouseReleased(MouseEvent e) {
+        if (playing.isPaused()) {
+            pause.mouseReleased(e);
+        }
     }
 }

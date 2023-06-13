@@ -29,7 +29,7 @@ public class VolumeButton extends GameButton {
     }
 
     private void loadImages() {
-        BufferedImage temp = Load.GetSpriteImg("UI/volume_buttons.png");
+        BufferedImage temp = Load.GetSpriteImg("UI/English/Options/volume_buttons.png");
         images = new BufferedImage[3];
         for (int i = 0; i <images.length; i++) {
             images[i] = temp.getSubimage(i* VOLUME_DEFAULT_WIDTH,0,

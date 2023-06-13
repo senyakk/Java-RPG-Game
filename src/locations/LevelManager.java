@@ -1,32 +1,37 @@
 package locations;
 
+import gamestates.Playing;
 import playerclasses.Player;
 import main.Game;
 import utilities.Load;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 /**
  * Class that handles Levels
  */
 public class LevelManager {
 
+
+    private Playing playing;
     // Array of tiles in the game
     private Tile[] tile;
     // Array of levels in the game
     private Level[] levels;
-    // Current level index
-    private int levelInd = 1;
 
-    private BufferedImage backgroundImage;
+    // Current level index
+    private int levelInd;
 
     /**
      * Loads tiles and levels to the game
      */
-    public LevelManager() {
+    public LevelManager(Playing playing) {
+        this.playing = playing;
         tile = Load.getTiles();
         levels = Load.getAllLevels();
+
+        levels[1].setBackground(Load.GetSpriteImg("locations/Alchemisthouse.png"));
+        levels[2].setBackground(Load.GetSpriteImg("locations/WitchHouse.png"));
     }
 
 
@@ -39,36 +44,49 @@ public class LevelManager {
     public void draw(Graphics g, Player player) {
         Level level = getCurrentLevel();
 
-        int worldCol = 0;
-        int worldRow = 0;
+        if (level.hasBackground()) {
+            player.lockScreen();
+            g.drawImage(level.getBackground(), 0, 0, Game.screenWidth, Game.screenHeight, null);
 
-        while(worldCol < level.getWidth() && worldRow < level.getHeigth()) {
-
-            int tileNum = getCurrentLevel().getTileIndex(worldCol, worldRow);
-
-            int worldX = worldCol * Game.tileSize;
-            int worldY = worldRow * Game.tileSize;
-
-            // Code for camera following the player
-            int screenX = (int) (worldX - player.getWorldX() + player.getScreenX());
-            int screenY = (int) (worldY - player.getWorldY() + player.getScreenY());
-
-            // Condition for drawing only the world in the boundaries of the game screen
-            if (worldX + Game.tileSize > player.getWorldX() - player.getScreenX() &&
-                    worldX - Game.tileSize < player.getWorldX() + player.getScreenX() &&
-                    worldY + Game.tileSize > player.getWorldY() - player.getScreenY() &&
-                    worldY - Game.tileSize < player.getWorldY() + player.getScreenY()) {
-
-                g.drawImage(tile[tileNum].image, screenX, screenY, Game.tileSize, Game.tileSize, null);
+            // Following loop is for drawing tile grid
+            int y = 0;
+            for (int worldRow = 0; worldRow < Game.maxTileRow; worldRow++) {
+                int x = 0;
+                for (int worldCol = 0; worldCol < Game.maxTileCol; worldCol++) {
+                    // g.drawRect(x, y, Game.tileSize, Game.tileSize);
+                    x+= Game.tileSize;
+                }
+                y+= Game.tileSize;
             }
 
-            worldCol++;
+        } else {
 
-            if (worldCol == level.getWidth()) {
-                worldCol = 0;
-                worldRow++;
+            player.unlockScreen();
+
+            for (int worldRow = 0; worldRow < level.getHeight(); worldRow++) {
+                for (int worldCol = 0; worldCol < level.getWidth(); worldCol++) {
+                    int tileNum = getCurrentLevel().getTileIndex(worldCol, worldRow);
+                    int worldX = worldCol * Game.tileSize;
+                    int worldY = worldRow * Game.tileSize;
+
+                    int screenX = (int) (worldX - player.getWorldX() + player.getScreenX());
+                    int screenY = (int) (worldY - player.getWorldY() + player.getScreenY());
+
+                    if (isTileInBounds(screenX, screenY, player)) {
+                        g.drawImage(tile[tileNum].image, screenX, screenY, Game.tileSize, Game.tileSize, null);
+                    }
+                }
             }
         }
+
+    }
+
+    // Check if a tile is within the bounds of the game screen
+    private boolean isTileInBounds(int screenX, int screenY, Player player) {
+        return screenX + Game.tileSize > player.getScreenX() - Game.screenWidth / 2 &&
+                screenX - Game.tileSize < player.getScreenX() + Game.screenWidth / 2 &&
+                screenY + Game.tileSize > player.getScreenY() - Game.screenHeight / 2 &&
+                screenY - Game.tileSize < player.getScreenY() + Game.screenHeight / 2;
     }
 
     /**
@@ -104,8 +122,14 @@ public class LevelManager {
      * Sets current level id
      * @param id index
      */
-    public void setCurrentLevel(int id) {
+    public void setStartLevel(int id) {
         levelInd = id;
+    }
+
+    public void changeLevel(int id) {
+        int origin = getCurrentLevelId();
+        levelInd = id;
+        playing.movePlayer(origin);
     }
 
 }

@@ -19,8 +19,11 @@ public class State {
     public void setGameState(Gamestate state) {
         switch (state) {
             case MENU -> game.getAudioPlayer().playLightAmbient();
-            case PLAYING -> game.getAudioPlayer().playAmbient();
+            case PLAYING -> {
+                game.getAudioPlayer().playAmbient();
+            }
         }
         Gamestate.state = state;
     }
+
 }
