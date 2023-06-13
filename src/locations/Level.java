@@ -1,7 +1,7 @@
 package locations;
 
 
-import main.Game;
+import main.GameModel;
 import objects.GameObject;
 import utilities.Load;
 
@@ -47,7 +47,7 @@ public class Level {
     }
 
     public void setBackground(BufferedImage background) {
-        this.background = Load.scaleImage(background, Game.screenWidth, Game.screenHeight);
+        this.background = Load.scaleImage(background, GameModel.screenWidth, GameModel.screenHeight);
         hasBackground = true;
     }
     public BufferedImage getBackground() {

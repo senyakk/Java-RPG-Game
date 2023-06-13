@@ -1,8 +1,8 @@
 package locations;
 
 import gamestates.Playing;
+import main.GameModel;
 import playerclasses.Player;
-import main.Game;
 import utilities.Load;
 
 import java.awt.*;
@@ -46,17 +46,17 @@ public class LevelManager {
 
         if (level.hasBackground()) {
             player.lockScreen();
-            g.drawImage(level.getBackground(), 0, 0, Game.screenWidth, Game.screenHeight, null);
+            g.drawImage(level.getBackground(), 0, 0, GameModel.screenWidth, GameModel.screenHeight, null);
 
             // Following loop is for drawing tile grid
             int y = 0;
-            for (int worldRow = 0; worldRow < Game.maxTileRow; worldRow++) {
+            for (int worldRow = 0; worldRow < GameModel.maxTileRow; worldRow++) {
                 int x = 0;
-                for (int worldCol = 0; worldCol < Game.maxTileCol; worldCol++) {
+                for (int worldCol = 0; worldCol < GameModel.maxTileCol; worldCol++) {
                     // g.drawRect(x, y, Game.tileSize, Game.tileSize);
-                    x+= Game.tileSize;
+                    x+= GameModel.tileSize;
                 }
-                y+= Game.tileSize;
+                y+= GameModel.tileSize;
             }
 
         } else {
@@ -66,14 +66,14 @@ public class LevelManager {
             for (int worldRow = 0; worldRow < level.getHeight(); worldRow++) {
                 for (int worldCol = 0; worldCol < level.getWidth(); worldCol++) {
                     int tileNum = getCurrentLevel().getTileIndex(worldCol, worldRow);
-                    int worldX = worldCol * Game.tileSize;
-                    int worldY = worldRow * Game.tileSize;
+                    int worldX = worldCol * GameModel.tileSize;
+                    int worldY = worldRow * GameModel.tileSize;
 
                     int screenX = (int) (worldX - player.getWorldX() + player.getScreenX());
                     int screenY = (int) (worldY - player.getWorldY() + player.getScreenY());
 
                     if (isTileInBounds(screenX, screenY, player)) {
-                        g.drawImage(tile[tileNum].image, screenX, screenY, Game.tileSize, Game.tileSize, null);
+                        g.drawImage(tile[tileNum].image, screenX, screenY, GameModel.tileSize, GameModel.tileSize, null);
                     }
                 }
             }
@@ -83,10 +83,10 @@ public class LevelManager {
 
     // Check if a tile is within the bounds of the game screen
     private boolean isTileInBounds(int screenX, int screenY, Player player) {
-        return screenX + Game.tileSize > player.getScreenX() - Game.screenWidth / 2 &&
-                screenX - Game.tileSize < player.getScreenX() + Game.screenWidth / 2 &&
-                screenY + Game.tileSize > player.getScreenY() - Game.screenHeight / 2 &&
-                screenY - Game.tileSize < player.getScreenY() + Game.screenHeight / 2;
+        return screenX + GameModel.tileSize > player.getScreenX() - GameModel.screenWidth / 2 &&
+                screenX - GameModel.tileSize < player.getScreenX() + GameModel.screenWidth / 2 &&
+                screenY + GameModel.tileSize > player.getScreenY() - GameModel.screenHeight / 2 &&
+                screenY - GameModel.tileSize < player.getScreenY() + GameModel.screenHeight / 2;
     }
 
     /**

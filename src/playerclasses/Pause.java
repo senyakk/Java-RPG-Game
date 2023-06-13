@@ -4,8 +4,8 @@ import buttonUi.AudioHandler;
 import buttonUi.GameButton;
 import gamestates.Gamestate;
 import gamestates.Playing;
-import main.Game;
 import buttonUi.Buttons.ReplayButton;
+import main.GameModel;
 import utilities.Load;
 
 import java.awt.*;
@@ -36,10 +36,10 @@ public class Pause {
 
 
     private void addReplayButtons() {
-        int menuX = (int)(252 * Game.scale);
-        int replayX = (int)(300 * Game.scale);
-        int unpauseX = (int) (351 * Game.scale);
-        int y  = (int) (230 * Game.scale);
+        int menuX = (int)(252 * GameModel.scale);
+        int replayX = (int)(300 * GameModel.scale);
+        int unpauseX = (int) (351 * GameModel.scale);
+        int y  = (int) (230 * GameModel.scale);
         menuButton = new ReplayButton(menuX,y, URM_SIZE, URM_SIZE, 2);
         replayButton = new ReplayButton(replayX,y, URM_SIZE, URM_SIZE, 1);
         unpauseButton = new ReplayButton(unpauseX, y, URM_SIZE, URM_SIZE, 0);
@@ -56,10 +56,10 @@ public class Pause {
                 background = Load.GetSpriteImg("UI/Dutch/Options/pause_menu_Dutch.png");
             }
         }
-        width = (int)(background.getWidth() * Game.scale/1.5);
-        heigth =(int) (background.getHeight() * Game.scale/1.5);
-        posX = Game.screenWidth / 2 - width / 2;
-        posY = (int)(25 * Game.scale);
+        width = (int)(background.getWidth() * GameModel.scale/1.5);
+        heigth =(int) (background.getHeight() * GameModel.scale/1.5);
+        posX = GameModel.screenWidth / 2 - width / 2;
+        posY = (int)(25 * GameModel.scale);
     }
 
     public void update() {

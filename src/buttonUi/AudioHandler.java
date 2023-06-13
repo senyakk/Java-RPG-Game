@@ -2,7 +2,6 @@ package buttonUi;
 
 import buttonUi.Buttons.SoundButton;
 import buttonUi.Buttons.VolumeButton;
-import main.Game;
 import main.GameModel;
 
 import java.awt.*;
@@ -27,15 +26,15 @@ public class AudioHandler {
     }
 
     private void addVolumeButton() {
-        int x = (int)(248 * Game.scale);
-        int y = (int)(198 * Game.scale);
+        int x = (int)(248 * GameModel.scale);
+        int y = (int)(198 * GameModel.scale);
         volumeButton = new VolumeButton(x, y, (int) (SLIDER_WIDTH), (int) (VOLUME_HEIGHT));
     }
 
     private void addSoundButtons() {
-        int x = (int)(345 * Game.scale);
-        int musicY = (int)(105 * Game.scale);
-        int sfxY = (int) (135 * Game.scale);
+        int x = (int)(345 * GameModel.scale);
+        int musicY = (int)(105 * GameModel.scale);
+        int sfxY = (int) (135 * GameModel.scale);
         musicButton = new SoundButton(x,musicY, SOUND_SIZE, SOUND_SIZE);
         sfxButton = new SoundButton(x,sfxY, SOUND_SIZE, SOUND_SIZE);
     }

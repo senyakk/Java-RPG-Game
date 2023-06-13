@@ -1,7 +1,7 @@
 package objects;
 
 import locations.CollisionChecker;
-import main.Game;
+import main.GameModel;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -25,7 +25,7 @@ public class GameObject {
     // Collision checker
     protected CollisionChecker collisionChecker;
     protected boolean collisionOn = false;
-    protected Rectangle solidArea = new Rectangle(0,0, Game.tileSize, Game.tileSize);
+    protected Rectangle solidArea = new Rectangle(0,0, GameModel.tileSize, GameModel.tileSize);
 
     /**
      * Constructs an object
@@ -36,8 +36,8 @@ public class GameObject {
      * @param name object's name
      */
     public GameObject(float worldX, float worldY, float width, float height, String name) {
-        this.worldX = (worldX * Game.tileSize) - width /2 + (float) Game.tileSize / 2;
-        this.worldY = (worldY * Game.tileSize) - height /2 + (float) Game.tileSize / 2;
+        this.worldX = (worldX * GameModel.tileSize) - width /2 + (float) GameModel.tileSize / 2;
+        this.worldY = (worldY * GameModel.tileSize) - height /2 + (float) GameModel.tileSize / 2;
         this.width = width;
         this.height = height;
         this.name = name;
@@ -75,10 +75,10 @@ public class GameObject {
      * @param hitHeight hitbox height
      */
     protected void initHitArea(int xHitbox, int yHitbox, int hitWidth, int hitHeight)  {
-        this.xDefaultHitbox = xHitbox * Game.scale;
-        this.yDefaultHitbox = yHitbox * Game.scale;
-        solidArea = new Rectangle((int) (xHitbox * Game.scale), (int) (yHitbox * Game.scale),
-                (int) (hitWidth * Game.scale), (int) (hitHeight * Game.scale));
+        this.xDefaultHitbox = xHitbox * GameModel.scale;
+        this.yDefaultHitbox = yHitbox * GameModel.scale;
+        solidArea = new Rectangle((int) (xHitbox * GameModel.scale), (int) (yHitbox * GameModel.scale),
+                (int) (hitWidth * GameModel.scale), (int) (hitHeight * GameModel.scale));
     }
 
     /**

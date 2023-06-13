@@ -1,7 +1,7 @@
 package playerclasses;
 
 import gamestates.Playing;
-import main.Game;
+import main.GameModel;
 import utilities.Load;
 
 import javax.imageio.ImageIO;
@@ -38,11 +38,11 @@ public class PlayingUI {
 
         try {
             heart_full = ImageIO.read(getClass().getResourceAsStream("/objects/heart_full.png"));
-            heart_full = Load.scaleImage(heart_full, Game.tileSize/2, Game.tileSize/2);
+            heart_full = Load.scaleImage(heart_full, GameModel.tileSize/2, GameModel.tileSize/2);
             heart_half = ImageIO.read(getClass().getResourceAsStream("/objects/heart_half.png"));
-            heart_half = Load.scaleImage(heart_half, Game.tileSize/2, Game.tileSize/2);
+            heart_half = Load.scaleImage(heart_half, GameModel.tileSize/2, GameModel.tileSize/2);
             heart_blank = ImageIO.read(getClass().getResourceAsStream("/objects/heart_blank.png"));
-            heart_blank = Load.scaleImage(heart_blank, Game.tileSize/2, Game.tileSize/2);
+            heart_blank = Load.scaleImage(heart_blank, GameModel.tileSize/2, GameModel.tileSize/2);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -62,29 +62,29 @@ public class PlayingUI {
             playing.getInventoryManager().draw(g);
         if (playing.isPaused()) {
             g.setColor(new Color(0, 0, 0, 150));
-            g.fillRect(0, 0, Game.screenWidth, Game.screenHeight);
+            g.fillRect(0, 0, GameModel.screenWidth, GameModel.screenHeight);
             pause.draw(g);
         }
 
     }
 
     private void drawCharacterScreen() {
-        int frX = Game.tileSize / 2;
-        int frY = Game.tileSize;
-        int frW = Game.tileSize * 2;
-        int frH = Game.tileSize * 3;
+        int frX = GameModel.tileSize / 2;
+        int frY = GameModel.tileSize;
+        int frW = GameModel.tileSize * 2;
+        int frH = GameModel.tileSize * 3;
         drawWindow(frX, frY, frW, frH);
 
         g.setColor(Color.white);
-        int fontSize = (int) (Game.scale*16);
+        int fontSize = (int) (GameModel.scale*16);
         g.setFont(g.getFont().deriveFont( Font.PLAIN, fontSize));
         String playerClass = playing.getPlayer().getPlayerClass();
-        g.drawString(playerClass, frX + xAlignCenterText(playerClass, frW), (int) (frY + Game.scale * 20));
+        g.drawString(playerClass, frX + xAlignCenterText(playerClass, frW), (int) (frY + GameModel.scale * 20));
 
         g.setFont(g.getFont().deriveFont( Font.PLAIN, (float) (fontSize/1.25)));
 
-        int textX = (int) (frX + Game.scale * 8);
-        int textY = (int) (frY + Game.tileSize / 1.5);
+        int textX = (int) (frX + GameModel.scale * 8);
+        int textY = (int) (frY + GameModel.tileSize / 1.5);
         final int lineHeight = (int) (fontSize/1.1);
 
         String[] attributes = new String[]{
@@ -92,8 +92,8 @@ public class PlayingUI {
                 "Defense", "Charisma", "Speed", "Weapon"
         };
 
-        int rightX = (int) (frX + frW - Game.scale*8);
-        textY = (int) (frY + Game.tileSize / 1.5);
+        int rightX = (int) (frX + frW - GameModel.scale*8);
+        textY = (int) (frY + GameModel.tileSize / 1.5);
 
         for (String attribute : attributes) {
             String value = "";
@@ -154,11 +154,11 @@ public class PlayingUI {
                     value = playing.getPlayer().getExp() + "/" + String.valueOf(playing.getPlayer().getNextLevelExp());
                     break;
                 case "Weapon":
-                    valueX = rightX - Game.tileSize / 4;
+                    valueX = rightX - GameModel.tileSize / 4;
                     textY += 10;
                     g.drawImage(Load.scaleImage(playing.getPlayer().getCurrentWeapon().getImage(),
-                                    Game.tileSize / 4, Game.tileSize / 4),
-                            valueX, textY - Game.tileSize / 5, null);
+                                    GameModel.tileSize / 4, GameModel.tileSize / 4),
+                            valueX, textY - GameModel.tileSize / 5, null);
                     break;
             }
 
@@ -176,24 +176,24 @@ public class PlayingUI {
 
         color = new Color(255, 255, 255);
         g.setColor(color);
-        g.drawRoundRect((int) (x+(Game.scale*2)), (int) (y+(Game.scale*2)),
-                (int) (width-(Game.scale*5)), (int) (height-(Game.scale*5)),
-                (int) (Game.scale*10), (int) (Game.scale*10));
+        g.drawRoundRect((int) (x+(GameModel.scale*2)), (int) (y+(GameModel.scale*2)),
+                (int) (width-(GameModel.scale*5)), (int) (height-(GameModel.scale*5)),
+                (int) (GameModel.scale*10), (int) (GameModel.scale*10));
     }
 
     private void drawPlayerLife() {
-        int x = Game.tileSize / 2;
-        int y = Game.tileSize / 4;
+        int x = GameModel.tileSize / 2;
+        int y = GameModel.tileSize / 4;
         int i = 0;
 
         while (i < playing.getPlayer().getMaxHealth() / 2) {
             g.drawImage(heart_blank, x, y, null);
             i++;
-            x += Game.tileSize / 2;
+            x += GameModel.tileSize / 2;
         }
 
-        x = Game.tileSize / 2;
-        y = Game.tileSize / 4;
+        x = GameModel.tileSize / 2;
+        y = GameModel.tileSize / 4;
         i = 0;
 
         while (i < playing.getPlayer().getCurrentHealth()) {
@@ -202,7 +202,7 @@ public class PlayingUI {
             if (i < playing.getPlayer().getCurrentHealth())
                 g.drawImage(heart_full, x, y, null);
             i++;
-            x += Game.tileSize / 2;
+            x += GameModel.tileSize / 2;
         }
     }
 

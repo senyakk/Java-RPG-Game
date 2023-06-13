@@ -4,8 +4,8 @@ import gamestates.State;
 
 import javax.swing.*;
 import java.awt.*;
-import static main.Game.screenHeight;
-import static main.Game.screenWidth;
+import static main.GameModel.screenHeight;
+import static main.GameModel.screenWidth;
 
 public class GamePanel extends JPanel {
 

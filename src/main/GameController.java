@@ -3,8 +3,8 @@ package main;
 import gamestates.*;
 import java.awt.event.*;
 
-import static main.Game.FPS;
-import static main.Game.UPS;
+import static main.GameModel.FPS;
+import static main.GameModel.UPS;
 
 public class GameController implements Runnable, KeyListener, MouseListener, MouseMotionListener {
 

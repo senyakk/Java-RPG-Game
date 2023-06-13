@@ -2,7 +2,7 @@ package inventory;
 
 import buttonUi.Buttons.InventoryButton;
 import gamestates.Playing;
-import main.Game;
+import main.GameModel;
 import utilities.Load;
 
 import java.awt.*;
@@ -25,7 +25,7 @@ public class InventoryManager {
 
         this.inventoryButtons = new InventoryButton[Inventory.MAX_INVENTORY_SIZE];
         for (int i = 0; i < Inventory.MAX_INVENTORY_SIZE; i++){
-            InventoryButton button = new InventoryButton("UI/inventoryButton.png", Game.screenWidth/2, Game.screenHeight/2, 100, 100);
+            InventoryButton button = new InventoryButton("UI/inventoryButton.png", GameModel.screenWidth/2, GameModel.screenHeight/2, 100, 100);
             this.inventoryButtons[i] = button;
         }
     }
@@ -33,10 +33,10 @@ public class InventoryManager {
     private void loadInventoryImage() {
         this.inventoryImage = Load.GetSpriteImg(Load.INVENTORY);
 
-        this.invWidth = (int) (inventoryImage.getWidth() * Game.scale);
-        this.invHeight = (int) (inventoryImage.getHeight() * Game.scale);
-        this.invX = Game.screenWidth / 2 - invWidth / 2;
-        this.invY = (int) (Game.screenHeight /1.25 - invHeight / 2);
+        this.invWidth = (int) (inventoryImage.getWidth() * GameModel.scale);
+        this.invHeight = (int) (inventoryImage.getHeight() * GameModel.scale);
+        this.invX = GameModel.screenWidth / 2 - invWidth / 2;
+        this.invY = (int) (GameModel.screenHeight /1.25 - invHeight / 2);
         //this.invY = (int)(200 * Game.scale);
     }
 
