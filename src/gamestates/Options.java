@@ -46,7 +46,7 @@ public class Options extends State implements Statemethods {
             case DUTCH -> {
                 // Dutch buttons here
                 backgroundImage = Load.GetSpriteImg("UI/English/Startscreen.png");
-                optionsBackgroundImage = Load.GetSpriteImg("UI/English/Options/options_background.png");
+                optionsBackgroundImage = Load.GetSpriteImg("UI/Dutch/Options/options_background_Dutch.png");
             }
         }
         bgW = (int) (optionsBackgroundImage.getWidth() * Game.scale/1.5);
