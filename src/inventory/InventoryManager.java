@@ -7,27 +7,37 @@ import utilities.Load;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 public class InventoryManager {
-    private InventoryButton[] inventoryButtons;
+    private final int INVENTORY_ROWS = 3;
+    private final int INVENTORY_COLS = 12;
+    private final InventoryButton[] inventoryButtons;
 
     private Playing playing;
     private BufferedImage inventoryImage;
     private int invWidth, invHeight, invX, invY;
 
-    private final int INVENTORY_ROWS = 3;
-    private final int INVENTORY_COLS = 12;
-
     private Inventory inventory;
 
+    /**
+     * Creates an instance of the inventory manager, which prepares the UI panel
+     * @param playing the game state that controls the inventory manager
+     */
     public InventoryManager(Playing playing) {
         this.inventory = new Inventory();
         this.playing = playing;
 
         loadInventoryImage();
 
-        this.inventoryButtons = new InventoryButton[Inventory.MAX_INVENTORY_SIZE];
+        this.inventoryButtons = new InventoryButton[INVENTORY_ROWS * INVENTORY_COLS];
+        updateButtons();
+    }
 
+    private void updateButtons(){
+        ArrayList<Item> currentItemList = inventory.getItemList();
+
+        // Improper calculation of position<3
         int pos0x = (int) (invX + 55 * Game.scale);
         int pos0y = (int) (invY + 85 * Game.scale);
         int spriteSize = 16; //(int)(16 * Game.scale);
@@ -35,12 +45,17 @@ public class InventoryManager {
 
         int i = 0;
         int posx, posy;
+
         for (int row = 0; row < INVENTORY_ROWS; row++){
             for (int col = 0; col < INVENTORY_COLS; col++){
+                Item currentItem = currentItemList.get(row * INVENTORY_COLS + col);
+
                 posx = pos0x + col*((int)(spriteSize*Game.scale) + skip);
                 posy = pos0y + row*((int)(spriteSize*Game.scale) + skip);
 
-                InventoryButton button = new InventoryButton("items/bowItem.png", posx, posy, spriteSize, spriteSize);
+                System.out.println(currentItem.getId() + " - " + currentItem.getSpriteLoc());
+                InventoryButton button = new InventoryButton(currentItem.getSpriteLoc(), posx, posy, spriteSize, spriteSize);
+
                 this.inventoryButtons[i] = button;
                 i++;
             }

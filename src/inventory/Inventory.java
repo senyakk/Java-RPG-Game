@@ -1,41 +1,38 @@
 package inventory;
 
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 
 /**
  * Represents a player's inventory
  */
 public class Inventory {
-    public static int MAX_INVENTORY_SIZE = 36;
+    private final int MAX_INVENTORY_SIZE = 36;
 
     private int usedSlots;
     private boolean fullInventory;
 
-    private ArrayList<Item> itemList;
+    private final ArrayList<Item> itemList;
 
     public Inventory(){
+        itemList = new ArrayList<Item>(MAX_INVENTORY_SIZE);
+        for (int itemNum = 0; itemNum < MAX_INVENTORY_SIZE; itemNum++){
+            itemList.add(itemNum, new Item("0"));
+        }
+
         addItem(new Item("1"));
         addItem(new Item("2"));
 
-        for (int i = 2; i < MAX_INVENTORY_SIZE; i++){
-            addItem(new Item("0"));
-        }
-
-        usedSlots = 0;
-        fullInventory = false;
+        updateFullInventory();
     }
 
     private void updateFullInventory(){
-        if (usedSlots == MAX_INVENTORY_SIZE){
-            this.fullInventory = true;
-        } else {
-            this.fullInventory = false;
-        }
+        this.fullInventory = (usedSlots == MAX_INVENTORY_SIZE);
     }
 
-    private int addItem(Item newItem){
-        if (!fullInventory){
-            return -1;
+    private void addItem(Item newItem) throws ArrayIndexOutOfBoundsException {
+        if (fullInventory){
+            throw new ArrayIndexOutOfBoundsException();
         }
 
         int position;
@@ -43,18 +40,21 @@ public class Inventory {
             Item currentItem = itemList.get(position);
 
             if (currentItem.isEmptyItem()) {
-                itemList.add(position, newItem);
+                itemList.set(position, newItem);
                 usedSlots++;
                 updateFullInventory();
                 break;
             }
         }
-        return position;
     }
 
     private Item removeItem(int position){
-        // TODO: Should only be called on NON-EMPTY items
         Item removedItem = itemList.get(position);
+
+        if (removedItem.isEmptyItem()){
+            throw new NoSuchElementException("This inventory slot is empty!");
+        }
+
         itemList.remove(position);
         usedSlots--;
         fullInventory = false;

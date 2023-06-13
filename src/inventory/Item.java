@@ -15,6 +15,7 @@ public class Item {
     private String id;
     private String displayName;
     private boolean isVisible;
+    private String spriteLoc;
     private BufferedImage sprite;
 
     // ID getter
@@ -48,11 +49,16 @@ public class Item {
     }
 
     // Sprite
-    private void setSprite(){
+    private void setSpriteLoc(){
         // TODO: Access database based on ID
-        String impath = "";
-        if (this.id.equals("1")) impath = "arrowItem.png";
-        if (this.id.equals("2")) impath = "bowItem.png";
+        if (this.id.equals("0")) this.spriteLoc = "items/0.png";
+        if (this.id.equals("1")) this.spriteLoc = "items/arrowItem.png";
+        if (this.id.equals("2")) this.spriteLoc = "items/bowItem.png";
+    }
+
+    public String getSpriteLoc(){
+        // TODO: Access database based on ID
+        return this.spriteLoc;
     }
 
     public BufferedImage getSprite(){
@@ -63,6 +69,6 @@ public class Item {
         this.id = id;
         setDisplayName();
         setVisibility();
-        //setSprite();
+        setSpriteLoc();
     }
 }

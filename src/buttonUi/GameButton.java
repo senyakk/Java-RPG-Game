@@ -25,6 +25,7 @@ public class GameButton {
     private void createBounds() {
         bounds = new Rectangle(x, y, width, height);
     }
+
     public Rectangle getBounds() {
         return bounds;
     }
