@@ -7,17 +7,17 @@ import utilities.AudioPlayer;
 import static utilities.Constants.GameLanguage.DUTCH;
 
 public class GameModel {
-    private State gameState;
-    private Menu menu;
-    private Playing playing;
-    private ClassSelection classSelection;
-    private Options options;
+    private State gameState; // Current game state
+    private Menu menu; // Instance of the menu state
+    private Playing playing; // Instance of the playing state
+    private ClassSelection classSelection; // Instance of the class selection state
+    private Options options; // Instance of the options state
 
     // AUDIO SETTINGS
-    private AudioHandler audio;
-    private AudioPlayer audioPlayer;
+    private AudioHandler audio; // Audio handler for managing game audio
+    private AudioPlayer audioPlayer; // Audio player for playing audio clips
 
-    private int language = DUTCH;
+    private int language = DUTCH; // Default language setting
 
     public GameModel() {
         // Creating audio

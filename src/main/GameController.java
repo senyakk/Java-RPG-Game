@@ -1,14 +1,10 @@
 package main;
 
-import buttonUi.AudioHandler;
 import gamestates.*;
-import utilities.AudioPlayer;
-
 import java.awt.event.*;
 
 import static main.Game.FPS;
 import static main.Game.UPS;
-import static utilities.Constants.GameLanguage.DUTCH;
 
 public class GameController implements Runnable, KeyListener, MouseListener, MouseMotionListener {
 
@@ -17,33 +13,47 @@ public class GameController implements Runnable, KeyListener, MouseListener, Mou
     private State gameState;
     private boolean gameActive;
 
-    public GameController (GamePanel gamePanel) {
+    public GameController (GamePanel gamePanel, GameModel gameModel) {
         this.gamePanel = gamePanel;
         this.gameActive = true;
-        this.gameModel = new GameModel();
+        this.gameModel = gameModel;
 
     }
+
+    /**
+     * Update the game state
+     */
     public void update() {
         if (getGameModel().getGameState() != null) {
             gameState = getGameModel().getGameState();
             gameState.update();
         }
     }
+
+    /**
+     * Set the game's active status
+     */
     public void setGameActive(boolean gameActive) {
         this.gameActive = gameActive;
     }
 
+    /**
+     * Check if the game is active
+     */
     public boolean isGameActive() {
         return gameActive;
     }
 
+    /**
+     * Get the game model
+     */
     public GameModel getGameModel() {
         return gameModel;
     }
 
 
     /**
-     * Run a game thread, updating the game UPS time per second and drawing the game FPS time per second
+     * Run the game thread, updating the game UPS times per second and drawing the game FPS times per second
      */
     @Override
     public void run() {
@@ -94,7 +104,7 @@ public class GameController implements Runnable, KeyListener, MouseListener, Mou
         }
     }
 
-    // Mouse Listeners
+    // MouseListener methods
     @Override
     public void mouseClicked(MouseEvent e) {
         if (gameState != null) {
