@@ -98,8 +98,8 @@ public class ClassSelection extends State {
         for(ClassButton button : buttons) {
             if (isInOBorder(e, button)) {
                 if (button.isMousePressed()) {
-                    gameModel.getPlaying().getPlayer().setClass(button.getGameClassClass());
-                    gameModel.getPlaying().getPlayer().resetAll();
+                    gameModel.getPlayer().setClass(button.getGameClassClass());
+                    gameModel.getPlayer().resetAll();
                     gameModel.setGameState(Gamestate.PLAYING);
                 }
                 break;

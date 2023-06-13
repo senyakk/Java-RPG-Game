@@ -2,6 +2,7 @@ package main;
 
 import buttonUi.AudioHandler;
 import gamestates.*;
+import playerclasses.Player;
 import utilities.AudioPlayer;
 
 import static utilities.Constants.GameLanguage.DUTCH;
@@ -48,16 +49,7 @@ public class GameModel {
         return gameState;
     }
 
-    public Menu getMenu() { return menu;}
-    public Playing getPlaying() {
-        return playing;
-    }
-    public ClassSelection getClassSelection() {
-        return classSelection;
-    }
-    public Options getOptions() {
-        return options;
-    }
+    public Player getPlayer() { return playing.getPlayer(); }
 
     public AudioHandler getAudio() {
         return audio;
