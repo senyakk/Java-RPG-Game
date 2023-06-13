@@ -14,6 +14,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 import static utilities.Constants.Direction.*;
+import static utilities.Constants.GameLanguage.*;
 import static utilities.Constants.PlayerConstants.*;
 
 /**
@@ -409,17 +410,39 @@ public class Player extends Creature {
     public String getPlayerClass() {
         switch (playerClass) {
             case WARRIOR -> {
-                return "Warrior";
+                switch (playing.getGame().getLanguage()) {
+                    case ENGLISH -> {
+                        return "Warrior";
+                    }
+                    case DUTCH -> {
+                        return "Krijger";
+                    }
+                }
             }
             case ARCHER -> {
-                return "Archer";
+                switch (playing.getGame().getLanguage()) {
+                    case ENGLISH -> {
+                        return "Archer";
+                    }
+                    case DUTCH -> {
+                        return "Boogschutter";
+                    }
+                }
             }
             case BARD -> {
-                return "Bard";
+                switch (playing.getGame().getLanguage()) {
+                    case ENGLISH -> {
+                        return "Bard";
+                    }
+                    case DUTCH -> {
+                        return "Bard";
+                    }
+                }
             }
         }
         return null;
     }
+
 
     public void lockScreen() {
         lockedScreen = true;

@@ -8,6 +8,10 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import static utilities.Constants.GameLanguage.*;
 
 
 public class PlayerUI {
@@ -66,7 +70,7 @@ public class PlayerUI {
         int textY = (int) (frY + Game.tileSize / 1.5);
         final int lineHeight = (int) (fontSize/1.1);
 
-        String[] attributes = {
+        String[] attributes = new String[]{
                 "Level", "XP", "Life", "Strength", "Attack",
                 "Defense", "Charisma", "Speed", "Weapon"
         };
@@ -77,6 +81,35 @@ public class PlayerUI {
         for (String attribute : attributes) {
             String value = "";
             int valueX = rightX;
+
+            Map<String, String> attributeTranslations = new HashMap<>();
+
+            switch (playing.getGame().getLanguage()) {
+                case ENGLISH -> {
+                    attributeTranslations.put("Level", "Level");
+                    attributeTranslations.put("Life", "Life");
+                    attributeTranslations.put("Strength", "Strength");
+                    attributeTranslations.put("Attack", "Attack");
+                    attributeTranslations.put("Defense", "Defense");
+                    attributeTranslations.put("Charisma", "Charisma");
+                    attributeTranslations.put("Speed", "Speed");
+                    attributeTranslations.put("XP", "XP");
+                    attributeTranslations.put("Weapon", "Weapon");
+                }
+                case DUTCH -> {
+                    attributeTranslations.put("Level", "Niveau");
+                    attributeTranslations.put("Life", "Leven");
+                    attributeTranslations.put("Strength", "Kracht");
+                    attributeTranslations.put("Attack", "Aanval");
+                    attributeTranslations.put("Defense", "Verdediging");
+                    attributeTranslations.put("Charisma", "Charisma");
+                    attributeTranslations.put("Speed", "Snelheid");
+                    attributeTranslations.put("XP", "XP");
+                    attributeTranslations.put("Weapon", "Wapen");
+                }
+            }
+
+            String translatedAttribute = attributeTranslations.getOrDefault(attribute, attribute);
 
             switch (attribute) {
                 case "Level":
@@ -101,7 +134,7 @@ public class PlayerUI {
                     value = String.valueOf(playing.getPlayer().getSpeed());
                     break;
                 case "XP":
-                    value = String.valueOf(playing.getPlayer().getExp() + "/" + String.valueOf(playing.getPlayer().getNextLevelExp()));
+                    value = playing.getPlayer().getExp() + "/" + String.valueOf(playing.getPlayer().getNextLevelExp());
                     break;
                 case "Weapon":
                     valueX = rightX - Game.tileSize / 4;
@@ -112,7 +145,7 @@ public class PlayerUI {
                     break;
             }
 
-            g.drawString(attribute, textX, textY);
+            g.drawString(translatedAttribute, textX, textY);
             valueX = xAlignRightText(value, valueX);
             g.drawString(value, valueX, textY);
             textY += lineHeight;

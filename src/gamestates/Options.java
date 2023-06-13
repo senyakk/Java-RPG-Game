@@ -11,6 +11,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
+import static utilities.Constants.GameLanguage.DUTCH;
+import static utilities.Constants.GameLanguage.ENGLISH;
 import static utilities.Constants.UI.PauseButtons.URM_SIZE;
 
 public class Options extends State implements Statemethods {
@@ -32,10 +34,17 @@ public class Options extends State implements Statemethods {
     }
 
     private void loadImages() {
-
-        backgroundImage = Load.GetSpriteImg("UI/Startscreen.png");
-        optionsBackgroundImage = Load.GetSpriteImg("UI/options_background.png");
-
+        switch (game.getLanguage()) {
+            case ENGLISH -> {
+                backgroundImage = Load.GetSpriteImg("UI/English/Startscreen.png");
+                optionsBackgroundImage = Load.GetSpriteImg("UI/English/Options/options_background.png");
+            }
+            case DUTCH -> {
+                // Dutch buttons here
+                backgroundImage = Load.GetSpriteImg("UI/English/Startscreen.png");
+                optionsBackgroundImage = Load.GetSpriteImg("UI/English/Options/options_background.png");
+            }
+        }
         bgW = (int) (optionsBackgroundImage.getWidth() * Game.scale/1.5);
         bgH = (int) (optionsBackgroundImage.getHeight() * Game.scale/1.5);
         bgX = Game.screenWidth / 2 - bgW / 2;

@@ -4,6 +4,12 @@ import main.Game;
 
 public class Constants {
 
+    public static class GameLanguage {
+
+        public static final int ENGLISH = 0;
+        public static final int DUTCH = 1;
+    }
+
     public static class Objects {
         // SIZE CONSTANTS FOR OBJECTS
         public static final int OBJECT_SIZE_DEFAULT = 16;

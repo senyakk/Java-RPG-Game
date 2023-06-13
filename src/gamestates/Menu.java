@@ -10,6 +10,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
+import static utilities.Constants.GameLanguage.*;
 import static utilities.Constants.UI.MenuButtons.*;
 
 public class Menu extends State implements Statemethods{
@@ -18,17 +19,25 @@ public class Menu extends State implements Statemethods{
 
     public Menu(Game game) {
         super(game);
-        loadButtons();
-        backgroundImage = Load.GetSpriteImg("UI/Startscreen.png");
+        loadSprites();
     }
 
-    private void loadButtons() {
-        buttons[0] = new MenuButton((int) (165 * Game.scale), (int)(170 * Game.scale),
-                B_WIDTH, B_HEIGHT,0,Gamestate.CLASS_SELECTION);
-        buttons[1] = new MenuButton((int)(320 * Game.scale), (int)(170 * Game.scale),
-                B_WIDTH, B_HEIGHT, 1 ,Gamestate.OPTIONS);
-        buttons[2] = new MenuButton((int) (475 * Game.scale), (int)(170 * Game.scale),
-                B_WIDTH, B_HEIGHT, 2 ,Gamestate.QUIT);
+    private void loadSprites() {
+        switch(game.getLanguage()) {
+            case ENGLISH -> {
+                backgroundImage = Load.GetSpriteImg("UI/English/Startscreen.png");
+            }
+            case DUTCH -> {
+                // Dutch start screen here
+                backgroundImage = Load.GetSpriteImg("UI/English/Startscreen.png");
+            }
+        }
+        buttons[0] = new MenuButton((int) (165 * Game.scale), (int) (170 * Game.scale),
+                B_WIDTH, B_HEIGHT, 0, Gamestate.CLASS_SELECTION);
+        buttons[1] = new MenuButton((int) (320 * Game.scale), (int) (170 * Game.scale),
+                B_WIDTH, B_HEIGHT, 1, Gamestate.OPTIONS);
+        buttons[2] = new MenuButton((int) (475 * Game.scale), (int) (170 * Game.scale),
+                B_WIDTH, B_HEIGHT, 2, Gamestate.QUIT);
     }
 
 

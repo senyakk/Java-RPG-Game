@@ -10,6 +10,7 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
+import static utilities.Constants.GameLanguage.*;
 import static utilities.Constants.UI.PauseButtons.URM_SIZE;
 
 public class Pause {
@@ -40,7 +41,15 @@ public class Pause {
 
 
     private void loadBackground() {
-        background = Load.GetSpriteImg("UI/pause_menu.png");
+        switch (playing.getGame().getLanguage()) {
+            case ENGLISH -> {
+                background = Load.GetSpriteImg("UI/English/Options/pause_menu.png");
+            }
+            case DUTCH -> {
+                // Dutch pause here
+                background = Load.GetSpriteImg("UI/English/Options/pause_menu.png");
+            }
+        }
         width = (int)(background.getWidth() * Game.scale/1.5);
         heigth =(int) (background.getHeight() * Game.scale/1.5);
         posX = Game.screenWidth / 2 - width / 2;

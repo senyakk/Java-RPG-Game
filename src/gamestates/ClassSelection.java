@@ -6,12 +6,13 @@ import buttonUi.GameButton;
 import main.Game;
 import utilities.Load;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
+import static utilities.Constants.GameLanguage.DUTCH;
+import static utilities.Constants.GameLanguage.ENGLISH;
 import static utilities.Constants.PlayerConstants.*;
 import static utilities.Constants.UI.MenuButtons.B_HEIGHT;
 import static utilities.Constants.UI.MenuButtons.B_WIDTH;
@@ -29,22 +30,28 @@ public class ClassSelection extends State implements Statemethods {
      */
     public ClassSelection(Game game) {
         super(game);
-        backgroundImage = Load.GetSpriteImg("UI/StartscreenSelectClass.png");
-        loadButtons();
+        loadSprites();
     }
 
-    private void loadButtons() {
-
-        buttons[0] = new ClassButton((int) (165 * Game.scale), (int)(170 * Game.scale),
+    private void loadSprites() {
+        switch (game.getLanguage()) {
+            case ENGLISH -> {
+                backgroundImage = Load.GetSpriteImg("UI/English/StartscreenSelectClass.png");
+            }
+            case DUTCH -> {
+                // Dutch background here
+                backgroundImage = Load.GetSpriteImg("UI/English/StartscreenSelectClass.png");
+            }
+        }
+        buttons[0] = new ClassButton((int) (165 * Game.scale), (int) (170 * Game.scale),
                 B_WIDTH, B_HEIGHT, WARRIOR);
-        buttons[1] = new ClassButton((int)(320 * Game.scale), (int)(170 * Game.scale),
+        buttons[1] = new ClassButton((int) (320 * Game.scale), (int) (170 * Game.scale),
                 B_WIDTH, B_HEIGHT, ARCHER);
-        buttons[2] = new ClassButton((int) (475 * Game.scale), (int)(170 * Game.scale),
+        buttons[2] = new ClassButton((int) (475 * Game.scale), (int) (170 * Game.scale),
                 B_WIDTH, B_HEIGHT, BARD);
 
-        returnButton = new MenuButton(Game.screenWidth/2, (int) (Game.screenHeight/1.3),
+        returnButton = new MenuButton(Game.screenWidth / 2, (int) (Game.screenHeight / 1.3),
                 B_WIDTH, B_WIDTH, 3, Gamestate.MENU);
-
     }
 
     @Override

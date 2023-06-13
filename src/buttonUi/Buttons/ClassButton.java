@@ -35,21 +35,21 @@ public class ClassButton extends GameButton {
         images = new BufferedImage[2];
         switch (gameClass) {
             case WARRIOR -> {
-                warrior = Load.GetSpriteImg("UI/MenuButtons/WarriorButton.png");
+                warrior = Load.GetSpriteImg("UI/English/ClassButtons/WarriorButton.png");
                 images[0] = warrior;
-                warAct = Load.GetSpriteImg("UI/MenuButtons/WarriorActivatedButton.png");
+                warAct = Load.GetSpriteImg("UI/English/ClassButtons/WarriorActivatedButton.png");
                 images[1] = warAct;
             }
             case ARCHER -> {
-                archer = Load.GetSpriteImg("UI/MenuButtons/ArcherButton.png");
+                archer = Load.GetSpriteImg("UI/English/ClassButtons/ArcherButton.png");
                 images[0] = archer;
-                archAct = Load.GetSpriteImg("UI/MenuButtons/ArcherActivatedButton.png");
+                archAct = Load.GetSpriteImg("UI/English/ClassButtons/ArcherActivatedButton.png");
                 images[1] = archAct;
             }
             case BARD -> {
-                bard = Load.GetSpriteImg("UI/MenuButtons/BardButton.png");
+                bard = Load.GetSpriteImg("UI/English/ClassButtons/BardButton.png");
                 images[0] = bard;
-                bardAct = Load.GetSpriteImg("UI/MenuButtons/BardActivatedButton.png");
+                bardAct = Load.GetSpriteImg("UI/English/ClassButtons/BardActivatedButton.png");
                 images[1] = bardAct;
             }
         }
