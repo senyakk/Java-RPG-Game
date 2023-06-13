@@ -13,6 +13,10 @@ import java.awt.image.BufferedImage;
 import static utilities.Constants.GameLanguage.*;
 import static utilities.Constants.UI.PauseButtons.URM_SIZE;
 
+/**
+ * @author Arsenijs
+ * Class that handles Pause view in UI
+ */
 public class Pause {
 
     BufferedImage background;

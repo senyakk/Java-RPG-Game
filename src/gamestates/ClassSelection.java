@@ -17,7 +17,10 @@ import static utilities.Constants.PlayerConstants.*;
 import static utilities.Constants.UI.MenuButtons.B_HEIGHT;
 import static utilities.Constants.UI.MenuButtons.B_WIDTH;
 
-
+/**
+ * @author Arsenijs
+ * Class that handles class selection state
+ */
 public class ClassSelection extends State implements Statemethods {
 
     private BufferedImage backgroundImage;

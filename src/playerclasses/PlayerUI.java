@@ -13,7 +13,10 @@ import java.util.Map;
 
 import static utilities.Constants.GameLanguage.*;
 
-
+/**
+ * @author Arsenijs
+ * View class that handles player's ui
+ */
 public class PlayerUI {
 
     private Playing playing;
@@ -189,7 +192,7 @@ public class PlayerUI {
         }
     }
 
-    public void toggleStatus() {
+    public void toggleStats() {
         statusOn = !statusOn;
     }
 

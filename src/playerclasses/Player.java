@@ -18,8 +18,8 @@ import static utilities.Constants.GameLanguage.*;
 import static utilities.Constants.PlayerConstants.*;
 
 /**
- * @author arseniy
- * Class that handles the player and it's interaction with the game
+ * @author Arsenijs
+ * Class that handles the player, and it's interaction with the game
  */
 public class Player extends Creature {
 

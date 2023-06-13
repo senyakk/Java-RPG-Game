@@ -13,6 +13,10 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
+/**
+ * @author Arsenijs
+ * Class that handles the gameplay and controllers
+ */
 public class Playing extends State implements Statemethods {
 
     private Player player;
@@ -172,7 +176,7 @@ public class Playing extends State implements Statemethods {
             }
             case KeyEvent.VK_Q -> {
                 if (!paused) {
-                    ui.toggleStatus();
+                    ui.toggleStats();
                 }
             }
         }

@@ -13,6 +13,10 @@ import java.awt.image.BufferedImage;
 import static utilities.Constants.GameLanguage.*;
 import static utilities.Constants.UI.MenuButtons.*;
 
+/**
+ * @author Arsenijs
+ * Class that handles menu state
+ */
 public class Menu extends State implements Statemethods{
     private MenuButton[] buttons = new MenuButton[3];
     private BufferedImage backgroundImage;

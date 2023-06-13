@@ -15,6 +15,10 @@ import static utilities.Constants.GameLanguage.DUTCH;
 import static utilities.Constants.GameLanguage.ENGLISH;
 import static utilities.Constants.UI.PauseButtons.URM_SIZE;
 
+/**
+ * @author Arsenijs
+ * Class that handles options state
+ */
 public class Options extends State implements Statemethods {
     private AudioHandler audio;
     private BufferedImage backgroundImage, optionsBackgroundImage;
