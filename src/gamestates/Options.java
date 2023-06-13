@@ -4,6 +4,7 @@ import main.Game;
 import buttonUi.AudioHandler;
 import buttonUi.GameButton;
 import buttonUi.Buttons.ReplayButton;
+import main.GameModel;
 import utilities.Load;
 
 import java.awt.*;
@@ -19,16 +20,16 @@ import static utilities.Constants.UI.PauseButtons.URM_SIZE;
  * @author Arsenijs
  * Class that handles options state
  */
-public class Options extends State implements Statemethods {
+public class Options extends State {
     private AudioHandler audio;
     private BufferedImage backgroundImage, optionsBackgroundImage;
     private int bgX, bgY, bgW, bgH;
     private ReplayButton menuB;
-    public Options(Game game) {
-        super(game);
+    public Options(GameModel gameModel) {
+        super(gameModel);
         loadImages();
         loadButtons();
-        audio = game.getAudio();
+        audio = gameModel.getAudio();
     }
 
     private void loadButtons() {
@@ -38,7 +39,7 @@ public class Options extends State implements Statemethods {
     }
 
     private void loadImages() {
-        switch (game.getLanguage()) {
+        switch (gameModel.getLanguage()) {
             case ENGLISH -> {
                 backgroundImage = Load.GetSpriteImg("UI/English/Startscreen.png");
                 optionsBackgroundImage = Load.GetSpriteImg("UI/English/Options/options_background.png");
@@ -74,7 +75,7 @@ public class Options extends State implements Statemethods {
     @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-            Gamestate.state = Gamestate.MENU;
+            gameModel.setGameState(Gamestate.MENU);
         }
     }
 
@@ -105,7 +106,7 @@ public class Options extends State implements Statemethods {
     public void mouseReleased(MouseEvent e) {
         if (isInOBorder(e, menuB)) {
             if (menuB.isMousePressed()) {
-                Gamestate.state = Gamestate.MENU;
+                gameModel.setGameState(Gamestate.MENU);
             }
         }
         else {

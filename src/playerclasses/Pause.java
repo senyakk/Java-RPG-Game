@@ -1,5 +1,7 @@
-package buttonUi;
+package playerclasses;
 
+import buttonUi.AudioHandler;
+import buttonUi.GameButton;
 import gamestates.Gamestate;
 import gamestates.Playing;
 import main.Game;
@@ -23,12 +25,12 @@ public class Pause {
     private int posX, posY, width, heigth;
     private ReplayButton menuButton, replayButton, unpauseButton;
     private Playing playing;
-    private AudioHandler audio;
+    private AudioHandler audioHandler;
 
     public Pause(Playing playing) {
         this.playing = playing;
         loadBackground();
-        audio = playing.getGame().getAudio();
+        audioHandler = playing.getGameModel().getAudio();
         addReplayButtons();
     }
 
@@ -45,7 +47,7 @@ public class Pause {
 
 
     private void loadBackground() {
-        switch (playing.getGame().getLanguage()) {
+        switch (playing.getGameModel().getLanguage()) {
             case ENGLISH -> {
                 background = Load.GetSpriteImg("UI/English/Options/pause_menu.png");
             }
@@ -65,7 +67,7 @@ public class Pause {
         menuButton.update();
         unpauseButton.update();
         replayButton.update();
-        audio.update();
+        audioHandler.update();
     }
 
     public void draw (Graphics g) {
@@ -76,12 +78,12 @@ public class Pause {
         menuButton.draw(g);
         unpauseButton.draw(g);
         replayButton.draw(g);
-        audio.draw(g);
+        audioHandler.draw(g);
 
     }
 
     public void mouseDragged(MouseEvent e) {
-        audio.mouseDragged(e);
+        audioHandler.mouseDragged(e);
     }
 
     public void mousePressed(MouseEvent e) {
@@ -95,13 +97,14 @@ public class Pause {
             unpauseButton.setMousePressed(true);
         }
         else
-            audio.mousePressed(e);
+            audioHandler.mousePressed(e);
     }
 
     public void mouseReleased(MouseEvent e) {
         if (isInOBorder(e, menuButton)) {
             if (menuButton.isMousePressed()) {
-                Gamestate.state = Gamestate.MENU;
+                playing.getGameModel().setGameState(Gamestate.MENU);
+                playing.resetAll();
                 playing.unpause();
             }
         }
@@ -116,7 +119,7 @@ public class Pause {
                 playing.unpause();
             }
         } else
-            audio.mouseReleased(e);
+            audioHandler.mouseReleased(e);
         menuButton.reset();
         replayButton.reset();
         unpauseButton.reset();
@@ -138,7 +141,7 @@ public class Pause {
             unpauseButton.setMouseOver(true);
         }
         else
-            audio.mouseMoved(e);
+            audioHandler.mouseMoved(e);
     }
 
     private boolean isInOBorder(MouseEvent e, GameButton b) {

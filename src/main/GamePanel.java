@@ -1,7 +1,6 @@
 package main;
 
-import inputs.KeyboardInputs;
-import inputs.MouseInputs;
+import gamestates.State;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,26 +9,26 @@ import static main.Game.screenWidth;
 
 public class GamePanel extends JPanel {
 
-    private Game game;
+    private GameController gameController;
 
     /**
-     * Creates a game panel and adds even listeners to the panel;
-     * @param game Game object
+     * Creates a game pane
      */
-    public GamePanel(Game game) {
+    public GamePanel() {
 
-        this.game = game;
         setPanelSize();
-
-        addKeyListener(new KeyboardInputs(this));
-        MouseInputs mouseInputs = new MouseInputs(this);
-        addMouseListener(mouseInputs);
-        addMouseMotionListener(mouseInputs);
-        requestFocus();
+        setFocusable(true);
 
         setBackground(new Color(100, 180, 100));
         setDoubleBuffered(true);
         requestFocus();
+    }
+
+    public void setGameController(GameController gameController) {
+        this.gameController =gameController;
+        addKeyListener(gameController);
+        addMouseListener(gameController);
+        addMouseMotionListener(gameController);
     }
 
     /**
@@ -42,14 +41,16 @@ public class GamePanel extends JPanel {
         setMaximumSize(size);
     }
 
-    public Game getGame() {
-        return game;
+    public GameController getGameController() {
+        return gameController;
     }
 
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        Graphics2D g2 = (Graphics2D)g;
-        game.render(g2);
+        State gameState = gameController.getGameModel().getGameState();
+        if (gameState != null) {
+            gameState.draw(g);
+        }
     }
 }

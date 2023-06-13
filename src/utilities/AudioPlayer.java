@@ -55,6 +55,8 @@ public class AudioPlayer {
     public AudioPlayer() {
         loadSongs();
         loadEffects();
+
+        playLightAmbient();
     }
 
     /**
