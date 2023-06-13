@@ -55,13 +55,23 @@ public class Player extends Creature {
     private int attackCounter = 0;
     private Rectangle attackArea = new Rectangle(0,0,0,0);
 
+
+    private static Player instance;
+
     /**
-     * Creates a player in a game
+     * Creates a singleton player instance in a game. If instance exists, returns existing player
      * @param playerX x coordinates in the world
      * @param playerY y coordinates in the world
      * @param playing game Playing state
      */
-    public Player(int playerX, int playerY, Playing playing) {
+    public static Player getInstance(int playerX, int playerY, Playing playing) {
+        if (instance == null) {
+            instance = new Player(playerX, playerY, playing);
+        }
+        return instance;
+    }
+
+    private Player(int playerX, int playerY, Playing playing) {
         super(playerX, playerY, Game.tileSize, Game.tileSize);
         this.playing = playing;
         this.playerX = playerX;
@@ -72,6 +82,7 @@ public class Player extends Creature {
         loadAnimations();
         initHitArea(22, 24, 18, 32);
     }
+
 
     /**
      * Sets default variables of thr player

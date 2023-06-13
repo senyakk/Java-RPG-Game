@@ -16,6 +16,7 @@ import java.awt.event.MouseEvent;
 
 /**
  * @author Arsenijs
+ * State for playing the game.
  * Class that acts a central coordinator, bringing together the model, view, and controller
  */
 public class Playing extends State implements Statemethods {
@@ -63,7 +64,7 @@ public class Playing extends State implements Statemethods {
      */
     private void putPlayer() {
         switch (getLevelManager().getCurrentLevelId()) {
-            case 0 -> player = new Player(22, 21, this);
+            case 0 -> player = Player.getInstance(22, 21, this);
         }
         playerController = new PlayerController(this);
         player.addCollisionChecker(collisionChecker);
