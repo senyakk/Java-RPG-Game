@@ -1,74 +1,41 @@
 package inventory;
 
-import utilities.Load;
-
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Objects;
 
-/**
- * Represents a generic item
- */
-public class Item {
-    private String id;
-    private String displayName;
-    private boolean isVisible;
-    private String spriteLoc;
-    private BufferedImage sprite;
+public interface Item {
+    /**
+     * Getter for ID of Item object
+     * @return the unique ID string of the object (e.g. "Sword" has ID "15", "Bow" has ID "23", etc.)
+     */
+    public String getId();
 
-    // ID getter
-    public String getId(){
-        return this.id;
-    }
+    /**
+     * The proper display name of the Item object is based on ID and current game language
+     * @return the set display name based on language
+     */
+    public String getDisplayName();
 
-    // Display name
-    private void setDisplayName(){
-        // TODO: Access language database based on ID and game language; Game language -> static in main game class
-        if (this.id.equals("1")) this.displayName = "Arrow";
-        if (this.id.equals("2")) this.displayName = "Bow";
-    }
+    /**
+     * Empty items (with ID "0") behave differently
+     * @return true if the Item has ID "0"
+     */
+    public boolean isEmptyItem();
 
-    public String getDisplayName(){
-        return this.displayName;
-    }
+    /**
+     * Whether an Item is visible or not
+     * @return true if the Item is not an empty item
+     */
+    public boolean getVisibility();
 
-    // Empty item
-    public boolean isEmptyItem(){
-        return Objects.equals(this.getId(), "0");
-    }
+    /**
+     * Determines the location of the sprite resource
+     * @return the path of the sprite for the current Item object
+     */
+    public String getSpriteLoc();
 
-    // Visibility
-    private void setVisibility(){
-        this.isVisible = !this.isEmptyItem();
-    }
-
-    public boolean getVisibility(){
-        return this.isVisible;
-    }
-
-    // Sprite
-    private void setSpriteLoc(){
-        // TODO: Access database based on ID
-        if (this.id.equals("0")) this.spriteLoc = "items/0.png";
-        if (this.id.equals("1")) this.spriteLoc = "items/arrowItem.png";
-        if (this.id.equals("2")) this.spriteLoc = "items/bowItem.png";
-    }
-
-    public String getSpriteLoc(){
-        // TODO: Access database based on ID
-        return this.spriteLoc;
-    }
-
-    public BufferedImage getSprite(){
-        return this.sprite;
-    }
-
-    public Item(String id){
-        this.id = id;
-        setDisplayName();
-        setVisibility();
-        setSpriteLoc();
-    }
+    /**
+     * Determines the exact sprite of the Item
+     * @return the sprite corresponding to this ID
+     */
+    public BufferedImage getSprite();
 }
