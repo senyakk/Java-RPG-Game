@@ -35,7 +35,7 @@ public class Game implements Runnable {
     private Options options;
     public Thread gameLoop;
 
-    public int language = ENGLISH;
+    public int language = DUTCH;
 
     // GAME LOOP SETTINGS
     private final int FPS = 120;
