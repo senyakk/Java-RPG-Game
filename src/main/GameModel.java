@@ -5,7 +5,7 @@ import gamestates.*;
 import playerclasses.Player;
 import utilities.AudioPlayer;
 
-import static utilities.Constants.GameLanguage.DUTCH;
+import static utilities.Constants.GameLanguage.*;
 
 public class GameModel {
     private State gameState; // Current game state
