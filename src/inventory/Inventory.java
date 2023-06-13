@@ -29,6 +29,8 @@ public class Inventory {
         addItem(new GenericItem("2"));
 
         updateFullInventory();
+
+        this.listeners = new ArrayList<>();
     }
 
     /**

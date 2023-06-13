@@ -1,7 +1,7 @@
 package inventory;
 
 import gamestates.Playing;
-import main.Game;
+import main.GameModel;
 import utilities.Load;
 
 import java.awt.*;
@@ -42,10 +42,10 @@ public class InventoryManager {
         ArrayList<Item> currentItemList = inventory.getItemList();
 
         // Improper position calculations, more exact method needed
-        int pos0x = (int) (invX + 55 * Game.scale);
-        int pos0y = (int) (invY + 85 * Game.scale);
+        int pos0x = (int) (invX + 55 * GameModel.scale);
+        int pos0y = (int) (invY + 85 * GameModel.scale);
         int spriteSize = 16; //(int)(16 * Game.scale);
-        int skip = (int) (8 * Game.scale);
+        int skip = (int) (8 * GameModel.scale);
 
         int index = 0;
         int posx, posy;
@@ -55,8 +55,8 @@ public class InventoryManager {
                 Item currentItem = currentItemList.get(row * INVENTORY_COLS + col);
 
                 // Also inexact but works for our purposes
-                posx = pos0x + col*((int)(spriteSize*Game.scale) + skip);
-                posy = pos0y + row*((int)(spriteSize*Game.scale) + skip);
+                posx = pos0x + col*((int)(spriteSize*GameModel.scale) + skip);
+                posy = pos0y + row*((int)(spriteSize*GameModel.scale) + skip);
 
                 InventoryButton button = new InventoryButton(currentItem.getSpriteLoc(), posx, posy, spriteSize, spriteSize);
                 button.addListeners(new InventoryButtonListener(this.inventory));
@@ -73,10 +73,10 @@ public class InventoryManager {
     private void loadInventoryImage() {
         this.inventoryImage = Load.GetSpriteImg(Load.INVENTORY);
 
-        this.invWidth = (int) (inventoryImage.getWidth() * Game.scale);
-        this.invHeight = (int) (inventoryImage.getHeight() * Game.scale);
-        this.invX = (Game.screenWidth / 2 - invWidth / 2);
-        this.invY = (int) (Game.screenHeight / 1.25 - invHeight / 2);
+        this.invWidth = (int) (inventoryImage.getWidth() * GameModel.scale);
+        this.invHeight = (int) (inventoryImage.getHeight() * GameModel.scale);
+        this.invX = (GameModel.screenWidth / 2 - invWidth / 2);
+        this.invY = (int) (GameModel.screenHeight / 1.25 - invHeight / 2);
     }
 
     /**

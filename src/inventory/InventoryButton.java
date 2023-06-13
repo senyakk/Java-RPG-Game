@@ -2,6 +2,7 @@ package inventory;
 
 import buttonUi.GameButton;
 import main.Game;
+import main.GameModel;
 import utilities.Load;
 
 import java.awt.*;
@@ -28,6 +29,8 @@ public class InventoryButton extends GameButton {
         //this.width = width; this.height = height;
         super(x, y, width, height);
         this.sprite = Load.GetSpriteImg(spriteLoc);
+
+        this.listeners = new ArrayList<>();
     }
 
     /**
@@ -36,8 +39,8 @@ public class InventoryButton extends GameButton {
      */
     public void draw(Graphics g) {
         // Improper calculations again, but it works for our purposes
-        int szx = (int) (1.5f * sprite.getWidth() * Game.scale);
-        int szy = (int) (1.5f * sprite.getHeight() * Game.scale);
+        int szx = (int) (1.5f * sprite.getWidth() * GameModel.scale);
+        int szy = (int) (1.5f * sprite.getHeight() * GameModel.scale);
 
         //int szbgx = (int) (3.3f * sprite.getWidth() * Game.scale);
         //int szbgy = (int) (3.3f * sprite.getHeight() * Game.scale);
