@@ -39,7 +39,7 @@ public class InventoryManager {
      * Recreates all buttons on UI based on the list of items in the inventory
      */
     private void updateButtons(){
-        ArrayList<GenericItem> currentItemList = inventory.getItemList();
+        ArrayList<Item> currentItemList = inventory.getItemList();
 
         // Improper position calculations, more exact method needed
         int pos0x = (int) (invX + 55 * Game.scale);
@@ -52,7 +52,7 @@ public class InventoryManager {
 
         for (int row = 0; row < INVENTORY_ROWS; row++){
             for (int col = 0; col < INVENTORY_COLS; col++){
-                GenericItem currentItem = currentItemList.get(row * INVENTORY_COLS + col);
+                Item currentItem = currentItemList.get(row * INVENTORY_COLS + col);
 
                 // Also inexact but works for our purposes
                 posx = pos0x + col*((int)(spriteSize*Game.scale) + skip);
