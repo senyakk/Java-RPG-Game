@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Represents a player's inventory
  */
 public class Inventory {
-    public static int MAX_INVENTORY_SIZE = 12;
+    public static int MAX_INVENTORY_SIZE = 36;
 
     private int usedSlots;
     private boolean fullInventory;
@@ -14,7 +14,10 @@ public class Inventory {
     private ArrayList<Item> itemList;
 
     public Inventory(){
-        for (int i = 0; i < MAX_INVENTORY_SIZE; i++){
+        addItem(new Item("1"));
+        addItem(new Item("2"));
+
+        for (int i = 2; i < MAX_INVENTORY_SIZE; i++){
             addItem(new Item("0"));
         }
 
@@ -56,5 +59,9 @@ public class Inventory {
         usedSlots--;
         fullInventory = false;
         return removedItem;
+    }
+
+    public ArrayList<Item> getItemList(){
+        return this.itemList;
     }
 }

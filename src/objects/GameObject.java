@@ -1,5 +1,6 @@
 package objects;
 
+import inventory.Item;
 import locations.CollisionChecker;
 import main.Game;
 
@@ -10,22 +11,17 @@ import java.io.IOException;
 
 public class GameObject {
 
-    // Position and size variables in the world
-    protected float worldX, worldY, width, height;
-    // Name of the object
-    protected String name;
-    // Image of the object
-    protected BufferedImage image;
-    // Hitbox of the object
-    protected float xDefaultHitbox, yDefaultHitbox;
-    // Activity status of the object
-    protected boolean isActive = true;
-    // Position variables on the screen when the player is moving
-    protected int screenX, screenY;
-    // Collision checker
-    protected CollisionChecker collisionChecker;
+    protected float worldX, worldY, width, height;              // Position and size in the world
+    protected String name;                                      // Name of the object
+    protected BufferedImage image;                              // Image of the object
+    protected float xDefaultHitbox, yDefaultHitbox;             // Hitbox of the object
+    protected boolean isActive = true;                          // Activity status of the object
+    protected int screenX, screenY;                             // Position on the screen when the player is moving
+    protected CollisionChecker collisionChecker;                // Collision checker
     protected boolean collisionOn = false;
     protected Rectangle solidArea = new Rectangle(0,0, Game.tileSize, Game.tileSize);
+
+    protected Item item;                                        // Item that represents the GameObject
 
     /**
      * Constructs an object

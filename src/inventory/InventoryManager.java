@@ -15,18 +15,35 @@ public class InventoryManager {
     private BufferedImage inventoryImage;
     private int invWidth, invHeight, invX, invY;
 
+    private final int INVENTORY_ROWS = 3;
+    private final int INVENTORY_COLS = 12;
+
     private Inventory inventory;
 
     public InventoryManager(Playing playing) {
         this.inventory = new Inventory();
-
         this.playing = playing;
+
         loadInventoryImage();
 
         this.inventoryButtons = new InventoryButton[Inventory.MAX_INVENTORY_SIZE];
-        for (int i = 0; i < Inventory.MAX_INVENTORY_SIZE; i++){
-            InventoryButton button = new InventoryButton("UI/inventoryButton.png", Game.screenWidth/2, Game.screenHeight/2, 100, 100);
-            this.inventoryButtons[i] = button;
+
+        int pos0x = (int) (invX + 55 * Game.scale);
+        int pos0y = (int) (invY + 85 * Game.scale);
+        int spriteSize = 16; //(int)(16 * Game.scale);
+        int skip = (int) (8 * Game.scale);
+
+        int i = 0;
+        int posx, posy;
+        for (int row = 0; row < INVENTORY_ROWS; row++){
+            for (int col = 0; col < INVENTORY_COLS; col++){
+                posx = pos0x + col*((int)(spriteSize*Game.scale) + skip);
+                posy = pos0y + row*((int)(spriteSize*Game.scale) + skip);
+
+                InventoryButton button = new InventoryButton("items/bowItem.png", posx, posy, spriteSize, spriteSize);
+                this.inventoryButtons[i] = button;
+                i++;
+            }
         }
     }
 
@@ -42,10 +59,9 @@ public class InventoryManager {
 
     public void draw(Graphics g) {
         g.drawImage(inventoryImage, invX, invY, invWidth, invHeight, null);
-        /*for(InventoryButton button : inventoryButtons) {
+        for(InventoryButton button : inventoryButtons) {
             button.draw(g);
-        }*/
-        inventoryButtons[0].draw(g);
+        }
     }
 
     public void resetAll() {
