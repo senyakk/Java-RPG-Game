@@ -100,6 +100,8 @@ public class CollisionChecker {
             levelManager.changeLevel(0);
         else if (((tile1.getName().equals("stairs")) || (tile2.getName().equals("stairs"))))
             levelManager.changeLevel(2);
+        else if (((tile1.getName().equals("gate")) || (tile2.getName().equals("gate"))))
+           levelManager.changeLevel(3);
     }
 
     /**
