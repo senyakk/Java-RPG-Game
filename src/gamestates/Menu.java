@@ -104,7 +104,7 @@ public class Menu extends State {
 
     private void resetButtons() {
         for(MenuButton button : buttons)  {
-            button.resetBool();
+            button.reset();
         }
     }
 

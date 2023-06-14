@@ -113,6 +113,7 @@ public class Playing extends State {
         movePlayer(0);
         paused = false;
         player.resetAll();
+        ui.resetAll();
         objectManager.resetAll();
         inventoryManager.resetAll();
     }

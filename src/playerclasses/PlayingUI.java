@@ -223,6 +223,11 @@ public class PlayingUI {
         return pause;
     }
 
+    public void resetAll() {
+        statsOn = false;
+        inventoryOn = false;
+    }
+
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
             // Inventory switch
@@ -263,4 +268,5 @@ public class PlayingUI {
             pause.mouseReleased(e);
         }
     }
+
 }

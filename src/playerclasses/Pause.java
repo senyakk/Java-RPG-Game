@@ -87,13 +87,13 @@ public class Pause {
     }
 
     public void mousePressed(MouseEvent e) {
-        if (isInOBorder(e, menuButton)) {
+        if (isInBorder(e, menuButton)) {
             menuButton.setMousePressed(true);
         }
-        else if (isInOBorder(e, replayButton)) {
+        else if (isInBorder(e, replayButton)) {
             replayButton.setMousePressed(true);
         }
-        else if (isInOBorder(e, unpauseButton)) {
+        else if (isInBorder(e, unpauseButton)) {
             unpauseButton.setMousePressed(true);
         }
         else
@@ -101,20 +101,20 @@ public class Pause {
     }
 
     public void mouseReleased(MouseEvent e) {
-        if (isInOBorder(e, menuButton)) {
+        if (isInBorder(e, menuButton)) {
             if (menuButton.isMousePressed()) {
                 playing.getGameModel().setGameState(Gamestate.MENU);
                 playing.resetAll();
                 playing.unpause();
             }
         }
-        else if (isInOBorder(e, replayButton)) {
+        else if (isInBorder(e, replayButton)) {
             if (replayButton.isMousePressed()) {
                 playing.resetAll();
                 playing.unpause();
             }
         }
-        else if (isInOBorder(e, unpauseButton)) {
+        else if (isInBorder(e, unpauseButton)) {
             if (unpauseButton.isMousePressed()) {
                 playing.unpause();
             }
@@ -131,20 +131,20 @@ public class Pause {
         replayButton.setMouseOver(false);
         unpauseButton.setMouseOver(false);
 
-        if (isInOBorder(e, menuButton)) {
+        if (isInBorder(e, menuButton)) {
             menuButton.setMouseOver(true);
         }
-        else if (isInOBorder(e, replayButton)) {
+        else if (isInBorder(e, replayButton)) {
             replayButton.setMouseOver(true);
         }
-        else if (isInOBorder(e, unpauseButton)) {
+        else if (isInBorder(e, unpauseButton)) {
             unpauseButton.setMouseOver(true);
         }
         else
             audioHandler.mouseMoved(e);
     }
 
-    private boolean isInOBorder(MouseEvent e, GameButton b) {
+    private boolean isInBorder(MouseEvent e, GameButton b) {
         return b.getBounds().contains(e.getX(), e.getY());
     }
 

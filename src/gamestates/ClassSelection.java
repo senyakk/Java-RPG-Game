@@ -113,9 +113,9 @@ public class ClassSelection extends State {
 
     private void resetButtons() {
         for(ClassButton button : buttons)  {
-            button.resetBool();
+            button.reset();
         }
-        returnButton.resetBool();
+        returnButton.reset();
     }
 
     @Override
