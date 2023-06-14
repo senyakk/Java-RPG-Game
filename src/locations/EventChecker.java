@@ -6,6 +6,8 @@ import playerclasses.Player;
 
 import java.awt.*;
 
+import static utilities.Constants.Direction.*;
+
 public class EventChecker {
 
     Playing playing;
@@ -19,8 +21,8 @@ public class EventChecker {
         eventArea = new Rectangle();
         eventArea.x = GameModel.tileSize/4;
         eventArea.y = GameModel.tileSize/4;
-        eventArea.width = GameModel.tileSize/2;
-        eventArea.height = GameModel.tileSize/2;
+        eventArea.width = (int) (GameModel.tileSize/1.5);
+        eventArea.height = (int) (GameModel.tileSize/1.5);
         eventRectX = eventArea.x;
         eventRectY = eventArea.y;
 
@@ -31,10 +33,10 @@ public class EventChecker {
     public void checkEvent() {
 
         switch (playing.getLevelManager().getCurrentLevelId()) {
-            case 0 -> {
-                if (hit(24, 23, 5))
+            case 2 -> {
+                if (hit(5, 1, UP))
                     takeDamage();
-                if (hit(21, 23, 5))
+                if (hit(4, 3, 5))
                     restoreHealth();
             }
         }
