@@ -137,6 +137,7 @@ public class Player extends Creature {
             attack();
         updateAnimation();
         setAnimation();
+        System.out.println("X: " + (int)(worldX/ GameModel.tileSize) + " Y: " + (int)(worldY/ GameModel.tileSize));
     }
 
 
@@ -466,5 +467,14 @@ public class Player extends Creature {
         worldY = (y * GameModel.tileSize) - width /2 + (float) GameModel.tileSize / 2;;
     }
 
+    public void takeDamage(int dmg) {
+        if (currentHealth > 0)
+            currentHealth-= dmg;
+    }
 
+
+    public void healthUp(int i) {
+        if (currentHealth != maxHealth)
+            currentHealth += i;
+    }
 }

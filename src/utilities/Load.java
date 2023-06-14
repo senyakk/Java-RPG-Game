@@ -15,7 +15,7 @@ public class Load {
 
     public static final String INVENTORY = "UI/InventoryScreenRealReso.png";
 
-    private static Tile[] tile = new Tile[12];
+    private static Tile[] tile = new Tile[15];
 
     /**
      * Load sprite images
@@ -159,6 +159,8 @@ public class Load {
         setup(8, "transparent", true, "transparentCol");
         setup(9, "transparent", true, "transparentExit");
         setup(10, "036", true, "stairs");
+        setup(11, "021", false, "pond");
+        setup(12, "035", false, "table");
         return tile;
     }
 

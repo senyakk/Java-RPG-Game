@@ -59,7 +59,7 @@ public class CollisionChecker {
                 tileNum1 = lvl.getTileIndex(entityLeftCol, entityTopRow);
                 tileNum2 = lvl.getTileIndex(entityRightCol, entityTopRow);
                 checkEvent(levelManager.getTile(tileNum1), levelManager.getTile(tileNum2));
-                if (levelManager.getTile(tileNum1).collision && levelManager.getTile(tileNum2).collision) {
+                if (levelManager.getTile(tileNum1).collision || levelManager.getTile(tileNum2).collision) {
                     entity.setCollision();
                 }
             }
@@ -68,7 +68,7 @@ public class CollisionChecker {
                 tileNum1 = lvl.getTileIndex(entityLeftCol, entityBottomRow);
                 tileNum2 = lvl.getTileIndex(entityRightCol, entityBottomRow);
                 checkEvent(levelManager.getTile(tileNum1), levelManager.getTile(tileNum2));
-                if (levelManager.getTile(tileNum1).collision && levelManager.getTile(tileNum2).collision) {
+                if (levelManager.getTile(tileNum1).collision || levelManager.getTile(tileNum2).collision) {
                     entity.setCollision();
                 }
             }
@@ -77,7 +77,7 @@ public class CollisionChecker {
                 tileNum1 = lvl.getTileIndex(entityRightCol, entityTopRow);
                 tileNum2 = lvl.getTileIndex(entityRightCol, entityBottomRow);
                 checkEvent(levelManager.getTile(tileNum1), levelManager.getTile(tileNum2));
-                if (levelManager.getTile(tileNum1).collision && levelManager.getTile(tileNum2).collision) {
+                if (levelManager.getTile(tileNum1).collision || levelManager.getTile(tileNum2).collision) {
                     entity.setCollision();
                 }
             }
@@ -86,20 +86,24 @@ public class CollisionChecker {
                 tileNum1 = lvl.getTileIndex(entityLeftCol, entityTopRow);
                 tileNum2 = lvl.getTileIndex(entityLeftCol, entityBottomRow);
                 checkEvent(levelManager.getTile(tileNum1), levelManager.getTile(tileNum2));
-                if (levelManager.getTile(tileNum1).collision && levelManager.getTile(tileNum2).collision) {
+                if (levelManager.getTile(tileNum1).collision || levelManager.getTile(tileNum2).collision) {
                     entity.setCollision();
                 }
             }
         }
     }
 
+
     public void checkEvent(Tile tile1, Tile tile2) {
-        if ((tile1.getName().equals("house")) || (tile2.getName().equals("house")))
+        String stringtile1= tile1.getName();
+        String stringtile2= tile2.getName();
+        if (stringtile1.equals("house") || stringtile2.equals("house"))
             levelManager.changeLevel(1);
-        else if (((tile1.getName().equals("transparentExit")) || (tile2.getName().equals("transparentExit"))))
+        else if (stringtile1.equals("transparentExit") || stringtile2.equals("transparentExit"))
             levelManager.changeLevel(0);
-        else if (((tile1.getName().equals("stairs")) || (tile2.getName().equals("stairs"))))
+        else if (stringtile1.equals("stairs") || stringtile2.equals("stairs"))
             levelManager.changeLevel(2);
+
     }
 
     /**

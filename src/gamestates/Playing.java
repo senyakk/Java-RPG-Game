@@ -1,6 +1,7 @@
 package gamestates;
 
 import inventory.InventoryManager;
+import locations.EventChecker;
 import main.GameController;
 import main.GameModel;
 import playerclasses.Player;
@@ -33,8 +34,10 @@ public class Playing extends State {
     // checks for collisions between game entities and handles collision resolution.
     private InventoryManager inventoryManager;
     // manages the player's inventory and handles interactions with inventory items.
+    private EventChecker eventChecker;
+    // manages the events hapenning in the level
 
-    // CONTROLLER COMPONENT
+    // CONTROLLER COMPONENTS
     private PlayerController playerController;
     //  handles player input and translates it into actions and movements for the player character.
 
@@ -63,6 +66,8 @@ public class Playing extends State {
         collisionChecker = new CollisionChecker(levelManager);
         //npcManager = new NPCManager(this, collisionChecker);
         putPlayer();
+        eventChecker = new EventChecker(this);
+
     }
 
     /**
@@ -122,6 +127,7 @@ public class Playing extends State {
     public void update() {
         if (!paused) {
             levelManager.update();
+            eventChecker.checkEvent();
             objectManager.update();
             //npcManager.update();
             player.update();
@@ -134,6 +140,7 @@ public class Playing extends State {
     @Override
     public void draw(Graphics g) {
         levelManager.draw(g, player);
+        eventChecker.draw(g);
         objectManager.drawObjects(g);
         player.render(g);
         ui.draw(g);
