@@ -38,6 +38,9 @@ public class GameButton {
         this.text = text;
     }
 
+    public void update() {
+    }
+
     /**
      * Default parent method draw for drawing a button with text
      * @param g Graphics object
