@@ -95,6 +95,8 @@ public class Playing extends State {
             }
             case 1 -> player.setCoordinates(3, 5);
             case 2 -> player.setCoordinates(4, 5);
+            case 3 -> player.setCoordinates(1, 14);
+            case 4 -> player.setCoordinates(24, 11);
         }
         collisionChecker.updateLevel();
     }

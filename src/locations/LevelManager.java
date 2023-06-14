@@ -32,6 +32,8 @@ public class LevelManager {
 
         levels[1].setBackground(Load.GetSpriteImg("locations/Alchemisthouse.png"));
         levels[2].setBackground(Load.GetSpriteImg("locations/WitchHouse.png"));
+        levels[3].setBackground(Load.GetSpriteImg("locations/DragonCemetery.png"));
+        levels[4].setBackground(Load.GetSpriteImg("locations/swampLocation.png"));
     }
 
 
@@ -44,7 +46,7 @@ public class LevelManager {
     public void draw(Graphics g, Player player) {
         Level level = getCurrentLevel();
 
-        if (level.hasBackground()) {
+        if (getCurrentLevelId() == 1 || getCurrentLevelId() == 2) {
             player.lockScreen();
             g.drawImage(level.getBackground(), 0, 0, GameModel.screenWidth, GameModel.screenHeight, null);
 
@@ -59,7 +61,51 @@ public class LevelManager {
                 y+= GameModel.tileSize;
             }
 
-        } else {
+        } else if (getCurrentLevelId() == 3 || getCurrentLevelId() == 4) {
+
+            player.unlockScreen();
+
+            for (int worldRow = 0; worldRow < level.getHeight(); worldRow++) {
+                for (int worldCol = 0; worldCol < level.getWidth(); worldCol++) {
+                    //int tileNum = getCurrentLevel().getTileIndex(worldCol, worldRow);
+                    int worldX = worldCol * GameModel.tileSize;
+                    int worldY = worldRow * GameModel.tileSize;
+
+                    int screenX = (int) (worldX - player.getWorldX() + player.getScreenX());
+                    int screenY = (int) (worldY - player.getWorldY() + player.getScreenY());
+
+                    if (isTileInBounds(screenX, screenY, player)) {
+                        if (getCurrentLevelId() == 3 || getCurrentLevelId() == 4) {
+                            int bgScreenX = screenX - (screenX % GameModel.tileSize);
+                            int bgScreenY = screenY - (screenY % GameModel.tileSize);
+                            g.drawImage(level.getBackground(), bgScreenX, bgScreenY,
+                                    bgScreenX+GameModel.tileSize, bgScreenY+GameModel.tileSize,
+                                    0,0, GameModel.tileSize, GameModel.tileSize, null);
+                        } else {
+                            g.drawImage(level.getBackground(), 0, 0, GameModel.screenWidth, GameModel.screenHeight, null);
+                        }
+                    }
+                }
+            }
+        }
+        /*
+        else if(getCurrentLevelId() == 3 || getCurrentLevelId() == 4){
+            player.unlockScreen();
+            g.drawImage(level.getBackground(), 0, 0, GameModel.screenWidth, GameModel.screenHeight, null);
+            // Following loop is for drawing tile grid
+            int y = 0;
+            for (int worldRow = 0; worldRow < GameModel.maxTileRow; worldRow++) {
+                int x = 0;
+                for (int worldCol = 0; worldCol < GameModel.maxTileCol; worldCol++) {
+                    // g.drawRect(x, y, Game.tileSize, Game.tileSize);
+                    x+= GameModel.tileSize;
+                }
+                y+= GameModel.tileSize;
+            }
+        }
+
+         */
+        else {
 
             player.unlockScreen();
 

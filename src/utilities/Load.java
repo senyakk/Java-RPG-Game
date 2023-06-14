@@ -15,7 +15,7 @@ public class Load {
 
     public static final String INVENTORY = "UI/InventoryScreenRealReso.png";
 
-    private static Tile[] tile = new Tile[15];
+    private static Tile[] tile = new Tile[12];
 
     /**
      * Load sprite images
@@ -133,7 +133,7 @@ public class Load {
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line = reader.readLine();
             if (line != null) {
-                String[] columns = line.split(" ");
+                String[] columns = line.split("\\s+");
                 width = columns.length;
             }
         } catch (IOException e) {
@@ -159,8 +159,7 @@ public class Load {
         setup(8, "transparent", true, "transparentCol");
         setup(9, "transparent", true, "transparentExit");
         setup(10, "036", true, "stairs");
-        setup(11, "021", false, "pond");
-        setup(12, "035", false, "table");
+        setup(11, "038", true, "gate");
         return tile;
     }
 
