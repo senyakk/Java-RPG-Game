@@ -2,11 +2,29 @@ package main;
 
 import buttonUi.AudioHandler;
 import gamestates.*;
+import playerclasses.Player;
 import utilities.AudioPlayer;
 
-import static utilities.Constants.GameLanguage.DUTCH;
+import static utilities.Constants.GameLanguage.*;
 
 public class GameModel {
+
+    // SCREEN SETTINGS
+    public final static int defaultTileSize = 64;
+    public final static float scale = 2.5f;
+    public static final int tileSize = (int)(defaultTileSize * scale);
+    // MAXIMUM NUMBER OF TILES IN A COLUMN
+    public static final int maxTileCol = 10;
+    public final static int screenWidth = tileSize * maxTileCol;
+    // MAXIMUM NUMBER OF ROWS IN A COLUMN
+    public static final int maxTileRow = 6;
+    public final static int screenHeight = tileSize * maxTileRow;
+
+    // GAME LOOP SETTINGS
+    public static int FPS = 120;
+    public static int UPS = 120;
+
+    // MODEL STATES
     private State gameState; // Current game state
     private Menu menu; // Instance of the menu state
     private Playing playing; // Instance of the playing state
@@ -48,16 +66,7 @@ public class GameModel {
         return gameState;
     }
 
-    public Menu getMenu() { return menu;}
-    public Playing getPlaying() {
-        return playing;
-    }
-    public ClassSelection getClassSelection() {
-        return classSelection;
-    }
-    public Options getOptions() {
-        return options;
-    }
+    public Player getPlayer() { return playing.getPlayer(); }
 
     public AudioHandler getAudio() {
         return audio;

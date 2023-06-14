@@ -1,7 +1,7 @@
 package playerclasses;
 
 import gamestates.Playing;
-import main.Game;
+import main.GameModel;
 import npcs.Creature;
 import objects.objectsclasses.Bow;
 import objects.objectsclasses.Flower;
@@ -71,12 +71,12 @@ public class Player extends Creature {
     }
 
     private Player(int playerX, int playerY, Playing playing) {
-        super(playerX, playerY, Game.tileSize, Game.tileSize);
+        super(playerX, playerY, GameModel.tileSize, GameModel.tileSize);
         this.playing = playing;
         this.playerX = playerX;
         this.playerY = playerY;
-        screenX = Game.screenWidth/2 - (Game.tileSize/2);
-        screenY = Game.screenHeight/2 - (Game.tileSize/2);
+        screenX = GameModel.screenWidth/2 - (GameModel.tileSize/2);
+        screenY = GameModel.screenHeight/2 - (GameModel.tileSize/2);
         setDefaultVariables();
         loadAnimations();
         initHitArea(22, 24, 18, 32);
@@ -94,7 +94,7 @@ public class Player extends Creature {
                 strength = 3;
                 defense = 2;
                 charisma = 1;
-                speed = Game.scale;
+                speed = GameModel.scale;
                 currentWeapon = new Sword(-1,-1);
 
             }
@@ -103,7 +103,7 @@ public class Player extends Creature {
                 strength = 2;
                 defense = 3;
                 charisma = 2;
-                speed = 2.0f * Game.scale;
+                speed = 2.0f * GameModel.scale;
                 currentWeapon = new Bow(-1,-1);
             }
             case BARD -> {
@@ -111,12 +111,12 @@ public class Player extends Creature {
                 strength = 1;
                 defense = 2;
                 charisma = 3;
-                speed = 1.5f * Game.scale;
+                speed = 1.5f * GameModel.scale;
                 currentWeapon = new Flower(-1,-1);
             }
         }
-        attackArea.width = Game.tileSize/2;
-        attackArea.height = Game.tileSize/4;
+        attackArea.width = GameModel.tileSize/2;
+        attackArea.height = GameModel.tileSize/4;
         currentHealth = maxHealth;
         attack = strength * currentWeapon.getAttack();
         level = 1;
@@ -157,7 +157,7 @@ public class Player extends Creature {
 
         // Draws the player
         g.drawImage(animations[state][animIndex], (int)drawX, (int) drawY,
-                Game.tileSize, Game.tileSize, null);
+                GameModel.tileSize, GameModel.tileSize, null);
         // Draws hitbox of the player
         drawPlayerHitArea(g, drawX, drawY);
         if (attacking)
@@ -342,8 +342,8 @@ public class Player extends Creature {
         moving = false;
         attacking = false;
         walkDir = DOWN;
-        worldX = (playerX * Game.tileSize) - width /2 + (float) Game.tileSize / 2;
-        worldY = (playerY * Game.tileSize) - width /2 + (float) Game.tileSize / 2;
+        worldX = (playerX * GameModel.tileSize) - width /2 + (float) GameModel.tileSize / 2;
+        worldY = (playerY * GameModel.tileSize) - width /2 + (float) GameModel.tileSize / 2;
     }
 
     /**
@@ -462,8 +462,8 @@ public class Player extends Creature {
     }
 
     public void setCoordinates(float x, float y) {
-        worldX = (x * Game.tileSize) - width /2 + (float) Game.tileSize / 2;;
-        worldY = (y * Game.tileSize) - width /2 + (float) Game.tileSize / 2;;
+        worldX = (x * GameModel.tileSize) - width /2 + (float) GameModel.tileSize / 2;;
+        worldY = (y * GameModel.tileSize) - width /2 + (float) GameModel.tileSize / 2;;
     }
 
 

@@ -10,6 +10,7 @@ public class GameButton {
     protected int x, y, width, height;
     protected Rectangle bounds;
     protected String text;
+    protected boolean isMouseOver, isMousePressed;
 
     /**
      * Parent class for the buttons in game
@@ -28,12 +29,16 @@ public class GameButton {
     private void createBounds() {
         bounds = new Rectangle(x, y, width, height);
     }
+
     public Rectangle getBounds() {
         return bounds;
     }
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public void update() {
     }
 
     /**
@@ -52,5 +57,26 @@ public class GameButton {
         int textX = x + (width - fontMetrics.stringWidth(text)) / 2;
         int textY = y + (height - fontMetrics.getHeight()) / 2 + fontMetrics.getAscent();
         g.drawString(text, textX, textY);
+    }
+
+    public boolean isMousePressed() {
+        return isMousePressed;
+    }
+
+    public boolean isMouseOver() {
+        return isMouseOver;
+    }
+
+    public void setMouseOver(boolean mouseOver) {
+        isMouseOver = mouseOver;
+    }
+
+    public void setMousePressed(boolean mousePressed) {
+        isMousePressed = mousePressed;
+    }
+
+    public void reset() {
+        isMouseOver = false;
+        isMousePressed = false;
     }
 }

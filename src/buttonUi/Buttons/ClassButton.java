@@ -1,7 +1,6 @@
 package buttonUi.Buttons;
 
 import buttonUi.GameButton;
-import gamestates.Gamestate;
 import utilities.Load;
 
 import java.awt.*;
@@ -15,11 +14,10 @@ import static utilities.Constants.UI.MenuButtons.B_WIDTH;
 
 public class ClassButton extends GameButton {
 
-    private int posX, posY, row, index;
+    private int posX, posY, index;
     private int offsetX = B_WIDTH / 2;
     private BufferedImage warrior, warAct, archer, archAct, bard, bardAct;
     private BufferedImage[] images;
-    private boolean mousePressed, mouseOver;
     private int gameClass;
 
     public ClassButton(int x, int y, int width, int height, int gameClass) {
@@ -65,31 +63,9 @@ public class ClassButton extends GameButton {
 
     public void update() {
         index = 0;
-        if(mouseOver) {
+        if(isMouseOver) {
             index = 1;
         }
     }
-
-    public boolean isMousePressed() {
-        return mousePressed;
-    }
-
-    public void setMousePressed(boolean mousePressed) {
-        this.mousePressed = mousePressed;
-    }
-
-    public boolean isMouseOver() {
-        return mouseOver;
-    }
-
-    public void setMouseOver(boolean mouseOver) {
-        this.mouseOver = mouseOver;
-    }
-
-    public void resetBool() {
-        mouseOver = false;
-        mousePressed = false;
-    }
-
 
 }

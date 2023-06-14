@@ -15,7 +15,6 @@ public class MenuButton extends GameButton {
     private Gamestate state;
     private BufferedImage start, actStart, options, actOptions, quit, actQuit, returnB, actReturnB;
     private BufferedImage[] images;
-    private boolean mousePressed, mouseOver;
 
     public MenuButton (int x, int y, int width, int height,  int row, Gamestate state) {
 
@@ -63,30 +62,9 @@ public class MenuButton extends GameButton {
 
     public void update() {
         index = 0;
-        if(mouseOver) {
+        if(isMouseOver) {
             index = 1;
         }
-    }
-
-    public boolean isMousePressed() {
-        return mousePressed;
-    }
-
-    public void setMousePressed(boolean mousePressed) {
-        this.mousePressed = mousePressed;
-    }
-
-    public boolean isMouseOver() {
-        return mouseOver;
-    }
-
-    public void setMouseOver(boolean mouseOver) {
-        this.mouseOver = mouseOver;
-    }
-
-    public void resetBool() {
-        mouseOver = false;
-        mousePressed = false;
     }
 
     public Gamestate getState() {

@@ -1,9 +1,7 @@
 package gamestates;
 
-import main.Game;
 import buttonUi.GameButton;
 import buttonUi.Buttons.MenuButton;
-import main.GameController;
 import main.GameModel;
 import utilities.Load;
 
@@ -39,11 +37,11 @@ public class Menu extends State {
                 backgroundImage = Load.GetSpriteImg("UI/English/Startscreen.png");
             }
         }
-        buttons[0] = new MenuButton((int) (165 * Game.scale), (int) (170 * Game.scale),
+        buttons[0] = new MenuButton((int) (165 * GameModel.scale), (int) (170 * GameModel.scale),
                 B_WIDTH, B_HEIGHT, 0, Gamestate.CLASS_SELECTION);
-        buttons[1] = new MenuButton((int) (320 * Game.scale), (int) (170 * Game.scale),
+        buttons[1] = new MenuButton((int) (320 * GameModel.scale), (int) (170 * GameModel.scale),
                 B_WIDTH, B_HEIGHT, 1, Gamestate.OPTIONS);
-        buttons[2] = new MenuButton((int) (475 * Game.scale), (int) (170 * Game.scale),
+        buttons[2] = new MenuButton((int) (475 * GameModel.scale), (int) (170 * GameModel.scale),
                 B_WIDTH, B_HEIGHT, 2, Gamestate.QUIT);
     }
 
@@ -58,7 +56,7 @@ public class Menu extends State {
     @Override
     public void draw(Graphics g) {
 
-        g.drawImage(backgroundImage,0,0, Game.screenWidth, Game.screenHeight, null);
+        g.drawImage(backgroundImage,0,0, GameModel.screenWidth, GameModel.screenHeight, null);
         for(MenuButton button : buttons) {
            button.draw(g);
         }
@@ -106,7 +104,7 @@ public class Menu extends State {
 
     private void resetButtons() {
         for(MenuButton button : buttons)  {
-            button.resetBool();
+            button.reset();
         }
     }
 

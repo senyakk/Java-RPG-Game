@@ -2,7 +2,7 @@ package utilities;
 
 import locations.Level;
 import locations.Tile;
-import main.Game;
+import main.GameModel;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -174,7 +174,7 @@ public class Load {
         try {
             tile[index] = new Tile(name);
             tile[index].image = ImageIO.read(Load.class.getResourceAsStream("/tiles/" + imagePath + ".png"));
-            tile[index].image = scaleImage(tile[index].image, Game.tileSize, Game.tileSize);
+            tile[index].image = scaleImage(tile[index].image, GameModel.tileSize, GameModel.tileSize);
             tile[index].collision = collision;
         }
         catch (IOException e) {

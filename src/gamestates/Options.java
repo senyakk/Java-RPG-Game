@@ -1,9 +1,9 @@
 package gamestates;
 
-import main.Game;
 import buttonUi.AudioHandler;
 import buttonUi.GameButton;
 import buttonUi.Buttons.ReplayButton;
+import main.Game;
 import main.GameModel;
 import utilities.Load;
 
@@ -12,8 +12,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
-import static utilities.Constants.GameLanguage.DUTCH;
-import static utilities.Constants.GameLanguage.ENGLISH;
+import static utilities.Constants.GameLanguage.*;
+import static utilities.Constants.UI.MenuButtons.*;
 import static utilities.Constants.UI.PauseButtons.URM_SIZE;
 
 /**
@@ -25,6 +25,7 @@ public class Options extends State {
     private BufferedImage backgroundImage, optionsBackgroundImage;
     private int bgX, bgY, bgW, bgH;
     private ReplayButton menuB;
+    private GameButton languageButton;
     public Options(GameModel gameModel) {
         super(gameModel);
         loadImages();
@@ -33,9 +34,14 @@ public class Options extends State {
     }
 
     private void loadButtons() {
-        int menuX = (int) (300 * Game.scale);
-        int menuY = (int) (235 * Game.scale);
+        int menuX = (int) (300 * GameModel.scale);
+        int menuY = (int) (235 * GameModel.scale);
         menuB = new ReplayButton(menuX, menuY, URM_SIZE, URM_SIZE, 2);
+
+        int langX = (int) (GameModel.screenWidth/3 - B_WIDTH);
+        int langY = (int) (GameModel.screenHeight/2);
+        languageButton = new GameButton(langX, langY, B_WIDTH, B_HEIGHT);
+        languageButton.setText("Switch Language");
     }
 
     private void loadImages() {
@@ -50,25 +56,27 @@ public class Options extends State {
                 optionsBackgroundImage = Load.GetSpriteImg("UI/Dutch/Options/options_background_Dutch.png");
             }
         }
-        bgW = (int) (optionsBackgroundImage.getWidth() * Game.scale/1.5);
-        bgH = (int) (optionsBackgroundImage.getHeight() * Game.scale/1.5);
-        bgX = Game.screenWidth / 2 - bgW / 2;
-        bgY = (int) (33 * Game.scale);
+        bgW = (int) (optionsBackgroundImage.getWidth() * GameModel.scale/1.5);
+        bgH = (int) (optionsBackgroundImage.getHeight() * GameModel.scale/1.5);
+        bgX = GameModel.screenWidth / 2 - bgW / 2;
+        bgY = (int) (33 * GameModel.scale);
 
     }
 
     @Override
     public void update() {
         menuB.update();
+        languageButton.update();
         audio.update();
     }
 
     @Override
     public void draw(Graphics g) {
-        g.drawImage(backgroundImage, 0,0, Game.screenWidth, Game.screenHeight, null);
+        g.drawImage(backgroundImage, 0,0, GameModel.screenWidth, GameModel.screenHeight, null);
         g.drawImage(optionsBackgroundImage, bgX,bgY, bgW, bgH, null);
 
         menuB.draw(g);
+        languageButton.draw(g);
         audio.draw(g);
     }
 
@@ -97,6 +105,9 @@ public class Options extends State {
         if (isInOBorder(e, menuB)) {
             menuB.setMousePressed(true);
         }
+        if (isInOBorder(e, languageButton)) {
+            languageButton.setMousePressed(true);
+        }
         else {
             audio.mousePressed(e);
         }
@@ -109,10 +120,18 @@ public class Options extends State {
                 gameModel.setGameState(Gamestate.MENU);
             }
         }
+        else if (isInOBorder(e, languageButton)) {
+            if (languageButton.isMousePressed()) {
+                gameModel.setLanguage((gameModel.getLanguage()+1) % 2);
+                loadImages();
+                System.out.println("Language: " + gameModel.getLanguage());
+            }
+        }
         else {
             audio.mouseReleased(e);
         }
         menuB.reset();
+        languageButton.reset();
     }
 
     @Override

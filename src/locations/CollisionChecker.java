@@ -1,7 +1,7 @@
 package locations;
 
 
-import main.Game;
+import main.GameModel;
 import npcs.Creature;
 import objects.GameObject;
 import playerclasses.Player;
@@ -39,23 +39,23 @@ public class CollisionChecker {
         int entityTopWorldY = (int) (entity.getWorldY() + entity.getHitArea().y);
         int entityBottomWorldY = (int) (entity.getWorldY() + entity.getHitArea().y + entity.getHitArea().height);
 
-        int entityLeftCol = entityLeftWorldX/ Game.tileSize;
-        int entityRightCol = entityRightWorldX/ Game.tileSize;
-        int entityTopRow = entityTopWorldY/ Game.tileSize;
-        int entityBottomRow = entityBottomWorldY/ Game.tileSize;
+        int entityLeftCol = entityLeftWorldX/ GameModel.tileSize;
+        int entityRightCol = entityRightWorldX/ GameModel.tileSize;
+        int entityTopRow = entityTopWorldY/ GameModel.tileSize;
+        int entityBottomRow = entityBottomWorldY/ GameModel.tileSize;
 
 
         // Can't move behind world borders
-        if (entityLeftCol < 0 || entityRightCol >= lvl.getWidth() * Game.tileSize)
+        if (entityLeftCol < 0 || entityRightCol >= lvl.getWidth() * GameModel.tileSize)
             entity.setCollision();
-        if (entityTopRow < 0 || entityBottomRow >= lvl.getHeight() * Game.tileSize)
+        if (entityTopRow < 0 || entityBottomRow >= lvl.getHeight() * GameModel.tileSize)
             entity.setCollision();
 
         int tileNum1, tileNum2;
 
         switch (entity.getDirection()) {
             case UP -> {
-                entityTopRow = (entityTopWorldY - (int) (entity.getSpeed())) / Game.tileSize;
+                entityTopRow = (entityTopWorldY - (int) (entity.getSpeed())) / GameModel.tileSize;
                 tileNum1 = lvl.getTileIndex(entityLeftCol, entityTopRow);
                 tileNum2 = lvl.getTileIndex(entityRightCol, entityTopRow);
                 checkEvent(levelManager.getTile(tileNum1), levelManager.getTile(tileNum2));
@@ -64,7 +64,7 @@ public class CollisionChecker {
                 }
             }
             case DOWN -> {
-                entityBottomRow = (entityBottomWorldY + (int) (entity.getSpeed())) / Game.tileSize;
+                entityBottomRow = (entityBottomWorldY + (int) (entity.getSpeed())) / GameModel.tileSize;
                 tileNum1 = lvl.getTileIndex(entityLeftCol, entityBottomRow);
                 tileNum2 = lvl.getTileIndex(entityRightCol, entityBottomRow);
                 checkEvent(levelManager.getTile(tileNum1), levelManager.getTile(tileNum2));
@@ -73,7 +73,7 @@ public class CollisionChecker {
                 }
             }
             case RIGHT -> {
-                entityRightCol = (entityRightWorldX + (int) (entity.getSpeed())) / Game.tileSize;
+                entityRightCol = (entityRightWorldX + (int) (entity.getSpeed())) / GameModel.tileSize;
                 tileNum1 = lvl.getTileIndex(entityRightCol, entityTopRow);
                 tileNum2 = lvl.getTileIndex(entityRightCol, entityBottomRow);
                 checkEvent(levelManager.getTile(tileNum1), levelManager.getTile(tileNum2));
@@ -82,7 +82,7 @@ public class CollisionChecker {
                 }
             }
             case LEFT -> {
-                entityLeftCol = (entityLeftWorldX - (int) (entity.getSpeed())) / Game.tileSize;
+                entityLeftCol = (entityLeftWorldX - (int) (entity.getSpeed())) / GameModel.tileSize;
                 tileNum1 = lvl.getTileIndex(entityLeftCol, entityTopRow);
                 tileNum2 = lvl.getTileIndex(entityLeftCol, entityBottomRow);
                 checkEvent(levelManager.getTile(tileNum1), levelManager.getTile(tileNum2));

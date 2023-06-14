@@ -3,8 +3,6 @@ package gamestates;
 import buttonUi.Buttons.ClassButton;
 import buttonUi.Buttons.MenuButton;
 import buttonUi.GameButton;
-import main.Game;
-import main.GameController;
 import main.GameModel;
 import utilities.Load;
 
@@ -47,14 +45,14 @@ public class ClassSelection extends State {
                 backgroundImage = Load.GetSpriteImg("UI/English/StartscreenSelectClass.png");
             }
         }
-        buttons[0] = new ClassButton((int) (165 * Game.scale), (int) (170 * Game.scale),
+        buttons[0] = new ClassButton((int) (165 * GameModel.scale), (int) (170 * GameModel.scale),
                 B_WIDTH, B_HEIGHT, WARRIOR);
-        buttons[1] = new ClassButton((int) (320 * Game.scale), (int) (170 * Game.scale),
+        buttons[1] = new ClassButton((int) (320 * GameModel.scale), (int) (170 * GameModel.scale),
                 B_WIDTH, B_HEIGHT, ARCHER);
-        buttons[2] = new ClassButton((int) (475 * Game.scale), (int) (170 * Game.scale),
+        buttons[2] = new ClassButton((int) (475 * GameModel.scale), (int) (170 * GameModel.scale),
                 B_WIDTH, B_HEIGHT, BARD);
 
-        returnButton = new MenuButton(Game.screenWidth / 2, (int) (Game.screenHeight / 1.3),
+        returnButton = new MenuButton(GameModel.screenWidth / 2, (int) (GameModel.screenHeight / 1.3),
                 B_WIDTH, B_WIDTH, 3, Gamestate.MENU);
     }
 
@@ -69,7 +67,7 @@ public class ClassSelection extends State {
     @Override
     public void draw(Graphics g) {
 
-        g.drawImage(backgroundImage,0,0, Game.screenWidth, Game.screenHeight, null);
+        g.drawImage(backgroundImage,0,0, GameModel.screenWidth, GameModel.screenHeight, null);
         for(ClassButton button : buttons) {
             button.draw(g);
         }
@@ -98,8 +96,8 @@ public class ClassSelection extends State {
         for(ClassButton button : buttons) {
             if (isInOBorder(e, button)) {
                 if (button.isMousePressed()) {
-                    gameModel.getPlaying().getPlayer().setClass(button.getGameClassClass());
-                    gameModel.getPlaying().getPlayer().resetAll();
+                    gameModel.getPlayer().setClass(button.getGameClassClass());
+                    gameModel.getPlayer().resetAll();
                     gameModel.setGameState(Gamestate.PLAYING);
                 }
                 break;
@@ -115,9 +113,9 @@ public class ClassSelection extends State {
 
     private void resetButtons() {
         for(ClassButton button : buttons)  {
-            button.resetBool();
+            button.reset();
         }
-        returnButton.resetBool();
+        returnButton.reset();
     }
 
     @Override

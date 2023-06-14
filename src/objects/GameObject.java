@@ -1,7 +1,8 @@
 package objects;
 
+import inventory.Item;
 import locations.CollisionChecker;
-import main.Game;
+import main.GameModel;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -10,22 +11,17 @@ import java.io.IOException;
 
 public class GameObject {
 
-    // Position and size variables in the world
-    protected float worldX, worldY, width, height;
-    // Name of the object
-    protected String name;
-    // Image of the object
-    protected BufferedImage image;
-    // Hitbox of the object
-    protected float xDefaultHitbox, yDefaultHitbox;
-    // Activity status of the object
-    protected boolean isActive = true;
-    // Position variables on the screen when the player is moving
-    protected int screenX, screenY;
-    // Collision checker
-    protected CollisionChecker collisionChecker;
+    protected float worldX, worldY, width, height;              // Position and size in the world
+    protected String name;                                      // Name of the object
+    protected BufferedImage image;                              // Image of the object
+    protected float xDefaultHitbox, yDefaultHitbox;             // Hitbox of the object
+    protected boolean isActive = true;                          // Activity status of the object
+    protected int screenX, screenY;                             // Position on the screen when the player is moving
+    protected CollisionChecker collisionChecker;                // Collision checker
     protected boolean collisionOn = false;
-    protected Rectangle solidArea = new Rectangle(0,0, Game.tileSize, Game.tileSize);
+    protected Rectangle solidArea = new Rectangle(0,0, GameModel.tileSize, GameModel.tileSize);
+
+    protected Item item;                                        // Item that represents the GameObject
 
     /**
      * Constructs an object
@@ -36,8 +32,8 @@ public class GameObject {
      * @param name object's name
      */
     public GameObject(float worldX, float worldY, float width, float height, String name) {
-        this.worldX = (worldX * Game.tileSize) - width /2 + (float) Game.tileSize / 2;
-        this.worldY = (worldY * Game.tileSize) - height /2 + (float) Game.tileSize / 2;
+        this.worldX = (worldX * GameModel.tileSize) - width /2 + (float) GameModel.tileSize / 2;
+        this.worldY = (worldY * GameModel.tileSize) - height /2 + (float) GameModel.tileSize / 2;
         this.width = width;
         this.height = height;
         this.name = name;
@@ -75,10 +71,10 @@ public class GameObject {
      * @param hitHeight hitbox height
      */
     protected void initHitArea(int xHitbox, int yHitbox, int hitWidth, int hitHeight)  {
-        this.xDefaultHitbox = xHitbox * Game.scale;
-        this.yDefaultHitbox = yHitbox * Game.scale;
-        solidArea = new Rectangle((int) (xHitbox * Game.scale), (int) (yHitbox * Game.scale),
-                (int) (hitWidth * Game.scale), (int) (hitHeight * Game.scale));
+        this.xDefaultHitbox = xHitbox * GameModel.scale;
+        this.yDefaultHitbox = yHitbox * GameModel.scale;
+        solidArea = new Rectangle((int) (xHitbox * GameModel.scale), (int) (yHitbox * GameModel.scale),
+                (int) (hitWidth * GameModel.scale), (int) (hitHeight * GameModel.scale));
     }
 
     /**

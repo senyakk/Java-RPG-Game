@@ -1,7 +1,7 @@
 package npcs;
 
 import locations.CollisionChecker;
-import main.Game;
+import main.GameModel;
 
 import java.awt.*;
 
@@ -19,7 +19,7 @@ public abstract class Creature {
     protected CollisionChecker collisionChecker;
     protected boolean collisionOn = false;
     protected boolean moving = false;
-    protected Rectangle solidArea = new Rectangle(0,0, Game.tileSize, Game.tileSize);
+    protected Rectangle solidArea = new Rectangle(0,0, GameModel.tileSize, GameModel.tileSize);
     protected int walkDir = DOWN;
     public float xDefaultHitbox, yDefaultHitbox;
     protected int animTick, animIndex;
@@ -30,8 +30,8 @@ public abstract class Creature {
 
 
     public Creature(float X, float Y, float width, float height) {
-        this.worldX = (X * Game.tileSize) - width /2 + (float) Game.tileSize / 2;
-        this.worldY = (Y * Game.tileSize) - height /2 + (float) Game.tileSize / 2;
+        this.worldX = (X * GameModel.tileSize) - width /2 + (float) GameModel.tileSize / 2;
+        this.worldY = (Y * GameModel.tileSize) - height /2 + (float) GameModel.tileSize / 2;
         this.width = width;
         this.height = height;
     }
@@ -80,10 +80,10 @@ public abstract class Creature {
     }
 
     protected void initHitArea(int xHitbox, int yHitbox, int hitWidth, int hitHeight)  {
-        this.xDefaultHitbox = xHitbox * Game.scale;
-        this.yDefaultHitbox = yHitbox * Game.scale;
-        solidArea = new Rectangle((int) (xHitbox * Game.scale), (int) (yHitbox * Game.scale),
-                (int) (hitWidth * Game.scale), (int) (hitHeight * Game.scale));
+        this.xDefaultHitbox = xHitbox * GameModel.scale;
+        this.yDefaultHitbox = yHitbox * GameModel.scale;
+        solidArea = new Rectangle((int) (xHitbox * GameModel.scale), (int) (yHitbox * GameModel.scale),
+                (int) (hitWidth * GameModel.scale), (int) (hitHeight * GameModel.scale));
     }
 
     protected void drawNPCHitArea(Graphics g, int otherScreenX, int otherScreenY) {
