@@ -1,6 +1,7 @@
 package npcs;
 
 import gamestates.Playing;
+import locations.CollisionChecker;
 import objects.GameObject;
 import objects.objectsclasses.Key;
 import playerclasses.Player;
@@ -14,6 +15,10 @@ public class NPC_Manager {
     private Playing playing;
     private ArrayList<NPC> NPCs;
 
+    private CollisionChecker collisionChecker;
+    protected String[] dialogues = new String[50];
+    protected int dialogueInd = 0;
+
     public NPC_Manager(Playing playing) {
         this.playing = playing;
         NPCs = playing.getLevelManager().getCurrentLevel().getNPCs();
@@ -25,6 +30,9 @@ public class NPC_Manager {
             case 0 -> {
                 NPCs.add(new NPC(23, 23, 200, 200));
             }
+        }
+        for (NPC n : NPCs) {
+            n.addCollisionChecker(collisionChecker);
         }
     }
 
@@ -46,8 +54,29 @@ public class NPC_Manager {
             }
         }
     }
+
+    public void draw(Graphics g) {
+        drawNPC(g);
+    }
+
+    public void update() {
+        for (NPC n : NPCs) {
+            n.update();
+        }
+    }
+
+    public String[] getDialogues() {
+        return dialogues;
+    }
+
+    public int getDialogueInd() {
+        return dialogueInd;
+    }
+
+
     public void resetAll() {
         NPCs.clear();
         placeNPC();
     }
 }
+
