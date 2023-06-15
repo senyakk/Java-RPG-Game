@@ -137,7 +137,8 @@ public class Player extends Creature {
             attack();
         updateAnimation();
         setAnimation();
-        System.out.println("X: " + (int)(worldX/ GameModel.tileSize) + " Y: " + (int)(worldY/ GameModel.tileSize));
+
+        //System.out.println("X: " + (int)(worldX/ GameModel.tileSize) + " Y: " + (int)(worldY/ GameModel.tileSize));
     }
 
 

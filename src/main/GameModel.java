@@ -37,6 +37,9 @@ public class GameModel {
 
     private int language = DUTCH; // Default language setting
 
+    // SAVING PATH
+    public static String SAVE_DIR = "..\\..\\resources\\saves\\";
+
     public GameModel() {
         // Creating audio
         audio = new AudioHandler(this);

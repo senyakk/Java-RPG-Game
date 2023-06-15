@@ -6,31 +6,38 @@ import utilities.Load;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class InventoryManager {
+    // Playing state to which the manager is connected
+    private final Playing playing;
+
+    // Saver/Loader for Inventory object
+    private InventoryIO inventoryIO;
+    private final Inventory inventory;
+
+    // UI-Related elements
     private final int INVENTORY_ROWS = 3;
     private final int INVENTORY_COLS = 12;
     private final InventoryButton[] inventoryButtons;
-
-    private Playing playing;
-    private BufferedImage inventoryImage;
     private int invWidth, invHeight, invX, invY;
-
-    private Inventory inventory;
+    private BufferedImage inventoryImage;
 
     /**
-     * Creates an instance of the inventory manager, which prepares the UI panel
+     * Creates an inventory (new or from saves) and prepares its UI elements
      * @param playing the game state that controls the inventory manager
      */
     public InventoryManager(Playing playing) {
-        this.inventory = new Inventory();
-        this.inventory.addListeners(new InventoryPropertyListener(this));
-
         this.playing = playing;
 
-        loadInventoryImage();
+        this.inventoryIO = new InventoryIO();
+        this.inventory = inventoryIO.loadInventory();
+        inventoryIO.saveInventory(inventory); // TEMPORARY
+        this.inventory.addListeners(new InventoryPropertyListener(this));
 
+        loadInventoryImage();
         this.inventoryButtons = new InventoryButton[INVENTORY_ROWS * INVENTORY_COLS];
         updateButtons();
     }
@@ -38,13 +45,13 @@ public class InventoryManager {
     /**
      * Recreates all buttons on UI based on the list of items in the inventory
      */
-    private void updateButtons(){
+    public void updateButtons(){
         ArrayList<Item> currentItemList = inventory.getItemList();
 
         // Improper position calculations, more exact method needed
         int pos0x = (int) (invX + 55 * GameModel.scale);
         int pos0y = (int) (invY + 85 * GameModel.scale);
-        int spriteSize = 16; //(int)(16 * Game.scale);
+        int spriteSize = 16;
         int skip = (int) (8 * GameModel.scale);
 
         int index = 0;
@@ -59,8 +66,7 @@ public class InventoryManager {
                 posy = pos0y + row*((int)(spriteSize*GameModel.scale) + skip);
 
                 InventoryButton button = new InventoryButton(currentItem.getSpriteLoc(), posx, posy, spriteSize, spriteSize);
-                button.addListeners(new InventoryButtonListener(this.inventory));
-
+                button.addListeners(new InventoryButtonListener(this.inventory, index, button));
                 this.inventoryButtons[index] = button;
                 index++;
             }
@@ -90,9 +96,11 @@ public class InventoryManager {
         }
     }
 
-    public void resetAll() {
+    public void resetAll(){
+
     }
 
-    public void update() {
+    public void update(){
+
     }
 }
