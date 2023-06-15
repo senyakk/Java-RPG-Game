@@ -1,6 +1,7 @@
 package locations;
 
 
+import gamestates.Playing;
 import main.GameModel;
 import npcs.Creature;
 import objects.GameObject;
@@ -17,10 +18,10 @@ public class CollisionChecker {
 
     /**
      * Creates a collision checker
-     * @param levelManager LevelManager
+     * @param Playing playing class
      */
-    public CollisionChecker(LevelManager levelManager) {
-        this.levelManager = levelManager;
+    public CollisionChecker(Playing playing) {
+        this.levelManager = playing.getLevelManager();
         lvl = levelManager.getCurrentLevel();
     }
 

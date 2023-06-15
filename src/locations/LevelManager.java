@@ -32,6 +32,8 @@ public class LevelManager {
         levels[2].setBackground(Load.GetSpriteImg("locations/WitchHouse.png"));
         levels[3].setBackground(Load.GetSpriteImg("locations/DragonCemetery.png"));
         levels[4].setBackground(Load.GetSpriteImg("locations/swampLocation.png"));
+
+        setStartLevel(0);
     }
 
     // Check if a tile is within the bounds of the game screen
@@ -57,6 +59,25 @@ public class LevelManager {
 
     public void update() {
 
+    }
+
+    public void movePlayer(int origin) {
+        PlayerModel player = playing.getPlayer();
+        switch (getCurrentLevelId()) {
+            case 0 -> {
+                if (origin == 1)
+                    player.setCoordinates(22, 19);
+                else if (origin == 2)
+                    player.setCoordinates(24, 20);
+                else if (origin == 0)
+                    player.setCoordinates(22, 21);
+            }
+            case 1 -> player.setCoordinates(3, 5);
+            case 2 -> player.setCoordinates(4, 5);
+            case 3 -> player.setCoordinates(1, 14);
+            case 4 -> player.setCoordinates(24, 11);
+        }
+        playing.getCollisionChecker().updateLevel();
     }
 
     /**
@@ -86,7 +107,7 @@ public class LevelManager {
     public void changeLevel(int id) {
         int origin = getCurrentLevelId();
         levelInd = id;
-        playing.movePlayer(origin);
+        movePlayer(origin);
     }
 
 }

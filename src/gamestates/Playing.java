@@ -4,6 +4,7 @@ import inventory.InventoryManager;
 import locations.EventChecker;
 import locations.LevelView;
 import main.GameModel;
+import objects.ObjectView;
 import playerclasses.PlayerModel;
 import locations.LevelManager;
 import playerclasses.PlayerController;
@@ -48,6 +49,8 @@ public class Playing extends State {
     // renders the player.
     private LevelView levelView;
     // renders the view
+    private ObjectView objectView;
+    // renders the objects
 
     private boolean paused = false;
 
@@ -65,12 +68,14 @@ public class Playing extends State {
      */
     public void loadGame() {
         levelManager = new LevelManager(this);
-        levelManager.setStartLevel(0);
-        levelView = new LevelView();
         objectManager = new ObjectManager(this);
-        collisionChecker = new CollisionChecker(levelManager);
+        collisionChecker = new CollisionChecker(this);
         //npcManager = new NPCManager(this, collisionChecker);
+
         putPlayer();
+
+        levelView = new LevelView(this);
+        objectView = new ObjectView(this);
         eventChecker = new EventChecker(this);
 
     }
@@ -79,33 +84,16 @@ public class Playing extends State {
      * Puts player on a level, adds collision checker to it, adds UI and inventory
      */
     private void putPlayer() {
-        switch (getLevelManager().getCurrentLevelId()) {
-            case 0 -> player = PlayerModel.getInstance(22, 21, this);
-        }
+        if (getLevelManager().getCurrentLevelId() == 0)
+            player = PlayerModel.getInstance(22, 21, this);
+
         playerController = new PlayerController(this);
         player.addCollisionChecker(collisionChecker);
         ui = new PlayingUI(this);
-        playerRenderer = new PlayerView();
+        playerRenderer = new PlayerView(this);
         inventoryManager = new InventoryManager(this);
     }
 
-    public void movePlayer(int origin) {
-        switch (getLevelManager().getCurrentLevelId()) {
-            case 0 -> {
-                if (origin == 1)
-                    player.setCoordinates(22, 19);
-                else if (origin == 2)
-                    player.setCoordinates(24, 20);
-                else if (origin == 0)
-                    player.setCoordinates(22, 21);
-            }
-            case 1 -> player.setCoordinates(3, 5);
-            case 2 -> player.setCoordinates(4, 5);
-            case 3 -> player.setCoordinates(1, 14);
-            case 4 -> player.setCoordinates(24, 11);
-        }
-        collisionChecker.updateLevel();
-    }
 
     /**
      * @return player object
@@ -123,7 +111,7 @@ public class Playing extends State {
      */
     public void resetAll() {
         levelManager.setStartLevel(0);
-        movePlayer(0);
+        levelManager.movePlayer(0);
         paused = false;
         player.resetAll();
         ui.resetAll();
@@ -147,10 +135,10 @@ public class Playing extends State {
 
     @Override
     public void draw(Graphics g) {
-        levelView.draw(g, player, levelManager);
+        levelView.draw(g);
         eventChecker.draw(g);
-        objectManager.drawObjects(g);
-        playerRenderer.render(g, player);
+        objectView.drawObjects(g);
+        playerRenderer.render(g);
         ui.draw(g);
     }
 
@@ -191,20 +179,18 @@ public class Playing extends State {
     public void unpause() {
         paused = false;
     }
-
     public void mouseDragged(MouseEvent e) {
         ui.mouseDragged(e);
     }
-
     public LevelManager getLevelManager() {
         return levelManager;
     }
-
-
+    public CollisionChecker getCollisionChecker() {
+        return  collisionChecker;
+    }
     public boolean isPaused() {
         return paused;
     }
-
     public InventoryManager getInventoryManager() {
         return inventoryManager;
     }

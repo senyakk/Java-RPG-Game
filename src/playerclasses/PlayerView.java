@@ -1,5 +1,6 @@
 package playerclasses;
 
+import gamestates.Playing;
 import main.GameModel;
 
 import java.awt.*;
@@ -7,11 +8,16 @@ import java.awt.*;
 import static utilities.Constants.Direction.*;
 public class PlayerView {
 
+    PlayerModel player;
+    public PlayerView(Playing playing) {
+        player = playing.getPlayer();
+    }
+
     /**
      * Draw player
      * @param g Graphics object
      */
-    public void render(Graphics g, PlayerModel player) {
+    public void render(Graphics g) {
         float drawX, drawY;
         if (player.isLockedScreen()) {
             drawX = player.getWorldX();

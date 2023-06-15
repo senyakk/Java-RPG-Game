@@ -1,5 +1,6 @@
 package locations;
 
+import gamestates.Playing;
 import main.GameModel;
 import playerclasses.PlayerModel;
 
@@ -7,12 +8,19 @@ import java.awt.*;
 
 public class LevelView {
 
+    PlayerModel player;
+    LevelManager levelManager;
+
+    public LevelView(Playing playing) {
+        levelManager = playing.getLevelManager();
+        player = playing.getPlayer();
+    }
+
     /**
      * Draws current level and updates the camera when player moves
      * @param g Graphics object
-     * @param player Player object
      */
-    public void draw(Graphics g, PlayerModel player, LevelManager levelManager) {
+    public void draw(Graphics g) {
         Level level = levelManager.getCurrentLevel();
 
         if (levelManager.getCurrentLevelId() == 1 || levelManager.getCurrentLevelId() == 2) {
