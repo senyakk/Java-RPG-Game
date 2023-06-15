@@ -387,14 +387,20 @@ public class PlayerModel extends Creature {
     }
 
     public int getScreenX() {
-        return screenX;
+        if (!lockedScreen)
+            return screenX;
+        else
+            return (int) worldX;
     }
 
     /**
      * @return Player's y position on the screen
      */
     public int getScreenY() {
-        return screenY;
+        if (!lockedScreen)
+            return screenY;
+        else
+            return (int) worldY;
     }
 
     public void setClass(int playerClass) {

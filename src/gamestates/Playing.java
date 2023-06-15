@@ -188,6 +188,10 @@ public class Playing extends State {
     public CollisionChecker getCollisionChecker() {
         return  collisionChecker;
     }
+
+    public PlayingUI getUi() {
+        return ui;
+    }
     public boolean isPaused() {
         return paused;
     }

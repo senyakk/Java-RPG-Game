@@ -34,10 +34,14 @@ public class EventChecker {
 
         switch (playing.getLevelManager().getCurrentLevelId()) {
             case 2 -> {
-                if (hit(5, 1, UP))
+                if (hit(5, 1, UP)) {
+                    playing.getUi().showMessage("You're burning!");
                     takeDamage();
-                if (hit(4, 3, 5))
+                }
+                if (hit(4, 3, 5)) {
+                    playing.getUi().showMessage("You've taken a rest!");
                     restoreHealth();
+                }
             }
         }
     }
