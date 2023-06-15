@@ -20,7 +20,7 @@ import static utilities.Constants.PlayerConstants.*;
  * @author Arsenijs
  * Class that handles the player, and it's interaction with the game
  */
-public class Player extends Creature {
+public class PlayerModel extends Creature {
 
     private Playing playing;
 
@@ -54,8 +54,7 @@ public class Player extends Creature {
     private int attackCounter = 0;
     private Rectangle attackArea = new Rectangle(0,0,0,0);
 
-
-    private static Player instance;
+    private static PlayerModel instance;
 
     /**
      * Creates a singleton player instance in a game. If instance exists, returns existing player
@@ -63,14 +62,14 @@ public class Player extends Creature {
      * @param playerY y coordinates in the world
      * @param playing game Playing state
      */
-    public static Player getInstance(int playerX, int playerY, Playing playing) {
+    public static PlayerModel getInstance(int playerX, int playerY, Playing playing) {
         if (instance == null) {
-            instance = new Player(playerX, playerY, playing);
+            instance = new PlayerModel(playerX, playerY, playing);
         }
         return instance;
     }
 
-    private Player(int playerX, int playerY, Playing playing) {
+    private PlayerModel(int playerX, int playerY, Playing playing) {
         super(playerX, playerY, GameModel.tileSize, GameModel.tileSize);
         this.playing = playing;
         this.playerX = playerX;
@@ -139,51 +138,6 @@ public class Player extends Creature {
         setAnimation();
 
         //System.out.println("X: " + (int)(worldX/ GameModel.tileSize) + " Y: " + (int)(worldY/ GameModel.tileSize));
-    }
-
-
-    /**
-     * Draw player
-     * @param g Graphics object
-     */
-    public void render(Graphics g) {
-        float drawX, drawY;
-        if (lockedScreen) {
-            drawX = worldX;
-            drawY = worldY;
-        }
-        else {
-            drawX = screenX;
-            drawY = screenY;
-        }
-
-        // Draws the player
-        g.drawImage(animations[state][animIndex], (int)drawX, (int) drawY,
-                GameModel.tileSize, GameModel.tileSize, null);
-        // Draws hitbox of the player
-        drawPlayerHitArea(g, drawX, drawY);
-        if (attacking)
-            drawAttackHitArea(g, drawX, drawY);
-    }
-
-    private void drawAttackHitArea(Graphics g, float drawX, float drawY) {
-        g.setColor(Color.ORANGE);
-        switch (walkDir) {
-            case DOWN ->
-                    g.drawRect((int) (drawX + solidArea.x), (int) (drawY + solidArea.y + solidArea.height),
-                            attackArea.height, attackArea.width);
-            case UP ->
-                    g.drawRect((int) (drawX + solidArea.x), (int) (drawY + solidArea.y - attackArea.height),
-                            attackArea.height, attackArea.width);
-            case LEFT ->
-                    g.drawRect((int) (drawX + solidArea.x - attackArea.width),
-                            (int) (drawY + solidArea.y + solidArea.height/2),
-                            attackArea.width, attackArea.height);
-            case RIGHT ->
-                    g.drawRect((int) (drawX + attackArea.width),
-                            (int) (drawY + solidArea.y + solidArea.height/2),
-                            attackArea.width, attackArea.height);
-        }
     }
 
     private void attack() {
@@ -348,15 +302,6 @@ public class Player extends Creature {
         worldY = (playerY * GameModel.tileSize) - width /2 + (float) GameModel.tileSize / 2;
     }
 
-    /**
-     * Draw player's hitbox
-     * @param g Graphics object
-     */
-    protected void drawPlayerHitArea(Graphics g, float drawX, float drawY) {
-        g.setColor(Color.PINK);
-        g.drawRect((int) (drawX + solidArea.x), (int) (drawY + solidArea.y), solidArea.width, solidArea.height);
-    }
-
     public void setAttacking() {
         attacking = true;
     }
@@ -477,5 +422,29 @@ public class Player extends Creature {
     public void healthUp(int i) {
         if (currentHealth != maxHealth)
             currentHealth += i;
+    }
+
+    public boolean isLockedScreen() {
+        return lockedScreen;
+    }
+
+    public boolean isAttacking() {
+        return attacking;
+    }
+
+    public Image[][] getAnimations() {
+        return animations;
+    }
+
+    public int getAnimIndex() {
+        return animIndex;
+    }
+
+    public int getWalkDir() {
+        return walkDir;
+    }
+
+    public Rectangle getAttackArea() {
+        return attackArea;
     }
 }

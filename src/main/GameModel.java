@@ -2,7 +2,7 @@ package main;
 
 import buttonUi.AudioHandler;
 import gamestates.*;
-import playerclasses.Player;
+import playerclasses.PlayerModel;
 import utilities.AudioPlayer;
 
 import static utilities.Constants.GameLanguage.*;
@@ -11,7 +11,7 @@ public class GameModel {
 
     // SCREEN SETTINGS
     public final static int defaultTileSize = 64;
-    public final static float scale = 1.5f;
+    public final static float scale = 2.5f;
     public static final int tileSize = (int)(defaultTileSize * scale);
     // MAXIMUM NUMBER OF TILES IN A COLUMN
     public static final int maxTileCol = 10;
@@ -69,7 +69,7 @@ public class GameModel {
         return gameState;
     }
 
-    public Player getPlayer() { return playing.getPlayer(); }
+    public PlayerModel getPlayer() { return playing.getPlayer(); }
 
     public AudioHandler getAudio() {
         return audio;

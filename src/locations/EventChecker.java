@@ -2,7 +2,7 @@ package locations;
 
 import gamestates.Playing;
 import main.GameModel;
-import playerclasses.Player;
+import playerclasses.PlayerModel;
 
 import java.awt.*;
 
@@ -13,7 +13,7 @@ public class EventChecker {
     Playing playing;
     Rectangle eventArea;
     int eventRectX, eventRectY;
-    Player player;
+    PlayerModel player;
 
 
     public EventChecker(Playing playing) {

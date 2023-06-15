@@ -4,7 +4,7 @@ package locations;
 import main.GameModel;
 import npcs.Creature;
 import objects.GameObject;
-import playerclasses.Player;
+import playerclasses.PlayerModel;
 
 import static utilities.Constants.Direction.*;
 
@@ -109,7 +109,7 @@ public class CollisionChecker {
      * @param entity Player object
      * @return Object that player collided with
      */
-    public GameObject checkObject(Player entity) {
+    public GameObject checkObject(PlayerModel entity) {
 
         GameObject selectedObject = null;
 

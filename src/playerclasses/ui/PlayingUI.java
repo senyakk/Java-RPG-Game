@@ -1,7 +1,8 @@
-package playerclasses;
+package playerclasses.ui;
 
 import gamestates.Playing;
 import main.GameModel;
+import playerclasses.ui.Pause;
 import utilities.Load;
 
 import javax.imageio.ImageIO;

@@ -2,12 +2,11 @@ package objects;
 
 import gamestates.Playing;
 import objects.objectsclasses.Key;
-import playerclasses.Player;
+import playerclasses.PlayerModel;
 import utilities.HelpMethods;
 
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class ObjectManager {
@@ -56,7 +55,7 @@ public class ObjectManager {
     public void drawObjects(Graphics g) {
         for (GameObject k : gameObjects) {
             if (k.checkActive()) {
-                Player player = playing.getPlayer();
+                PlayerModel player = playing.getPlayer();
                 int screenX = (int) (k.getWorldX() - player.getWorldX() + player.getScreenX());
                 int screenY = (int) (k.getWorldY() - player.getWorldY() + player.getScreenY());
 

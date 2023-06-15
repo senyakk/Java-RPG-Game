@@ -1,4 +1,4 @@
-package playerclasses;
+package playerclasses.ui;
 
 import buttonUi.AudioHandler;
 import buttonUi.GameButton;

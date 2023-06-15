@@ -2,13 +2,13 @@ package gamestates;
 
 import inventory.InventoryManager;
 import locations.EventChecker;
-import main.GameController;
+import locations.LevelView;
 import main.GameModel;
-import playerclasses.Player;
-import main.Game;
+import playerclasses.PlayerModel;
 import locations.LevelManager;
 import playerclasses.PlayerController;
-import playerclasses.PlayingUI;
+import playerclasses.PlayerView;
+import playerclasses.ui.PlayingUI;
 import objects.ObjectManager;
 import locations.CollisionChecker;
 
@@ -24,7 +24,7 @@ import java.awt.event.MouseEvent;
 public class Playing extends State {
 
     // MODEL COMPONENTS
-    private Player player;
+    private PlayerModel player;
     // holds information about the player's position, attributes, and state.
     private LevelManager levelManager;
     // manages the game levels and handles loading and switching between different levels.
@@ -44,6 +44,10 @@ public class Playing extends State {
     // VIEW COMPONENT
     private PlayingUI ui;
     // renders the game interface and responds to user input for the UI.
+    private PlayerView playerRenderer;
+    // renders the player.
+    private LevelView levelView;
+    // renders the view
 
     private boolean paused = false;
 
@@ -62,6 +66,7 @@ public class Playing extends State {
     public void loadGame() {
         levelManager = new LevelManager(this);
         levelManager.setStartLevel(0);
+        levelView = new LevelView();
         objectManager = new ObjectManager(this);
         collisionChecker = new CollisionChecker(levelManager);
         //npcManager = new NPCManager(this, collisionChecker);
@@ -75,11 +80,12 @@ public class Playing extends State {
      */
     private void putPlayer() {
         switch (getLevelManager().getCurrentLevelId()) {
-            case 0 -> player = Player.getInstance(22, 21, this);
+            case 0 -> player = PlayerModel.getInstance(22, 21, this);
         }
         playerController = new PlayerController(this);
         player.addCollisionChecker(collisionChecker);
         ui = new PlayingUI(this);
+        playerRenderer = new PlayerView();
         inventoryManager = new InventoryManager(this);
     }
 
@@ -104,7 +110,7 @@ public class Playing extends State {
     /**
      * @return player object
      */
-    public Player getPlayer() {
+    public PlayerModel getPlayer() {
         return player;
     }
 
@@ -141,10 +147,10 @@ public class Playing extends State {
 
     @Override
     public void draw(Graphics g) {
-        levelManager.draw(g, player);
+        levelView.draw(g, player, levelManager);
         eventChecker.draw(g);
         objectManager.drawObjects(g);
-        player.render(g);
+        playerRenderer.render(g, player);
         ui.draw(g);
     }
 
