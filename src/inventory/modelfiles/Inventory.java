@@ -100,7 +100,7 @@ public class Inventory implements Serializable {
             throw new NoSuchElementException("This inventory slot is empty!");
         }
 
-        itemList.remove(position);
+        itemList.set(position, new GenericItem("0"));
         usedSlots--;
         fullInventory = false;
 
@@ -110,11 +110,41 @@ public class Inventory implements Serializable {
     }
 
     /**
+     * Removes a given item from the inventory
+     * @param item is the item to remove
+     * @return the Item object that was removed
+     * @throws NoSuchElementException occurs when there is no (non-empty) item to be removed
+     */
+    public Item removeItem(Item item) throws NoSuchElementException {
+        if (!contains(item)){
+            throw new NoSuchElementException("This element is not in the inventory!");
+        }
+
+        int position = 0;
+        for (Item temp : this.itemList){
+            if (temp.equals(item)){
+                break;
+            }
+            position++;
+        }
+        return removeItem(position);
+    }
+
+    /**
      * Getter for the item list
      * @return the list of items in the inventory
      */
     public ArrayList<Item> getItemList(){
         return this.itemList;
+    }
+
+    public boolean contains(Item item){
+        for (Item temp : this.itemList){
+            if (temp.equals(item)){
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
