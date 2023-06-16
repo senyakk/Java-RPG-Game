@@ -5,6 +5,11 @@ import inventory.viewfiles.InventoryManager;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+/**
+ * Listener that propagates inventory changes from the Inventory (Model) to the InventoryManager (View)
+ * Is again useless since buttons cant be implemented properly
+ * @author Cata Mihit
+ */
 public class InventoryPropertyListener implements PropertyChangeListener {
     private final InventoryManager inventoryManager;
 

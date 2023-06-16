@@ -5,6 +5,10 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
+/**
+ * Abstract class that implements general methods that should be shared between all item types
+ * @author Cata Mihit
+ */
 public abstract class Item implements Serializable {
     @Serial
     private static final long serialVersionUID = 3L;

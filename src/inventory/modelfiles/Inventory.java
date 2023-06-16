@@ -9,7 +9,8 @@ import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
 /**
- * Represents a player's inventory
+ * Represents a player's inventory, made up of a list of items
+ * @author Cata Mihit
  */
 public class Inventory implements Serializable {
     @Serial
@@ -138,6 +139,11 @@ public class Inventory implements Serializable {
         return this.itemList;
     }
 
+    /**
+     * Determines whether an item is found in the inventory
+     * @param item is the item to search for
+     * @return true or false depending on whether it is found
+     */
     public boolean contains(Item item){
         for (Item temp : this.itemList){
             if (temp.equals(item)){

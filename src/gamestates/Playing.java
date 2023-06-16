@@ -144,13 +144,14 @@ public class Playing extends State {
 
     @Override
     public void keyPressed(KeyEvent e) {
-
         // Player update
         playerController.handleKeyPressed(e);
 
         // Game update
         if (e.getKeyCode() == KeyEvent.VK_ESCAPE)
             paused = !paused;
+
+        inventoryManager.handleEvent(e);
     }
 
     @Override

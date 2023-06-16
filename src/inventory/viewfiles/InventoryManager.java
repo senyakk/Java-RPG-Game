@@ -11,11 +11,18 @@ import main.GameModel;
 import utilities.Load;
 
 import java.awt.*;
+import java.awt.event.InputEvent;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import static utilities.Constants.PlayerConstants.*;
 
+/**
+ * Central class for inventory handling. Generates and displays the inventory UI. Upon creation, it creates the
+ * appropriate model Inventory object by I/O.
+ * @author Cata Mihit
+ */
 public class InventoryManager {
     // Playing state to which the manager is connected
     private final Playing playing;
@@ -87,7 +94,7 @@ public class InventoryManager {
                 posy = pos0y + row*((int)(spriteSize*GameModel.scale) + skip);
 
                 InventoryButton button = new InventoryButton(currentItem.getSpriteLoc(), posx, posy, spriteSize, spriteSize);
-                button.addListeners(new InventoryButtonListener(this.inventory, index, button));
+                button.addListeners(new InventoryButtonListener(this.playing, this.inventory, index, button));
 
                 try {
                     this.inventoryButtons.set(index, button);
@@ -120,6 +127,19 @@ public class InventoryManager {
         g.drawImage(inventoryImage, invX, invY, invWidth, invHeight, null);
         for(InventoryButton button : inventoryButtons) {
             button.draw(g);
+        }
+    }
+
+    /**
+     * Takes an event from the Playing state and propagates it to the listeners
+     * (This was the only way I could make it work with the other code)
+     * @param e general input event
+     */
+    public void handleEvent(InputEvent e){
+        if (e instanceof MouseEvent){
+            for (InventoryButton button : inventoryButtons){
+                button.handleEvent(e);
+            }
         }
     }
 
