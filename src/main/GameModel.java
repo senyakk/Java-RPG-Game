@@ -55,8 +55,14 @@ public class GameModel {
 
     public void setGameState(Gamestate gameState) {
         switch (gameState) {
-            case MENU -> this.gameState = menu;
-            case PLAYING -> this.gameState = playing;
+            case MENU -> {
+                this.gameState = menu;
+                audioPlayer.playLightAmbient();
+            }
+            case PLAYING -> {
+                this.gameState = playing;
+                audioPlayer.playAmbient();
+            }
             case CLASS_SELECTION -> this.gameState = classSelection;
             case OPTIONS -> this.gameState = options;
             case QUIT -> System.exit(0);
