@@ -15,7 +15,7 @@ public class Load {
 
     public static final String INVENTORY = "UI/InventoryScreenRealReso.png";
 
-    private static Tile[] tile = new Tile[51];
+    private static Tile[] tile = new Tile[60];
 
     /**
      * Load sprite images
@@ -157,52 +157,57 @@ public class Load {
         setup(6, "033", false, "house");
         setup(7, "transparent", false, "transparent");
         setup(8, "transparent", true, "transparentCol");
-        setup(9, "transparent", true, "transparentExit");
-        setup(10, "036", true, "stairs");
-        setup(11, "038", true, "gate");
+        setup(9, "transparent", true, "transparentExitProfsHouse");
+        setup(10, "078", true, "witchhousebottom");
+        setup(11, "080", true, "gate");
 
         //Dragon cemetery tiles
-        setup(12, "039", false, "stone");
-        setup(13, "040", true, "darkGrass");
-        setup(14, "041", false, "tree");
-        setup(15, "042", false, "tomb");
-        setup(16, "043", false, "statue");
-        setup(17, "044", true, "stonePath");
-        setup(18, "045", false, "fenceSide");
-        setup(19, "046", false, "fenceUp");
-        setup(20, "047", false, "fontain");
-        setup(21, "048", false, "DragonDownRight");
-        setup(22, "049", false, "DragonDownLeft");
-        setup(23, "050", false, "DragonUpRight");
-        setup(24, "051", false, "DragonUpLeft");
-        setup(25, "052", false, "houseDown");
-        setup(26, "053", false, "houseUp");
+        setup(12, "039", true, "stone");
+        setup(13, "040", false, "darkGrass");
+        setup(14, "041", true, "tree");
+        setup(15, "042", true, "tomb");
+        setup(16, "043", true, "statue");
+        setup(17, "044", false, "stonePath");
+        setup(18, "045", true, "fenceSide");
+        setup(19, "046", true, "fenceUp");
+        setup(20, "047", true, "fontain");
+        setup(21, "048", true, "DragonDownRight");
+        setup(22, "049", true, "DragonDownLeft");
+        setup(23, "050", true, "DragonUpRight");
+        setup(24, "051", true, "DragonUpLeft");
+        setup(25, "052", true, "houseDown");
+        setup(26, "053", true, "houseUp");
 
         // swamp tiles
-        setup(27, "054", false, "water");
-        setup(28, "055", false, "CUL"); //corner upper left
-        setup(29, "056", false, "CDL"); // corner down left
-        setup(30, "057", false, "CDR");
-        setup(31, "058", false, "CUR");
-        setup(32, "059", false, "downR");
-        setup(33, "060", false, "downL");
-        setup(34, "061", false, "upperR");
-        setup(35, "062", false, "upperL");
-        setup(36, "063", false, "leftSide");
-        setup(37, "064", false, "rightSide");
-        setup(38, "065", false, "down");
-        setup(39, "066", false, "up");
-        setup(40, "067", true, "swampGrass");
-        setup(41, "068", false, "swampTree");
-        setup(42, "069", false, "bush");
-        setup(43, "070", true, "orangeFlower");
-        setup(44, "071", true, "bridgeLeft");
-        setup(45, "073", true, "bridgeUp");
-        setup(46, "074", true, "bridgeDown");
-        setup(47, "075", true, "pinkFlower");
-        setup(48, "072", true, "bridgeRight");
-        setup(49, "076", true, "bridgeHorizontal");
-        setup(50, "077", true, "bridgeVertical");
+        setup(27, "054", true, "water");
+        setup(28, "055", true, "CUL"); //corner upper left
+        setup(29, "056", true, "CDL"); // corner down left
+        setup(30, "057", true, "CDR");
+        setup(31, "058", true, "CUR");
+        setup(32, "059", true, "downR");
+        setup(33, "060", true, "downL");
+        setup(34, "061", true, "upperR");
+        setup(35, "062", true, "upperL");
+        setup(36, "063", true, "leftSide");
+        setup(37, "064", true, "rightSide");
+        setup(38, "065", true, "down");
+        setup(39, "066", true, "up");
+        setup(40, "067", false, "swampGrass");
+        setup(41, "068", true, "swampTree");
+        setup(42, "069", true, "bush");
+        setup(43, "070", false, "orangeFlower");
+        setup(44, "071", false, "bridgeLeft");
+        setup(45, "073", false, "bridgeUp");
+        setup(46, "074", false, "bridgeDown");
+        setup(47, "075", false, "pinkFlower");
+        setup(48, "072", false, "bridgeRight");
+        setup(49, "076", false, "bridgeHorizontal");
+        setup(50, "077", false, "bridgeVertical");
+        setup(51, "078", true, "witchHouseDoor");
+        setup(52, "079", true, "witchHouseRoof");
+        setup(53, "transparent", true, "transparentExitWitchHouse");
+        setup(54, "081", true, "TreeDoor");
+        setup(55, "082", true, "treeLeaves");
 
         return tile;
     }

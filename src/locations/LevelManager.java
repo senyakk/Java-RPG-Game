@@ -30,8 +30,8 @@ public class LevelManager {
 
         levels[1].setBackground(Load.GetSpriteImg("locations/Alchemisthouse.png"));
         levels[2].setBackground(Load.GetSpriteImg("locations/WitchHouse.png"));
-        levels[3].setBackground(Load.GetSpriteImg("locations/DragonCemetery.png"));
-        levels[4].setBackground(Load.GetSpriteImg("locations/swampLocation.png"));
+        //levels[3].setBackground(Load.GetSpriteImg("locations/DragonCemetery.png"));
+        //levels[4].setBackground(Load.GetSpriteImg("locations/swampLocation.png"));
 
         setStartLevel(0);
     }
@@ -64,18 +64,25 @@ public class LevelManager {
     public void movePlayer(int origin) {
         PlayerModel player = playing.getPlayer();
         switch (getCurrentLevelId()) {
-            case 0 -> {
-                if (origin == 1)
+            case 0 -> { //go to with coords in hometown
+                if (origin == 1) // when from professors house
                     player.setCoordinates(22, 19);
-                else if (origin == 2)
-                    player.setCoordinates(24, 20);
-                else if (origin == 0)
+                else if (origin == 0) // When from hometown
+                    player.setCoordinates(22, 21);
+                if (origin == 8) // when from swamp
+                    player.setCoordinates(22, 21);
+                else if (origin == 7) // When from dragon cemetery
                     player.setCoordinates(22, 21);
             }
-            case 1 -> player.setCoordinates(3, 5);
-            case 2 -> player.setCoordinates(4, 5);
-            case 3 -> player.setCoordinates(1, 14);
-            case 4 -> player.setCoordinates(24, 11);
+            case 1 -> player.setCoordinates(3, 5); // Go to entrance in professors house
+            case 2 -> player.setCoordinates(4, 5); // Go to entrance in Witch house
+            case 7 -> player.setCoordinates(10, 23); // spawn of dragon cemetery
+            case 8 -> { // go to coords in swamp
+                if (origin == 7) // when from dragon Cemetery
+                    player.setCoordinates(34, 30); // swamp -> 34,23 is real spawn
+                if (origin == 2) // when from witch house
+                    player.setCoordinates(34, 29); // spawn outside the door
+            }
         }
         playing.getCollisionChecker().updateLevel();
     }

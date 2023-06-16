@@ -14,6 +14,8 @@ public class EventChecker {
     Rectangle eventArea;
     int eventRectX, eventRectY;
     PlayerModel player;
+    CollisionChecker tile1, tile2;
+    Tile name;
 
 
     public EventChecker(Playing playing) {
@@ -34,7 +36,7 @@ public class EventChecker {
 
         switch (playing.getLevelManager().getCurrentLevelId()) {
             case 2 -> {
-                if (hit(5, 1, UP)) {
+                if ( hit(5, 1, UP)) {
                     playing.getUi().showMessage("You're burning!");
                     takeDamage();
                 }

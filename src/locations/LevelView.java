@@ -65,23 +65,6 @@ public class LevelView {
                 }
             }
         }
-        /*
-        else if(getCurrentLevelId() == 3 || getCurrentLevelId() == 4){
-            player.unlockScreen();
-            g.drawImage(level.getBackground(), 0, 0, GameModel.screenWidth, GameModel.screenHeight, null);
-            // Following loop is for drawing tile grid
-            int y = 0;
-            for (int worldRow = 0; worldRow < GameModel.maxTileRow; worldRow++) {
-                int x = 0;
-                for (int worldCol = 0; worldCol < GameModel.maxTileCol; worldCol++) {
-                    // g.drawRect(x, y, Game.tileSize, Game.tileSize);
-                    x+= GameModel.tileSize;
-                }
-                y+= GameModel.tileSize;
-            }
-        }
-
-         */
         else {
 
             player.unlockScreen();

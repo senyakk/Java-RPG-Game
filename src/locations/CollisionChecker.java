@@ -97,12 +97,19 @@ public class CollisionChecker {
     public void checkEvent(Tile tile1, Tile tile2) {
         if ((tile1.getName().equals("house")) || (tile2.getName().equals("house")))
             levelManager.changeLevel(1);
-        else if (((tile1.getName().equals("transparentExit")) || (tile2.getName().equals("transparentExit"))))
+        else if (((tile1.getName().equals("transparentExitProfsHouse")) || (tile2.getName().equals("transparentExitProfsHouse"))))
             levelManager.changeLevel(0);
-        else if (((tile1.getName().equals("stairs")) || (tile2.getName().equals("stairs"))))
+        else if (((tile1.getName().equals("transparentExitWitchHouse")) || (tile2.getName().equals("transparentExitWitchHouse"))))
+            levelManager.changeLevel(8);
+        else if (((tile1.getName().equals("witchHouseDoor")) || (tile2.getName().equals("witchHouseDoor"))))
             levelManager.changeLevel(2);
         else if (((tile1.getName().equals("gate")) || (tile2.getName().equals("gate"))))
-           levelManager.changeLevel(5);
+           levelManager.changeLevel(7);
+        else if (((tile1.getName().equals("fontain")) || (tile2.getName().equals("fontain"))))
+            levelManager.changeLevel(8);
+        else if (((tile1.getName().equals("treeDoor")) || (tile2.getName().equals("treeDoor"))))
+            levelManager.changeLevel(0); // Should go to forrest
+
     }
 
     /**
