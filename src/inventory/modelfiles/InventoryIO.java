@@ -34,13 +34,13 @@ public class InventoryIO implements Serializable {
         Inventory inventory = null;
         try (ObjectInputStream i = new ObjectInputStream(new FileInputStream("resources/saves/Inventory.obj"))) {
             inventory = (Inventory) i.readObject();
-            System.out.println("Loaded inventory from file!");
+            System.out.println("INVENTORY: Loaded inventory from file!");
         } catch (IOException e) {
             e.printStackTrace();
             new File(savePath);
             inventory = new Inventory();
         } catch (ClassNotFoundException e) {
-            System.out.println("No inventory saved yet!");
+            System.out.println("INVENTORY: No inventory saved yet!");
             inventory = new Inventory();
         }
         return inventory;

@@ -16,9 +16,6 @@ public class GenericItem extends Item implements Serializable {
      * @param id is the string specifying the unique identifier of the item to be created
      */
     public GenericItem(String id){
-        this.id = id;
-        setDisplayName();
-        setVisibility();
-        setSpriteLoc();
+        super(id);
     }
 }

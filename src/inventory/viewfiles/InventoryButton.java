@@ -1,15 +1,12 @@
 package inventory.viewfiles;
 
 import buttonUi.GameButton;
-import inventory.controllerfiles.InventoryButtonListener;
 import main.GameModel;
 import utilities.Load;
 
 import java.awt.*;
-import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 
 /**
  * A button for inventory slots in the View
@@ -17,9 +14,6 @@ import java.util.ArrayList;
  */
 public class InventoryButton extends GameButton {
     private final BufferedImage sprite;
-    private ArrayList<InventoryButtonListener> listeners;
-
-    //private final BufferedImage BUTTON_BG = Load.GetSpriteImg("UI/inventoryButton.png");
 
     /**
      * Constructor for inventory button
@@ -30,13 +24,8 @@ public class InventoryButton extends GameButton {
      * @param height    buttons' height
      */
     public InventoryButton(String spriteLoc, int x, int y, int width, int height) {
-        //super(new ImageIcon(spriteLoc));
-        //this.x = x; this.y = y;
-        //this.width = width; this.height = height;
         super(x, y, width, height);
         this.sprite = Load.GetSpriteImg(spriteLoc);
-
-        this.listeners = new ArrayList<>();
     }
 
     /**
@@ -44,31 +33,17 @@ public class InventoryButton extends GameButton {
      * @param g Graphics object
      */
     public void draw(Graphics g) {
-        // Improper calculations again, but it works for our purposes
-        //int szbgx = (int) (3.3f * sprite.getWidth() * Game.scale);
-        //int szbgy = (int) (3.3f * sprite.getHeight() * Game.scale);
-        //g.drawImage(BUTTON_BG, x - szbgx/2, y - szbgy/2, szbgx, szbgy, null);
-
         int szx = (int) (1.5f * sprite.getWidth() * GameModel.scale);
         int szy = (int) (1.5f * sprite.getHeight() * GameModel.scale);
         g.drawImage(sprite, x, y, szx, szy, null);
     }
 
     /**
-     * Adds a button listener to the list of listeners
-     * @param listener is the new listener to be added
+     * Checks whether a mouse event occurs within the on-screen bounds of the button
+     * @param e is the mouse event
+     * @return true if it is, false otherwises
      */
-    public void addListeners(InventoryButtonListener listener){
-        this.listeners.add(listener);
-    }
-
     public boolean isInBorder(MouseEvent e) {
         return this.getBounds().contains(e.getX(), e.getY());
-    }
-
-    public void handleEvent(InputEvent e){
-        for (InventoryButtonListener listener : listeners){
-            //
-        }
     }
 }

@@ -1,12 +1,14 @@
 package inventory.modelfiles;
 
+import utilities.Constants;
+
 import java.awt.image.BufferedImage;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * Abstract class that implements general methods that should be shared between all item types
+ * Abstract class that implements general methods to be shared between all item types
  * @author Cata Mihit
  */
 public abstract class Item implements Serializable {
@@ -20,22 +22,37 @@ public abstract class Item implements Serializable {
     protected BufferedImage sprite;
 
     /**
+     * General constructor for item classes
+     * @param id is the unique ID of the item
+     */
+    protected Item(String id){
+        this.id = id;
+        setDisplayName();
+        setVisibility();
+        setSpriteLoc();
+    }
+
+    /**
      * Getter for ID of Item object
-     * @return the unique ID string of the object (e.g. "Sword" has ID "15", "Bow" has ID "23", etc.)
+     * @return the unique ID string of the object (e.g. "Sword" has ID "1", "Bow" has ID "2", etc.)
      */
     public String getId(){
         return this.id;
     }
 
+    /**
+     * Setter for the display name of the Item object, realized by accessing the item list and
+     * getting the display name (based on game language)
+     */
     protected void setDisplayName(){
-        // TODO: Access language database based on ID and game language; Game language -> static in main game class
-        if (this.id.equals("1")) this.displayName = "Arrow";
-        if (this.id.equals("2")) this.displayName = "Bow";
-        if (this.id.equals("10")) this.displayName = "Key";
+        // if (language == Constants.GameLanguage.ENGLISH) else { but cant access game language rn
+
+        int language = Constants.GameLanguage.DUTCH;
+        this.displayName = Constants.ItemList.ITEM_LIST.get(id).getDisplayNames().get(language);
     }
 
     /**
-     * The proper display name of the Item object is based on ID and current game language
+     * Gets the display name of the Item object, which is based on ID and current game language
      * @return the set display name based on language
      */
     public String getDisplayName(){
@@ -50,6 +67,9 @@ public abstract class Item implements Serializable {
         return Objects.equals(this.getId(), "0");
     }
 
+    /**
+     * Non-empty items are visible in the inventory (right now their texture is transparent)
+     */
     protected void setVisibility(){
         this.isVisible = !this.isEmptyItem();
     }
@@ -63,19 +83,17 @@ public abstract class Item implements Serializable {
     }
 
     /**
+     * Sets the location of the sprite resource by accessing the item list
+     */
+    protected void setSpriteLoc(){
+        this.spriteLoc = Constants.ItemList.ITEM_LIST.get(id).getSpriteLoc();
+    }
+
+    /**
      * Determines the location of the sprite resource
      * @return the path of the sprite for the current Item object
      */
-    protected void setSpriteLoc(){
-        // TODO: Access database based on ID
-        if (this.id.equals("0")) this.spriteLoc = "items/0.png";
-        if (this.id.equals("1")) this.spriteLoc = "items/arrowItem.png";
-        if (this.id.equals("2")) this.spriteLoc = "items/bowItem.png";
-        if (this.id.equals("10")) this.spriteLoc = "items/keyItem.png";
-    }
-
     public String getSpriteLoc(){
-        // TODO: Access database based on ID
         return this.spriteLoc;
     }
 

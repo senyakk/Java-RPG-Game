@@ -151,7 +151,8 @@ public class Playing extends State {
         if (e.getKeyCode() == KeyEvent.VK_ESCAPE)
             paused = !paused;
 
-        inventoryManager.handleEvent(e);
+        // Inventory view update
+        inventoryManager.keyPressed(e);
     }
 
     @Override
@@ -160,16 +161,19 @@ public class Playing extends State {
         ui.keyReleased(e);
         // Player Update
         playerController.handleKeyReleased(e);
+        inventoryManager.keyReleased(e);
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
         ui.mousePressed(e);
+        inventoryManager.mousePressed(e);
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
         ui.mouseReleased(e);
+        inventoryManager.mouseReleased(e);
     }
 
     @Override
@@ -177,15 +181,18 @@ public class Playing extends State {
         ui.mouseMoved(e);
     }
 
-    public void unpause() {
-        paused = false;
-    }
     public void mouseDragged(MouseEvent e) {
         ui.mouseDragged(e);
     }
+
+    public void unpause() {
+        paused = false;
+    }
+
     public LevelManager getLevelManager() {
         return levelManager;
     }
+
     public CollisionChecker getCollisionChecker() {
         return  collisionChecker;
     }

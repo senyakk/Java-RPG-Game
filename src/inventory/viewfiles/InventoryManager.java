@@ -1,20 +1,18 @@
 package inventory.viewfiles;
 
 import gamestates.Playing;
-import inventory.controllerfiles.InventoryButtonListener;
 import inventory.controllerfiles.InventoryPropertyListener;
-import inventory.modelfiles.GenericItem;
-import inventory.modelfiles.Inventory;
-import inventory.modelfiles.InventoryIO;
-import inventory.modelfiles.Item;
+import inventory.modelfiles.*;
 import main.GameModel;
+import playerclasses.PlayerModel;
 import utilities.Load;
 
 import java.awt.*;
-import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 
 import static utilities.Constants.PlayerConstants.*;
 
@@ -39,29 +37,34 @@ public class InventoryManager {
     private BufferedImage inventoryImage;
 
     /**
+     * Determines what weapon the player should own (given by default in inventory)
+     * @param player is the player who has this inventory
+     * @return the weapon item corresponding to their class, or an empty item if something goes wrong
+     */
+    private Item setupWeapon(PlayerModel player){
+        int playerClass = player.getPlayerClassAsInt();
+        if (playerClass == WARRIOR) return new WeaponItem("1", 2.0f);
+        if (playerClass == ARCHER) return new WeaponItem("2", 3.0f);
+        if (playerClass == BARD) return new WeaponItem("4", 1.0f);
+        return new GenericItem("0");
+    }
+
+    /**
      * Creates an inventory (new or from saves) and prepares its UI elements
      * @param playing the game state that controls the inventory manager
      */
     public InventoryManager(Playing playing) {
         this.playing = playing;
 
-        int playerClass = this.playing.getPlayer().getPlayerClassAsInt();
-        Item playerWeapon = null;
-        switch (playerClass){
-            case WARRIOR -> playerWeapon = new GenericItem("1");
-            case ARCHER -> playerWeapon = new GenericItem("2");
-            case BARD -> playerWeapon = new GenericItem("3");
-            default -> playerWeapon = new GenericItem("0");
-        }
+        Item playerWeapon = setupWeapon(this.playing.getPlayer());
 
-        // Test code
-        this.inventoryIO = new InventoryIO();
-        inventoryIO.saveInventory(new Inventory(playerWeapon)); // TEMPORARY
-        this.inventory = inventoryIO.loadInventory();
-        inventory.addItem(new GenericItem("1"));
-        inventory.addItem(new GenericItem("2"));
-        inventory.addItem(new GenericItem("10"));
-        //inventoryIO.saveInventory(inventory);
+        // Test code -> save/load works just isn't connected to the UI
+        //this.inventoryIO = new InventoryIO();
+        //inventoryIO.saveInventory(new Inventory(playerWeapon));
+        //this.inventory = inventoryIO.loadInventory();
+        this.inventory = new Inventory(playerWeapon);
+        inventory.addItem(new GenericItem("3"));
+        inventory.addItem(new GenericItem("5"));
 
         this.inventory.addListeners(new InventoryPropertyListener(this));
 
@@ -93,8 +96,12 @@ public class InventoryManager {
                 posx = pos0x + col*((int)(spriteSize*GameModel.scale) + skip);
                 posy = pos0y + row*((int)(spriteSize*GameModel.scale) + skip);
 
-                InventoryButton button = new InventoryButton(currentItem.getSpriteLoc(), posx, posy, spriteSize, spriteSize);
-                button.addListeners(new InventoryButtonListener(this.playing, this.inventory, index, button));
+                InventoryButton button = new InventoryButton(
+                    currentItem.getSpriteLoc(),
+                    posx, posy,
+                    2*(int)(spriteSize*GameModel.scale),
+                    2*(int)(spriteSize*GameModel.scale)
+                );
 
                 try {
                     this.inventoryButtons.set(index, button);
@@ -130,24 +137,51 @@ public class InventoryManager {
         }
     }
 
-    /**
-     * Takes an event from the Playing state and propagates it to the listeners
-     * (This was the only way I could make it work with the other code)
-     * @param e general input event
+    public void resetAll(){
+        // ?
+    }
+
+    public void update(){
+        // ?
+    }
+
+    /*
+        Event handling -> current button implementation does not allow for
+        an individual button's listener to handle events, so the inventoryManager
+        also takes the role of a controller class for all buttons :(
      */
-    public void handleEvent(InputEvent e){
-        if (e instanceof MouseEvent){
-            for (InventoryButton button : inventoryButtons){
-                button.handleEvent(e);
+
+    /**
+     * Adds a key to the inventory when pressing Z -> debug mostly
+     * @param e is the key press event
+     */
+    public void keyPressed(KeyEvent e) {
+        switch (e.getKeyCode()){
+            case KeyEvent.VK_Z -> {
+                try{
+                    inventory.addItem(new GenericItem("5"));
+                } catch (ArrayIndexOutOfBoundsException exc) {
+                    System.out.println("INVENTORY: Not enough space left!");
+                }
             }
         }
     }
 
-    public void resetAll(){
+    /**
+     * Removes element from the inventory upon clicking on it
+     * @param e is the mouse release event
+     */
+    public void mouseReleased(MouseEvent e) {
+        for (int index = 0; index < INVENTORY_ROWS * INVENTORY_COLS; index++){
+            InventoryButton button = this.inventoryButtons.get(index);
 
-    }
-
-    public void update(){
-
+            if (button.isInBorder(e)){
+                try {
+                    inventory.removeItem(index);
+                } catch (NoSuchElementException exc) {
+                    System.out.println("INVENTORY: This element is not in the inventory!");
+                }
+            }
+        }
     }
 }

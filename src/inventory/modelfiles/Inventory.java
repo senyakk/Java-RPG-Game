@@ -38,11 +38,11 @@ public class Inventory implements Serializable {
         setupItemList();
         updateFullInventory();
         this.listeners = new ArrayList<>();
-        this.addItem(playerWeapon); // MAKE WEAPON ITEM CLASS
+        this.addItem(playerWeapon);
     }
 
     /**
-     *
+     * The inventory slots are initialized by placing empty items in empty slots
      */
     private void setupItemList(){
         this.itemList = new ArrayList<Item>(MAX_INVENTORY_SIZE);
@@ -59,7 +59,7 @@ public class Inventory implements Serializable {
     }
 
     /**
-     * Adds an item to the first position that is empty (is an empty item)
+     * Adds an item to the first position that is empty (where there is an empty item)
      * @param newItem is the item to be added in the inventory
      * @throws ArrayIndexOutOfBoundsException occurs when there are no remaining empty slots
      */
@@ -89,10 +89,24 @@ public class Inventory implements Serializable {
     }
 
     /**
+     * Determines whether an item is found in the inventory
+     * @param item is the item to search for
+     * @return true or false depending on whether it is found
+     */
+    public boolean contains(Item item){
+        for (Item temp : this.itemList){
+            if (temp.equals(item)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Removes the item at a given position in the inventory
      * @param position is the position from where to remove
      * @return the Item object that was removed
-     * @throws NoSuchElementException occurs when there is no (non-empty) item to be removed
+     * @throws NoSuchElementException occurs when there is no (non-empty) item to be removed at that position
      */
     public Item removeItem(int position) throws NoSuchElementException {
         Item removedItem = itemList.get(position);
@@ -114,7 +128,7 @@ public class Inventory implements Serializable {
      * Removes a given item from the inventory
      * @param item is the item to remove
      * @return the Item object that was removed
-     * @throws NoSuchElementException occurs when there is no (non-empty) item to be removed
+     * @throws NoSuchElementException occurs when the item to be removed is not in the inventory
      */
     public Item removeItem(Item item) throws NoSuchElementException {
         if (!contains(item)){
@@ -140,20 +154,6 @@ public class Inventory implements Serializable {
     }
 
     /**
-     * Determines whether an item is found in the inventory
-     * @param item is the item to search for
-     * @return true or false depending on whether it is found
-     */
-    public boolean contains(Item item){
-        for (Item temp : this.itemList){
-            if (temp.equals(item)){
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
      * Adds a property listener to the list of listeners
      * @param listener is the new listener to be added
      */
@@ -162,7 +162,7 @@ public class Inventory implements Serializable {
     }
 
     /**
-     * Notifies each listener, also has functionality for more complex property change detections (not really used)
+     * Notifies each listener, can also be used for more complex property changes
      * @param propertyName is the property that was changed
      * @param newValue is the new value of the property that was changed
      */
