@@ -198,4 +198,8 @@ public class Playing extends State {
     public InventoryManager getInventoryManager() {
         return inventoryManager;
     }
+    public ObjectManager getObjectManager() {
+        return objectManager;
+    }
+
 }
