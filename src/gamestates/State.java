@@ -1,5 +1,4 @@
 package gamestates;
-import main.GameController;
 import main.GameModel;
 
 import java.awt.*;

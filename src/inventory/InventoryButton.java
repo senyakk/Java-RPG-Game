@@ -1,11 +1,12 @@
 package inventory;
 
 import buttonUi.GameButton;
-import main.Game;
 import main.GameModel;
 import utilities.Load;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -39,13 +40,12 @@ public class InventoryButton extends GameButton {
      */
     public void draw(Graphics g) {
         // Improper calculations again, but it works for our purposes
-        int szx = (int) (1.5f * sprite.getWidth() * GameModel.scale);
-        int szy = (int) (1.5f * sprite.getHeight() * GameModel.scale);
-
         //int szbgx = (int) (3.3f * sprite.getWidth() * Game.scale);
         //int szbgy = (int) (3.3f * sprite.getHeight() * Game.scale);
-
         //g.drawImage(BUTTON_BG, x - szbgx/2, y - szbgy/2, szbgx, szbgy, null);
+
+        int szx = (int) (1.5f * sprite.getWidth() * GameModel.scale);
+        int szy = (int) (1.5f * sprite.getHeight() * GameModel.scale);
         g.drawImage(sprite, x, y, szx, szy, null);
     }
 
@@ -55,5 +55,9 @@ public class InventoryButton extends GameButton {
      */
     public void addListeners(InventoryButtonListener listener){
         this.listeners.add(listener);
+    }
+
+    public boolean isInBorder(MouseEvent e) {
+        return this.getBounds().contains(e.getX(), e.getY());
     }
 }

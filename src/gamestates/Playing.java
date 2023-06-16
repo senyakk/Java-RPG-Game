@@ -1,13 +1,15 @@
 package gamestates;
 
 import inventory.InventoryManager;
-import main.GameController;
+import locations.EventChecker;
+import locations.LevelView;
 import main.GameModel;
-import playerclasses.Player;
-import main.Game;
+import objects.ObjectView;
+import playerclasses.PlayerModel;
 import locations.LevelManager;
 import playerclasses.PlayerController;
-import playerclasses.PlayingUI;
+import playerclasses.PlayerView;
+import playerclasses.ui.PlayingUI;
 import objects.ObjectManager;
 import locations.CollisionChecker;
 
@@ -23,7 +25,7 @@ import java.awt.event.MouseEvent;
 public class Playing extends State {
 
     // MODEL COMPONENTS
-    private Player player;
+    private PlayerModel player;
     // holds information about the player's position, attributes, and state.
     private LevelManager levelManager;
     // manages the game levels and handles loading and switching between different levels.
@@ -33,14 +35,22 @@ public class Playing extends State {
     // checks for collisions between game entities and handles collision resolution.
     private InventoryManager inventoryManager;
     // manages the player's inventory and handles interactions with inventory items.
+    private EventChecker eventChecker;
+    // manages the events hapenning in the level
 
-    // CONTROLLER COMPONENT
+    // CONTROLLER COMPONENTS
     private PlayerController playerController;
     //  handles player input and translates it into actions and movements for the player character.
 
     // VIEW COMPONENT
     private PlayingUI ui;
     // renders the game interface and responds to user input for the UI.
+    private PlayerView playerRenderer;
+    // renders the player.
+    private LevelView levelView;
+    // renders the view
+    private ObjectView objectView;
+    // renders the objects
 
     private boolean paused = false;
 
@@ -58,48 +68,37 @@ public class Playing extends State {
      */
     public void loadGame() {
         levelManager = new LevelManager(this);
-        levelManager.setStartLevel(0);
         objectManager = new ObjectManager(this);
-        collisionChecker = new CollisionChecker(levelManager);
+        collisionChecker = new CollisionChecker(this);
         //npcManager = new NPCManager(this, collisionChecker);
+
         putPlayer();
+
+        levelView = new LevelView(this);
+        objectView = new ObjectView(this);
+        eventChecker = new EventChecker(this);
+
     }
 
     /**
      * Puts player on a level, adds collision checker to it, adds UI and inventory
      */
     private void putPlayer() {
-        switch (getLevelManager().getCurrentLevelId()) {
-            case 0 -> player = Player.getInstance(22, 21, this);
-        }
+        if (getLevelManager().getCurrentLevelId() == 0)
+            player = PlayerModel.getInstance(22, 21, this);
+
         playerController = new PlayerController(this);
         player.addCollisionChecker(collisionChecker);
         ui = new PlayingUI(this);
+        playerRenderer = new PlayerView(this);
         inventoryManager = new InventoryManager(this);
     }
 
-    public void movePlayer(int origin) {
-        switch (getLevelManager().getCurrentLevelId()) {
-            case 0 -> {
-                if (origin == 1)
-                    player.setCoordinates(22, 19);
-                else if (origin == 2)
-                    player.setCoordinates(24, 20);
-                else if (origin == 0)
-                    player.setCoordinates(22, 21);
-            }
-            case 1 -> player.setCoordinates(3, 5);
-            case 2 -> player.setCoordinates(4, 5);
-            case 5 -> player.setCoordinates(1, 13); // cemetery
-            case 4 -> player.setCoordinates(1, 14); // swamp
-        }
-        collisionChecker.updateLevel();
-    }
 
     /**
      * @return player object
      */
-    public Player getPlayer() {
+    public PlayerModel getPlayer() {
         return player;
     }
 
@@ -112,7 +111,7 @@ public class Playing extends State {
      */
     public void resetAll() {
         levelManager.setStartLevel(0);
-        movePlayer(0);
+        levelManager.movePlayer(0);
         paused = false;
         player.resetAll();
         ui.resetAll();
@@ -124,6 +123,7 @@ public class Playing extends State {
     public void update() {
         if (!paused) {
             levelManager.update();
+            eventChecker.checkEvent();
             objectManager.update();
             //npcManager.update();
             player.update();
@@ -135,9 +135,10 @@ public class Playing extends State {
 
     @Override
     public void draw(Graphics g) {
-        levelManager.draw(g, player);
-        objectManager.drawObjects(g);
-        player.render(g);
+        levelView.draw(g);
+        eventChecker.draw(g);
+        objectView.drawObjects(g);
+        playerRenderer.render(g);
         ui.draw(g);
     }
 
@@ -178,20 +179,22 @@ public class Playing extends State {
     public void unpause() {
         paused = false;
     }
-
     public void mouseDragged(MouseEvent e) {
         ui.mouseDragged(e);
     }
-
     public LevelManager getLevelManager() {
         return levelManager;
     }
+    public CollisionChecker getCollisionChecker() {
+        return  collisionChecker;
+    }
 
-
+    public PlayingUI getUi() {
+        return ui;
+    }
     public boolean isPaused() {
         return paused;
     }
-
     public InventoryManager getInventoryManager() {
         return inventoryManager;
     }

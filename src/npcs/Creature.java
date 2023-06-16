@@ -42,6 +42,14 @@ public abstract class Creature {
 
     public Rectangle getHitArea() { return solidArea; }
 
+    public void setHitAreaX(float x) {
+        solidArea.x = (int) x;
+    }
+
+    public void setHitAreaY(float y) {
+        solidArea.y = (int) y;
+    }
+
     public int getScreenX() {
         return screenX;
     }

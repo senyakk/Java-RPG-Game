@@ -20,7 +20,7 @@ import static utilities.Constants.PlayerConstants.*;
  * @author Arsenijs
  * Class that handles the player, and it's interaction with the game
  */
-public class Player extends Creature {
+public class PlayerModel extends Creature {
 
     private Playing playing;
 
@@ -54,8 +54,7 @@ public class Player extends Creature {
     private int attackCounter = 0;
     private Rectangle attackArea = new Rectangle(0,0,0,0);
 
-
-    private static Player instance;
+    private static PlayerModel instance;
 
     /**
      * Creates a singleton player instance in a game. If instance exists, returns existing player
@@ -63,14 +62,14 @@ public class Player extends Creature {
      * @param playerY y coordinates in the world
      * @param playing game Playing state
      */
-    public static Player getInstance(int playerX, int playerY, Playing playing) {
+    public static PlayerModel getInstance(int playerX, int playerY, Playing playing) {
         if (instance == null) {
-            instance = new Player(playerX, playerY, playing);
+            instance = new PlayerModel(playerX, playerY, playing);
         }
         return instance;
     }
 
-    private Player(int playerX, int playerY, Playing playing) {
+    private PlayerModel(int playerX, int playerY, Playing playing) {
         super(playerX, playerY, GameModel.tileSize, GameModel.tileSize);
         this.playing = playing;
         this.playerX = playerX;
@@ -137,51 +136,8 @@ public class Player extends Creature {
             attack();
         updateAnimation();
         setAnimation();
-    }
 
-
-    /**
-     * Draw player
-     * @param g Graphics object
-     */
-    public void render(Graphics g) {
-        float drawX, drawY;
-        if (lockedScreen) {
-            drawX = worldX;
-            drawY = worldY;
-        }
-        else {
-            drawX = screenX;
-            drawY = screenY;
-        }
-
-        // Draws the player
-        g.drawImage(animations[state][animIndex], (int)drawX, (int) drawY,
-                GameModel.tileSize, GameModel.tileSize, null);
-        // Draws hitbox of the player
-        drawPlayerHitArea(g, drawX, drawY);
-        if (attacking)
-            drawAttackHitArea(g, drawX, drawY);
-    }
-
-    private void drawAttackHitArea(Graphics g, float drawX, float drawY) {
-        g.setColor(Color.ORANGE);
-        switch (walkDir) {
-            case DOWN ->
-                    g.drawRect((int) (drawX + solidArea.x), (int) (drawY + solidArea.y + solidArea.height),
-                            attackArea.height, attackArea.width);
-            case UP ->
-                    g.drawRect((int) (drawX + solidArea.x), (int) (drawY + solidArea.y - attackArea.height),
-                            attackArea.height, attackArea.width);
-            case LEFT ->
-                    g.drawRect((int) (drawX + solidArea.x - attackArea.width),
-                            (int) (drawY + solidArea.y + solidArea.height/2),
-                            attackArea.width, attackArea.height);
-            case RIGHT ->
-                    g.drawRect((int) (drawX + attackArea.width),
-                            (int) (drawY + solidArea.y + solidArea.height/2),
-                            attackArea.width, attackArea.height);
-        }
+        //System.out.println("X: " + (int)(worldX/ GameModel.tileSize) + " Y: " + (int)(worldY/ GameModel.tileSize));
     }
 
     private void attack() {
@@ -200,23 +156,20 @@ public class Player extends Creature {
 
         moving = false;
 
-        if ((!left && !right && !up && !down) || (left && right) || (up && down)) {
+        if ((!left && !right && !up && !down) || (left && right) || (up && down))
             return;
-        }
 
         float xSpeed = 0, ySpeed = 0;
 
-        if (left) {
+        if (left)
             xSpeed -= speed;
-        } else if (right) {
+        else if (right)
             xSpeed += speed;
-        }
 
-        if (up) {
+        if (up)
             ySpeed -= speed;
-        } else if (down) {
+        else if (down)
             ySpeed += speed;
-        }
 
         if (!collisionOn) {
             this.worldX += xSpeed;
@@ -288,6 +241,65 @@ public class Player extends Creature {
     }
 
     /**
+     * Resets directions of the player
+     */
+    public void resetDirections() {
+        left = false;
+        right = false;
+        up = false;
+        down = false;
+    }
+
+    /**
+     * Resets all the variables of the player
+     */
+    public void resetAll() {
+        resetDirections();
+        setDefaultVariables();
+        moving = false;
+        attacking = false;
+        walkDir = DOWN;
+        worldX = (playerX * GameModel.tileSize) - width /2 + (float) GameModel.tileSize / 2;
+        worldY = (playerY * GameModel.tileSize) - width /2 + (float) GameModel.tileSize / 2;
+    }
+
+    public String getPlayerClass() {
+        switch (playerClass) {
+            case WARRIOR -> {
+                switch (playing.getGameModel().getLanguage()) {
+                    case ENGLISH -> {
+                        return "Warrior";
+                    }
+                    case DUTCH -> {
+                        return "Krijger";
+                    }
+                }
+            }
+            case ARCHER -> {
+                switch (playing.getGameModel().getLanguage()) {
+                    case ENGLISH -> {
+                        return "Archer";
+                    }
+                    case DUTCH -> {
+                        return "Boogschutter";
+                    }
+                }
+            }
+            case BARD -> {
+                switch (playing.getGameModel().getLanguage()) {
+                    case ENGLISH -> {
+                        return "Bard";
+                    }
+                    case DUTCH -> {
+                        return "Bard";
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
      * Set's player walking left direction
      * @param left true/false
      */
@@ -323,54 +335,72 @@ public class Player extends Creature {
         walkDir = DOWN;
     }
 
-    /**
-     * Resets directions of the player
-     */
-    public void resetDirections() {
-        left = false;
-        right = false;
-        up = false;
-        down = false;
+
+    public void lockScreen() {
+        lockedScreen = true;
+    }
+    public void unlockScreen() {
+        lockedScreen = false;
     }
 
-    /**
-     * Resets all the variables of the player
-     */
-    public void resetAll() {
-        resetDirections();
-        setDefaultVariables();
-        moving = false;
-        attacking = false;
-        walkDir = DOWN;
-        worldX = (playerX * GameModel.tileSize) - width /2 + (float) GameModel.tileSize / 2;
-        worldY = (playerY * GameModel.tileSize) - width /2 + (float) GameModel.tileSize / 2;
+    public void setCoordinates(float x, float y) {
+        worldX = (x * GameModel.tileSize) - width /2 + (float) GameModel.tileSize / 2;;
+        worldY = (y * GameModel.tileSize) - width /2 + (float) GameModel.tileSize / 2;;
     }
 
-    /**
-     * Draw player's hitbox
-     * @param g Graphics object
-     */
-    protected void drawPlayerHitArea(Graphics g, float drawX, float drawY) {
-        g.setColor(Color.PINK);
-        g.drawRect((int) (drawX + solidArea.x), (int) (drawY + solidArea.y), solidArea.width, solidArea.height);
+    public void takeDamage(int dmg) {
+        if (currentHealth > 0)
+            currentHealth-= dmg;
+    }
+
+    public void healthUp(int i) {
+        if (currentHealth != maxHealth)
+            currentHealth += i;
     }
 
     public void setAttacking() {
         attacking = true;
     }
 
-    /**
-     * @return Player's x position on the screen
-     */
+    public boolean isLockedScreen() {
+        return lockedScreen;
+    }
+
+    public boolean isAttacking() {
+        return attacking;
+    }
+
+    public Image[][] getAnimations() {
+        return animations;
+    }
+
+    public int getAnimIndex() {
+        return animIndex;
+    }
+
+    public int getWalkDir() {
+        return walkDir;
+    }
+
+    public Rectangle getAttackArea() {
+        return attackArea;
+    }
+
     public int getScreenX() {
-        return screenX;
+        if (!lockedScreen)
+            return screenX;
+        else
+            return (int) worldX;
     }
 
     /**
      * @return Player's y position on the screen
      */
     public int getScreenY() {
-        return screenY;
+        if (!lockedScreen)
+            return screenY;
+        else
+            return (int) worldY;
     }
 
     public void setClass(int playerClass) {
@@ -416,55 +446,4 @@ public class Player extends Creature {
     public Weapon getCurrentWeapon() {
         return currentWeapon;
     }
-
-    public String getPlayerClass() {
-        switch (playerClass) {
-            case WARRIOR -> {
-                switch (playing.getGameModel().getLanguage()) {
-                    case ENGLISH -> {
-                        return "Warrior";
-                    }
-                    case DUTCH -> {
-                        return "Krijger";
-                    }
-                }
-            }
-            case ARCHER -> {
-                switch (playing.getGameModel().getLanguage()) {
-                    case ENGLISH -> {
-                        return "Archer";
-                    }
-                    case DUTCH -> {
-                        return "Boogschutter";
-                    }
-                }
-            }
-            case BARD -> {
-                switch (playing.getGameModel().getLanguage()) {
-                    case ENGLISH -> {
-                        return "Bard";
-                    }
-                    case DUTCH -> {
-                        return "Bard";
-                    }
-                }
-            }
-        }
-        return null;
-    }
-
-
-    public void lockScreen() {
-        lockedScreen = true;
-    }
-    public void unlockScreen() {
-        lockedScreen = false;
-    }
-
-    public void setCoordinates(float x, float y) {
-        worldX = (x * GameModel.tileSize) - width /2 + (float) GameModel.tileSize / 2;;
-        worldY = (y * GameModel.tileSize) - width /2 + (float) GameModel.tileSize / 2;;
-    }
-
-
 }

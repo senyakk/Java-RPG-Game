@@ -2,10 +2,8 @@ package locations;
 
 import gamestates.Playing;
 import main.GameModel;
-import playerclasses.Player;
+import playerclasses.PlayerModel;
 import utilities.Load;
-
-import java.awt.*;
 
 /**
  * Class that handles Levels
@@ -32,59 +30,14 @@ public class LevelManager {
 
         levels[1].setBackground(Load.GetSpriteImg("locations/Alchemisthouse.png"));
         levels[2].setBackground(Load.GetSpriteImg("locations/WitchHouse.png"));
-        //levels[3].setBackground(Load.GetSpriteImg("locations/DragonCemetery.png"));
+        levels[3].setBackground(Load.GetSpriteImg("locations/DragonCemetery.png"));
         levels[4].setBackground(Load.GetSpriteImg("locations/swampLocation.png"));
-    }
 
-
-
-    /**
-     * Draws current level and updates the camera when player moves
-     * @param g Graphics object
-     * @param player Player object
-     */
-    public void draw(Graphics g, Player player) {
-        Level level = getCurrentLevel();
-
-        if (getCurrentLevelId() == 1 || getCurrentLevelId() == 2) {
-            player.lockScreen();
-            g.drawImage(level.getBackground(), 0, 0, GameModel.screenWidth, GameModel.screenHeight, null);
-
-            // Following loop is for drawing tile grid
-            int y = 0;
-            for (int worldRow = 0; worldRow < GameModel.maxTileRow; worldRow++) {
-                int x = 0;
-                for (int worldCol = 0; worldCol < GameModel.maxTileCol; worldCol++) {
-                    // g.drawRect(x, y, Game.tileSize, Game.tileSize);
-                    x+= GameModel.tileSize;
-                }
-                y+= GameModel.tileSize;
-            }
-
-        } else {
-
-            player.unlockScreen();
-
-            for (int worldRow = 0; worldRow < level.getHeight(); worldRow++) {
-                for (int worldCol = 0; worldCol < level.getWidth(); worldCol++) {
-                    int tileNum = getCurrentLevel().getTileIndex(worldCol, worldRow);
-                    int worldX = worldCol * GameModel.tileSize;
-                    int worldY = worldRow * GameModel.tileSize;
-
-                    int screenX = (int) (worldX - player.getWorldX() + player.getScreenX());
-                    int screenY = (int) (worldY - player.getWorldY() + player.getScreenY());
-
-                    if (isTileInBounds(screenX, screenY, player)) {
-                        g.drawImage(tile[tileNum].image, screenX, screenY, GameModel.tileSize, GameModel.tileSize, null);
-                    }
-                }
-            }
-        }
-
+        setStartLevel(0);
     }
 
     // Check if a tile is within the bounds of the game screen
-    private boolean isTileInBounds(int screenX, int screenY, Player player) {
+    boolean isTileInBounds(int screenX, int screenY, PlayerModel player) {
         return screenX + GameModel.tileSize > player.getScreenX() - GameModel.screenWidth / 2 &&
                 screenX - GameModel.tileSize < player.getScreenX() + GameModel.screenWidth / 2 &&
                 screenY + GameModel.tileSize > player.getScreenY() - GameModel.screenHeight / 2 &&
@@ -100,8 +53,31 @@ public class LevelManager {
         return tile[x];
     }
 
+    public Tile[] getTiles() {
+        return tile;
+    }
+
     public void update() {
 
+    }
+
+    public void movePlayer(int origin) {
+        PlayerModel player = playing.getPlayer();
+        switch (getCurrentLevelId()) {
+            case 0 -> {
+                if (origin == 1)
+                    player.setCoordinates(22, 19);
+                else if (origin == 2)
+                    player.setCoordinates(24, 20);
+                else if (origin == 0)
+                    player.setCoordinates(22, 21);
+            }
+            case 1 -> player.setCoordinates(3, 5);
+            case 2 -> player.setCoordinates(4, 5);
+            case 3 -> player.setCoordinates(1, 14);
+            case 4 -> player.setCoordinates(24, 11);
+        }
+        playing.getCollisionChecker().updateLevel();
     }
 
     /**
@@ -131,7 +107,7 @@ public class LevelManager {
     public void changeLevel(int id) {
         int origin = getCurrentLevelId();
         levelInd = id;
-        playing.movePlayer(origin);
+        movePlayer(origin);
     }
 
 }

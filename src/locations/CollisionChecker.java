@@ -1,10 +1,11 @@
 package locations;
 
 
+import gamestates.Playing;
 import main.GameModel;
 import npcs.Creature;
 import objects.GameObject;
-import playerclasses.Player;
+import playerclasses.PlayerModel;
 
 import static utilities.Constants.Direction.*;
 
@@ -17,10 +18,10 @@ public class CollisionChecker {
 
     /**
      * Creates a collision checker
-     * @param levelManager LevelManager
+     * @param Playing playing class
      */
-    public CollisionChecker(LevelManager levelManager) {
-        this.levelManager = levelManager;
+    public CollisionChecker(Playing playing) {
+        this.levelManager = playing.getLevelManager();
         lvl = levelManager.getCurrentLevel();
     }
 
@@ -109,7 +110,7 @@ public class CollisionChecker {
      * @param entity Player object
      * @return Object that player collided with
      */
-    public GameObject checkObject(Player entity) {
+    public GameObject checkObject(PlayerModel entity) {
 
         GameObject selectedObject = null;
 

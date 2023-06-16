@@ -1,12 +1,14 @@
 package playerclasses;
 
 import gamestates.Playing;
-
 import java.awt.event.KeyEvent;
 
 public class PlayerController {
     private Playing playing;
 
+    /**
+     * Checks the keyboard events and updates the player model
+     */
     public PlayerController(Playing playing) {
         this.playing = playing;
     }

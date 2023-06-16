@@ -1,12 +1,18 @@
 package inventory;
 
+import java.beans.PropertyChangeEvent;
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
 /**
  * Represents a player's inventory
  */
-public class Inventory {
+public class Inventory implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 2L;
+
     private final int MAX_INVENTORY_SIZE = 36;
 
     private int usedSlots;
@@ -45,7 +51,7 @@ public class Inventory {
      * @param newItem is the item to be added in the inventory
      * @throws ArrayIndexOutOfBoundsException occurs when there are no remaining empty slots
      */
-    private void addItem(GenericItem newItem) throws ArrayIndexOutOfBoundsException {
+    private void addItem(Item newItem) throws ArrayIndexOutOfBoundsException {
         if (fullInventory){
             throw new ArrayIndexOutOfBoundsException();
         }
@@ -61,6 +67,12 @@ public class Inventory {
                 break;
             }
         }
+
+        try{
+            notifyListeners("itemList", getItemList());
+        } catch (NullPointerException e) {
+            System.out.println("No listeners added yet for the inventory!");
+        }
     }
 
     /**
@@ -69,7 +81,7 @@ public class Inventory {
      * @return the Item object that was removed
      * @throws NoSuchElementException occurs when there is no (non-empty) item to be removed
      */
-    private Item removeItem(int position) throws NoSuchElementException {
+    public Item removeItem(int position) throws NoSuchElementException {
         Item removedItem = itemList.get(position);
 
         if (removedItem.isEmptyItem()){
@@ -79,6 +91,9 @@ public class Inventory {
         itemList.remove(position);
         usedSlots--;
         fullInventory = false;
+
+        notifyListeners("itemList", getItemList());
+
         return removedItem;
     }
 
@@ -96,5 +111,17 @@ public class Inventory {
      */
     public void addListeners(InventoryPropertyListener listener){
         this.listeners.add(listener);
+    }
+
+    /**
+     * Notifies each listener, also has functionality for more complex property change detections (not really used)
+     * @param propertyName is the property that was changed
+     * @param newValue is the new value of the property that was changed
+     */
+    private void notifyListeners(String propertyName, Object newValue){
+        PropertyChangeEvent payload = new PropertyChangeEvent(this, propertyName, null, newValue);
+        for (InventoryPropertyListener listener : listeners){
+            listener.propertyChange(payload);
+        }
     }
 }

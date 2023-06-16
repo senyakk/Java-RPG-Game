@@ -1,7 +1,8 @@
-package playerclasses;
+package playerclasses.ui;
 
 import gamestates.Playing;
 import main.GameModel;
+import playerclasses.ui.Pause;
 import utilities.Load;
 
 import javax.imageio.ImageIO;
@@ -27,6 +28,10 @@ public class PlayingUI {
     private BufferedImage heart_full, heart_half, heart_blank;
     private boolean statsOn = false;
     private boolean inventoryOn = false;
+    private boolean messageOn = false;
+    private String message = "";
+    private int messageCount = 0;
+
     private Graphics g;
 
 
@@ -57,7 +62,8 @@ public class PlayingUI {
         drawPlayerLife();
         if (statsOn)
             drawCharacterScreen();
-
+        if (messageOn)
+            drawMessage();
         if (inventoryOn)
             playing.getInventoryManager().draw(g);
         if (playing.isPaused()) {
@@ -66,6 +72,25 @@ public class PlayingUI {
             pause.draw(g);
         }
 
+    }
+
+    public void showMessage(String text) {
+        message = text;
+        messageOn = true;
+    }
+
+    private void drawMessage() {
+        g.setFont(g.getFont().deriveFont(30F));
+        g.drawString(message,
+                xAlignCenterText(message, GameModel.screenWidth) + playing.getPlayer().getScreenX()
+                        - GameModel.screenWidth/2 + GameModel.tileSize/2,
+                playing.getPlayer().getScreenY());
+        messageCount++;
+
+        if (messageCount > 120) {
+            messageCount = 0;
+            messageOn = false;
+        }
     }
 
     private void drawCharacterScreen() {
