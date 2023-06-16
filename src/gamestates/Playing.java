@@ -161,13 +161,11 @@ public class Playing extends State {
         ui.keyReleased(e);
         // Player Update
         playerController.handleKeyReleased(e);
-        inventoryManager.keyReleased(e);
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
         ui.mousePressed(e);
-        inventoryManager.mousePressed(e);
     }
 
     @Override
