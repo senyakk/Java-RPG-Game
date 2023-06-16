@@ -27,7 +27,7 @@ public class InventoryManager {
     // UI-Related elements
     private final int INVENTORY_ROWS = 3;
     private final int INVENTORY_COLS = 12;
-    private final InventoryButton[] inventoryButtons;
+    private final ArrayList<InventoryButton> inventoryButtons; //InventoryButton[] inventoryButtons;
     private int invWidth, invHeight, invX, invY;
     private BufferedImage inventoryImage;
 
@@ -47,17 +47,19 @@ public class InventoryManager {
             default -> playerWeapon = new GenericItem("0");
         }
 
+        // Test code
         this.inventoryIO = new InventoryIO();
         inventoryIO.saveInventory(new Inventory(playerWeapon)); // TEMPORARY
         this.inventory = inventoryIO.loadInventory();
         inventory.addItem(new GenericItem("1"));
         inventory.addItem(new GenericItem("2"));
+        inventory.addItem(new GenericItem("10"));
         //inventoryIO.saveInventory(inventory);
 
         this.inventory.addListeners(new InventoryPropertyListener(this));
 
         loadInventoryImage();
-        this.inventoryButtons = new InventoryButton[INVENTORY_ROWS * INVENTORY_COLS];
+        this.inventoryButtons = new ArrayList<>(INVENTORY_ROWS * INVENTORY_COLS);
         updateButtons();
     }
 
@@ -86,7 +88,13 @@ public class InventoryManager {
 
                 InventoryButton button = new InventoryButton(currentItem.getSpriteLoc(), posx, posy, spriteSize, spriteSize);
                 button.addListeners(new InventoryButtonListener(this.inventory, index, button));
-                this.inventoryButtons[index] = button;
+
+                try {
+                    this.inventoryButtons.set(index, button);
+                } catch (IndexOutOfBoundsException e) {
+                    this.inventoryButtons.add(index, button);
+                }
+
                 index++;
             }
         }

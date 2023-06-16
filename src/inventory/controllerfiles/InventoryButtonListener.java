@@ -1,5 +1,6 @@
 package inventory.controllerfiles;
 
+import com.sun.java.accessibility.util.AWTEventMonitor;
 import inventory.modelfiles.Inventory;
 import inventory.viewfiles.InventoryButton;
 
@@ -20,6 +21,7 @@ public class InventoryButtonListener implements MouseListener {
         this.inventory = inventory;
         this.position = position;
         this.button = button;
+        System.out.println("HII");
     }
 
     @Override

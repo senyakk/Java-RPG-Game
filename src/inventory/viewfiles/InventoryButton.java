@@ -10,9 +10,11 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+import static com.sun.java.accessibility.util.AWTEventMonitor.addMouseListener;
+
 public class InventoryButton extends GameButton {
     private final BufferedImage sprite;
-    private ArrayList<InventoryButtonListener> listeners;
+    //private ArrayList<InventoryButtonListener> listeners;
 
     //private final BufferedImage BUTTON_BG = Load.GetSpriteImg("UI/inventoryButton.png");
 
@@ -31,7 +33,7 @@ public class InventoryButton extends GameButton {
         super(x, y, width, height);
         this.sprite = Load.GetSpriteImg(spriteLoc);
 
-        this.listeners = new ArrayList<>();
+        //this.listeners = new ArrayList<>();
     }
 
     /**
@@ -54,7 +56,8 @@ public class InventoryButton extends GameButton {
      * @param listener is the new listener to be added
      */
     public void addListeners(InventoryButtonListener listener){
-        this.listeners.add(listener);
+        addMouseListener(listener);
+        //this.listeners.add(listener);
     }
 
     public boolean isInBorder(MouseEvent e) {

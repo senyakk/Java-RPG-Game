@@ -27,6 +27,7 @@ public abstract class Item implements Serializable {
         // TODO: Access language database based on ID and game language; Game language -> static in main game class
         if (this.id.equals("1")) this.displayName = "Arrow";
         if (this.id.equals("2")) this.displayName = "Bow";
+        if (this.id.equals("10")) this.displayName = "Key";
     }
 
     /**
@@ -66,6 +67,7 @@ public abstract class Item implements Serializable {
         if (this.id.equals("0")) this.spriteLoc = "items/0.png";
         if (this.id.equals("1")) this.spriteLoc = "items/arrowItem.png";
         if (this.id.equals("2")) this.spriteLoc = "items/bowItem.png";
+        if (this.id.equals("10")) this.spriteLoc = "items/keyItem.png";
     }
 
     public String getSpriteLoc(){
