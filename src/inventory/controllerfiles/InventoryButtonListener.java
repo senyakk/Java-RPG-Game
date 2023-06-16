@@ -1,4 +1,7 @@
-package inventory;
+package inventory.controllerfiles;
+
+import inventory.modelfiles.Inventory;
+import inventory.viewfiles.InventoryButton;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;

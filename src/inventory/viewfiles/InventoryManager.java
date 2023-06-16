@@ -1,13 +1,17 @@
-package inventory;
+package inventory.viewfiles;
 
 import gamestates.Playing;
+import inventory.controllerfiles.InventoryButtonListener;
+import inventory.controllerfiles.InventoryPropertyListener;
+import inventory.modelfiles.GenericItem;
+import inventory.modelfiles.Inventory;
+import inventory.modelfiles.InventoryIO;
+import inventory.modelfiles.Item;
 import main.GameModel;
 import utilities.Load;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
 import static utilities.Constants.PlayerConstants.*;

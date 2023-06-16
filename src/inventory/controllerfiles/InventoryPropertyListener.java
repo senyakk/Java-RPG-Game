@@ -1,4 +1,6 @@
-package inventory;
+package inventory.controllerfiles;
+
+import inventory.viewfiles.InventoryManager;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;

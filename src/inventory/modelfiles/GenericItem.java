@@ -1,4 +1,4 @@
-package inventory;
+package inventory.modelfiles;
 
 import java.io.Serial;
 import java.io.Serializable;

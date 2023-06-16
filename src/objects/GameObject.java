@@ -1,6 +1,6 @@
 package objects;
 
-import inventory.Item;
+import inventory.modelfiles.Item;
 import locations.CollisionChecker;
 import main.GameModel;
 

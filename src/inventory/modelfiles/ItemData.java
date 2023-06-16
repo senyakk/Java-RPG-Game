@@ -1,4 +1,4 @@
-package inventory;
+package inventory.modelfiles;
 
 import java.io.Serializable;
 import java.util.ArrayList;

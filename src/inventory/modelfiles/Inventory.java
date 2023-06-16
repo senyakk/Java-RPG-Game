@@ -1,4 +1,6 @@
-package inventory;
+package inventory.modelfiles;
+
+import inventory.controllerfiles.InventoryPropertyListener;
 
 import java.beans.PropertyChangeEvent;
 import java.io.Serial;

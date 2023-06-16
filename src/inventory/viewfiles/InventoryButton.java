@@ -1,11 +1,11 @@
-package inventory;
+package inventory.viewfiles;
 
 import buttonUi.GameButton;
+import inventory.controllerfiles.InventoryButtonListener;
 import main.GameModel;
 import utilities.Load;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;

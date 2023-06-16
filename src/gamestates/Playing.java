@@ -1,6 +1,6 @@
 package gamestates;
 
-import inventory.InventoryManager;
+import inventory.viewfiles.InventoryManager;
 import locations.EventChecker;
 import locations.LevelView;
 import main.GameModel;
