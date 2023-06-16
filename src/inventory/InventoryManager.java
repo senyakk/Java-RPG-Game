@@ -10,6 +10,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import static utilities.Constants.PlayerConstants.*;
+
 public class InventoryManager {
     // Playing state to which the manager is connected
     private final Playing playing;
@@ -32,9 +34,22 @@ public class InventoryManager {
     public InventoryManager(Playing playing) {
         this.playing = playing;
 
+        int playerClass = this.playing.getPlayer().getPlayerClassAsInt();
+        Item playerWeapon = null;
+        switch (playerClass){
+            case WARRIOR -> playerWeapon = new GenericItem("1");
+            case ARCHER -> playerWeapon = new GenericItem("2");
+            case BARD -> playerWeapon = new GenericItem("3");
+            default -> playerWeapon = new GenericItem("0");
+        }
+
         this.inventoryIO = new InventoryIO();
+        inventoryIO.saveInventory(new Inventory(playerWeapon)); // TEMPORARY
         this.inventory = inventoryIO.loadInventory();
-        inventoryIO.saveInventory(inventory); // TEMPORARY
+        inventory.addItem(new GenericItem("1"));
+        inventory.addItem(new GenericItem("2"));
+        //inventoryIO.saveInventory(inventory);
+
         this.inventory.addListeners(new InventoryPropertyListener(this));
 
         loadInventoryImage();

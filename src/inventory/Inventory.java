@@ -18,25 +18,34 @@ public class Inventory implements Serializable {
     private int usedSlots;
     private boolean fullInventory;
 
-    private final ArrayList<Item> itemList;
+    private ArrayList<Item> itemList;
 
     private ArrayList<InventoryPropertyListener> listeners;
 
     /**
-     * Inventory constructor, creates a list of MAX_INVENTORY_SIZE empty items (+- other setup)
+     * Inventory constructors, create a list of MAX_INVENTORY_SIZE empty items (+- other setup and optionally a weapon)
      */
     public Inventory(){
-        itemList = new ArrayList<Item>(MAX_INVENTORY_SIZE);
+        setupItemList();
+        updateFullInventory();
+        this.listeners = new ArrayList<>();
+    }
+
+    public Inventory(Item playerWeapon){
+        setupItemList();
+        updateFullInventory();
+        this.listeners = new ArrayList<>();
+        this.addItem(playerWeapon); // MAKE WEAPON ITEM CLASS
+    }
+
+    /**
+     *
+     */
+    private void setupItemList(){
+        this.itemList = new ArrayList<Item>(MAX_INVENTORY_SIZE);
         for (int itemNum = 0; itemNum < MAX_INVENTORY_SIZE; itemNum++){
             itemList.add(itemNum, new GenericItem("0"));
         }
-
-        addItem(new GenericItem("1"));
-        addItem(new GenericItem("2"));
-
-        updateFullInventory();
-
-        this.listeners = new ArrayList<>();
     }
 
     /**
@@ -51,7 +60,8 @@ public class Inventory implements Serializable {
      * @param newItem is the item to be added in the inventory
      * @throws ArrayIndexOutOfBoundsException occurs when there are no remaining empty slots
      */
-    private void addItem(Item newItem) throws ArrayIndexOutOfBoundsException {
+    // MAKE PRIVATE
+    public void addItem(Item newItem) throws ArrayIndexOutOfBoundsException {
         if (fullInventory){
             throw new ArrayIndexOutOfBoundsException();
         }
