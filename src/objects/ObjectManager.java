@@ -2,6 +2,7 @@ package objects;
 
 import gamestates.Playing;
 import objects.objectsclasses.Boots;
+import objects.objectsclasses.Firefly;
 import objects.objectsclasses.Key;
 import playerclasses.PlayerModel;
 import utilities.HelpMethods;
@@ -35,6 +36,9 @@ public class ObjectManager {
             case 0 -> {
                gameObjects.add(new Key(23, 7));
                gameObjects.add(new Boots(12, 32));
+            }
+            case 7 -> {
+                gameObjects.add(new Firefly(34, 34));
             }
         }
     }
