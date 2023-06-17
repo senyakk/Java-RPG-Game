@@ -17,8 +17,7 @@ public class ClassButton extends GameButton {
 
     private int posX, posY, index, language;
     private int offsetX = B_WIDTH / 2;
-    private BufferedImage[][] EngImages = new BufferedImage[3][2],
-            DutchImages = new BufferedImage[3][2], currentImages = new BufferedImage[3][2];
+    private BufferedImage[][] buttonImages = new BufferedImage[3][2];
     private int gameClass;
 
     public ClassButton(int x, int y, int width, int height, int gameClass, int language) {
@@ -29,10 +28,6 @@ public class ClassButton extends GameButton {
         this.language = language;
         loadImages();
 
-        switch (language) {
-            case ENGLISH -> currentImages = EngImages;
-            case DUTCH -> currentImages = DutchImages;
-        }
     }
 
     private void loadImages() {
@@ -41,30 +36,31 @@ public class ClassButton extends GameButton {
         // and second column is activated state.
         // First row is WARRIOR, second row is ARCHER, third row is BARD
 
-        // Loading English images
-        EngImages[0][0] = Load.GetSpriteImg("UI/English/ClassButtons/WarriorButton.png");
-        EngImages[0][1] = Load.GetSpriteImg("UI/English/ClassButtons/WarriorActivatedButton.png");
-        EngImages[1][0] = Load.GetSpriteImg("UI/English/ClassButtons/ArcherButton.png");
-        EngImages[1][1] = Load.GetSpriteImg("UI/English/ClassButtons/ArcherActivatedButton.png");
-        EngImages[2][0] = Load.GetSpriteImg("UI/English/ClassButtons/BardButton.png");
-        EngImages[2][1] = Load.GetSpriteImg("UI/English/ClassButtons/BardActivatedButton.png");
+        switch (this.language) {
+            case ENGLISH -> {
+                // Loading English images
+                buttonImages[0][0] = Load.GetSpriteImg("UI/English/ClassButtons/WarriorButton.png");
+                buttonImages[0][1] = Load.GetSpriteImg("UI/English/ClassButtons/WarriorActivatedButton.png");
+                buttonImages[1][0] = Load.GetSpriteImg("UI/English/ClassButtons/ArcherButton.png");
+                buttonImages[1][1] = Load.GetSpriteImg("UI/English/ClassButtons/ArcherActivatedButton.png");
+                buttonImages[2][0] = Load.GetSpriteImg("UI/English/ClassButtons/BardButton.png");
+                buttonImages[2][1] = Load.GetSpriteImg("UI/English/ClassButtons/BardActivatedButton.png");
+            }
 
-
-        // Loading Dutch images
-        DutchImages[0][0] = Load.GetSpriteImg("UI/Dutch/ClassButtons/krijgerButton.png");
-        DutchImages[0][1] = Load.GetSpriteImg("UI/Dutch/ClassButtons/krijgerAtivatedButton.png");
-        DutchImages[1][0] = Load.GetSpriteImg("UI/Dutch/ClassButtons/boogschutterButton.png");
-        DutchImages[1][1] = Load.GetSpriteImg("UI/Dutch/ClassButtons/boogschutterActivatedButton.png");
-        DutchImages[2][0] = Load.GetSpriteImg("UI/Dutch/ClassButtons/dichterButton.png");
-        DutchImages[2][1] = Load.GetSpriteImg("UI/Dutch/ClassButtons/dichterActivatedButton.png");
-    }
-
-    public int getGameClassClass() {
-        return gameClass;
+            case DUTCH -> {
+                // Loading Dutch images
+                buttonImages[0][0] = Load.GetSpriteImg("UI/Dutch/ClassButtons/krijgerButton.png");
+                buttonImages[0][1] = Load.GetSpriteImg("UI/Dutch/ClassButtons/krijgerAtivatedButton.png");
+                buttonImages[1][0] = Load.GetSpriteImg("UI/Dutch/ClassButtons/boogschutterButton.png");
+                buttonImages[1][1] = Load.GetSpriteImg("UI/Dutch/ClassButtons/boogschutterActivatedButton.png");
+                buttonImages[2][0] = Load.GetSpriteImg("UI/Dutch/ClassButtons/dichterButton.png");
+                buttonImages[2][1] = Load.GetSpriteImg("UI/Dutch/ClassButtons/dichterActivatedButton.png");
+            }
+        }
     }
 
     public void draw(Graphics g) {
-        g.drawImage(currentImages[gameClass][index], posX - offsetX, posY, B_WIDTH, B_HEIGHT, null);
+        g.drawImage(buttonImages[gameClass][index], posX - offsetX, posY, B_WIDTH, B_HEIGHT, null);
     }
 
 
@@ -75,11 +71,13 @@ public class ClassButton extends GameButton {
         }
 
         if (language != this.language) {
-            switch (language) {
-                case DUTCH -> currentImages = DutchImages;
-                case ENGLISH -> currentImages = EngImages;
-            }
+            this.language = language;
+            loadImages();
         }
+    }
+
+    public int getGameClassClass() {
+        return gameClass;
     }
 
 }
