@@ -7,6 +7,8 @@ import playerclasses.PlayerModel;
 import java.awt.*;
 
 import static utilities.Constants.Direction.*;
+import static utilities.Constants.GameLanguage.DUTCH;
+import static utilities.Constants.GameLanguage.ENGLISH;
 
 public class EventChecker {
 
@@ -35,12 +37,36 @@ public class EventChecker {
         switch (playing.getLevelManager().getCurrentLevelId()) {
             case 2 -> {
                 if ( hit(5, 1, UP)) {
-                    playing.getUi().showMessage("You're burning!");
+                    switch (playing.getGameModel().getLanguage()) {
+                        case ENGLISH ->
+                                playing.getUi().showMessage("You're burning!");
+                        case DUTCH ->
+                                playing.getUi().showMessage("Je verbrandt!");
+                    }
                     takeDamage();
                 }
+
                 if (hit(4, 3, 5)) {
-                    playing.getUi().showMessage("You've taken a rest!");
+                    switch (playing.getGameModel().getLanguage()) {
+                        case ENGLISH ->
+                                playing.getUi().showMessage("You've taken a rest");
+                        case DUTCH ->
+                                playing.getUi().showMessage("Je bent aan het rusten");
+                    }
                     restoreHealth();
+                }
+
+            }
+            case 7 -> { // in dragon cemetery
+                if ( hit(34, 15, 5) || hit(35, 15, 5) ) {
+                    switch (playing.getGameModel().getLanguage()) {
+                        case ENGLISH ->
+                                playing.getUi().showMessage("Ah yes, the human");
+                        case DUTCH ->
+                                playing.getUi().showMessage("Welkom mens");
+                    }
+                    if (!playing.getInventoryManager().isInInventory("7"))
+                        player.giveObject("7");
                 }
             }
         }

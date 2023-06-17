@@ -33,7 +33,7 @@ public class PlayerView {
                 GameModel.tileSize, GameModel.tileSize, null);
         // Draws hitbox of the player
         Rectangle hitArea = player.getHitArea();
-        drawPlayerHitArea(g, drawX, drawY, hitArea);
+        // drawPlayerHitArea(g, drawX, drawY, hitArea);
         if (player.isAttacking()) {
             Rectangle attackArea = player.getAttackArea();
             drawAttackHitArea(g, drawX, drawY, hitArea, attackArea, player.getWalkDir());

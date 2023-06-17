@@ -30,8 +30,6 @@ public class LevelManager {
 
         levels[1].setBackground(Load.GetSpriteImg("locations/Alchemisthouse.png"));
         levels[2].setBackground(Load.GetSpriteImg("locations/WitchHouse.png"));
-        //levels[3].setBackground(Load.GetSpriteImg("locations/DragonCemetery.png"));
-        //levels[4].setBackground(Load.GetSpriteImg("locations/swampLocation.png"));
 
         setStartLevel(0);
     }
@@ -73,16 +71,19 @@ public class LevelManager {
                     player.setCoordinates(22, 21);
                 else if (origin == 7) // When from dragon cemetery
                     player.setCoordinates(22, 21);
+                else if (origin == 9 ) // When from forrest
+                    player.setCoordinates(38, 10);
             }
             case 1 -> player.setCoordinates(3, 5); // Go to entrance in professors house
             case 2 -> player.setCoordinates(4, 5); // Go to entrance in Witch house
             case 7 -> player.setCoordinates(10, 23); // spawn of dragon cemetery
             case 8 -> { // go to coords in swamp
                 if (origin == 7) // when from dragon Cemetery
-                    player.setCoordinates(34, 30); // swamp -> 34,23 is real spawn
+                    player.setCoordinates(34, 23); // swamp -> 34,23 is real spawn
                 if (origin == 2) // when from witch house
                     player.setCoordinates(34, 29); // spawn outside the door
             }
+            case 9 -> player.setCoordinates(36, 14); // spawn of dragon cemetery
         }
         playing.getCollisionChecker().updateLevel();
     }
@@ -115,7 +116,6 @@ public class LevelManager {
         int origin = getCurrentLevelId();
         levelInd = id;
         movePlayer(origin);
-        playing.getObjectManager().resetAll();
         playing.getGameModel().getAudioPlayer().setLevelSong(id);
     }
 

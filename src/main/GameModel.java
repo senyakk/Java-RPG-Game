@@ -11,7 +11,7 @@ public class GameModel {
 
     // SCREEN SETTINGS
     public final static int defaultTileSize = 64;
-    public final static float scale = 2.5f;
+    public final static float scale = 1.5f;
     public static final int tileSize = (int)(defaultTileSize * scale);
     // MAXIMUM NUMBER OF TILES IN A COLUMN
     public static final int maxTileCol = 10;
@@ -26,16 +26,16 @@ public class GameModel {
 
     // MODEL STATES
     private State gameState; // Current game state
-    private Menu menu; // Instance of the menu state
-    private Playing playing; // Instance of the playing state
-    private ClassSelection classSelection; // Instance of the class selection state
-    private Options options; // Instance of the options state
+    private final Menu menu; // Instance of the menu state
+    private final Playing playing; // Instance of the playing state
+    private final ClassSelection classSelection; // Instance of the class selection state
+    private final Options options; // Instance of the options state
 
     // AUDIO SETTINGS
-    private AudioHandler audio; // Audio handler for managing game audio
-    private AudioPlayer audioPlayer; // Audio player for playing audio clips
+    private final AudioHandler audio; // Audio handler for managing game audio
+    private final AudioPlayer audioPlayer; // Audio player for playing audio clips
 
-    private int language = DUTCH; // Default language setting
+    private int language = ENGLISH; // Default language setting
 
     // SAVING PATH
     public static String SAVE_DIR = "..\\..\\resources\\saves\\";
@@ -88,7 +88,6 @@ public class GameModel {
     public int getLanguage() {
         return language;
     }
-
     public void setLanguage(int language) {
         this.language = language;
     }

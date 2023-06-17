@@ -1,9 +1,11 @@
 package inventory.viewfiles;
 
+import buttonUi.GameButton;
 import gamestates.Playing;
 import inventory.controllerfiles.InventoryPropertyListener;
 import inventory.modelfiles.*;
 import main.GameModel;
+import main.GamePanel;
 import playerclasses.PlayerModel;
 import utilities.Load;
 
@@ -25,6 +27,7 @@ public class InventoryManager {
 
     // Playing state to which the manager is connected
     private final Playing playing;
+    private Item playerWeapon;
 
     // Saver/Loader for Inventory object
     private InventoryIO inventoryIO;
@@ -36,7 +39,7 @@ public class InventoryManager {
     private final ArrayList<InventoryButton> inventoryButtons; //InventoryButton[] inventoryButtons;
     private int invWidth, invHeight, invX, invY;
     private BufferedImage inventoryImage;
-    private Item playerWeapon;
+    private final GameButton currentItemName;
 
     /**
      * Determines what weapon the player should own (given by default in inventory)
@@ -69,6 +72,9 @@ public class InventoryManager {
         this.inventory.addListeners(new InventoryPropertyListener(this));
 
         loadInventoryImage();
+        this.currentItemName = new GameButton((GameModel.screenWidth / 2 + invWidth / 2),
+                (invY + invHeight /2),150, 75);
+        this.currentItemName.setText(" ");
         this.inventoryButtons = new ArrayList<>(INVENTORY_ROWS * INVENTORY_COLS);
         updateButtons();
     }
@@ -135,6 +141,7 @@ public class InventoryManager {
         for(InventoryButton button : inventoryButtons) {
             button.draw(g);
         }
+        currentItemName.draw(g);
     }
 
     /*
@@ -152,6 +159,11 @@ public class InventoryManager {
             case KeyEvent.VK_Z -> { // Add a Key item to the inventory
                 try{
                     inventory.addItem(new GenericItem("5"));
+                    inventory.addItem(new GenericItem("6"));
+                    inventory.addItem(new GenericItem("7"));
+                    inventory.addItem(new GenericItem("8"));
+                    inventory.addItem(new GenericItem("9"));
+                    inventory.addItem(new GenericItem("10"));
                 } catch (ArrayIndexOutOfBoundsException exc) {
                     System.out.println("INVENTORY: Not enough space left!");
                 }
@@ -185,6 +197,28 @@ public class InventoryManager {
     }
 
     /**
+     * Updates display text based on whether an inventory item is hovered over
+     * @param e is the mouse release event
+     */
+    public void mouseMoved(MouseEvent e) {
+        int language = playing.getGameModel().getLanguage();
+
+        boolean insideBound = false;
+        for (int index = 0; index < INVENTORY_ROWS * INVENTORY_COLS; index++){
+            InventoryButton button = this.inventoryButtons.get(index);
+
+            if (button.isInBorder(e)){
+                ArrayList<String> names = inventory.getItemList().get(index).getDisplayNames();
+                currentItemName.setText(names.get(language));
+                insideBound = true;
+            }
+        }
+        if (!insideBound) {
+            currentItemName.setText(" ");
+        }
+    }
+
+    /**
      * Resets inventory upon exiting the playing state
      */
     public void resetAll(){
@@ -212,5 +246,8 @@ public class InventoryManager {
             // other item classes
             default -> inventory.addItem(new GenericItem(itemID));
         }
+    }
+    public boolean isInInventory(String id) {
+        return inventory.contains(new GenericItem(id));
     }
 }

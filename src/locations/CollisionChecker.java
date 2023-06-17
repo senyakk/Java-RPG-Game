@@ -8,19 +8,23 @@ import objects.GameObject;
 import playerclasses.PlayerModel;
 
 import static utilities.Constants.Direction.*;
-
+import static utilities.Constants.GameLanguage.DUTCH;
+import static utilities.Constants.GameLanguage.ENGLISH;
 
 
 public class CollisionChecker {
 
     private LevelManager levelManager;
     private Level lvl;
+    Playing playing;
+    //private inventory GenericItem;
 
     /**
      * Creates a collision checker
-     * @param Playing playing class
+     * @param playing playing state class
      */
     public CollisionChecker(Playing playing) {
+        this.playing = playing;
         this.levelManager = playing.getLevelManager();
         lvl = levelManager.getCurrentLevel();
     }
@@ -104,12 +108,23 @@ public class CollisionChecker {
         else if (((tile1.getName().equals("witchHouseDoor")) || (tile2.getName().equals("witchHouseDoor"))))
             levelManager.changeLevel(2);
         else if (((tile1.getName().equals("gate")) || (tile2.getName().equals("gate"))))
-           levelManager.changeLevel(7);
+            if (playing.getInventoryManager().isInInventory("5")) {
+                levelManager.changeLevel(7);
+            }
+            else {
+                switch (playing.getGameModel().getLanguage()) {
+                    case ENGLISH ->
+                            playing.getUi().showMessage("You cannot enter the gate without a sleutel!");
+                    case DUTCH ->
+                            playing.getUi().showMessage("Je kan niet de poort betreden zonder sleutel!");
+                }
+            }
         else if (((tile1.getName().equals("fontain")) || (tile2.getName().equals("fontain"))))
             levelManager.changeLevel(8);
         else if (((tile1.getName().equals("treeDoor")) || (tile2.getName().equals("treeDoor"))))
-            levelManager.changeLevel(0); // Should go to forrest
-
+            levelManager.changeLevel(9);
+        else if (((tile1.getName().equals("portal")) || (tile2.getName().equals("portal"))))
+            levelManager.changeLevel(0);
     }
 
     /**

@@ -99,6 +99,10 @@ public class Constants {
                 put("4", new ItemData("4","Flower","Bloem","online_resources/flower_02a"));
                 put("5", new ItemData("5","Key","Sleutel","keyItem"));
                 put("6", new ItemData("6","Boots","Laarzen","online_resources/boots_01e"));
+                put("7", new ItemData("7","Dragon Bone","Drakenbot","DragonBoneItem"));
+                put("8", new ItemData("8","Firefly","Vuurvliegjes","Fireflyitem"));
+                put("9", new ItemData("9","Juice Extractor","Tap Boomsap","JuiceExtractorItem"));
+                put("10", new ItemData("10","Potion Cure Dragon","Genezingsdrankje Draak","PotionStoneDragon"));
             }
         };
     }

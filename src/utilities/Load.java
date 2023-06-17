@@ -15,7 +15,7 @@ public class Load {
 
     public static final String INVENTORY = "UI/InventoryScreenRealReso.png";
 
-    private static Tile[] tile = new Tile[60];
+    private static Tile[] tile = new Tile[70];
 
     /**
      * Load sprite images
@@ -206,8 +206,20 @@ public class Load {
         setup(51, "078", true, "witchHouseDoor");
         setup(52, "079", true, "witchHouseRoof");
         setup(53, "transparent", true, "transparentExitWitchHouse");
-        setup(54, "081", true, "TreeDoor");
+        setup(54, "081", true, "treeDoor");
         setup(55, "082", true, "treeLeaves");
+
+        // Large tree in forest
+        setup(56, "084", true, "tree1");
+        setup(57, "085", true, "tree2");
+        setup(58, "086", true, "tree3");
+        setup(59, "087", true, "tree4");
+        setup(60, "088", true, "tree5");
+        setup(61, "089", true, "tree6");
+        setup(62, "090", true, "tree7");
+        setup(63, "091", true, "tree8");
+
+        setup(64, "092", true, "portal");
 
         return tile;
     }

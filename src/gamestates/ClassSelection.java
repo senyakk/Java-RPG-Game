@@ -33,6 +33,7 @@ public class ClassSelection extends State {
     public ClassSelection(GameModel gameModel) {
         super(gameModel);
         loadSprites();
+        addButtons(gameModel.getLanguage());
     }
 
     private void loadSprites() {
@@ -45,23 +46,25 @@ public class ClassSelection extends State {
                 backgroundImage = Load.GetSpriteImg("UI/English/StartscreenSelectClass.png");
             }
         }
+    }
+    private void addButtons(int language) {
         buttons[0] = new ClassButton((int) (165 * GameModel.scale), (int) (170 * GameModel.scale),
-                B_WIDTH, B_HEIGHT, WARRIOR);
+                B_WIDTH, B_HEIGHT, WARRIOR, language);
         buttons[1] = new ClassButton((int) (320 * GameModel.scale), (int) (170 * GameModel.scale),
-                B_WIDTH, B_HEIGHT, ARCHER);
+                B_WIDTH, B_HEIGHT, ARCHER, language);
         buttons[2] = new ClassButton((int) (475 * GameModel.scale), (int) (170 * GameModel.scale),
-                B_WIDTH, B_HEIGHT, BARD);
+                B_WIDTH, B_HEIGHT, BARD, language);
 
         returnButton = new MenuButton(GameModel.screenWidth / 2, (int) (GameModel.screenHeight / 1.3),
-                B_WIDTH, B_WIDTH, 3, Gamestate.MENU);
+                B_WIDTH, B_WIDTH, 3, Gamestate.MENU, language);
     }
 
     @Override
     public void update() {
         for(ClassButton button : buttons) {
-            button.update();
+            button.update(gameModel.getLanguage());
         }
-        returnButton.update();
+        returnButton.update(gameModel.getLanguage());
     }
 
     @Override
