@@ -1,7 +1,6 @@
 package playerclasses.ui;
 
 import gamestates.Playing;
-import main.Game;
 import main.GameModel;
 import npcs.NPC;
 import utilities.Load;
@@ -74,7 +73,7 @@ public class PlayingUI {
             if (dialogueString[dialogueInd] == null) {
                 dialogueInd = 0;
             }
-            drawWindow(GameModel.tileSize * 2, GameModel.tileSize/2,
+            drawDialogueWindow(GameModel.tileSize * 2, GameModel.tileSize/2,
                     (GameModel.screenWidth - GameModel.tileSize * 4), GameModel.tileSize * 2);
         }
         if (playing.isPaused()) {
@@ -112,7 +111,7 @@ public class PlayingUI {
         int frY = GameModel.tileSize;
         int frW = GameModel.tileSize * 2;
         int frH = GameModel.tileSize * 3;
-        drawWindow(frX, frY, frW, frH);
+        drawDialogueWindow(frX, frY, frW, frH);
 
         g.setColor(Color.white);
         int fontSize = (int) (GameModel.scale*16);
@@ -196,7 +195,7 @@ public class PlayingUI {
         }
     }
 
-    private void drawWindow(int x, int y, int width, int height) {
+    private void drawDialogueWindow(int x, int y, int width, int height) {
         Color color = new Color (0, 0,0 , 210);
         g.setColor(color);
         g.fillRoundRect(x, y, width, height, 35, 35);
@@ -208,8 +207,8 @@ public class PlayingUI {
                 (int) (GameModel.scale*10), (int) (GameModel.scale*10));
 
         g.setFont(g.getFont().deriveFont(Font.PLAIN,32F));
-        x += GameModel.tileSize;
-        y += GameModel.tileSize;
+        x += GameModel.tileSize/2;
+        y += GameModel.tileSize/2;
 
         for (String line : dialogueString[dialogueInd].split("\n")) {
             g.drawString(line, x, y);

@@ -31,13 +31,13 @@ public class Professor extends NPC {
     }
 
     public void setDialogue() {
-        dialogues[0] = "Hello Milo, why do you look so worried?";
-        dialogues[1] = "I am in as much despair as you to hear about Aurelio";
-        dialogues[2] = "Luckily, I know the perfect cure. But this will require an adventure to gather 3 ingredients";
-        dialogues[3] = "You will need a dragon bone, which you can find in the dragon cemetery";
-        dialogues[4] = "Next you will need to visit the forbidden swamp to retrieve the special firefly";
-        dialogues[5] = "Finally, you'll find the sap of the oldest tree in the cursed hallows";
-        dialogues[6] = "Be careful son, take this key. It will aid you in this journey";
+        dialogues[0] = "Hello Milo, why do you look \nso worried?";
+        dialogues[1] = "I am in as much despair as you \nto hear about Aurelio";
+        dialogues[2] = "Luckily, I know the perfect cure. \nBut this will require an adventure \nto gather 3 ingredients";
+        dialogues[3] = "You will need a dragon bone, \nwhich you can find in \nthe dragon cemetery";
+        dialogues[4] = "Next you will need to visit \nthe forbidden swamp to retrieve \nthe special firefly";
+        dialogues[5] = "Finally, you'll find \nthe sap of the oldest tree \nin the cursed hallows";
+        dialogues[6] = "Be careful son, take this key. \nIt will aid you in this journey";
     }
 
 }

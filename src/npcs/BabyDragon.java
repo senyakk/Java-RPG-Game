@@ -27,8 +27,8 @@ public class BabyDragon extends NPC {
     }
 
     public void setDialogue() {
-        dialogues[0] = "Milo! I am sick and I need you to make a potion to heal me.";
-        dialogues[1] = "Speak to the professor for more information";
+        dialogues[0] = "Milo! I am sick and I need you to \nmake a potion to heal me.";
+        dialogues[1] = "Speak to the professor for \nmore information";
         dialogues[2] = "You can find him in his house";
     }
 
