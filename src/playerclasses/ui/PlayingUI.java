@@ -23,9 +23,9 @@ import static utilities.Constants.GameLanguage.*;
  */
 public class PlayingUI {
 
-    private Playing playing;
-    private Pause pause;
-    private Font arial_40, arial_80B;
+    private final Playing playing;
+    private final Pause pause;
+    private final Font arial_40;
     private BufferedImage heart_full, heart_half, heart_blank;
     private boolean statsOn = false;
     private boolean inventoryOn = false;
@@ -44,7 +44,6 @@ public class PlayingUI {
         this.playing = playing;
 
         arial_40 = new Font ("Arial", Font.PLAIN, 40);
-        arial_80B = new Font ("Arial", Font.BOLD, 80);
 
         try {
             heart_full = ImageIO.read(getClass().getResourceAsStream("/items/heart_full.png"));
@@ -86,6 +85,9 @@ public class PlayingUI {
 
     }
 
+    /**
+     * Outputs a given string
+     */
     public void showMessage(String text) {
         message = text;
         messageOn = true;
@@ -166,37 +168,25 @@ public class PlayingUI {
             String translatedAttribute = attributeTranslations.getOrDefault(attribute, attribute);
 
             switch (attribute) {
-                case "Level":
-                    value = String.valueOf(playing.getPlayer().getLevel());
-                    break;
-                case "Life":
-                    value = String.valueOf(playing.getPlayer().getCurrentHealth() + "/" + playing.getPlayer().getMaxHealth());
-                    break;
-                case "Strength":
-                    value = String.valueOf(playing.getPlayer().getStrength());
-                    break;
-                case "Attack":
-                    value = String.valueOf(playing.getPlayer().getAttack());
-                    break;
-                case "Defense":
-                    value = String.valueOf(playing.getPlayer().getDefense());
-                    break;
-                case "Charisma":
-                    value = String.valueOf(playing.getPlayer().getCharisma());
-                    break;
-                case "Speed":
-                    value = String.valueOf(playing.getPlayer().getSpeed());
-                    break;
-                case "XP":
-                    value = playing.getPlayer().getExp() + "/" + String.valueOf(playing.getPlayer().getNextLevelExp());
-                    break;
-                case "Weapon":
+                case "Level" -> value = String.valueOf(playing.getPlayer().getLevel());
+                case "Life" ->
+                        value = String.valueOf(playing.getPlayer().getCurrentHealth() +
+                                "/" + playing.getPlayer().getMaxHealth());
+                case "Strength" -> value = String.valueOf(playing.getPlayer().getStrength());
+                case "Attack" -> value = String.valueOf(playing.getPlayer().getAttack());
+                case "Defense" -> value = String.valueOf(playing.getPlayer().getDefense());
+                case "Charisma" -> value = String.valueOf(playing.getPlayer().getCharisma());
+                case "Speed" -> value = String.valueOf(playing.getPlayer().getSpeed());
+                case "XP" ->
+                        value = playing.getPlayer().getExp()
+                                + "/" + String.valueOf(playing.getPlayer().getNextLevelExp());
+                case "Weapon" -> {
                     valueX = rightX - GameModel.tileSize / 4;
                     textY += 10;
                     g.drawImage(Load.scaleImage(playing.getPlayer().getCurrentWeapon().getImage(),
                                     GameModel.tileSize / 4, GameModel.tileSize / 4),
                             valueX, textY - GameModel.tileSize / 5, null);
-                    break;
+                }
             }
 
             g.drawString(translatedAttribute, textX, textY);
@@ -230,7 +220,6 @@ public class PlayingUI {
         }
 
         x = GameModel.tileSize / 2;
-        y = GameModel.tileSize / 4;
         i = 0;
 
         while (i < playing.getPlayer().getCurrentHealth()) {
@@ -245,14 +234,12 @@ public class PlayingUI {
 
     private int xAlignRightText (String text, int rightX) {
         int length = (int) g.getFontMetrics().getStringBounds(text, g).getWidth();
-        int x = rightX - length;
-        return x;
+        return rightX - length;
     }
 
     private int xAlignCenterText (String text, int width) {
         int length = (int) g.getFontMetrics().getStringBounds(text, g).getWidth();
-        int x = width/2 - length/2;
-        return x;
+        return width/2 - length/2;
     }
 
 

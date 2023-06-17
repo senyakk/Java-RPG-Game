@@ -13,7 +13,6 @@ public class Tile {
     public Tile(String name) {
         this.name = name;
     }
-
     public String getName() {
         return name;
     }

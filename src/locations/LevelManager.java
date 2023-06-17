@@ -30,8 +30,6 @@ public class LevelManager {
 
         levels[1].setBackground(Load.GetSpriteImg("locations/Alchemisthouse.png"));
         levels[2].setBackground(Load.GetSpriteImg("locations/WitchHouse.png"));
-        //levels[3].setBackground(Load.GetSpriteImg("locations/DragonCemetery.png"));
-        //levels[4].setBackground(Load.GetSpriteImg("locations/swampLocation.png"));
 
         setStartLevel(0);
     }

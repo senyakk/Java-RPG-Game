@@ -8,8 +8,8 @@ import static main.GameModel.UPS;
 
 public class GameController implements Runnable, KeyListener, MouseListener, MouseMotionListener {
 
-    private GamePanel gamePanel;
-    private GameModel gameModel;
+    private final GamePanel gamePanel;
+    private final GameModel gameModel;
     private State gameState;
     private boolean gameActive;
 

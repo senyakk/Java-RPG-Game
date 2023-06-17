@@ -21,7 +21,7 @@ public class CollisionChecker {
 
     /**
      * Creates a collision checker
-     * @param playing
+     * @param playing playing state class
      */
     public CollisionChecker(Playing playing) {
         this.playing = playing;

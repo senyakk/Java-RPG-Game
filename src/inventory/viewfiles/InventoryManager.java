@@ -248,9 +248,6 @@ public class InventoryManager {
         }
     }
     public boolean isInInventory(String id) {
-        if (inventory.contains(new GenericItem(id)))
-            return true;
-        else
-            return false;
+        return inventory.contains(new GenericItem(id));
     }
 }
