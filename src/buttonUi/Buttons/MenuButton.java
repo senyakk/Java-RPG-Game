@@ -16,8 +16,7 @@ public class MenuButton extends GameButton {
     private int posX, posY, row, index, language;
     private int offsetX = B_WIDTH / 2;
     private Gamestate state;
-    private BufferedImage[][] EngImages = new BufferedImage[4][2],
-            DutchImages = new BufferedImage[4][2], currentImages = new BufferedImage[4][2];
+    private BufferedImage[][] buttonImages = new BufferedImage[4][2];
 
     public MenuButton (int x, int y, int width, int height,  int row, Gamestate state, int language) {
 
@@ -28,11 +27,6 @@ public class MenuButton extends GameButton {
         this.state = state;
         this.language = language;
         loadImages();
-
-        switch (language) {
-            case ENGLISH -> currentImages = EngImages;
-            case DUTCH -> currentImages = DutchImages;
-        }
     }
 
 
@@ -43,29 +37,36 @@ public class MenuButton extends GameButton {
         // and second column is activated state.
         // First row is MENU, second row is OPTIONS, third row is QUIT, fourth row is RETURN
 
-        // Loading English Images
-        EngImages[0][0] = Load.GetSpriteImg("UI/English/MenuButtons/startButton.png");;
-        EngImages[0][1] = Load.GetSpriteImg("UI/English/MenuButtons/ActivatedstartButton.png");
-        EngImages[1][0] = Load.GetSpriteImg("UI/English/MenuButtons/OptionsButton.png");;
-        EngImages[1][1] = Load.GetSpriteImg("UI/English/MenuButtons/ActivatedOptionsButton.png");
-        EngImages[2][0] = Load.GetSpriteImg("UI/English/MenuButtons/QuitButton.png");
-        EngImages[2][1] = Load.GetSpriteImg("UI/English/MenuButtons/activatedQuitButton.png");
-        EngImages[3][0] = Load.GetSpriteImg("UI/English/MenuButtons/returnButton.png");
-        EngImages[3][1] = Load.GetSpriteImg("UI/English/MenuButtons/ReturnActivatedButton.png");
-
-        // Loading Dutch Images
-        DutchImages[0][0] = EngImages[0][0];
-        DutchImages[0][1] = EngImages[0][1];
-        DutchImages[1][0] = Load.GetSpriteImg("UI/Dutch/MenuButtons/optiesButton.png");
-        DutchImages[1][1] = Load.GetSpriteImg("UI/Dutch/MenuButtons/optiesActivatedButton.png");
-        DutchImages[2][0] = Load.GetSpriteImg("UI/Dutch/MenuButtons/stopButton.png");
-        DutchImages[2][1] = Load.GetSpriteImg("UI/Dutch/MenuButtons/stopActivatedButton.png");
-        DutchImages[3][0] = Load.GetSpriteImg("UI/Dutch/MenuButtons/stopButton.png");
-        DutchImages[3][1] = Load.GetSpriteImg("UI/Dutch/MenuButtons/stopActivatedButton.png");
+        switch (this.language) {
+            case ENGLISH -> {
+                // Loading English Images
+                buttonImages[0][0] = Load.GetSpriteImg("UI/English/MenuButtons/startButton.png");
+                ;
+                buttonImages[0][1] = Load.GetSpriteImg("UI/English/MenuButtons/ActivatedstartButton.png");
+                buttonImages[1][0] = Load.GetSpriteImg("UI/English/MenuButtons/OptionsButton.png");
+                ;
+                buttonImages[1][1] = Load.GetSpriteImg("UI/English/MenuButtons/ActivatedOptionsButton.png");
+                buttonImages[2][0] = Load.GetSpriteImg("UI/English/MenuButtons/QuitButton.png");
+                buttonImages[2][1] = Load.GetSpriteImg("UI/English/MenuButtons/activatedQuitButton.png");
+                buttonImages[3][0] = Load.GetSpriteImg("UI/English/MenuButtons/returnButton.png");
+                buttonImages[3][1] = Load.GetSpriteImg("UI/English/MenuButtons/ReturnActivatedButton.png");
+            }
+            case DUTCH -> {
+                // Loading Dutch Images
+                buttonImages[0][0] = Load.GetSpriteImg("UI/English/MenuButtons/startButton.png");
+                buttonImages[0][1] = Load.GetSpriteImg("UI/English/MenuButtons/ActivatedstartButton.png");
+                buttonImages[1][0] = Load.GetSpriteImg("UI/Dutch/MenuButtons/optiesButton.png");
+                buttonImages[1][1] = Load.GetSpriteImg("UI/Dutch/MenuButtons/optiesActivatedButton.png");
+                buttonImages[2][0] = Load.GetSpriteImg("UI/Dutch/MenuButtons/stopButton.png");
+                buttonImages[2][1] = Load.GetSpriteImg("UI/Dutch/MenuButtons/stopActivatedButton.png");
+                buttonImages[3][0] = Load.GetSpriteImg("UI/Dutch/MenuButtons/stopButton.png");
+                buttonImages[3][1] = Load.GetSpriteImg("UI/Dutch/MenuButtons/stopActivatedButton.png");
+            }
+        }
     }
 
     public void draw(Graphics g) {
-        g.drawImage(currentImages[row][index], posX - offsetX, posY, B_WIDTH, B_HEIGHT, null);
+        g.drawImage(buttonImages[row][index], posX - offsetX, posY, B_WIDTH, B_HEIGHT, null);
     }
 
     public void update(int language) {
@@ -76,11 +77,8 @@ public class MenuButton extends GameButton {
         }
 
         if (language != this.language) {
-            switch (language) {
-                case DUTCH -> currentImages = DutchImages;
-                case ENGLISH -> currentImages = EngImages;
-            }
             this.language = language;
+            loadImages();
         }
     }
 
