@@ -33,7 +33,7 @@ public class ObjectManager {
     public void placeObject() {
         switch (playing.getLevelManager().getCurrentLevelId()) {
             case 0 -> {
-               gameObjects.add(new Key(23, 23));
+               gameObjects.add(new Key(23, 7));
                gameObjects.add(new Boots(12, 32));
             }
         }

@@ -37,7 +37,7 @@ public class Professor extends NPC {
         dialogues[3] = "You will need a dragon bone, \nwhich you can find in \nthe dragon cemetery";
         dialogues[4] = "Next you will need to visit \nthe forbidden swamp to retrieve \nthe special firefly";
         dialogues[5] = "Finally, you'll find \nthe sap of the oldest tree \nin the cursed hallows";
-        dialogues[6] = "Be careful son, take this key. \nIt will aid you in this journey";
+        dialogues[6] = "Be careful son, and find the key. \nIt will aid you in this journey";
     }
 
 }

@@ -79,7 +79,7 @@ public class Options extends State {
         languageButton.draw(g);
         audio.draw(g);
 
-        // Draw game controls in the top right corner
+        // Draw game controls in the right
         String controls = "Controls: \nW-A-S-D to move\nI to open the inventory\nQ to see the characteristics\nE to enter/progress dialogue\nEsc to pause";
         // Split the controls string into individual lines
         String[] lines = controls.split("\n");
