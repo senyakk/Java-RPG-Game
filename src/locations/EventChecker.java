@@ -55,6 +55,17 @@ public class EventChecker {
                     }
                     restoreHealth();
                 }
+
+            }
+            case 7 -> { // in dragon cemetery
+                if ( hit(34, 15, 5) || hit(35, 15, 5) ) {
+                    switch (playing.getGameModel().getLanguage()) {
+                        case ENGLISH ->
+                                playing.getUi().showMessage("Ah yes, the human");
+                        case DUTCH ->
+                                playing.getUi().showMessage("Welkom mens");
+                    }
+                }
             }
         }
     }
