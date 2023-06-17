@@ -1,6 +1,6 @@
 package gamestates;
 
-import inventory.InventoryManager;
+import inventory.viewfiles.InventoryManager;
 import locations.EventChecker;
 import locations.LevelView;
 import main.GameModel;
@@ -144,13 +144,15 @@ public class Playing extends State {
 
     @Override
     public void keyPressed(KeyEvent e) {
-
         // Player update
         playerController.handleKeyPressed(e);
 
         // Game update
         if (e.getKeyCode() == KeyEvent.VK_ESCAPE)
             paused = !paused;
+
+        // Inventory view update
+        inventoryManager.keyPressed(e);
     }
 
     @Override
@@ -169,6 +171,7 @@ public class Playing extends State {
     @Override
     public void mouseReleased(MouseEvent e) {
         ui.mouseReleased(e);
+        inventoryManager.mouseReleased(e);
     }
 
     @Override
@@ -176,15 +179,18 @@ public class Playing extends State {
         ui.mouseMoved(e);
     }
 
-    public void unpause() {
-        paused = false;
-    }
     public void mouseDragged(MouseEvent e) {
         ui.mouseDragged(e);
     }
+
+    public void unpause() {
+        paused = false;
+    }
+
     public LevelManager getLevelManager() {
         return levelManager;
     }
+
     public CollisionChecker getCollisionChecker() {
         return  collisionChecker;
     }
@@ -198,4 +204,8 @@ public class Playing extends State {
     public InventoryManager getInventoryManager() {
         return inventoryManager;
     }
+    public ObjectManager getObjectManager() {
+        return objectManager;
+    }
+
 }

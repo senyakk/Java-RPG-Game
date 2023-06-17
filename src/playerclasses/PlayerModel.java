@@ -263,6 +263,10 @@ public class PlayerModel extends Creature {
         worldY = (playerY * GameModel.tileSize) - width /2 + (float) GameModel.tileSize / 2;
     }
 
+    public int getPlayerClassAsInt(){
+        return this.playerClass;
+    }
+
     public String getPlayerClass() {
         switch (playerClass) {
             case WARRIOR -> {

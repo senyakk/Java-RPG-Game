@@ -115,6 +115,8 @@ public class LevelManager {
         int origin = getCurrentLevelId();
         levelInd = id;
         movePlayer(origin);
+        playing.getObjectManager().resetAll();
+        playing.getGameModel().getAudioPlayer().setLevelSong(id);
     }
 
 }
