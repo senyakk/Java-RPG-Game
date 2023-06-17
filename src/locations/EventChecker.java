@@ -14,8 +14,6 @@ public class EventChecker {
     Rectangle eventArea;
     int eventRectX, eventRectY;
     PlayerModel player;
-    CollisionChecker tile1, tile2;
-    Tile name;
 
 
     public EventChecker(Playing playing) {
