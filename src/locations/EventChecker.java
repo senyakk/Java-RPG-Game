@@ -45,6 +45,7 @@ public class EventChecker {
                     }
                     takeDamage();
                 }
+
                 if (hit(4, 3, 5)) {
                     switch (playing.getGameModel().getLanguage()) {
                         case ENGLISH ->

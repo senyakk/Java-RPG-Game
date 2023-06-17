@@ -114,7 +114,7 @@ public class CollisionChecker {
             else {
                 switch (playing.getGameModel().getLanguage()) {
                     case ENGLISH ->
-                            playing.getUi().showMessage("You cannot enter the gate without a key!");
+                            playing.getUi().showMessage("You cannot enter the gate without a sleutel!");
                     case DUTCH ->
                             playing.getUi().showMessage("Je kan niet de poort betreden zonder sleutel!");
                 }

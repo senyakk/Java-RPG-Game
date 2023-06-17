@@ -17,7 +17,6 @@ public class ClassButton extends GameButton {
 
     private int posX, posY, index, language;
     private int offsetX = B_WIDTH / 2;
-    private BufferedImage warrior, warAct, archer, archAct, bard, bardAct;
     private BufferedImage[][] EngImages = new BufferedImage[3][2],
             DutchImages = new BufferedImage[3][2], currentImages = new BufferedImage[3][2];
     private int gameClass;
@@ -37,36 +36,27 @@ public class ClassButton extends GameButton {
     }
 
     private void loadImages() {
-        switch(language) {
-            case ENGLISH -> {
-                warrior = Load.GetSpriteImg("UI/English/ClassButtons/WarriorButton.png");
-                EngImages[0][0] = warrior;
-                warAct = Load.GetSpriteImg("UI/English/ClassButtons/WarriorActivatedButton.png");
-                EngImages[0][1] = warAct;
-                archer = Load.GetSpriteImg("UI/English/ClassButtons/ArcherButton.png");
-                EngImages[1][0] = archer;
-                archAct = Load.GetSpriteImg("UI/English/ClassButtons/ArcherActivatedButton.png");
-                EngImages[1][1] = archAct;
-                bard = Load.GetSpriteImg("UI/English/ClassButtons/BardButton.png");
-                EngImages[2][0] = bard;
-                bardAct = Load.GetSpriteImg("UI/English/ClassButtons/BardActivatedButton.png");
-                EngImages[2][1] = bardAct;
-            }
-            case DUTCH -> {
-                warrior = Load.GetSpriteImg("UI/Dutch/Options/DutchButtons/classButtons/krijgerButton.png");
-                EngImages[0][0] = warrior;
-                warAct = Load.GetSpriteImg("UI/Dutch/Options/DutchButtons/classButtons/krijgerAtivatedButton.png");
-                EngImages[0][1] = warAct;
-                archer = Load.GetSpriteImg("UI/Dutch/Options/DutchButtons/classButtons/boogschutterButton.png");
-                EngImages[1][0] = archer;
-                archAct = Load.GetSpriteImg("UI/Dutch/Options/DutchButtons/classButtons/boogschutterActivatedButton.png");
-                EngImages[1][1] = archAct;
-                bard = Load.GetSpriteImg("UI/Dutch/Options/DutchButtons/classButtons/dichterButton.png");
-                EngImages[2][0] = bard;
-                bardAct = Load.GetSpriteImg("UI/Dutch/Options/DutchButtons/classButtons/dichterActivatedButton.png");
-                EngImages[2][1] = bardAct;
-            }
-        }
+
+        // Images array for button, where first column is the non-activated state
+        // and second column is activated state.
+        // First row is WARRIOR, second row is ARCHER, third row is BARD
+
+        // Loading English images
+        EngImages[0][0] = Load.GetSpriteImg("UI/English/ClassButtons/WarriorButton.png");
+        EngImages[0][1] = Load.GetSpriteImg("UI/English/ClassButtons/WarriorActivatedButton.png");
+        EngImages[1][0] = Load.GetSpriteImg("UI/English/ClassButtons/ArcherButton.png");
+        EngImages[1][1] = Load.GetSpriteImg("UI/English/ClassButtons/ArcherActivatedButton.png");
+        EngImages[2][0] = Load.GetSpriteImg("UI/English/ClassButtons/BardButton.png");
+        EngImages[2][1] = Load.GetSpriteImg("UI/English/ClassButtons/BardActivatedButton.png");
+
+
+        // Loading Dutch images
+        DutchImages[0][0] = Load.GetSpriteImg("UI/Dutch/ClassButtons/krijgerButton.png");
+        DutchImages[0][1] = Load.GetSpriteImg("UI/Dutch/ClassButtons/krijgerAtivatedButton.png");
+        DutchImages[1][0] = Load.GetSpriteImg("UI/Dutch/ClassButtons/boogschutterButton.png");
+        DutchImages[1][1] = Load.GetSpriteImg("UI/Dutch/ClassButtons/boogschutterActivatedButton.png");
+        DutchImages[2][0] = Load.GetSpriteImg("UI/Dutch/ClassButtons/dichterButton.png");
+        DutchImages[2][1] = Load.GetSpriteImg("UI/Dutch/ClassButtons/dichterActivatedButton.png");
     }
 
     public int getGameClassClass() {

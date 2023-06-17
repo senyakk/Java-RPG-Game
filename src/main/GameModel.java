@@ -90,19 +90,6 @@ public class GameModel {
     }
     public void setLanguage(int language) {
         this.language = language;
-        changeLanguage(language);
-    }
-
-    private void changeLanguage(int language) {
-        switch (language) {
-            case DUTCH -> {
-
-            }
-            case ENGLISH -> {
-
-            }
-        }
-
     }
 
 }

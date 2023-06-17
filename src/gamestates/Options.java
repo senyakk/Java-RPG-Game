@@ -52,9 +52,10 @@ public class Options extends State {
             case DUTCH -> {
                 // Dutch buttons here
                 backgroundImage = Load.GetSpriteImg("UI/English/Startscreen.png");
-                optionsBackgroundImage = Load.GetSpriteImg("UI/Dutch/Options/DutchButtons/Options/options_background_Dutch.png");
+                optionsBackgroundImage = Load.GetSpriteImg("UI/Dutch/Options/options_background_Dutch.png");
             }
         }
+
         bgW = (int) (optionsBackgroundImage.getWidth() * GameModel.scale/1.5);
         bgH = (int) (optionsBackgroundImage.getHeight() * GameModel.scale/1.5);
         bgX = GameModel.screenWidth / 2 - bgW / 2;
