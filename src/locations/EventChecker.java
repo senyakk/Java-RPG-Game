@@ -65,6 +65,8 @@ public class EventChecker {
                         case DUTCH ->
                                 playing.getUi().showMessage("Welkom mens");
                     }
+                    if (!playing.getInventoryManager().isInInventory("7"))
+                        player.giveObject("7");
                 }
             }
         }

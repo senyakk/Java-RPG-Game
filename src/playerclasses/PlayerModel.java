@@ -484,4 +484,8 @@ public class PlayerModel extends Creature {
     public Weapon getCurrentWeapon() {
         return currentWeapon;
     }
+
+    public void giveObject(String id) {
+        notifyInventoryManager(id, "Generic Item");
+    }
 }

@@ -3,14 +3,14 @@ package main;
 public class Game {
 
     // VIEW
-    private GameScreen gameWindow;
-    private GamePanel gamePanel;
+    private final GameScreen gameWindow;
+    private final GamePanel gamePanel;
 
     // CONTROLLER
-    private GameController gameController;
+    private final GameController gameController;
 
     // MODEL
-    private GameModel gameModel;
+    private final GameModel gameModel;
 
     // GAME LOOP
     public Thread gameLoop;

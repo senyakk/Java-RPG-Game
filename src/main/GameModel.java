@@ -26,14 +26,14 @@ public class GameModel {
 
     // MODEL STATES
     private State gameState; // Current game state
-    private Menu menu; // Instance of the menu state
-    private Playing playing; // Instance of the playing state
-    private ClassSelection classSelection; // Instance of the class selection state
-    private Options options; // Instance of the options state
+    private final Menu menu; // Instance of the menu state
+    private final Playing playing; // Instance of the playing state
+    private final ClassSelection classSelection; // Instance of the class selection state
+    private final Options options; // Instance of the options state
 
     // AUDIO SETTINGS
-    private AudioHandler audio; // Audio handler for managing game audio
-    private AudioPlayer audioPlayer; // Audio player for playing audio clips
+    private final AudioHandler audio; // Audio handler for managing game audio
+    private final AudioPlayer audioPlayer; // Audio player for playing audio clips
 
     private int language = ENGLISH; // Default language setting
 
