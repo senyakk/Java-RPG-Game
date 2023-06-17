@@ -241,9 +241,8 @@ public class InventoryManager {
             default -> inventory.addItem(new GenericItem(itemID));
         }
     }
-
-    public boolean isInInventory(String item) {
-        if (inventory.contains(new GenericItem(item)))
+    public boolean isInInventory(String id) {
+        if (inventory.contains(new GenericItem(id)))
             return true;
         else
             return false;
