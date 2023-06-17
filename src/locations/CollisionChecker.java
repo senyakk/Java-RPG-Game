@@ -105,11 +105,11 @@ public class CollisionChecker {
         else if (((tile1.getName().equals("witchHouseDoor")) || (tile2.getName().equals("witchHouseDoor"))))
             levelManager.changeLevel(2);
         else if (((tile1.getName().equals("gate")) || (tile2.getName().equals("gate"))))
-            //if (playing.getInventoryManager().inventory.contains(new GenericItem("10"))) {
+            //if (playing.getInventoryManager().isInInventory("10")) {
                 levelManager.changeLevel(7);
             //}
             //else {
-                //playing.getUi().showMessage("You cannot enter the gate without a key!");
+            //    playing.getUi().showMessage("You cannot enter the gate without a key!");
             //}
         else if (((tile1.getName().equals("fontain")) || (tile2.getName().equals("fontain"))))
             levelManager.changeLevel(8);
