@@ -37,6 +37,7 @@ public class Menu extends State {
                 backgroundImage = Load.GetSpriteImg("UI/English/Startscreen.png");
             }
         }
+
         buttons[0] = new MenuButton((int) (165 * GameModel.scale), (int) (170 * GameModel.scale),
                 B_WIDTH, B_HEIGHT, 0, Gamestate.CLASS_SELECTION, language);
         buttons[1] = new MenuButton((int) (320 * GameModel.scale), (int) (170 * GameModel.scale),

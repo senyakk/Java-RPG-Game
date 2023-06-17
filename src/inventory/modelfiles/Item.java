@@ -13,7 +13,7 @@ import java.util.Objects;
  */
 public abstract class Item implements Serializable {
     @Serial
-    private static final long serialVersionUID = 3L;
+    private static final long serialVersionUID = 2L;
 
     protected String id;
     protected String displayName;

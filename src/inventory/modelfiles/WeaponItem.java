@@ -9,7 +9,7 @@ import java.io.Serializable;
  */
 public class WeaponItem extends Item implements Serializable {
     @Serial
-    private static final long serialVersionUID = 5L;
+    private static final long serialVersionUID = 4L;
 
     private float damage;
 

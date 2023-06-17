@@ -3,6 +3,7 @@ package playerclasses;
 import gamestates.Playing;
 import main.GameModel;
 import npcs.Creature;
+import objects.GameObject;
 import objects.objectsclasses.Bow;
 import objects.objectsclasses.Flower;
 import objects.objectsclasses.Sword;
@@ -12,6 +13,7 @@ import utilities.Load;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+import static utilities.AudioPlayer.*;
 import static utilities.Constants.Direction.*;
 import static utilities.Constants.GameLanguage.*;
 import static utilities.Constants.PlayerConstants.*;
@@ -130,14 +132,45 @@ public class PlayerModel extends Creature {
         updatePos();
         collisionOn = false;
         collisionChecker.checkTile(this);
-        //GameObject object = collisionChecker.checkObject(this);
-        //pickUpObject(object);
+        GameObject object = collisionChecker.checkObject(this);
+        pickUpObject(object);
         if (attacking)
             attack();
         updateAnimation();
         setAnimation();
 
         //System.out.println("X: " + (int)(worldX/ GameModel.tileSize) + " Y: " + (int)(worldY/ GameModel.tileSize));
+    }
+
+    /**
+     * Sends pickup information to inventory manager
+     * @param itemID is the unique ID of the item corresponding to the GameObject
+     * @author Cata Mihit
+     */
+    private void notifyInventoryManager(String itemID, String itemClass){
+        playing.getInventoryManager().notifyPickup(itemID, itemClass);
+    }
+
+    /** Method for picking op object
+     * @param object
+     */
+    private void pickUpObject(GameObject object) {
+        if (object != null) {
+            switch (object.getName()) {
+                case "key" -> {
+                    playing.getGameModel().getAudioPlayer().playEffect(COIN);
+                    notifyInventoryManager("5", "GenericItem");
+                    object.deactivate();
+                }
+                case "boots" -> {
+                    speed+= 2;
+                    playing.getGameModel().getAudioPlayer().playEffect(POWERUP);
+                    notifyInventoryManager("6", "GenericItem");
+
+                    object.deactivate();
+                }
+            }
+        }
     }
 
     private void attack() {
