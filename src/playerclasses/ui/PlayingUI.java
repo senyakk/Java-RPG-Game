@@ -2,7 +2,6 @@ package playerclasses.ui;
 
 import gamestates.Playing;
 import main.GameModel;
-import playerclasses.ui.Pause;
 import utilities.Load;
 
 import javax.imageio.ImageIO;
@@ -42,11 +41,11 @@ public class PlayingUI {
         arial_80B = new Font ("Arial", Font.BOLD, 80);
 
         try {
-            heart_full = ImageIO.read(getClass().getResourceAsStream("/objects/heart_full.png"));
+            heart_full = ImageIO.read(getClass().getResourceAsStream("/items/heart_full.png"));
             heart_full = Load.scaleImage(heart_full, GameModel.tileSize/2, GameModel.tileSize/2);
-            heart_half = ImageIO.read(getClass().getResourceAsStream("/objects/heart_half.png"));
+            heart_half = ImageIO.read(getClass().getResourceAsStream("/items/heart_half.png"));
             heart_half = Load.scaleImage(heart_half, GameModel.tileSize/2, GameModel.tileSize/2);
-            heart_blank = ImageIO.read(getClass().getResourceAsStream("/objects/heart_blank.png"));
+            heart_blank = ImageIO.read(getClass().getResourceAsStream("/items/heart_blank.png"));
             heart_blank = Load.scaleImage(heart_blank, GameModel.tileSize/2, GameModel.tileSize/2);
         } catch (IOException e) {
             e.printStackTrace();

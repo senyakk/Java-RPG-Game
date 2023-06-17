@@ -12,7 +12,7 @@ public class Sword extends Weapon {
      * @param worldY y position in the world
      */
     public Sword(float worldX, float worldY) {
-        super(worldX, worldY, OBJECT_SIZE*1.5f, OBJECT_SIZE*1.5f, "sword", 2f);
+        super(worldX, worldY, OBJECT_SIZE*1.5f, OBJECT_SIZE*1.5f, "sword", "sword", 2f);
         initHitArea(0, 0, (int) (OBJECT_SIZE*0.65), (int) (OBJECT_SIZE*0.65));
     }
 }
