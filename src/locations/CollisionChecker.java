@@ -15,6 +15,8 @@ public class CollisionChecker {
 
     private LevelManager levelManager;
     private Level lvl;
+    Playing playing;
+    //private inventory GenericItem;
 
     /**
      * Creates a collision checker
@@ -104,11 +106,16 @@ public class CollisionChecker {
         else if (((tile1.getName().equals("witchHouseDoor")) || (tile2.getName().equals("witchHouseDoor"))))
             levelManager.changeLevel(2);
         else if (((tile1.getName().equals("gate")) || (tile2.getName().equals("gate"))))
-           levelManager.changeLevel(7);
+            //if (playing.getInventoryManager().inventory.contains(new GenericItem("10"))) {
+                levelManager.changeLevel(7);
+            //}
+            //else {
+                //playing.getUi().showMessage("You cannot enter the gate without a key!");
+            //}
         else if (((tile1.getName().equals("fontain")) || (tile2.getName().equals("fontain"))))
             levelManager.changeLevel(8);
-        else if (((tile1.getName().equals("TreeDoor")) || (tile2.getName().equals("TreeDoor"))))
-            levelManager.changeLevel(9); // Goes to fake forrest
+        //else if (((tile1.getName().equals("TreeDoor")) || (tile2.getName().equals("TreeDoor"))))
+        //    levelManager.changeLevel(9); // Goes to fake forrest
 
     }
 
