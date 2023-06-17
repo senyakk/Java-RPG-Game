@@ -158,6 +158,11 @@ public class InventoryManager {
             case KeyEvent.VK_Z -> { // Add a Key item to the inventory
                 try{
                     inventory.addItem(new GenericItem("5"));
+                    inventory.addItem(new GenericItem("6"));
+                    inventory.addItem(new GenericItem("7"));
+                    inventory.addItem(new GenericItem("8"));
+                    inventory.addItem(new GenericItem("9"));
+                    inventory.addItem(new GenericItem("10"));
                 } catch (ArrayIndexOutOfBoundsException exc) {
                     System.out.println("INVENTORY: Not enough space left!");
                 }
