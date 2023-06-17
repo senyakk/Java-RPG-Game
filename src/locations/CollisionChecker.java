@@ -124,7 +124,17 @@ public class CollisionChecker {
         else if (((tile1.getName().equals("treeDoor")) || (tile2.getName().equals("treeDoor"))))
             levelManager.changeLevel(9);
         else if (((tile1.getName().equals("portal")) || (tile2.getName().equals("portal"))))
-            levelManager.changeLevel(0);
+            if (playing.getInventoryManager().isInInventory("10")) {
+                levelManager.changeLevel(0);
+            }
+            else {
+                switch (playing.getGameModel().getLanguage()) {
+                    case ENGLISH ->
+                            playing.getUi().showMessage("You cannot enter the portal without the dragon cure");
+                    case DUTCH ->
+                            playing.getUi().showMessage("Je kan niet de ");
+                }
+            }
     }
 
     /**
