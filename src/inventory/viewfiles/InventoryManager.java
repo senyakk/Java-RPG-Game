@@ -1,9 +1,11 @@
 package inventory.viewfiles;
 
+import buttonUi.GameButton;
 import gamestates.Playing;
 import inventory.controllerfiles.InventoryPropertyListener;
 import inventory.modelfiles.*;
 import main.GameModel;
+import main.GamePanel;
 import playerclasses.PlayerModel;
 import utilities.Load;
 
@@ -25,6 +27,7 @@ public class InventoryManager {
 
     // Playing state to which the manager is connected
     private final Playing playing;
+    private Item playerWeapon;
 
     // Saver/Loader for Inventory object
     private InventoryIO inventoryIO;
@@ -36,7 +39,7 @@ public class InventoryManager {
     private final ArrayList<InventoryButton> inventoryButtons; //InventoryButton[] inventoryButtons;
     private int invWidth, invHeight, invX, invY;
     private BufferedImage inventoryImage;
-    private Item playerWeapon;
+    private final GameButton currentItemName;
 
     /**
      * Determines what weapon the player should own (given by default in inventory)
@@ -69,6 +72,8 @@ public class InventoryManager {
         this.inventory.addListeners(new InventoryPropertyListener(this));
 
         loadInventoryImage();
+        this.currentItemName = new GameButton((GameModel.screenWidth / 2 + invWidth / 2), (GameModel.screenHeight / 2), 150, 75);
+        this.currentItemName.setText(" ");
         this.inventoryButtons = new ArrayList<>(INVENTORY_ROWS * INVENTORY_COLS);
         updateButtons();
     }
@@ -135,6 +140,7 @@ public class InventoryManager {
         for(InventoryButton button : inventoryButtons) {
             button.draw(g);
         }
+        currentItemName.draw(g);
     }
 
     /*
@@ -181,6 +187,25 @@ public class InventoryManager {
                     System.out.println("INVENTORY: This element is not in the inventory!");
                 }
             }
+        }
+    }
+
+    /**
+     * Updates display text based on whether an inventory item is hovered over
+     * @param e is the mouse release event
+     */
+    public void mouseMoved(MouseEvent e) {
+        boolean insideBound = false;
+        for (int index = 0; index < INVENTORY_ROWS * INVENTORY_COLS; index++){
+            InventoryButton button = this.inventoryButtons.get(index);
+
+            if (button.isInBorder(e)){
+                currentItemName.setText(inventory.getItemList().get(index).getDisplayName());
+                insideBound = true;
+            }
+        }
+        if (!insideBound) {
+            currentItemName.setText(" ");
         }
     }
 
