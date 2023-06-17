@@ -3,6 +3,7 @@ package npcs;
 import utilities.Constants;
 import utilities.Load;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 import static utilities.Constants.NPCs.NPCSize;
@@ -18,8 +19,9 @@ public class BabyDragon extends NPC {
      * @param worldY y position in the world
      */
     public BabyDragon(float worldX, float worldY) {
-        super(worldX, worldY, (float) (NPCSize*1.5),(float) (NPCSize*1.5) ,"BabyGreenDragonIdleSide", "BabyDragon");
+        super(worldX, worldY, (float) (NPCSize*1.5),(float) (NPCSize*1.5) ,"BabyGreenDragonIdleSide", "Baby Dragon");
         setDialogue();
+        loadNPCImages();
     }
 
     public void setDialogue() {
@@ -31,10 +33,13 @@ public class BabyDragon extends NPC {
         updateAnimation();
     }
 
+    public void draw(Graphics g) {
+        super.draw(g);
+    }
 
     private void loadNPCImages() {
         images = new BufferedImage[1][4];
-        BufferedImage temp = GetSpriteImg("BabyGreenDragonIdleSide");
+        BufferedImage temp = GetSpriteImg("BabyGreenDragonIdleSide.png");
         for(int j = 0; j < images.length; j++) {
             for (int i = 0; i < images[j].length; i++) {
                 images[j][i] = temp.getSubimage(i * NPCSizeDef, j* NPCSizeDef,

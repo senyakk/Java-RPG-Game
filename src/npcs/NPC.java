@@ -1,6 +1,8 @@
 package npcs;
 
 import main.Game;
+import playerclasses.PlayerModel;
+import utilities.HelpMethods;
 import utilities.Load;
 
 
@@ -8,6 +10,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import static utilities.Constants.anim;
 
@@ -47,6 +50,8 @@ public class NPC extends Creature {
     public void update() {
 
     }
+    public void draw(Graphics g) {}
+
 
     protected void checkCollisions() {
         collisionOn = false;

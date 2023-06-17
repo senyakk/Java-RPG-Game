@@ -4,6 +4,8 @@ import inventory.viewfiles.InventoryManager;
 import locations.EventChecker;
 import locations.LevelView;
 import main.GameModel;
+import npcs.NPCView;
+import npcs.NPC_Manager;
 import objects.ObjectView;
 import playerclasses.PlayerModel;
 import locations.LevelManager;
@@ -31,6 +33,8 @@ public class Playing extends State {
     // manages the game levels and handles loading and switching between different levels.
     private ObjectManager objectManager;
     // manages the game objects and their behavior within the game.
+    private NPC_Manager npcManager;
+    // manages NPCs
     private CollisionChecker collisionChecker;
     // checks for collisions between game entities and handles collision resolution.
     private InventoryManager inventoryManager;
@@ -51,7 +55,8 @@ public class Playing extends State {
     // renders the view
     private ObjectView objectView;
     // renders the objects
-
+    private NPCView npcView;
+    //renders NPCs
     private boolean paused = false;
 
     /**
@@ -69,6 +74,7 @@ public class Playing extends State {
     public void loadGame() {
         levelManager = new LevelManager(this);
         objectManager = new ObjectManager(this);
+        npcManager = new NPC_Manager(this);
         collisionChecker = new CollisionChecker(this);
         //npcManager = new NPCManager(this, collisionChecker);
 
@@ -76,8 +82,8 @@ public class Playing extends State {
 
         levelView = new LevelView(this);
         objectView = new ObjectView(this);
+        npcView = new NPCView(this);
         eventChecker = new EventChecker(this);
-
     }
 
     /**
@@ -117,6 +123,7 @@ public class Playing extends State {
         ui.resetAll();
         objectManager.resetAll();
         inventoryManager.resetAll();
+        npcManager.resetAll();
     }
 
     @Override
@@ -128,6 +135,7 @@ public class Playing extends State {
             //npcManager.update();
             player.update();
             inventoryManager.update();
+            npcManager.update();
         } else {
             ui.getPause().update();
         }
@@ -139,6 +147,7 @@ public class Playing extends State {
         //eventChecker.draw(g);
         objectView.drawObjects(g);
         playerRenderer.render(g);
+        npcView.drawNPC(g);
         ui.draw(g);
     }
 
@@ -208,5 +217,6 @@ public class Playing extends State {
     public ObjectManager getObjectManager() {
         return objectManager;
     }
+    public NPC_Manager getNpcManager(){return npcManager;}
 
 }
