@@ -9,7 +9,7 @@ import java.io.Serializable;
  */
 public class GenericItem extends Item implements Serializable {
     @Serial
-    private static final long serialVersionUID = 4L;
+    private static final long serialVersionUID = 3L;
 
     /**
      * Creates a new GenericItem from an item ID

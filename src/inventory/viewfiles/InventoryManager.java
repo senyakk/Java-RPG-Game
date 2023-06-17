@@ -22,12 +22,13 @@ import static utilities.Constants.PlayerConstants.*;
  * @author Cata Mihit
  */
 public class InventoryManager {
+
     // Playing state to which the manager is connected
     private final Playing playing;
 
     // Saver/Loader for Inventory object
     private InventoryIO inventoryIO;
-    private final Inventory inventory;
+    private Inventory inventory;
 
     // UI-Related elements
     private final int INVENTORY_ROWS = 3;
@@ -59,10 +60,10 @@ public class InventoryManager {
         Item playerWeapon = setupWeapon(this.playing.getPlayer());
 
         // Test code -> save/load works just isn't connected to the UI
-        //this.inventoryIO = new InventoryIO();
-        //inventoryIO.saveInventory(new Inventory(playerWeapon));
-        //this.inventory = inventoryIO.loadInventory();
-        this.inventory = new Inventory(playerWeapon);
+        this.inventoryIO = new InventoryIO(new Inventory(playerWeapon));
+        inventoryIO.saveInventory();
+        this.inventory = inventoryIO.loadInventory();
+        //this.inventory = new Inventory(playerWeapon);
         inventory.addItem(new GenericItem("3"));
         inventory.addItem(new GenericItem("5"));
 
@@ -138,7 +139,7 @@ public class InventoryManager {
     }
 
     public void resetAll(){
-        // ?
+        this.inventory.reset();
     }
 
     public void update(){
@@ -152,17 +153,24 @@ public class InventoryManager {
      */
 
     /**
-     * Adds a key to the inventory when pressing Z -> debug mostly
+     * Several (mostly debug) key events
      * @param e is the key press event
      */
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()){
-            case KeyEvent.VK_Z -> {
+            case KeyEvent.VK_Z -> { // Add a Key item to the inventory
                 try{
                     inventory.addItem(new GenericItem("5"));
                 } catch (ArrayIndexOutOfBoundsException exc) {
                     System.out.println("INVENTORY: Not enough space left!");
                 }
+            }
+            case KeyEvent.VK_X -> { // Save current inventory
+                inventoryIO.saveInventory();
+            }
+            case KeyEvent.VK_C -> { // Load inventory from save file
+                inventory = inventoryIO.loadInventory();
+                updateButtons();
             }
         }
     }

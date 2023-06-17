@@ -2,6 +2,7 @@ package inventory.modelfiles;
 
 import inventory.controllerfiles.InventoryPropertyListener;
 
+import javax.swing.*;
 import java.beans.PropertyChangeEvent;
 import java.io.Serial;
 import java.io.Serializable;
@@ -14,7 +15,7 @@ import java.util.NoSuchElementException;
  */
 public class Inventory implements Serializable {
     @Serial
-    private static final long serialVersionUID = 2L;
+    private static final long serialVersionUID = 5L;
 
     private final int MAX_INVENTORY_SIZE = 36;
 
@@ -39,6 +40,15 @@ public class Inventory implements Serializable {
         updateFullInventory();
         this.listeners = new ArrayList<>();
         this.addItem(playerWeapon);
+    }
+
+    public Inventory(ArrayList<Item> newList){
+        if (newList.size() != MAX_INVENTORY_SIZE){
+            throw new IllegalArgumentException("INVENTORY: Incorrect size!");
+        }
+        this.itemList = newList;
+        updateFullInventory();
+        this.listeners = new ArrayList<>();
     }
 
     /**
@@ -151,6 +161,17 @@ public class Inventory implements Serializable {
      */
     public ArrayList<Item> getItemList(){
         return this.itemList;
+    }
+
+    /**
+     * Deletes all items in the inventory
+     */
+    public void reset(){
+        for (int index = 0; index < MAX_INVENTORY_SIZE; index++){
+            if (!this.itemList.get(index).isEmptyItem()){
+                removeItem(index);
+            }
+        }
     }
 
     /**
