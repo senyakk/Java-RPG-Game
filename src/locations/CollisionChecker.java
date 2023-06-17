@@ -123,6 +123,8 @@ public class CollisionChecker {
             levelManager.changeLevel(8);
         else if (((tile1.getName().equals("treeDoor")) || (tile2.getName().equals("treeDoor"))))
             levelManager.changeLevel(9);
+        else if (((tile1.getName().equals("portal")) || (tile2.getName().equals("portal"))))
+            levelManager.changeLevel(0);
     }
 
     /**

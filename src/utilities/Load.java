@@ -219,6 +219,8 @@ public class Load {
         setup(62, "090", true, "tree7");
         setup(63, "091", true, "tree8");
 
+        setup(64, "092", true, "portal");
+
         return tile;
     }
 
