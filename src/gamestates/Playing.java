@@ -1,11 +1,15 @@
 package gamestates;
 
-import playerclasses.Player;
-import inventory.Inventory;
-import main.Game;
+import inventory.viewfiles.InventoryManager;
+import locations.EventChecker;
+import locations.LevelView;
+import main.GameModel;
+import objects.ObjectView;
+import playerclasses.PlayerModel;
 import locations.LevelManager;
-import buttonUi.Pause;
-import playerclasses.PlayerUI;
+import playerclasses.PlayerController;
+import playerclasses.PlayerView;
+import playerclasses.ui.PlayingUI;
 import objects.ObjectManager;
 import locations.CollisionChecker;
 
@@ -13,75 +17,89 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
-public class Playing extends State implements Statemethods {
+/**
+ * @author Arsenijs
+ * State for playing the game.
+ * Class that acts a central coordinator, bringing together the model, view, and controller
+ */
+public class Playing extends State {
 
-    private Player player;
-    private PlayerUI ui;
-    private LevelManager levelManager = new LevelManager();
-    private ObjectManager placer;
+    // MODEL COMPONENTS
+    private PlayerModel player;
+    // holds information about the player's position, attributes, and state.
+    private LevelManager levelManager;
+    // manages the game levels and handles loading and switching between different levels.
+    private ObjectManager objectManager;
+    // manages the game objects and their behavior within the game.
     private CollisionChecker collisionChecker;
-    private Pause pause;
-    private Inventory inventory;
+    // checks for collisions between game entities and handles collision resolution.
+    private InventoryManager inventoryManager;
+    // manages the player's inventory and handles interactions with inventory items.
+    private EventChecker eventChecker;
+    // manages the events hapenning in the level
+
+    // CONTROLLER COMPONENTS
+    private PlayerController playerController;
+    //  handles player input and translates it into actions and movements for the player character.
+
+    // VIEW COMPONENT
+    private PlayingUI ui;
+    // renders the game interface and responds to user input for the UI.
+    private PlayerView playerRenderer;
+    // renders the player.
+    private LevelView levelView;
+    // renders the view
+    private ObjectView objectView;
+    // renders the objects
+
     private boolean paused = false;
-    private boolean inventoryOn = false;
-    private boolean statusOn = false;
 
     /**
-     * State for playing the game
-     * @param game Game object
+     * State for playing the game.
      */
-    public Playing(Game game) {
-        super(game);
-        initLevel();
+    public Playing(GameModel gameModel) {
+        super(gameModel);
+        loadGame();
     }
 
     /**
-     * Creates LevelManager and loads Level
+     * Creates LevelManager, loads current level,
+     * connects object manager, collision checker, and puts player on the level
      */
-    private void initLevel() {
-        levelManager = new LevelManager();
-        loadLevel();
-        pause = new Pause(this);
-
-    }
-
-    /**
-     * Loads current level, creates object manager, collision checker, and puts player on the level
-     */
-    private void loadLevel() {
-        levelManager.setCurrentLevel(0);
-        placer = new ObjectManager(this);
-        collisionChecker = new CollisionChecker(levelManager);
+    public void loadGame() {
+        levelManager = new LevelManager(this);
+        objectManager = new ObjectManager(this);
+        collisionChecker = new CollisionChecker(this);
         //npcManager = new NPCManager(this, collisionChecker);
+
         putPlayer();
+
+        levelView = new LevelView(this);
+        objectView = new ObjectView(this);
+        eventChecker = new EventChecker(this);
+
     }
 
     /**
-     * Puts player on a level, adds collision checker to it, draws UI and inventory
+     * Puts player on a level, adds collision checker to it, adds UI and inventory
      */
     private void putPlayer() {
-        switch (getLevelManager().getCurrentLevelId()) {
-            case 0 -> {
-                player = new Player(23, 21, this);
-            }
-        }
+        if (getLevelManager().getCurrentLevelId() == 0)
+            player = PlayerModel.getInstance(22, 21, this);
+
+        playerController = new PlayerController(this);
         player.addCollisionChecker(collisionChecker);
-        ui = new PlayerUI(this);
-        inventory = new Inventory(this);
+        ui = new PlayingUI(this);
+        playerRenderer = new PlayerView(this);
+        inventoryManager = new InventoryManager(this);
     }
+
 
     /**
      * @return player object
      */
-    public Player getPlayer() {
+    public PlayerModel getPlayer() {
         return player;
-    }
-
-    /**
-     * @return ui object
-     */
-    public PlayerUI getUi() {
-        return ui;
     }
 
     public void windowFocusLost() {
@@ -92,117 +110,102 @@ public class Playing extends State implements Statemethods {
      * Resets the game
      */
     public void resetAll() {
+        levelManager.setStartLevel(0);
+        levelManager.movePlayer(0);
         paused = false;
-        inventoryOn = false;
         player.resetAll();
-        placer.resetAll();
-        inventory.resetAll();
+        ui.resetAll();
+        objectManager.resetAll();
+        inventoryManager.resetAll();
     }
 
     @Override
     public void update() {
         if (!paused) {
             levelManager.update();
-            placer.update();
+            eventChecker.checkEvent();
+            objectManager.update();
             //npcManager.update();
             player.update();
-            inventory.update();
+            inventoryManager.update();
         } else {
-            pause.update();
+            ui.getPause().update();
         }
     }
 
     @Override
     public void draw(Graphics g) {
-        levelManager.draw(g, player);
-        placer.drawObjects(g);
-
-        player.render(g);
+        levelView.draw(g);
+        eventChecker.draw(g);
+        objectView.drawObjects(g);
+        playerRenderer.render(g);
         ui.draw(g);
-        if (inventoryOn)
-            inventory.draw(g);
-        if (paused) {
-            g.setColor(new Color(0, 0, 0, 150));
-            g.fillRect(0, 0, Game.screenWidth, Game.screenHeight);
-            pause.draw(g);
-        }
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-        switch (e.getKeyCode()) {
-            // WASD for movement
-            case KeyEvent.VK_W -> player.setUp(true);
-            case KeyEvent.VK_A ->  player.setLeft(true);
-            case KeyEvent.VK_D -> player.setRight(true);
-            case KeyEvent.VK_S -> player.setDown(true);
+        // Player update
+        playerController.handleKeyPressed(e);
 
-            case KeyEvent.VK_SPACE -> player.setAttacking();
+        // Game update
+        if (e.getKeyCode() == KeyEvent.VK_ESCAPE)
+            paused = !paused;
 
-            case KeyEvent.VK_ESCAPE -> paused = !paused;
-        }
+        // Inventory view update
+        inventoryManager.keyPressed(e);
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        switch (e.getKeyCode()) {
-
-            case KeyEvent.VK_W -> player.setUp(false);
-            case KeyEvent.VK_A -> player.setLeft(false);
-            case KeyEvent.VK_D -> player.setRight(false);
-            case KeyEvent.VK_S -> player.setDown(false);
-
-            // Inventory switch
-            case KeyEvent.VK_I -> {
-                if (!paused) {
-                    inventoryOn = !inventoryOn;
-                }
-            }
-            case KeyEvent.VK_Q -> {
-                if (!paused) {
-                    ui.toggleStatus();
-                }
-            }
-        }
+        // View Update
+        ui.keyReleased(e);
+        // Player Update
+        playerController.handleKeyReleased(e);
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        if (paused) {
-            pause.mousePressed(e);
-        }
+        ui.mousePressed(e);
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        if (paused) {
-            pause.mouseReleased(e);
-        }
+        ui.mouseReleased(e);
+        inventoryManager.mouseReleased(e);
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        if (paused) {
-            pause.mouseMoved(e);
-        }
+        ui.mouseMoved(e);
     }
 
-    @Override
-    public void mouseClicked(MouseEvent e) {
-
+    public void mouseDragged(MouseEvent e) {
+        ui.mouseDragged(e);
     }
 
     public void unpause() {
         paused = false;
     }
 
-    public void mouseDragged(MouseEvent e) {
-        if (paused) {
-            pause.mouseDragged(e);
-        }
-    }
-
     public LevelManager getLevelManager() {
         return levelManager;
     }
+
+    public CollisionChecker getCollisionChecker() {
+        return  collisionChecker;
+    }
+
+    public PlayingUI getUi() {
+        return ui;
+    }
+    public boolean isPaused() {
+        return paused;
+    }
+    public InventoryManager getInventoryManager() {
+        return inventoryManager;
+    }
+    public ObjectManager getObjectManager() {
+        return objectManager;
+    }
+
 }

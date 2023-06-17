@@ -1,7 +1,7 @@
 package utilities;
 
 
-import main.Game;
+import main.GameModel;
 
 
 public class HelpMethods {
@@ -17,9 +17,9 @@ public class HelpMethods {
      */
     public static boolean checkWorldCamera(int worldX, int worldY, int playerX, int playerY,
                                            int playerScreenX, int playerScreenY) {
-        return (worldX + Game.tileSize > playerX - playerScreenX &&
-                worldX - Game.tileSize < playerX + playerScreenX &&
-                worldY + Game.tileSize > playerY - playerScreenY &&
-                worldY - Game.tileSize < playerY+ playerScreenY);
+        return (worldX + GameModel.tileSize > playerX - playerScreenX &&
+                worldX - GameModel.tileSize < playerX + playerScreenX &&
+                worldY + GameModel.tileSize > playerY - playerScreenY &&
+                worldY - GameModel.tileSize < playerY+ playerScreenY);
     }
 }

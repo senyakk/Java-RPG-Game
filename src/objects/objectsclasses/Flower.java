@@ -12,7 +12,7 @@ public class Flower extends Weapon {
      * @param worldY y position in the world
      */
     public Flower(float worldX, float worldY) {
-        super(worldX, worldY, OBJECT_SIZE*1.5f, OBJECT_SIZE*1.5f, "flower", 0.5f);
+        super(worldX, worldY, OBJECT_SIZE*1.5f, OBJECT_SIZE*1.5f, "flower", "flower",0.5f);
         initHitArea(0, 0, (int) (OBJECT_SIZE*0.65), (int) (OBJECT_SIZE*0.65));
     }
 }

@@ -15,8 +15,8 @@ public class Weapon extends GameObject {
      * @param height object's height
      * @param name   object's name
      */
-    public Weapon(float worldX, float worldY, float width, float height, String name, float attack) {
-        super(worldX, worldY, width, height, name);
+    public Weapon(float worldX, float worldY, float width, float height, String path, String name, float attack) {
+        super(worldX, worldY, width, height, path, name);
         this.attack = attack;
     }
 

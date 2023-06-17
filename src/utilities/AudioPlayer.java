@@ -167,7 +167,12 @@ public class AudioPlayer {
     }
 
     public void setLevelSong(int levelIndex) {
-
+        switch (levelIndex) {
+            case 0 -> playAmbient();
+            case 3 -> playDarkAmbient();
+            case 4 -> playAmbient();
+            default -> playAmbient();
+        }
     }
 
     /**

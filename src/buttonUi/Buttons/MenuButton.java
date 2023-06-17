@@ -1,6 +1,5 @@
 package buttonUi.Buttons;
 
-
 import gamestates.Gamestate;
 import buttonUi.GameButton;
 import utilities.Load;
@@ -16,7 +15,6 @@ public class MenuButton extends GameButton {
     private Gamestate state;
     private BufferedImage start, actStart, options, actOptions, quit, actQuit, returnB, actReturnB;
     private BufferedImage[] images;
-    private boolean mousePressed, mouseOver;
 
     public MenuButton (int x, int y, int width, int height,  int row, Gamestate state) {
 
@@ -29,30 +27,30 @@ public class MenuButton extends GameButton {
     }
 
     private void loadImages() {
-        images = new BufferedImage[4];
+        images = new BufferedImage[2];
          switch (row) {
              case 0 -> {
-                start = Load.GetSpriteImg("UI/MenuButtons/startButton.png");
+                start = Load.GetSpriteImg("UI/English/MenuButtons/startButton.png");
                 images[0] = start;
-                actStart = Load.GetSpriteImg("UI/MenuButtons/ActivatedstartButton.png");
+                actStart = Load.GetSpriteImg("UI/English/MenuButtons/ActivatedstartButton.png");
                 images[1] = actStart;
              }
             case 1 -> {
-                options = Load.GetSpriteImg("UI/MenuButtons/OptionsButton.png");
+                options = Load.GetSpriteImg("UI/English/MenuButtons/OptionsButton.png");
                 images[0] = options;
-                actOptions = Load.GetSpriteImg("UI/MenuButtons/ActivatedOptionsButton.png");
+                actOptions = Load.GetSpriteImg("UI/English/MenuButtons/ActivatedOptionsButton.png");
                 images[1] = actOptions;
             }
             case 2 -> {
-                quit = Load.GetSpriteImg("UI/MenuButtons/QuitButton.png");
+                quit = Load.GetSpriteImg("UI/English/MenuButtons/QuitButton.png");
                 images[0] = quit;
-                actQuit = Load.GetSpriteImg("UI/MenuButtons/activatedQuitButton.png");
+                actQuit = Load.GetSpriteImg("UI/English/MenuButtons/activatedQuitButton.png");
                 images[1] = actQuit;
             }
             case 3 -> {
-                returnB = Load.GetSpriteImg("UI/MenuButtons/returnButton.png");
+                returnB = Load.GetSpriteImg("UI/English/MenuButtons/returnButton.png");
                 images[0] = returnB;
-                actReturnB = Load.GetSpriteImg("UI/MenuButtons/ActivatedreturnButton.png");
+                actReturnB = Load.GetSpriteImg("UI/English/MenuButtons/ReturnActivatedButton.png");
                 images[1] = actReturnB;
             }
          }
@@ -64,34 +62,9 @@ public class MenuButton extends GameButton {
 
     public void update() {
         index = 0;
-        if(mouseOver) {
+        if(isMouseOver) {
             index = 1;
         }
-    }
-
-    public boolean isMousePressed() {
-        return mousePressed;
-    }
-
-    public void setMousePressed(boolean mousePressed) {
-        this.mousePressed = mousePressed;
-    }
-
-    public boolean isMouseOver() {
-        return mouseOver;
-    }
-
-    public void setMouseOver(boolean mouseOver) {
-        this.mouseOver = mouseOver;
-    }
-
-    public void setState() {
-        Gamestate.state = state;
-    }
-
-    public void resetBool() {
-        mouseOver = false;
-        mousePressed = false;
     }
 
     public Gamestate getState() {

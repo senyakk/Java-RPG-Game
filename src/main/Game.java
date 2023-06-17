@@ -1,150 +1,37 @@
 package main;
 
-import utilities.AudioPlayer;
-import gamestates.*;
-import gamestates.Menu;
-import buttonUi.AudioHandler;
+public class Game {
 
-import java.awt.*;
-
-public class Game implements Runnable {
-
-    // SCREEN SETTINGS
-    public final static int defaultTileSize = 64;
-    public final static float scale = 2.5f;
-    public static final int tileSize = (int)(defaultTileSize * scale);
-    // MAXIMUM NUMBER OF TILES IN A COLUMN
-    public static final int maxTileCol = 10;
-    // MAXIMUM NUMBER OF ROWS IN A COLUMN
-    public static final int maxTileRow = 6;
-    public final static int screenWidth = tileSize * maxTileCol;
-    public final static int screenHeight = tileSize * maxTileRow;
-
-    // WINDOW SETTINGS
+    // VIEW
     private GameScreen gameWindow;
     private GamePanel gamePanel;
 
-    // GAME STATES SETTINGS
-    private Menu menu;
-    private Playing playing;
-    private ClassSelection classSelection;
-    private AudioHandler audio;
-    private AudioPlayer audioPlayer;
-    private Options options;
+    // CONTROLLER
+    private GameController gameController;
+
+    // MODEL
+    private GameModel gameModel;
+
+    // GAME LOOP
     public Thread gameLoop;
 
-    // GAME LOOP SETTINGS
-    private final int FPS = 120;
-    private final int UPS = 120;
-
     /**
-     * Game constructor that initialises all game states, then
-     * creates GamePanel and GameWindow and starts the game loop
+     * Game constructor that creates GamePanel, GameController, GameModel, and GameWindow, and starts the game loop
      */
     public Game() {
-        init();
-        gamePanel = new GamePanel(this);
-        gameWindow = new GameScreen(gamePanel);
+        gamePanel = new GamePanel(); // View: Creates the game panel for rendering
+        gameModel = new GameModel(); // Model: Creates the game model
+        gameController = new GameController(gamePanel, gameModel); // Controller: Creates the game controller with the game model
+        gamePanel.setGameController(gameController); // View: Sets the game controller for the game panel
+        gameWindow = new GameScreen(gamePanel); // View: Creates the game window
+
         gamePanel.requestFocus();
+
         startGameLoop();
     }
 
-    private void init() {
-        audio = new AudioHandler(this);
-        audioPlayer = new AudioPlayer();
-        audioPlayer.playLightAmbient();
-
-        menu = new Menu(this);
-        classSelection = new ClassSelection(this);
-        playing = new Playing(this);
-        options = new Options(this);
-    }
-
     private void startGameLoop() {
-        gameLoop = new Thread(this);
-        gameLoop.start();
-    }
-
-    /**
-     * Update the game status for each given state
-     */
-    public void update() {
-        switch (Gamestate.state) {
-            case MENU -> menu.update();
-            case CLASS_SELECTION -> classSelection.update();
-            case PLAYING -> playing.update();
-            case OPTIONS -> options.update();
-            case QUIT -> System.exit(0);
-            default -> System.exit(0);
-        }
-    }
-
-    /**
-     * Draw game for each given state
-     * @param g Graphics object
-     */
-    public void render(Graphics g) {
-        switch (Gamestate.state) {
-            case MENU -> menu.draw(g);
-            case CLASS_SELECTION -> classSelection.draw(g);
-            case PLAYING -> playing.draw(g);
-            case OPTIONS -> options.draw(g);
-            default -> {
-            }
-        }
-    }
-
-    /**
-     * Run a game thread, updating the game UPS time per second and drawing the game FPS time per second
-     */
-    @Override
-    public void run() {
-        double timePerFrame = 1000000000.0 / FPS;
-        double timePerUpdate = 1000000000.0 / UPS;
-        long previousTime = System.nanoTime();
-        long lastCheck = System.currentTimeMillis();
-        double deltaU = 0;
-        double deltaF = 0;
-
-        while (gameLoop != null) {
-            long currentTime = System.nanoTime();
-            deltaU += (currentTime - previousTime) / timePerUpdate;
-            deltaF += (currentTime - previousTime) / timePerFrame;
-            previousTime = currentTime;
-
-            if (deltaU >= 1) {
-                update();
-                deltaU--;
-            }
-            if (deltaF >= 1) {
-                gamePanel.repaint();
-                deltaF--;
-            }
-            if (System.currentTimeMillis() - lastCheck >= 1000) {
-                lastCheck = System.currentTimeMillis();
-            }
-        }
-    }
-
-    public Menu getMenu() {
-        return menu;
-    }
-
-    public ClassSelection getClassSelection() {return classSelection;}
-
-    public Playing getPlaying() {
-        return playing;
-    }
-
-    public AudioHandler getAudio() {
-        return audio;
-    }
-
-    public Options getOptions() {
-        return options;
-    }
-
-    public AudioPlayer getAudioPlayer() {
-        return audioPlayer;
+        gameLoop = new Thread(gameController); // Controller: Creates a thread for the game controller
+        gameLoop.start(); // Controller: Starts the game loop in the controller
     }
 }

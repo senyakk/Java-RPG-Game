@@ -14,7 +14,6 @@ public class VolumeButton extends GameButton {
     private BufferedImage[]images;
     private BufferedImage slider;
     private int index = 0;
-    private boolean isMouseOver, isMousePressed;
     private int buttonX, minX, maxX;
     private float floatValue = 0f;
     public VolumeButton(int x, int y, int width, int height) {
@@ -29,7 +28,7 @@ public class VolumeButton extends GameButton {
     }
 
     private void loadImages() {
-        BufferedImage temp = Load.GetSpriteImg("UI/volume_buttons.png");
+        BufferedImage temp = Load.GetSpriteImg("UI/English/Options/volume_buttons.png");
         images = new BufferedImage[3];
         for (int i = 0; i <images.length; i++) {
             images[i] = temp.getSubimage(i* VOLUME_DEFAULT_WIDTH,0,
@@ -46,11 +45,6 @@ public class VolumeButton extends GameButton {
         if (isMousePressed()) {
             index = 2;
         }
-    }
-
-    public void reset() {
-        isMouseOver = false;
-        isMousePressed = false;
     }
 
     public void draw(Graphics g) {
@@ -77,22 +71,6 @@ public class VolumeButton extends GameButton {
         float value = buttonX - minX;
         floatValue = value/range;
 
-    }
-
-    public boolean isMouseOver() {
-        return isMouseOver;
-    }
-
-    public void setMouseOver(boolean mouseOver) {
-        isMouseOver = mouseOver;
-    }
-
-    public boolean isMousePressed() {
-        return isMousePressed;
-    }
-
-    public void setMousePressed(boolean mousePressed) {
-        isMousePressed = mousePressed;
     }
 
     public float getFloatValue () {

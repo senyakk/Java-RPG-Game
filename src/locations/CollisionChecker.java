@@ -1,12 +1,11 @@
 package locations;
 
 
-import locations.Level;
-import locations.LevelManager;
-import main.Game;
+import gamestates.Playing;
+import main.GameModel;
 import npcs.Creature;
 import objects.GameObject;
-import playerclasses.Player;
+import playerclasses.PlayerModel;
 
 import static utilities.Constants.Direction.*;
 
@@ -19,13 +18,16 @@ public class CollisionChecker {
 
     /**
      * Creates a collision checker
-     * @param levelManager LevelManager
+     * @param Playing playing class
      */
-    public CollisionChecker(LevelManager levelManager) {
-        this.levelManager = levelManager;
+    public CollisionChecker(Playing playing) {
+        this.levelManager = playing.getLevelManager();
         lvl = levelManager.getCurrentLevel();
     }
 
+    public void updateLevel() {
+        lvl = levelManager.getCurrentLevel();
+    }
     /**
      * Checks tile for the collision with it
      * @param entity Creature class that collides with a tile
@@ -38,49 +40,53 @@ public class CollisionChecker {
         int entityTopWorldY = (int) (entity.getWorldY() + entity.getHitArea().y);
         int entityBottomWorldY = (int) (entity.getWorldY() + entity.getHitArea().y + entity.getHitArea().height);
 
-        int entityLeftCol = entityLeftWorldX/ Game.tileSize;
-        int entityRightCol = entityRightWorldX/ Game.tileSize;
-        int entityTopRow = entityTopWorldY/ Game.tileSize;
-        int entityBottomRow = entityBottomWorldY/ Game.tileSize;
+        int entityLeftCol = entityLeftWorldX/ GameModel.tileSize;
+        int entityRightCol = entityRightWorldX/ GameModel.tileSize;
+        int entityTopRow = entityTopWorldY/ GameModel.tileSize;
+        int entityBottomRow = entityBottomWorldY/ GameModel.tileSize;
 
 
         // Can't move behind world borders
-        if (entityLeftCol < 0 || entityRightCol >= lvl.getWidth() * Game.tileSize)
+        if (entityLeftCol < 0 || entityRightCol >= lvl.getWidth() * GameModel.tileSize)
             entity.setCollision();
-        if (entityTopRow < 0 || entityBottomRow >= lvl.getHeight() * Game.tileSize)
+        if (entityTopRow < 0 || entityBottomRow >= lvl.getHeight() * GameModel.tileSize)
             entity.setCollision();
 
         int tileNum1, tileNum2;
 
         switch (entity.getDirection()) {
             case UP -> {
-                entityTopRow = (entityTopWorldY - (int) (entity.getSpeed())) / Game.tileSize;
+                entityTopRow = (entityTopWorldY - (int) (entity.getSpeed())) / GameModel.tileSize;
                 tileNum1 = lvl.getTileIndex(entityLeftCol, entityTopRow);
                 tileNum2 = lvl.getTileIndex(entityRightCol, entityTopRow);
+                checkEvent(levelManager.getTile(tileNum1), levelManager.getTile(tileNum2));
                 if (levelManager.getTile(tileNum1).collision && levelManager.getTile(tileNum2).collision) {
                     entity.setCollision();
                 }
             }
             case DOWN -> {
-                entityBottomRow = (entityBottomWorldY + (int) (entity.getSpeed())) / Game.tileSize;
+                entityBottomRow = (entityBottomWorldY + (int) (entity.getSpeed())) / GameModel.tileSize;
                 tileNum1 = lvl.getTileIndex(entityLeftCol, entityBottomRow);
                 tileNum2 = lvl.getTileIndex(entityRightCol, entityBottomRow);
+                checkEvent(levelManager.getTile(tileNum1), levelManager.getTile(tileNum2));
                 if (levelManager.getTile(tileNum1).collision && levelManager.getTile(tileNum2).collision) {
                     entity.setCollision();
                 }
             }
             case RIGHT -> {
-                entityRightCol = (entityRightWorldX + (int) (entity.getSpeed())) / Game.tileSize;
+                entityRightCol = (entityRightWorldX + (int) (entity.getSpeed())) / GameModel.tileSize;
                 tileNum1 = lvl.getTileIndex(entityRightCol, entityTopRow);
                 tileNum2 = lvl.getTileIndex(entityRightCol, entityBottomRow);
+                checkEvent(levelManager.getTile(tileNum1), levelManager.getTile(tileNum2));
                 if (levelManager.getTile(tileNum1).collision && levelManager.getTile(tileNum2).collision) {
                     entity.setCollision();
                 }
             }
             case LEFT -> {
-                entityLeftCol = (entityLeftWorldX - (int) (entity.getSpeed())) / Game.tileSize;
+                entityLeftCol = (entityLeftWorldX - (int) (entity.getSpeed())) / GameModel.tileSize;
                 tileNum1 = lvl.getTileIndex(entityLeftCol, entityTopRow);
                 tileNum2 = lvl.getTileIndex(entityLeftCol, entityBottomRow);
+                checkEvent(levelManager.getTile(tileNum1), levelManager.getTile(tileNum2));
                 if (levelManager.getTile(tileNum1).collision && levelManager.getTile(tileNum2).collision) {
                     entity.setCollision();
                 }
@@ -88,12 +94,30 @@ public class CollisionChecker {
         }
     }
 
+    public void checkEvent(Tile tile1, Tile tile2) {
+        if ((tile1.getName().equals("house")) || (tile2.getName().equals("house")))
+            levelManager.changeLevel(1);
+        else if (((tile1.getName().equals("transparentExitProfsHouse")) || (tile2.getName().equals("transparentExitProfsHouse"))))
+            levelManager.changeLevel(0);
+        else if (((tile1.getName().equals("transparentExitWitchHouse")) || (tile2.getName().equals("transparentExitWitchHouse"))))
+            levelManager.changeLevel(8);
+        else if (((tile1.getName().equals("witchHouseDoor")) || (tile2.getName().equals("witchHouseDoor"))))
+            levelManager.changeLevel(2);
+        else if (((tile1.getName().equals("gate")) || (tile2.getName().equals("gate"))))
+           levelManager.changeLevel(7);
+        else if (((tile1.getName().equals("fontain")) || (tile2.getName().equals("fontain"))))
+            levelManager.changeLevel(8);
+        else if (((tile1.getName().equals("treeDoor")) || (tile2.getName().equals("treeDoor"))))
+            levelManager.changeLevel(0); // Should go to forrest
+
+    }
+
     /**
      * Function for checking player's collision with an object
      * @param entity Player object
      * @return Object that player collided with
      */
-    public GameObject checkObject(Player entity) {
+    public GameObject checkObject(PlayerModel entity) {
 
         GameObject selectedObject = null;
 

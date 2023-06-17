@@ -8,17 +8,16 @@ import java.awt.image.BufferedImage;
 import static utilities.Constants.UI.PauseButtons.*;
 
 public class SoundButton extends GameButton {
-
-    private boolean isMouseOver, isMousePressed, isMuted;
     private BufferedImage[][] images;
     private int rowIndex, colIndex;
+    private boolean isMuted;
     public SoundButton(int x, int y, int width, int height) {
         super(x, y, width, height);
         loadImages();
     }
 
     private void loadImages() {
-        BufferedImage temp = Load.GetSpriteImg("UI/sound_button.png");
+        BufferedImage temp = Load.GetSpriteImg("UI/English/Options/sound_button.png");
         images = new BufferedImage[2][3];
         for (int j = 0; j < images.length; j++) {
             for (int i = 0; i <images[j].length; i++) {
@@ -44,29 +43,8 @@ public class SoundButton extends GameButton {
         }
     }
 
-    public void reset() {
-        isMouseOver = false;
-        isMousePressed = false;
-    }
-
     public void draw(Graphics g) {
         g.drawImage(images[rowIndex][colIndex], x, y, width, height, null);
-    }
-
-    public boolean isMouseOver() {
-        return isMouseOver;
-    }
-
-    public void setMouseOver(boolean mouseOver) {
-        isMouseOver = mouseOver;
-    }
-
-    public boolean isMousePressed() {
-        return isMousePressed;
-    }
-
-    public void setMousePressed(boolean mousePressed) {
-        isMousePressed = mousePressed;
     }
 
     public boolean isMuted() {

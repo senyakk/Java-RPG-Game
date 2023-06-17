@@ -2,8 +2,7 @@ package buttonUi;
 
 import buttonUi.Buttons.SoundButton;
 import buttonUi.Buttons.VolumeButton;
-import main.Game;
-import buttonUi.GameButton;
+import main.GameModel;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -17,25 +16,25 @@ public class AudioHandler {
     private SoundButton musicButton, sfxButton;
     private VolumeButton volumeButton;
 
-    private Game game;
+    private GameModel gameModel;
 
-    public AudioHandler(Game game) {
-        this.game = game;
+    public AudioHandler(GameModel gameModel) {
+        this.gameModel = gameModel;
         addSoundButtons();
         addVolumeButton();
 
     }
 
     private void addVolumeButton() {
-        int x = (int)(248 * Game.scale);
-        int y = (int)(198 * Game.scale);
+        int x = (int)(248 * GameModel.scale);
+        int y = (int)(198 * GameModel.scale);
         volumeButton = new VolumeButton(x, y, (int) (SLIDER_WIDTH), (int) (VOLUME_HEIGHT));
     }
 
     private void addSoundButtons() {
-        int x = (int)(345 * Game.scale);
-        int musicY = (int)(105 * Game.scale);
-        int sfxY = (int) (135 * Game.scale);
+        int x = (int)(345 * GameModel.scale);
+        int musicY = (int)(105 * GameModel.scale);
+        int sfxY = (int) (135 * GameModel.scale);
         musicButton = new SoundButton(x,musicY, SOUND_SIZE, SOUND_SIZE);
         sfxButton = new SoundButton(x,sfxY, SOUND_SIZE, SOUND_SIZE);
     }
@@ -58,7 +57,7 @@ public class AudioHandler {
             volumeButton.changeSlider(e.getX());
             float valueA = volumeButton.getFloatValue();
             if (valueB != valueA)
-                game.getAudioPlayer().setVolume(valueA);
+                gameModel.getAudioPlayer().setVolume(valueA);
         }
     }
 
@@ -78,13 +77,13 @@ public class AudioHandler {
         if (isInOBorder(e, musicButton)) {
             if (musicButton.isMousePressed()) {
                 musicButton.setMuted(!musicButton.isMuted());
-                game.getAudioPlayer().turnSongMute();
+                gameModel.getAudioPlayer().turnSongMute();
             }
         }
         else if (isInOBorder(e, sfxButton)) {
             if (sfxButton.isMousePressed()) {
                 sfxButton.setMuted(!sfxButton.isMuted());
-                game.getAudioPlayer().turnEffectMute();
+                gameModel.getAudioPlayer().turnEffectMute();
             }
         }
         musicButton.reset();

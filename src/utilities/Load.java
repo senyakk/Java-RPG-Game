@@ -2,7 +2,7 @@ package utilities;
 
 import locations.Level;
 import locations.Tile;
-import main.Game;
+import main.GameModel;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -15,7 +15,7 @@ public class Load {
 
     public static final String INVENTORY = "UI/InventoryScreenRealReso.png";
 
-    private static Tile[] tile = new Tile[10];
+    private static Tile[] tile = new Tile[60];
 
     /**
      * Load sprite images
@@ -133,7 +133,7 @@ public class Load {
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line = reader.readLine();
             if (line != null) {
-                String[] columns = line.split(" ");
+                String[] columns = line.split("\\s+");
                 width = columns.length;
             }
         } catch (IOException e) {
@@ -154,7 +154,60 @@ public class Load {
         setup(3, "017", false, "dirt");
         setup(4, "016", true, "tree");
         setup(5, "003", false, "sand");
-        setup(6, "033", true, "house");
+        setup(6, "033", false, "house");
+        setup(7, "transparent", false, "transparent");
+        setup(8, "transparent", true, "transparentCol");
+        setup(9, "transparent", true, "transparentExitProfsHouse");
+        setup(10, "078", true, "witchhousebottom");
+        setup(11, "080", true, "gate");
+
+        //Dragon cemetery tiles
+        setup(12, "039", true, "stone");
+        setup(13, "040", false, "darkGrass");
+        setup(14, "041", true, "tree");
+        setup(15, "042", true, "tomb");
+        setup(16, "043", true, "statue");
+        setup(17, "044", false, "stonePath");
+        setup(18, "045", true, "fenceSide");
+        setup(19, "046", true, "fenceUp");
+        setup(20, "047", true, "fontain");
+        setup(21, "048", true, "DragonDownRight");
+        setup(22, "049", true, "DragonDownLeft");
+        setup(23, "050", true, "DragonUpRight");
+        setup(24, "051", true, "DragonUpLeft");
+        setup(25, "052", true, "houseDown");
+        setup(26, "053", true, "houseUp");
+
+        // swamp tiles
+        setup(27, "054", true, "water");
+        setup(28, "055", true, "CUL"); //corner upper left
+        setup(29, "056", true, "CDL"); // corner down left
+        setup(30, "057", true, "CDR");
+        setup(31, "058", true, "CUR");
+        setup(32, "059", true, "downR");
+        setup(33, "060", true, "downL");
+        setup(34, "061", true, "upperR");
+        setup(35, "062", true, "upperL");
+        setup(36, "063", true, "leftSide");
+        setup(37, "064", true, "rightSide");
+        setup(38, "065", true, "down");
+        setup(39, "066", true, "up");
+        setup(40, "067", false, "swampGrass");
+        setup(41, "068", true, "swampTree");
+        setup(42, "069", true, "bush");
+        setup(43, "070", false, "orangeFlower");
+        setup(44, "071", false, "bridgeLeft");
+        setup(45, "073", false, "bridgeUp");
+        setup(46, "074", false, "bridgeDown");
+        setup(47, "075", false, "pinkFlower");
+        setup(48, "072", false, "bridgeRight");
+        setup(49, "076", false, "bridgeHorizontal");
+        setup(50, "077", false, "bridgeVertical");
+        setup(51, "078", true, "witchHouseDoor");
+        setup(52, "079", true, "witchHouseRoof");
+        setup(53, "transparent", true, "transparentExitWitchHouse");
+        setup(54, "081", true, "TreeDoor");
+        setup(55, "082", true, "treeLeaves");
 
         return tile;
     }
@@ -169,9 +222,9 @@ public class Load {
     public static void setup(int index, String imagePath, boolean collision, String name) {
 
         try {
-            tile[index] = new Tile();
+            tile[index] = new Tile(name);
             tile[index].image = ImageIO.read(Load.class.getResourceAsStream("/tiles/" + imagePath + ".png"));
-            tile[index].image = scaleImage(tile[index].image, Game.tileSize, Game.tileSize);
+            tile[index].image = scaleImage(tile[index].image, GameModel.tileSize, GameModel.tileSize);
             tile[index].collision = collision;
         }
         catch (IOException e) {

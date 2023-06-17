@@ -12,7 +12,7 @@ public class Bow extends Weapon {
      * @param worldY y position in the world
      */
     public Bow(float worldX, float worldY) {
-        super(worldX, worldY, OBJECT_SIZE*1.5f, OBJECT_SIZE*1.5f, "bow", 2f);
+        super(worldX, worldY, OBJECT_SIZE*1.5f, OBJECT_SIZE*1.5f, "bowItem", "bowItem",  2f);
         initHitArea(0, 0, (int) (OBJECT_SIZE*0.65), (int) (OBJECT_SIZE*0.65));
     }
 }

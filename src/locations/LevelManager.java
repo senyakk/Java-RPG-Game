@@ -1,69 +1,47 @@
 package locations;
 
-import playerclasses.Player;
-import main.Game;
+import gamestates.Playing;
+import main.GameModel;
+import playerclasses.PlayerModel;
 import utilities.Load;
-
-import java.awt.*;
 
 /**
  * Class that handles Levels
  */
 public class LevelManager {
 
+
+    private Playing playing;
     // Array of tiles in the game
     private Tile[] tile;
     // Array of levels in the game
     private Level[] levels;
+
     // Current level index
-    private int levelInd = 0;
+    private int levelInd;
 
     /**
      * Loads tiles and levels to the game
      */
-    public LevelManager() {
+    public LevelManager(Playing playing) {
+        this.playing = playing;
         tile = Load.getTiles();
         levels = Load.getAllLevels();
+
+        levels[1].setBackground(Load.GetSpriteImg("locations/Alchemisthouse.png"));
+        levels[2].setBackground(Load.GetSpriteImg("locations/WitchHouse.png"));
+        //levels[3].setBackground(Load.GetSpriteImg("locations/DragonCemetery.png"));
+        //levels[4].setBackground(Load.GetSpriteImg("locations/swampLocation.png"));
+
+        setStartLevel(0);
     }
 
-    /**
-     * Draws current level and updates the camera when player moves
-     * @param g Graphics object
-     * @param player Player object
-     */
-    public void draw(Graphics g, Player player) {
-        Level level = getCurrentLevel();
-
-        int worldCol = 0;
-        int worldRow = 0;
-
-        while(worldCol < level.getWidth() && worldRow < level.getHeight()) {
-
-            int tileNum = getCurrentLevel().getTileIndex(worldCol, worldRow);
-
-            int worldX = worldCol * Game.tileSize;
-            int worldY = worldRow * Game.tileSize;
-
-            // Code for camera following the player
-            int screenX = (int) (worldX - player.getWorldX() + player.getScreenX());
-            int screenY = (int) (worldY - player.getWorldY() + player.getScreenY());
-
-            // Condition for drawing only the world in the boundaries of the game screen
-            if (worldX + Game.tileSize > player.getWorldX() - player.getScreenX() &&
-                    worldX - Game.tileSize < player.getWorldX() + player.getScreenX() &&
-                    worldY + Game.tileSize > player.getWorldY() - player.getScreenY() &&
-                    worldY - Game.tileSize < player.getWorldY() + player.getScreenY()) {
-
-                g.drawImage(tile[tileNum].image, screenX, screenY, Game.tileSize, Game.tileSize, null);
-            }
-
-            worldCol++;
-
-            if (worldCol == level.getWidth()) {
-                worldCol = 0;
-                worldRow++;
-            }
-        }
+    // Check if a tile is within the bounds of the game screen
+    boolean isTileInBounds(int screenX, int screenY, PlayerModel player) {
+        return screenX + GameModel.tileSize > player.getScreenX() - GameModel.screenWidth / 2 &&
+                screenX - GameModel.tileSize < player.getScreenX() + GameModel.screenWidth / 2 &&
+                screenY + GameModel.tileSize > player.getScreenY() - GameModel.screenHeight / 2 &&
+                screenY - GameModel.tileSize < player.getScreenY() + GameModel.screenHeight / 2;
     }
 
     /**
@@ -75,8 +53,38 @@ public class LevelManager {
         return tile[x];
     }
 
+    public Tile[] getTiles() {
+        return tile;
+    }
+
     public void update() {
 
+    }
+
+    public void movePlayer(int origin) {
+        PlayerModel player = playing.getPlayer();
+        switch (getCurrentLevelId()) {
+            case 0 -> { //go to with coords in hometown
+                if (origin == 1) // when from professors house
+                    player.setCoordinates(22, 19);
+                else if (origin == 0) // When from hometown
+                    player.setCoordinates(22, 21);
+                if (origin == 8) // when from swamp
+                    player.setCoordinates(22, 21);
+                else if (origin == 7) // When from dragon cemetery
+                    player.setCoordinates(22, 21);
+            }
+            case 1 -> player.setCoordinates(3, 5); // Go to entrance in professors house
+            case 2 -> player.setCoordinates(4, 5); // Go to entrance in Witch house
+            case 7 -> player.setCoordinates(10, 23); // spawn of dragon cemetery
+            case 8 -> { // go to coords in swamp
+                if (origin == 7) // when from dragon Cemetery
+                    player.setCoordinates(34, 30); // swamp -> 34,23 is real spawn
+                if (origin == 2) // when from witch house
+                    player.setCoordinates(34, 29); // spawn outside the door
+            }
+        }
+        playing.getCollisionChecker().updateLevel();
     }
 
     /**
@@ -99,8 +107,16 @@ public class LevelManager {
      * Sets current level id
      * @param id index
      */
-    public void setCurrentLevel(int id) {
+    public void setStartLevel(int id) {
         levelInd = id;
+    }
+
+    public void changeLevel(int id) {
+        int origin = getCurrentLevelId();
+        levelInd = id;
+        movePlayer(origin);
+        playing.getObjectManager().resetAll();
+        playing.getGameModel().getAudioPlayer().setLevelSong(id);
     }
 
 }
