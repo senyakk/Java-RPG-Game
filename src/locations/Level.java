@@ -2,6 +2,7 @@ package locations;
 
 
 import main.GameModel;
+import npcs.NPC;
 import objects.GameObject;
 import utilities.Load;
 
@@ -16,6 +17,7 @@ public class Level {
     private BufferedImage background = null;
     private boolean hasBackground = false;
     private ArrayList<GameObject> gameObjects = new ArrayList<>(10);
+    private ArrayList<NPC> npcs = new ArrayList<>(5);
 
     public Level(int[][] lvlData) {
         this.lvlData = lvlData;
@@ -45,6 +47,11 @@ public class Level {
     public ArrayList<GameObject> getObjects() {
         return gameObjects;
     }
+
+    /**
+     * @return List of NPCs on a level
+     */
+    public ArrayList<NPC> getNPCs() {return npcs;}
 
     public void setBackground(BufferedImage background) {
         this.background = Load.scaleImage(background, GameModel.screenWidth, GameModel.screenHeight);

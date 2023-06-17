@@ -4,11 +4,20 @@ import gamestates.Playing;
 import locations.CollisionChecker;
 import objects.GameObject;
 import objects.objectsclasses.Key;
-import playerclasses.Player;
+import playerclasses.PlayerModel;
 import utilities.HelpMethods;
+import utilities.Load;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+
+/**
+ * @author Cansu
+ */
 
 public class NPC_Manager {
 
@@ -28,7 +37,7 @@ public class NPC_Manager {
     public void placeNPC() {
         switch (playing.getLevelManager().getCurrentLevelId()) {
             case 0 -> {
-                NPCs.add(new NPC(23, 23, 200, 200));
+                NPCs.add(new BabyDragon(10,20));
             }
         }
         for (NPC n : NPCs) {
@@ -39,7 +48,7 @@ public class NPC_Manager {
     public void drawNPC(Graphics g) {
         for (NPC n : NPCs) {
             if (n.checkActive()) {
-                Player player = playing.getPlayer();
+                PlayerModel player = playing.getPlayer();
                 int screenX = (int) (n.getWorldX() - player.getWorldX() + player.getScreenX());
                 int screenY = (int) (n.getWorldY() - player.getWorldY() + player.getScreenY());
 
@@ -59,10 +68,29 @@ public class NPC_Manager {
         drawNPC(g);
     }
 
+
+
     public void update() {
         for (NPC n : NPCs) {
             n.update();
         }
+    }
+
+    public static BufferedImage GetSpriteImg(String name) {
+        BufferedImage image = null;
+        InputStream sprites = Load.class.getResourceAsStream("/" + name);
+        try {
+            image = ImageIO.read(sprites);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                sprites.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return image;
     }
 
     public String[] getDialogues() {

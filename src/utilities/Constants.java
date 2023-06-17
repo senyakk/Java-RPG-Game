@@ -17,6 +17,11 @@ public class Constants {
         public static final int OBJECT_SIZE_DEFAULT = 16;
         public static final int OBJECT_SIZE = (int) (OBJECT_SIZE_DEFAULT * GameModel.scale);
     }
+
+    public static class NPCs {
+        public static final int NPCSizeDef = 16;
+        public static final int NPCSize = (int) (NPCSizeDef * GameModel.scale);
+    }
     public static class UI {
         // SIZE CONSTANT FOR MENU BUTTONS
         public static class MenuButtons {

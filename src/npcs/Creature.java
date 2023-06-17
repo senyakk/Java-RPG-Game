@@ -94,9 +94,4 @@ public abstract class Creature {
                 (int) (hitWidth * GameModel.scale), (int) (hitHeight * GameModel.scale));
     }
 
-    protected void drawNPCHitArea(Graphics g, int otherScreenX, int otherScreenY) {
-        g.setColor(Color.ORANGE);
-        g.drawRect((int) (otherScreenX + solidArea.x), (int) (otherScreenY + solidArea.y),
-                solidArea.width, solidArea.height);
-    }
 }
