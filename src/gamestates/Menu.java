@@ -13,8 +13,6 @@ import java.awt.image.BufferedImage;
 import static utilities.Constants.GameLanguage.*;
 import static utilities.Constants.UI.MenuButtons.*;
 
-
-
 /**
  * @author Arsenijs
  * Class that handles menu state
@@ -22,15 +20,13 @@ import static utilities.Constants.UI.MenuButtons.*;
 public class Menu extends State {
     private MenuButton[] buttons = new MenuButton[3];
     private BufferedImage backgroundImage;
-    private BufferedImage[] buttonImages;
-    private BufferedImage start, actStart, options, actOptions, quit, actQuit, returnB, actReturnB;
 
     public Menu(GameModel gameModel) {
         super(gameModel);
-        loadSprites();
+        loadSprites(getGameModel().getLanguage());
     }
 
-    private void loadSprites() {
+    private void loadSprites(int language) {
 
         switch(gameModel.getLanguage()) {
             case ENGLISH -> {
@@ -41,59 +37,20 @@ public class Menu extends State {
                 backgroundImage = Load.GetSpriteImg("UI/English/Startscreen.png");
             }
         }
-
-        private void loadImages() {
-            buttonImages = new BufferedImage[2];
-            switch (row) {
-                case 0 -> {
-                    start = Load.GetSpriteImg("UI/English/MenuButtons/startButton.png");
-                    buttonImages[0] = start;
-                    actStart = Load.GetSpriteImg("UI/English/MenuButtons/ActivatedstartButton.png");
-                    buttonImages[1] = actStart;
-                }
-                case 1 -> { // options
-                    switch(gameModel.getLanguage()) {
-                        case ENGLISH -> {
-                            options = Load.GetSpriteImg("UI/English/MenuButtons/OptionsButton.png");
-                            buttonImages[0] = options;
-                            actOptions = Load.GetSpriteImg("UI/English/MenuButtons/ActivatedOptionsButton.png");
-                            buttonImages[1] = actOptions;
-                        }
-                        case DUTCH -> {
-                            options = Load.GetSpriteImg("UI/Dutch/Options/ClassButtonsDutch/MenuButtons/optiesButton.png");
-                            buttonImages[0] = options;
-                            actOptions = Load.GetSpriteImg("UI/Dutch/Options/ClassButtonsDutch/MenuButtons/optiesActivatedButton.png");
-                            buttonImages[1] = actOptions;
-                        }
-                    }
-                }
-                case 2 -> {
-                    quit = Load.GetSpriteImg("UI/English/MenuButtons/QuitButton.png");
-                    buttonImages[0] = quit;
-                    actQuit = Load.GetSpriteImg("UI/English/MenuButtons/activatedQuitButton.png");
-                    buttonImages[1] = actQuit;
-                }
-                case 3 -> {
-                    returnB = Load.GetSpriteImg("UI/English/MenuButtons/returnButton.png");
-                    buttonImages[0] = returnB;
-                    actReturnB = Load.GetSpriteImg("UI/English/MenuButtons/ReturnActivatedButton.png");
-                    buttonImages[1] = actReturnB;
-                }
-            }
-        }
         buttons[0] = new MenuButton((int) (165 * GameModel.scale), (int) (170 * GameModel.scale),
-                B_WIDTH, B_HEIGHT, 0, Gamestate.CLASS_SELECTION);
+                B_WIDTH, B_HEIGHT, 0, Gamestate.CLASS_SELECTION, language);
         buttons[1] = new MenuButton((int) (320 * GameModel.scale), (int) (170 * GameModel.scale),
-                B_WIDTH, B_HEIGHT, 1, Gamestate.OPTIONS);
+                B_WIDTH, B_HEIGHT, 1, Gamestate.OPTIONS, language);
         buttons[2] = new MenuButton((int) (475 * GameModel.scale), (int) (170 * GameModel.scale),
-                B_WIDTH, B_HEIGHT, 2, Gamestate.QUIT);
+                B_WIDTH, B_HEIGHT, 2, Gamestate.QUIT, language);
     }
 
 
     @Override
     public void update() {
+        loadSprites(gameModel.getLanguage());
         for(MenuButton button : buttons) {
-            button.update();
+            button.update(gameModel.getLanguage());
         }
     }
 

@@ -35,7 +35,7 @@ public class GameModel {
     private AudioHandler audio; // Audio handler for managing game audio
     private AudioPlayer audioPlayer; // Audio player for playing audio clips
 
-    private int language = DUTCH; // Default language setting
+    private int language = ENGLISH; // Default language setting
 
     // SAVING PATH
     public static String SAVE_DIR = "..\\..\\resources\\saves\\";
@@ -88,9 +88,21 @@ public class GameModel {
     public int getLanguage() {
         return language;
     }
-
     public void setLanguage(int language) {
         this.language = language;
+        changeLanguage(language);
+    }
+
+    private void changeLanguage(int language) {
+        switch (language) {
+            case DUTCH -> {
+
+            }
+            case ENGLISH -> {
+
+            }
+        }
+
     }
 
 }
