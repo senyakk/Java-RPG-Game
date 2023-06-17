@@ -3,7 +3,11 @@ package npcs;
 import utilities.Constants;
 import utilities.Load;
 
+import java.awt.image.BufferedImage;
+
 import static utilities.Constants.NPCs.NPCSize;
+import static utilities.Constants.NPCs.NPCSizeDef;
+import static utilities.Load.GetSpriteImg;
 
 public class BabyDragon extends NPC {
 
@@ -23,6 +27,20 @@ public class BabyDragon extends NPC {
         dialogues[1] = "Speak to the professor for more information";
         dialogues[2] = "You can find him in his house";
     }
+    public void update() {
+        updateAnimation();
+    }
 
+
+    private void loadNPCImages() {
+        images = new BufferedImage[1][4];
+        BufferedImage temp = GetSpriteImg("BabyGreenDragonIdleSide");
+        for(int j = 0; j < images.length; j++) {
+            for (int i = 0; i < images[j].length; i++) {
+                images[j][i] = temp.getSubimage(i * NPCSizeDef, j* NPCSizeDef,
+                        NPCSizeDef, NPCSizeDef);
+            }
+        }
+    }
 
 }

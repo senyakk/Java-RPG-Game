@@ -37,7 +37,7 @@ public class NPC_Manager {
     public void placeNPC() {
         switch (playing.getLevelManager().getCurrentLevelId()) {
             case 0 -> {
-                NPCs.add(new BabyDragon(10,20));
+                NPCs.add(new BabyDragon(19 ,19));
             }
         }
         for (NPC n : NPCs) {
@@ -67,8 +67,6 @@ public class NPC_Manager {
     public void draw(Graphics g) {
         drawNPC(g);
     }
-
-
 
     public void update() {
         for (NPC n : NPCs) {
