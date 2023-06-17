@@ -6,6 +6,9 @@ import utilities.Load;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+
+import static utilities.Constants.GameLanguage.DUTCH;
+import static utilities.Constants.GameLanguage.ENGLISH;
 import static utilities.Constants.UI.MenuButtons.*;
 
 public class MenuButton extends GameButton {
@@ -35,11 +38,21 @@ public class MenuButton extends GameButton {
                 actStart = Load.GetSpriteImg("UI/English/MenuButtons/ActivatedstartButton.png");
                 images[1] = actStart;
              }
-            case 1 -> {
-                options = Load.GetSpriteImg("UI/English/MenuButtons/OptionsButton.png");
-                images[0] = options;
-                actOptions = Load.GetSpriteImg("UI/English/MenuButtons/ActivatedOptionsButton.png");
-                images[1] = actOptions;
+            case 1 -> { // options
+                switch(gameModel.getLanguage()) {
+                    case ENGLISH -> {
+                        options = Load.GetSpriteImg("UI/English/MenuButtons/OptionsButton.png");
+                        images[0] = options;
+                        actOptions = Load.GetSpriteImg("UI/English/MenuButtons/ActivatedOptionsButton.png");
+                        images[1] = actOptions;
+                    }
+                    case DUTCH -> {
+                        options = Load.GetSpriteImg("UI/Dutch/Options/ClassButtonsDutch/MenuButtons/optiesButton.png");
+                        images[0] = options;
+                        actOptions = Load.GetSpriteImg("UI/Dutch/Options/ClassButtonsDutch/MenuButtons/optiesActivatedButton.png");
+                        images[1] = actOptions;
+                    }
+                }
             }
             case 2 -> {
                 quit = Load.GetSpriteImg("UI/English/MenuButtons/QuitButton.png");
