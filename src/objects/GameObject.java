@@ -78,18 +78,6 @@ public class GameObject {
     }
 
     /**
-     * Draw hitbox
-     * @param g graphics object
-     * @param otherScreenX x position of the object on the screen
-     * @param otherScreenY y position of the object on the screen
-     */
-    protected void drawObjectHitArea(Graphics g, int otherScreenX, int otherScreenY) {
-        g.setColor(Color.ORANGE);
-        g.drawRect((int) (otherScreenX + solidArea.x), (int) (otherScreenY + solidArea.y),
-                solidArea.width, solidArea.height);
-    }
-
-    /**
      * Add collision checker to the object
      * @param collisionChecker
      */
