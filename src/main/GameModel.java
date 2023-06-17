@@ -11,7 +11,7 @@ public class GameModel {
 
     // SCREEN SETTINGS
     public final static int defaultTileSize = 64;
-    public final static float scale = 2.5f;
+    public final static float scale = 1.5f;
     public static final int tileSize = (int)(defaultTileSize * scale);
     // MAXIMUM NUMBER OF TILES IN A COLUMN
     public static final int maxTileCol = 10;
@@ -35,7 +35,7 @@ public class GameModel {
     private AudioHandler audio; // Audio handler for managing game audio
     private AudioPlayer audioPlayer; // Audio player for playing audio clips
 
-    private int language = DUTCH; // Default language setting
+    private int language = ENGLISH; // Default language setting
 
     // SAVING PATH
     public static String SAVE_DIR = "..\\..\\resources\\saves\\";
@@ -88,9 +88,21 @@ public class GameModel {
     public int getLanguage() {
         return language;
     }
-
     public void setLanguage(int language) {
         this.language = language;
+        changeLanguage(language);
+    }
+
+    private void changeLanguage(int language) {
+        switch (language) {
+            case DUTCH -> {
+
+            }
+            case ENGLISH -> {
+
+            }
+        }
+
     }
 
 }

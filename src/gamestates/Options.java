@@ -3,7 +3,6 @@ package gamestates;
 import buttonUi.AudioHandler;
 import buttonUi.GameButton;
 import buttonUi.Buttons.ReplayButton;
-import main.Game;
 import main.GameModel;
 import utilities.Load;
 
@@ -53,7 +52,7 @@ public class Options extends State {
             case DUTCH -> {
                 // Dutch buttons here
                 backgroundImage = Load.GetSpriteImg("UI/English/Startscreen.png");
-                optionsBackgroundImage = Load.GetSpriteImg("UI/Dutch/Options/options_background_Dutch.png");
+                optionsBackgroundImage = Load.GetSpriteImg("UI/Dutch/Options/ClassButtonsDutch/Options/options_background_Dutch.png");
             }
         }
         bgW = (int) (optionsBackgroundImage.getWidth() * GameModel.scale/1.5);

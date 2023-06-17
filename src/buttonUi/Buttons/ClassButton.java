@@ -6,6 +6,8 @@ import utilities.Load;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+import static utilities.Constants.GameLanguage.DUTCH;
+import static utilities.Constants.GameLanguage.ENGLISH;
 import static utilities.Constants.PlayerConstants.*;
 import static utilities.Constants.UI.MenuButtons.B_HEIGHT;
 import static utilities.Constants.UI.MenuButtons.B_WIDTH;
@@ -14,54 +16,74 @@ import static utilities.Constants.UI.MenuButtons.B_WIDTH;
 
 public class ClassButton extends GameButton {
 
-    private int posX, posY, index;
+    private int posX, posY, index, language;
     private int offsetX = B_WIDTH / 2;
     private BufferedImage warrior, warAct, archer, archAct, bard, bardAct;
-    private BufferedImage[] images;
+    private BufferedImage[][] EngImages = new BufferedImage[3][2],
+            DutchImages = new BufferedImage[3][2], currentImages = new BufferedImage[3][2];
     private int gameClass;
 
-    public ClassButton(int x, int y, int width, int height, int gameClass) {
+    public ClassButton(int x, int y, int width, int height, int gameClass, int language) {
         super(x- (B_WIDTH / 2), y, width, height);
         this.posX = x;
         this.posY = y;
         this.gameClass = gameClass;
+        this.language = language;
         loadImages();
     }
 
     private void loadImages() {
-        images = new BufferedImage[2];
-        switch (gameClass) {
-            case WARRIOR -> {
+        switch(language) {
+            case ENGLISH -> {
                 warrior = Load.GetSpriteImg("UI/English/ClassButtons/WarriorButton.png");
-                images[0] = warrior;
+                EngImages[0][0] = warrior;
                 warAct = Load.GetSpriteImg("UI/English/ClassButtons/WarriorActivatedButton.png");
-                images[1] = warAct;
-            }
-            case ARCHER -> {
+                EngImages[0][1] = warAct;
                 archer = Load.GetSpriteImg("UI/English/ClassButtons/ArcherButton.png");
-                images[0] = archer;
+                EngImages[1][0] = archer;
                 archAct = Load.GetSpriteImg("UI/English/ClassButtons/ArcherActivatedButton.png");
-                images[1] = archAct;
-            }
-            case BARD -> {
+                EngImages[1][1] = archAct;
                 bard = Load.GetSpriteImg("UI/English/ClassButtons/BardButton.png");
-                images[0] = bard;
+                EngImages[2][0] = bard;
                 bardAct = Load.GetSpriteImg("UI/English/ClassButtons/BardActivatedButton.png");
-                images[1] = bardAct;
+                EngImages[2][1] = bardAct;
+            }
+            case DUTCH -> {
+                warrior = Load.GetSpriteImg("UI/Dutch/Options/ClassButtonsDutch/classButtons/krijgerButton.png");
+                EngImages[0][0] = warrior;
+                warAct = Load.GetSpriteImg("UI/Dutch/Options/ClassButtonsDutch/classButtons/krijgerAtivatedButton.png");
+                EngImages[0][1] = warAct;
+                archer = Load.GetSpriteImg("UI/Dutch/Options/ClassButtonsDutch/classButtons/boogschutterButton.png");
+                EngImages[1][0] = archer;
+                archAct = Load.GetSpriteImg("UI/Dutch/Options/ClassButtonsDutch/classButtons/boogschutterActivatedButton.png");
+                EngImages[1][1] = archAct;
+                bard = Load.GetSpriteImg("UI/Dutch/Options/ClassButtonsDutch/classButtons/dichterButton.png");
+                EngImages[2][0] = bard;
+                bardAct = Load.GetSpriteImg("UI/Dutch/Options/ClassButtonsDutch/classButtons/dichterActivatedButton.png");
+                EngImages[2][1] = bardAct;
             }
         }
     }
-
-    public void draw(Graphics g) {
-        g.drawImage(images[index], posX - offsetX, posY, B_WIDTH, B_HEIGHT, null);
-    }
-
 
     public int getGameClassClass() {
         return gameClass;
     }
 
-    public void update() {
+    public void draw(Graphics g) {
+        gameClass = getGameClassClass();
+        g.drawImage(currentImages[gameClass][index], posX - offsetX, posY, B_WIDTH, B_HEIGHT, null);
+    }
+
+
+    public void update(int language) {
+        switch (language) {
+            case DUTCH -> {
+                currentImages = DutchImages;
+            }
+            case ENGLISH -> {
+                currentImages = EngImages;
+            }
+        }
         index = 0;
         if(isMouseOver) {
             index = 1;

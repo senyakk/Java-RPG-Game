@@ -23,10 +23,10 @@ public class Menu extends State {
 
     public Menu(GameModel gameModel) {
         super(gameModel);
-        loadSprites();
+        loadSprites(getGameModel().getLanguage());
     }
 
-    private void loadSprites() {
+    private void loadSprites(int language) {
 
         switch(gameModel.getLanguage()) {
             case ENGLISH -> {
@@ -39,18 +39,19 @@ public class Menu extends State {
         }
 
         buttons[0] = new MenuButton((int) (165 * GameModel.scale), (int) (170 * GameModel.scale),
-                B_WIDTH, B_HEIGHT, 0, Gamestate.CLASS_SELECTION);
+                B_WIDTH, B_HEIGHT, 0, Gamestate.CLASS_SELECTION, language);
         buttons[1] = new MenuButton((int) (320 * GameModel.scale), (int) (170 * GameModel.scale),
-                B_WIDTH, B_HEIGHT, 1, Gamestate.OPTIONS);
+                B_WIDTH, B_HEIGHT, 1, Gamestate.OPTIONS, language);
         buttons[2] = new MenuButton((int) (475 * GameModel.scale), (int) (170 * GameModel.scale),
-                B_WIDTH, B_HEIGHT, 2, Gamestate.QUIT);
+                B_WIDTH, B_HEIGHT, 2, Gamestate.QUIT, language);
     }
 
 
     @Override
     public void update() {
+        loadSprites(gameModel.getLanguage());
         for(MenuButton button : buttons) {
-            button.update();
+            button.update(gameModel.getLanguage());
         }
     }
 
