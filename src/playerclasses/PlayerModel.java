@@ -142,6 +142,15 @@ public class PlayerModel extends Creature {
         //System.out.println("X: " + (int)(worldX/ GameModel.tileSize) + " Y: " + (int)(worldY/ GameModel.tileSize));
     }
 
+    /**
+     * Sends pickup information to inventory manager
+     * @param itemID is the unique ID of the item corresponding to the GameObject
+     * @author Cata Mihit
+     */
+    private void notifyInventoryManager(String itemID, String itemClass){
+        playing.getInventoryManager().notifyPickup(itemID, itemClass);
+    }
+
     /** Method for picking op object
      * @param object
      */
@@ -150,11 +159,14 @@ public class PlayerModel extends Creature {
             switch (object.getName()) {
                 case "key" -> {
                     playing.getGameModel().getAudioPlayer().playEffect(COIN);
+                    notifyInventoryManager("5", "GenericItem");
                     object.deactivate();
                 }
                 case "boots" -> {
                     speed+= 2;
                     playing.getGameModel().getAudioPlayer().playEffect(POWERUP);
+                    notifyInventoryManager("6", "GenericItem");
+
                     object.deactivate();
                 }
             }

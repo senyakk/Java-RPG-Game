@@ -93,6 +93,7 @@ public class Constants {
                 put("3", new ItemData("3","Arrow","Pijl","arrowItem"));
                 put("4", new ItemData("4","Flower","Bloem","online resources/flower_02a"));
                 put("5", new ItemData("5","Key","Sleutel","keyItem"));
+                put("6", new ItemData("6","Boots","Laarzen","online resources/boots_01e"));
             }
         };
     }

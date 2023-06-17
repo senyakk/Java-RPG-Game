@@ -138,14 +138,6 @@ public class InventoryManager {
         }
     }
 
-    public void resetAll(){
-        this.inventory.reset();
-    }
-
-    public void update(){
-        // ?
-    }
-
     /*
         Event handling -> current button implementation does not allow for
         an individual button's listener to handle events, so the inventoryManager
@@ -190,6 +182,25 @@ public class InventoryManager {
                     System.out.println("INVENTORY: This element is not in the inventory!");
                 }
             }
+        }
+    }
+
+    /**
+     * Resets inventory upon exiting the playing state
+     */
+    public void resetAll(){
+        this.inventory.reset();
+    }
+
+    public void update(){
+        // ?
+    }
+
+    public void notifyPickup(String itemID, String itemClass){
+        switch (itemClass){
+            case "WeaponItem" -> inventory.addItem(new WeaponItem(itemID, 2.0f));
+            // other item classes
+            default -> inventory.addItem(new GenericItem(itemID));
         }
     }
 }
