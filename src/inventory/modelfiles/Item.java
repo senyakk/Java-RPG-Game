@@ -5,6 +5,7 @@ import utilities.Constants;
 import java.awt.image.BufferedImage;
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -16,7 +17,7 @@ public abstract class Item implements Serializable {
     private static final long serialVersionUID = 2L;
 
     protected String id;
-    protected String displayName;
+    protected ArrayList<String> displayNames;
     protected boolean isVisible;
     protected String spriteLoc;
     protected BufferedImage sprite;
@@ -27,7 +28,7 @@ public abstract class Item implements Serializable {
      */
     protected Item(String id){
         this.id = id;
-        setDisplayName();
+        setDisplayNames();
         setVisibility();
         setSpriteLoc();
     }
@@ -41,23 +42,18 @@ public abstract class Item implements Serializable {
     }
 
     /**
-     * Setter for the display name of the Item object, realized by accessing the item list and
-     * getting the display name (based on game language)
-     * Ideally should be updated by a prop listener when the game language changes
+     * Setter for the display names of the Item object, realized by accessing the item list
      */
-    protected void setDisplayName(){
-        // if (language == Constants.GameLanguage.ENGLISH) else { but cant access game language rn
-
-        int language = Constants.GameLanguage.DUTCH;
-        this.displayName = Constants.ItemList.ITEM_LIST.get(id).getDisplayNames().get(language);
+    protected void setDisplayNames(){
+        this.displayNames = Constants.ItemList.ITEM_LIST.get(id).getDisplayNames();
     }
 
     /**
      * Gets the display name of the Item object, which is based on ID and current game language
      * @return the set display name based on language
      */
-    public String getDisplayName(){
-        return this.displayName;
+    public ArrayList<String> getDisplayNames(){
+        return this.displayNames;
     }
 
     /**
