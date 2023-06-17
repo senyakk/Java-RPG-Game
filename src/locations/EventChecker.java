@@ -1,5 +1,6 @@
 package locations;
 
+import buttonUi.Buttons.ClassButton;
 import gamestates.Playing;
 import main.GameModel;
 import playerclasses.PlayerModel;
@@ -16,7 +17,6 @@ public class EventChecker {
     Rectangle eventArea;
     int eventRectX, eventRectY;
     PlayerModel player;
-
 
     public EventChecker(Playing playing) {
 
@@ -58,7 +58,7 @@ public class EventChecker {
 
             }
             case 7 -> { // in dragon cemetery
-                if ( hit(34, 15, 5) || hit(35, 15, 5) ) {
+                if ( hit(34, 15, UP) || hit(35, 15, UP) || hit(35, 16, UP)|| hit(34, 16, UP)) {
                     switch (playing.getGameModel().getLanguage()) {
                         case ENGLISH ->
                                 playing.getUi().showMessage("Ah yes, the human");

@@ -120,11 +120,41 @@ public class CollisionChecker {
                 }
             }
         else if (((tile1.getName().equals("fontain")) || (tile2.getName().equals("fontain"))))
+        if (playing.getInventoryManager().isInInventory("7")) {
             levelManager.changeLevel(8);
+        }
+        else {
+            switch (playing.getGameModel().getLanguage()) {
+                case ENGLISH ->
+                        playing.getUi().showMessage("You cannot enter the portal without dragonbone, find the old dragon statue");
+                case DUTCH ->
+                        playing.getUi().showMessage("Je kan niet door de portaal zonder het drakenbot, zoek het oude drakenbeeld");
+            }
+        }
         else if (((tile1.getName().equals("treeDoor")) || (tile2.getName().equals("treeDoor"))))
-            levelManager.changeLevel(9);
+            if (playing.getInventoryManager().isInInventory("8")) {
+                levelManager.changeLevel(9);
+            }
+            else {
+                switch (playing.getGameModel().getLanguage()) {
+                    case ENGLISH ->
+                            playing.getUi().showMessage("You cannot enter the portal without the special firefly, find the witch hut");
+                    case DUTCH ->
+                            playing.getUi().showMessage("Je kan niet door de portaal zonder het vuurvliegje, zoek het heksenhuisje");
+                }
+            }
         else if (((tile1.getName().equals("portal")) || (tile2.getName().equals("portal"))))
-            levelManager.changeLevel(0);
+            if (playing.getInventoryManager().isInInventory("10")) {
+                levelManager.changeLevel(0);
+            }
+            else {
+                switch (playing.getGameModel().getLanguage()) {
+                    case ENGLISH ->
+                            playing.getUi().showMessage("You cannot enter the portal without the dragon cure, find the magic tree");
+                    case DUTCH ->
+                            playing.getUi().showMessage("Je kan niet door de portaal zonder het geneesmiddel, zoek de grote boom");
+                }
+            }
     }
 
     /**

@@ -112,6 +112,12 @@ public class AudioPlayer {
         playSong(start);
     }
 
+    public void playDarkAmbient2() {
+        int start = DARK_AMBIENT_2;
+        start += random.nextInt(1);
+        playSong(start);
+    }
+
     /**
      * Plays action music
      */
@@ -169,8 +175,11 @@ public class AudioPlayer {
     public void setLevelSong(int levelIndex) {
         switch (levelIndex) {
             case 0 -> playAmbient();
-            case 3 -> playDarkAmbient();
-            case 4 -> playAmbient();
+            case 1 -> playAmbient();
+            case 2 -> playDarkAmbient();
+            case 7 -> playDarkAmbient();
+            case 8 -> playDarkAmbient2();
+            case 9 -> playDarkAmbient2();
             default -> playAmbient();
         }
     }
