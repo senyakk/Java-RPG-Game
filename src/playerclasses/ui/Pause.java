@@ -26,6 +26,7 @@ public class Pause {
     private ReplayButton menuButton, replayButton, unpauseButton;
     private Playing playing;
     private AudioHandler audioHandler;
+    private int language;
 
     public Pause(Playing playing) {
         this.playing = playing;
@@ -47,13 +48,14 @@ public class Pause {
 
 
     private void loadBackground() {
-        switch (playing.getGameModel().getLanguage()) {
+        this.language = playing.getGameModel().getLanguage();
+        switch (language) {
             case ENGLISH -> {
                 background = Load.GetSpriteImg("UI/English/Options/pause_menu.png");
             }
             case DUTCH -> {
                 // Dutch pause here
-                background = Load.GetSpriteImg("UI/Dutch/Options/ClassButtonsDutch/Options/pause_menu_Dutch.png");
+                background = Load.GetSpriteImg("UI/Dutch/Options/pause_menu_Dutch.png");
             }
         }
         width = (int)(background.getWidth() * GameModel.scale/1.5);
@@ -63,6 +65,10 @@ public class Pause {
     }
 
     public void update() {
+
+        if (playing.getGameModel().getLanguage() != this.language) {
+            loadBackground();
+        }
 
         menuButton.update();
         unpauseButton.update();
