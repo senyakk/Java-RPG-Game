@@ -41,9 +41,6 @@ public class NPC_Manager {
                 NPCs.add(new BabyDragon(24 ,19));
                 NPCs.add(new Professor(22 ,22));
             }
-            case 1 -> {
-                NPCs.add(new Professor(3 ,3));
-            }
         }
         for (NPC n : NPCs) {
             n.addCollisionChecker(collisionChecker);
