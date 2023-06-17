@@ -34,9 +34,21 @@ public class ObjectView {
                     // Draw object
                     g.drawImage(k.getImage(), screenX, screenY, k.getWidth(), k.getHeight(), null);
                     // Draw object hitbox
-                    k.drawObjectHitArea(g, screenX, screenY);
+                    drawObjectHitArea(g, k, screenX, screenY);
                 }
             }
         }
+    }
+
+    /**
+     * Draw hitbox
+     * @param g graphics object
+     * @param otherScreenX x position of the object on the screen
+     * @param otherScreenY y position of the object on the screen
+     */
+    protected void drawObjectHitArea(Graphics g, GameObject k, int otherScreenX, int otherScreenY) {
+        g.setColor(Color.ORANGE);
+        g.drawRect((int) (otherScreenX + k.getHitArea().x), (int) (otherScreenY + k.getHitArea().y),
+                k.getHitArea().width, k.getHitArea().y);
     }
 }
