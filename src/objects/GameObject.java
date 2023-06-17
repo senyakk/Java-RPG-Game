@@ -31,7 +31,7 @@ public class GameObject {
      * @param height object's height
      * @param name object's name
      */
-    public GameObject(float worldX, float worldY, float width, float height, String name) {
+    public GameObject(float worldX, float worldY, float width, float height, String path, String name) {
         this.worldX = (worldX * GameModel.tileSize) - width /2 + (float) GameModel.tileSize / 2;
         this.worldY = (worldY * GameModel.tileSize) - height /2 + (float) GameModel.tileSize / 2;
         this.width = width;
@@ -39,7 +39,7 @@ public class GameObject {
         this.name = name;
 
         try {
-            image = ImageIO.read(getClass().getResourceAsStream("/objects/" + name +".png"));
+            image = ImageIO.read(getClass().getResourceAsStream("/items/" + path +".png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

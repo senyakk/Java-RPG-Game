@@ -88,12 +88,12 @@ public class Constants {
         public static final HashMap<String, ItemData> ITEM_LIST = new HashMap<String, ItemData>(){
             {
                 put("0", new ItemData("0","","","0"));
-                put("1", new ItemData("1","Sword","Zwaard","online resources/sword_01b"));
+                put("1", new ItemData("1","Sword","Zwaard","online_resources/sword_01b"));
                 put("2", new ItemData("2","Bow","Boog","bowItem"));
                 put("3", new ItemData("3","Arrow","Pijl","arrowItem"));
-                put("4", new ItemData("4","Flower","Bloem","online resources/flower_02a"));
+                put("4", new ItemData("4","Flower","Bloem","online_resources/flower_02a"));
                 put("5", new ItemData("5","Key","Sleutel","keyItem"));
-                put("6", new ItemData("6","Boots","Laarzen","online resources/boots_01e"));
+                put("6", new ItemData("6","Boots","Laarzen","online_resources/boots_01e"));
             }
         };
     }

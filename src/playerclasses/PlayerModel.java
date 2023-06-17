@@ -157,7 +157,7 @@ public class PlayerModel extends Creature {
     private void pickUpObject(GameObject object) {
         if (object != null) {
             switch (object.getName()) {
-                case "key" -> {
+                case "keyItem" -> {
                     playing.getGameModel().getAudioPlayer().playEffect(COIN);
                     notifyInventoryManager("5", "GenericItem");
                     object.deactivate();
@@ -166,7 +166,6 @@ public class PlayerModel extends Creature {
                     speed+= 2;
                     playing.getGameModel().getAudioPlayer().playEffect(POWERUP);
                     notifyInventoryManager("6", "GenericItem");
-
                     object.deactivate();
                 }
             }
