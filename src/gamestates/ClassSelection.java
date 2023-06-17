@@ -32,10 +32,11 @@ public class ClassSelection extends State {
      */
     public ClassSelection(GameModel gameModel) {
         super(gameModel);
-        loadSprites(getGameModel().getLanguage());
+        loadSprites();
+        addButtons(gameModel.getLanguage());
     }
 
-    private void loadSprites(int language) {
+    private void loadSprites() {
         switch (gameModel.getLanguage()) {
             case ENGLISH -> {
                 backgroundImage = Load.GetSpriteImg("UI/English/StartscreenSelectClass.png");
@@ -45,6 +46,8 @@ public class ClassSelection extends State {
                 backgroundImage = Load.GetSpriteImg("UI/English/StartscreenSelectClass.png");
             }
         }
+    }
+    private void addButtons(int language) {
         buttons[0] = new ClassButton((int) (165 * GameModel.scale), (int) (170 * GameModel.scale),
                 B_WIDTH, B_HEIGHT, WARRIOR, language);
         buttons[1] = new ClassButton((int) (320 * GameModel.scale), (int) (170 * GameModel.scale),
@@ -58,11 +61,10 @@ public class ClassSelection extends State {
 
     @Override
     public void update() {
-        loadSprites(gameModel.getLanguage());
         for(ClassButton button : buttons) {
             button.update(gameModel.getLanguage());
         }
-        returnButton.update();
+        returnButton.update(gameModel.getLanguage());
     }
 
     @Override

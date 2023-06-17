@@ -30,6 +30,11 @@ public class ClassButton extends GameButton {
         this.gameClass = gameClass;
         this.language = language;
         loadImages();
+
+        switch (language) {
+            case ENGLISH -> currentImages = EngImages;
+            case DUTCH -> currentImages = DutchImages;
+        }
     }
 
     private void loadImages() {
@@ -70,23 +75,21 @@ public class ClassButton extends GameButton {
     }
 
     public void draw(Graphics g) {
-        gameClass = getGameClassClass();
         g.drawImage(currentImages[gameClass][index], posX - offsetX, posY, B_WIDTH, B_HEIGHT, null);
     }
 
 
     public void update(int language) {
-        switch (language) {
-            case DUTCH -> {
-                currentImages = DutchImages;
-            }
-            case ENGLISH -> {
-                currentImages = EngImages;
-            }
-        }
         index = 0;
         if(isMouseOver) {
             index = 1;
+        }
+
+        if (language != this.language) {
+            switch (language) {
+                case DUTCH -> currentImages = DutchImages;
+                case ENGLISH -> currentImages = EngImages;
+            }
         }
     }
 

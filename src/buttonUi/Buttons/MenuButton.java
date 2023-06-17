@@ -16,7 +16,7 @@ public class MenuButton extends GameButton {
     private int posX, posY, row, index, language;
     private int offsetX = B_WIDTH / 2;
     private Gamestate state;
-    private BufferedImage start, actStart, options, actOptions, quit, actQuit, returnB, actReturnB;
+    private BufferedImage options, actOptions, quit, actQuit, returnB, actReturnB;
     private BufferedImage[][] EngImages = new BufferedImage[4][2],
             DutchImages = new BufferedImage[4][2], currentImages = new BufferedImage[4][2];
 
@@ -48,12 +48,9 @@ public class MenuButton extends GameButton {
         switch(language) {
             case ENGLISH -> {
                 EngImages[1][0] = Load.GetSpriteImg("UI/English/MenuButtons/OptionsButton.png");;
-                actOptions = Load.GetSpriteImg("UI/English/MenuButtons/ActivatedOptionsButton.png");
-                EngImages[1][1] = actOptions;
-                quit = Load.GetSpriteImg("UI/English/MenuButtons/QuitButton.png");
-                EngImages[2][0] = quit;
-                actQuit = Load.GetSpriteImg("UI/English/MenuButtons/activatedQuitButton.png");
-                EngImages[2][1] = actQuit;
+                EngImages[1][1] = Load.GetSpriteImg("UI/English/MenuButtons/ActivatedOptionsButton.png");
+                EngImages[2][0] = Load.GetSpriteImg("UI/English/MenuButtons/QuitButton.png");
+                EngImages[2][1] = Load.GetSpriteImg("UI/English/MenuButtons/activatedQuitButton.png");
                 returnB = Load.GetSpriteImg("UI/English/MenuButtons/returnButton.png");
                 EngImages[3][0] = returnB;
                 actReturnB = Load.GetSpriteImg("UI/English/MenuButtons/ReturnActivatedButton.png");
