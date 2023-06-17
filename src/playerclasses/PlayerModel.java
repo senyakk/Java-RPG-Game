@@ -159,12 +159,14 @@ public class PlayerModel extends Creature {
             switch (object.getName()) {
                 case "keyItem" -> {
                     playing.getGameModel().getAudioPlayer().playEffect(COIN);
+                    playing.getUi().showMessage("Key picked!");
                     notifyInventoryManager("5", "GenericItem");
                     object.deactivate();
                 }
                 case "boots" -> {
                     speed+= 2;
                     playing.getGameModel().getAudioPlayer().playEffect(POWERUP);
+                    playing.getUi().showMessage("Speed boost!");
                     notifyInventoryManager("6", "GenericItem");
                     object.deactivate();
                 }
