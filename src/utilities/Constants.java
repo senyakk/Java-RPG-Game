@@ -7,6 +7,8 @@ import java.util.HashMap;
 
 public class Constants {
 
+    public static final int anim = 25;
+
     public static class GameLanguage {
         public static final int ENGLISH = 0;
         public static final int DUTCH = 1;

@@ -9,6 +9,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
+import static utilities.Constants.anim;
+
 public class NPC extends Creature {
 
 
@@ -82,5 +84,16 @@ public class NPC extends Creature {
 
     public int getDialogueInd() {
         return dialogueInd;
+    }
+
+    protected void updateAnimation() {
+        animTick++;
+        if(animTick >= anim) {
+            animTick = 0;
+            animIndex++;
+            if(animIndex >= 4) {
+                animIndex = 0;
+            }
+        }
     }
 }
