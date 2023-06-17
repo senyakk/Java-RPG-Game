@@ -36,18 +36,21 @@ public class InventoryManager {
     private final ArrayList<InventoryButton> inventoryButtons; //InventoryButton[] inventoryButtons;
     private int invWidth, invHeight, invX, invY;
     private BufferedImage inventoryImage;
+    private Item playerWeapon;
 
     /**
      * Determines what weapon the player should own (given by default in inventory)
      * @param player is the player who has this inventory
      * @return the weapon item corresponding to their class, or an empty item if something goes wrong
      */
-    private Item setupWeapon(PlayerModel player){
+    private void setupWeapon(PlayerModel player){
         int playerClass = player.getPlayerClassAsInt();
-        if (playerClass == WARRIOR) return new WeaponItem("1", 2.0f);
-        if (playerClass == ARCHER) return new WeaponItem("2", 3.0f);
-        if (playerClass == BARD) return new WeaponItem("4", 1.0f);
-        return new GenericItem("0");
+        switch (playerClass) {
+            case WARRIOR -> playerWeapon = new WeaponItem("1", 2.0f);
+            case ARCHER -> playerWeapon = new WeaponItem("2", 3.0f);
+            case BARD -> playerWeapon = new WeaponItem("4", 1.0f);
+            default -> playerWeapon = new GenericItem("0");
+        }
     }
 
     /**
@@ -57,15 +60,11 @@ public class InventoryManager {
     public InventoryManager(Playing playing) {
         this.playing = playing;
 
-        Item playerWeapon = setupWeapon(this.playing.getPlayer());
+        setupWeapon(playing.getPlayer());
 
-        // Test code -> save/load works just isn't connected to the UI
-        this.inventoryIO = new InventoryIO(new Inventory(playerWeapon));
-        inventoryIO.saveInventory();
-        this.inventory = inventoryIO.loadInventory();
-        //this.inventory = new Inventory(playerWeapon);
-        inventory.addItem(new GenericItem("3"));
-        inventory.addItem(new GenericItem("5"));
+        // Test code -> save/load almost works
+        this.inventory = new Inventory();
+        this.inventoryIO = new InventoryIO(inventory);
 
         this.inventory.addListeners(new InventoryPropertyListener(this));
 
@@ -192,10 +191,21 @@ public class InventoryManager {
         this.inventory.reset();
     }
 
+    /**
+     * Updates the inventory at each frame and adds the player weapon in the inventory if it doesn't exist yet
+     */
     public void update(){
-        // ?
+        setupWeapon(playing.getPlayer());
+        if (!inventory.contains(playerWeapon)){
+            inventory.addItem(playerWeapon);
+        }
     }
 
+    /**
+     * Used when a game object is picked up to add it to the inventory
+     * @param itemID is the ID corresponding to the picked up object
+     * @param itemClass is the type of object being picked up
+     */
     public void notifyPickup(String itemID, String itemClass){
         switch (itemClass){
             case "WeaponItem" -> inventory.addItem(new WeaponItem(itemID, 2.0f));

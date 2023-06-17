@@ -8,6 +8,7 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
 /**
  * Represents a player's inventory, made up of a list of items
@@ -33,13 +34,6 @@ public class Inventory implements Serializable {
         setupItemList();
         updateFullInventory();
         this.listeners = new ArrayList<>();
-    }
-
-    public Inventory(Item playerWeapon){
-        setupItemList();
-        updateFullInventory();
-        this.listeners = new ArrayList<>();
-        this.addItem(playerWeapon);
     }
 
     public Inventory(ArrayList<Item> newList){
@@ -105,7 +99,7 @@ public class Inventory implements Serializable {
      */
     public boolean contains(Item item){
         for (Item temp : this.itemList){
-            if (temp.equals(item)){
+            if (Objects.equals(temp.getId(), item.getId())){
                 return true;
             }
         }
