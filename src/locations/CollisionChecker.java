@@ -20,7 +20,6 @@ public class CollisionChecker {
 
     /**
      * Creates a collision checker
-     * @param Playing playing class
      */
     public CollisionChecker(Playing playing) {
         this.levelManager = playing.getLevelManager();
@@ -114,9 +113,6 @@ public class CollisionChecker {
             //}
         else if (((tile1.getName().equals("fontain")) || (tile2.getName().equals("fontain"))))
             levelManager.changeLevel(8);
-        //else if (((tile1.getName().equals("TreeDoor")) || (tile2.getName().equals("TreeDoor"))))
-        //    levelManager.changeLevel(9); // Goes to fake forrest
-
     }
 
     /**

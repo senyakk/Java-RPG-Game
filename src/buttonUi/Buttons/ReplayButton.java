@@ -19,7 +19,7 @@ public class ReplayButton extends GameButton {
     }
 
     private void loadImages() {
-        BufferedImage temp = Load.GetSpriteImg("UI/English/Options/urm_buttons.png");
+        BufferedImage temp = Load.GetSpriteImg("UI/EnglishButtons/Options/urm_buttons.png");
         images = new BufferedImage[3];
         for (int i = 0; i < images.length; i++) {
             images[i] = temp.getSubimage(i* URM_SIZE_DEFAULT,rowIndex* URM_SIZE_DEFAULT,

@@ -8,7 +8,6 @@ import java.awt.image.BufferedImage;
 
 import static utilities.Constants.GameLanguage.DUTCH;
 import static utilities.Constants.GameLanguage.ENGLISH;
-import static utilities.Constants.PlayerConstants.*;
 import static utilities.Constants.UI.MenuButtons.B_HEIGHT;
 import static utilities.Constants.UI.MenuButtons.B_WIDTH;
 
@@ -35,31 +34,31 @@ public class ClassButton extends GameButton {
     private void loadImages() {
         switch(language) {
             case ENGLISH -> {
-                warrior = Load.GetSpriteImg("UI/English/ClassButtons/WarriorButton.png");
+                warrior = Load.GetSpriteImg("UI/EnglishButtons/ClassButtons/WarriorButton.png");
                 EngImages[0][0] = warrior;
-                warAct = Load.GetSpriteImg("UI/English/ClassButtons/WarriorActivatedButton.png");
+                warAct = Load.GetSpriteImg("UI/EnglishButtons/ClassButtons/WarriorActivatedButton.png");
                 EngImages[0][1] = warAct;
-                archer = Load.GetSpriteImg("UI/English/ClassButtons/ArcherButton.png");
+                archer = Load.GetSpriteImg("UI/EnglishButtons/ClassButtons/ArcherButton.png");
                 EngImages[1][0] = archer;
-                archAct = Load.GetSpriteImg("UI/English/ClassButtons/ArcherActivatedButton.png");
+                archAct = Load.GetSpriteImg("UI/EnglishButtons/ClassButtons/ArcherActivatedButton.png");
                 EngImages[1][1] = archAct;
-                bard = Load.GetSpriteImg("UI/English/ClassButtons/BardButton.png");
+                bard = Load.GetSpriteImg("UI/EnglishButtons/ClassButtons/BardButton.png");
                 EngImages[2][0] = bard;
-                bardAct = Load.GetSpriteImg("UI/English/ClassButtons/BardActivatedButton.png");
+                bardAct = Load.GetSpriteImg("UI/EnglishButtons/ClassButtons/BardActivatedButton.png");
                 EngImages[2][1] = bardAct;
             }
             case DUTCH -> {
-                warrior = Load.GetSpriteImg("UI/Dutch/Options/ClassButtonsDutch/classButtons/krijgerButton.png");
+                warrior = Load.GetSpriteImg("UI/Dutch/Options/DutchButtons/classButtons/krijgerButton.png");
                 EngImages[0][0] = warrior;
-                warAct = Load.GetSpriteImg("UI/Dutch/Options/ClassButtonsDutch/classButtons/krijgerAtivatedButton.png");
+                warAct = Load.GetSpriteImg("UI/Dutch/Options/DutchButtons/classButtons/krijgerAtivatedButton.png");
                 EngImages[0][1] = warAct;
-                archer = Load.GetSpriteImg("UI/Dutch/Options/ClassButtonsDutch/classButtons/boogschutterButton.png");
+                archer = Load.GetSpriteImg("UI/Dutch/Options/DutchButtons/classButtons/boogschutterButton.png");
                 EngImages[1][0] = archer;
-                archAct = Load.GetSpriteImg("UI/Dutch/Options/ClassButtonsDutch/classButtons/boogschutterActivatedButton.png");
+                archAct = Load.GetSpriteImg("UI/Dutch/Options/DutchButtons/classButtons/boogschutterActivatedButton.png");
                 EngImages[1][1] = archAct;
-                bard = Load.GetSpriteImg("UI/Dutch/Options/ClassButtonsDutch/classButtons/dichterButton.png");
+                bard = Load.GetSpriteImg("UI/Dutch/Options/DutchButtons/classButtons/dichterButton.png");
                 EngImages[2][0] = bard;
-                bardAct = Load.GetSpriteImg("UI/Dutch/Options/ClassButtonsDutch/classButtons/dichterActivatedButton.png");
+                bardAct = Load.GetSpriteImg("UI/Dutch/Options/DutchButtons/classButtons/dichterActivatedButton.png");
                 EngImages[2][1] = bardAct;
             }
         }

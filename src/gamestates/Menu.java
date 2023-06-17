@@ -10,7 +10,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
-import static utilities.Constants.GameLanguage.*;
 import static utilities.Constants.UI.MenuButtons.*;
 
 /**
@@ -28,7 +27,7 @@ public class Menu extends State {
     }
 
     private void loadSprites() {
-        backgroundImage = Load.GetSpriteImg("UI/English/Startscreen.png");
+        backgroundImage = Load.GetSpriteImg("UI/EnglishButtons/Startscreen.png");
     }
 
     private void addButtons(int language) {

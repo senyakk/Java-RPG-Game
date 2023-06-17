@@ -46,13 +46,13 @@ public class Options extends State {
     private void loadImages() {
         switch (gameModel.getLanguage()) {
             case ENGLISH -> {
-                backgroundImage = Load.GetSpriteImg("UI/English/Startscreen.png");
-                optionsBackgroundImage = Load.GetSpriteImg("UI/English/Options/options_background.png");
+                backgroundImage = Load.GetSpriteImg("UI/EnglishButtons/Startscreen.png");
+                optionsBackgroundImage = Load.GetSpriteImg("UI/EnglishButtons/Options/options_background.png");
             }
             case DUTCH -> {
                 // Dutch buttons here
-                backgroundImage = Load.GetSpriteImg("UI/English/Startscreen.png");
-                optionsBackgroundImage = Load.GetSpriteImg("UI/Dutch/Options/ClassButtonsDutch/Options/options_background_Dutch.png");
+                backgroundImage = Load.GetSpriteImg("UI/EnglishButtons/Startscreen.png");
+                optionsBackgroundImage = Load.GetSpriteImg("UI/Dutch/Options/DutchButtons/Options/options_background_Dutch.png");
             }
         }
         bgW = (int) (optionsBackgroundImage.getWidth() * GameModel.scale/1.5);

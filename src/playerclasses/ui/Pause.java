@@ -49,11 +49,11 @@ public class Pause {
     private void loadBackground() {
         switch (playing.getGameModel().getLanguage()) {
             case ENGLISH -> {
-                background = Load.GetSpriteImg("UI/English/Options/pause_menu.png");
+                background = Load.GetSpriteImg("UI/EnglishButtons/Options/pause_menu.png");
             }
             case DUTCH -> {
                 // Dutch pause here
-                background = Load.GetSpriteImg("UI/Dutch/Options/ClassButtonsDutch/Options/pause_menu_Dutch.png");
+                background = Load.GetSpriteImg("UI/Dutch/Options/DutchButtons/Options/pause_menu_Dutch.png");
             }
         }
         width = (int)(background.getWidth() * GameModel.scale/1.5);
