@@ -206,7 +206,7 @@ public class Load {
         setup(51, "078", true, "witchHouseDoor");
         setup(52, "079", true, "witchHouseRoof");
         setup(53, "transparent", true, "transparentExitWitchHouse");
-        setup(54, "081", true, "TreeDoor");
+        setup(54, "081", true, "treeDoor");
         setup(55, "082", true, "treeLeaves");
 
         // Large tree in forest

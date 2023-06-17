@@ -83,6 +83,7 @@ public class LevelManager {
                 if (origin == 2) // when from witch house
                     player.setCoordinates(34, 29); // spawn outside the door
             }
+            case 9 -> player.setCoordinates(36, 14); // spawn of dragon cemetery
         }
         playing.getCollisionChecker().updateLevel();
     }
