@@ -78,6 +78,24 @@ public class Options extends State {
         menuB.draw(g);
         languageButton.draw(g);
         audio.draw(g);
+
+        // Draw game controls in the top right corner
+        String controls = "Controls: \nW-A-S-D to move\nI to open the inventory\nQ to see the characteristics\nEsc to pause";
+        // Split the controls string into individual lines
+        String[] lines = controls.split("\n");
+        Font font = new Font("Arial", Font.BOLD, (int) (16 * GameModel.scale));
+        FontMetrics metrics = g.getFontMetrics(font);
+        int textHeight = metrics.getHeight();
+        int x = (int) (GameModel.screenWidth - metrics.stringWidth(controls) + 490 * GameModel.scale);
+        int y = GameModel.screenHeight / 2 - (textHeight * lines.length) / 2;
+        g.setFont(font);
+        g.setColor(Color.WHITE);
+
+        // Draw each line of the controls string
+        for (String line : lines) {
+            g.drawString(line, x, y);
+            y += textHeight; // Move to the next line
+        }
     }
 
     @Override
