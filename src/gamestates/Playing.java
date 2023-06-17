@@ -177,6 +177,7 @@ public class Playing extends State {
     @Override
     public void mouseMoved(MouseEvent e) {
         ui.mouseMoved(e);
+        inventoryManager.mouseMoved(e);
     }
 
     public void mouseDragged(MouseEvent e) {

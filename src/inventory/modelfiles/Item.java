@@ -43,6 +43,7 @@ public abstract class Item implements Serializable {
     /**
      * Setter for the display name of the Item object, realized by accessing the item list and
      * getting the display name (based on game language)
+     * Ideally should be updated by a prop listener when the game language changes
      */
     protected void setDisplayName(){
         // if (language == Constants.GameLanguage.ENGLISH) else { but cant access game language rn
