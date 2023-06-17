@@ -175,6 +175,12 @@ public class PlayerModel extends Creature {
                     notifyInventoryManager("6", "GenericItem");
                     object.deactivate();
                 }
+                case "firefly" -> {
+                    playing.getGameModel().getAudioPlayer().playEffect(PARRY);
+                    playing.getUi().showMessage("Pretty Jar!");
+                    notifyInventoryManager("8", "GenericItem");
+                    object.deactivate();
+                }
             }
         }
     }
