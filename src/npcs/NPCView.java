@@ -18,26 +18,27 @@ public class NPCView {
         player = playing.getPlayer();
     }
 
-    public void draw(Graphics g) {
-        drawNPC(g);
-    }
-
     public void drawNPC(Graphics g) {
         for (NPC n : NPCs) {
-            if (n.checkActive()) {
-                //PlayerModel player = playing.getPlayer();
-                int screenX = (int) (n.getWorldX() - player.getWorldX() + player.getScreenX());
-                int screenY = (int) (n.getWorldY() - player.getWorldY() + player.getScreenY());
+            //PlayerModel player = playing.getPlayer();
+            int screenX = (int) (n.getWorldX() - player.getWorldX() + player.getScreenX());
+            int screenY = (int) (n.getWorldY() - player.getWorldY() + player.getScreenY());
 
-                // Draws NPCs if they are located in the player's window
-                if (HelpMethods.checkWorldCamera((int) n.getWorldX(), (int) n.getWorldY(), (int) player.getWorldX(),
-                        (int) player.getWorldY(), player.getScreenX(), player.getScreenY())) {
-                    // Draw npc
-                    g.drawImage(n.getImage(), screenX, screenY, n.getWidth(), n.getHeight(), null);
-                    // Draw npc hitbox
-                    n.drawNPCHitArea(g, screenX, screenY);
+            // Draws NPCs if they are located in the player's window
+            if (HelpMethods.checkWorldCamera((int) n.getWorldX(), (int) n.getWorldY(), (int) player.getWorldX(),
+                    (int) player.getWorldY(), player.getScreenX(), player.getScreenY())) {
+                // Draw npc
+                g.drawImage(n.getImages()[n.getState()][n.getAnimIndex()],
+                        screenX, screenY, n.getWidth(), n.getHeight(), null);
+                // Draw npc hitbox
+                drawNPCHitArea(g, screenX, screenY, n);
                 }
-            }
         }
+    }
+
+    private void drawNPCHitArea(Graphics g, int otherScreenX, int otherScreenY, NPC n) {
+        g.setColor(Color.ORANGE);
+        g.drawRect((int) (otherScreenX + n.getHitArea().x), (int) (otherScreenY + n.getHitArea().y),
+                n.getHitArea().width, n.getHitArea().height);
     }
 }

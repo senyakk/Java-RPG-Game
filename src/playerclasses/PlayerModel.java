@@ -3,6 +3,7 @@ package playerclasses;
 import gamestates.Playing;
 import main.GameModel;
 import npcs.Creature;
+import npcs.NPC;
 import objects.GameObject;
 import objects.objectsclasses.Bow;
 import objects.objectsclasses.Flower;
@@ -134,6 +135,10 @@ public class PlayerModel extends Creature {
         collisionChecker.checkTile(this);
         GameObject object = collisionChecker.checkObject(this);
         pickUpObject(object);
+
+        NPC target_npc = collisionChecker.checkEntity(this);
+        interact(target_npc);
+
         if (attacking)
             attack();
         updateAnimation();
@@ -170,6 +175,15 @@ public class PlayerModel extends Creature {
                     notifyInventoryManager("6", "GenericItem");
                     object.deactivate();
                 }
+            }
+        }
+    }
+
+    private void interact(NPC targetNpc) {
+        if (targetNpc != null) {
+            switch (targetNpc.getName()) {
+                case "Baby Dragon" -> playing.getUi().loadDialogue(targetNpc);
+                case "Professor" -> playing.getUi().loadDialogue(targetNpc);
             }
         }
     }

@@ -30,6 +30,7 @@ public class NPC_Manager {
 
     public NPC_Manager(Playing playing) {
         this.playing = playing;
+        this.collisionChecker = playing.getCollisionChecker();
         NPCs = playing.getLevelManager().getCurrentLevel().getNPCs();
         placeNPC();
     }
@@ -37,10 +38,11 @@ public class NPC_Manager {
     public void placeNPC() {
         switch (playing.getLevelManager().getCurrentLevelId()) {
             case 0 -> {
-                NPCs.add(new BabyDragon(19 ,19));
+                NPCs.add(new BabyDragon(24 ,19));
+                NPCs.add(new Professor(22 ,22));
             }
             case 1 -> {
-                NPCs.add(new Professor(19 ,19));
+                NPCs.add(new Professor(3 ,3));
             }
         }
         for (NPC n : NPCs) {
@@ -48,30 +50,11 @@ public class NPC_Manager {
         }
     }
 
-
     public void update() {
         for (NPC n : NPCs) {
             n.update();
         }
     }
-
-    public static BufferedImage GetSpriteImg(String name) {
-        BufferedImage image = null;
-        InputStream sprites = Load.class.getResourceAsStream("/" + name);
-        try {
-            image = ImageIO.read(sprites);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                sprites.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return image;
-    }
-
     public String[] getDialogues() {
         return dialogues;
     }

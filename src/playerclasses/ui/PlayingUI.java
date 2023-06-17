@@ -206,6 +206,15 @@ public class PlayingUI {
         g.drawRoundRect((int) (x+(GameModel.scale*2)), (int) (y+(GameModel.scale*2)),
                 (int) (width-(GameModel.scale*5)), (int) (height-(GameModel.scale*5)),
                 (int) (GameModel.scale*10), (int) (GameModel.scale*10));
+
+        g.setFont(g.getFont().deriveFont(Font.PLAIN,32F));
+        x += GameModel.tileSize;
+        y += GameModel.tileSize;
+
+        for (String line : dialogueString[dialogueInd].split("\n")) {
+            g.drawString(line, x, y);
+            y += 40;
+        }
     }
 
     private void drawPlayerLife() {
@@ -289,6 +298,12 @@ public class PlayingUI {
                 if (!playing.isPaused()) {
                     statsOn = !statsOn;
                 }
+            }
+            case KeyEvent.VK_E -> {
+                progressDialogue();
+            }
+            case KeyEvent.VK_ENTER -> {
+                closeDialogue();
             }
         }
     }

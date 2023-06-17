@@ -1,5 +1,8 @@
 package npcs;
 
+import main.GameModel;
+import utilities.Load;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
@@ -16,9 +19,15 @@ public class Professor extends NPC {
      * @param worldY y position in the world
      */
     public Professor(float worldX, float worldY) {
-        super(worldX, worldY, (float) (NPCSize * 1.5), (float) (NPCSize * 1.5), "prof", "Professor");
+        super(worldX, worldY, 53 * GameModel.scale, 65 * GameModel.scale,
+                "prof", "Professor");
         setDialogue();
-        image = GetSpriteImg("prof.png");
+        images = new BufferedImage[1][1];
+        images[0][0] =Load.GetSpriteImg("characters/prof.png");
+        state = 0;
+        animIndex = 0;
+
+        initHitArea(22, 24, 18, 32);
     }
 
     public void setDialogue() {
@@ -31,11 +40,4 @@ public class Professor extends NPC {
         dialogues[6] = "Be careful son, take this key. It will aid you in this journey";
     }
 
-    public void update() {
-        updateAnimation();
-    }
-
-    public void draw(Graphics g) {
-        super.draw(g);
-    }
 }

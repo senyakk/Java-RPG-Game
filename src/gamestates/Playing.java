@@ -132,7 +132,6 @@ public class Playing extends State {
             levelManager.update();
             eventChecker.checkEvent();
             objectManager.update();
-            //npcManager.update();
             player.update();
             inventoryManager.update();
             npcManager.update();

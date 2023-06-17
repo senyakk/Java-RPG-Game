@@ -4,6 +4,7 @@ package locations;
 import gamestates.Playing;
 import main.GameModel;
 import npcs.Creature;
+import npcs.NPC;
 import objects.GameObject;
 import playerclasses.PlayerModel;
 
@@ -224,5 +225,57 @@ public class CollisionChecker {
 
         }
         return selectedObject;
+    }
+
+    public NPC checkEntity (Creature entity) {
+
+        NPC target = null;
+        for (NPC n : lvl.getNPCs()) {
+
+            entity.getHitArea().x = (int) (entity.getWorldX() + entity.getHitArea().x);
+            entity.getHitArea().y = (int) (entity.getWorldY() + entity.getHitArea().y);
+
+            n.getHitArea().x = (int) (n.getWorldX() + n.getHitArea().x);
+            n.getHitArea().y = (int) (n.getWorldY() + n.getHitArea().y);
+
+
+            switch (entity.getDirection()) {
+                case UP -> {
+                    entity.getHitArea().y -= entity.getSpeed();
+                    if (entity.getHitArea().intersects(n.getHitArea())) {
+                        entity.setCollision();
+                        target = n;
+                    }
+                }
+                case DOWN -> {
+                    entity.getHitArea().y += entity.getSpeed();
+                    if (entity.getHitArea().intersects(n.getHitArea())) {
+                        entity.setCollision();
+                        target = n;
+                    }
+                }
+                case LEFT -> {
+                    entity.getHitArea().x -= entity.getSpeed();
+                    if (entity.getHitArea().intersects(n.getHitArea())) {
+                        entity.setCollision();
+                        target = n;
+                    }
+                }
+                case RIGHT -> {
+                    entity.getHitArea().x += entity.getSpeed();
+                    if (entity.getHitArea().intersects(n.getHitArea()) ) {
+                        entity.setCollision();
+                        target = n;
+                    }
+                }
+            }
+
+            entity.getHitArea().x = (int) entity.getHitAreaDefaultX();
+            entity.getHitArea().y = (int) entity.getHitAreaDefaultY();
+            n.getHitArea().x = (int) n.getHitAreaDefaultX();
+            n.getHitArea().y = (int) n.getHitAreaDefaultY();
+
+        }
+        return target;
     }
 }
