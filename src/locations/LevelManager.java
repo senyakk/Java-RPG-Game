@@ -83,6 +83,10 @@ public class LevelManager {
                 if (origin == 2) // when from witch house
                     player.setCoordinates(34, 29); // spawn outside the door
             }
+            case 9 -> { // go to coords in forest
+                if (origin == 8) // when from swamp
+                    player.setCoordinates(23, 23);
+            }
         }
         playing.getCollisionChecker().updateLevel();
     }
