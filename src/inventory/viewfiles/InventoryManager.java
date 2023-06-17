@@ -195,12 +195,15 @@ public class InventoryManager {
      * @param e is the mouse release event
      */
     public void mouseMoved(MouseEvent e) {
+        int language = playing.getGameModel().getLanguage();
+
         boolean insideBound = false;
         for (int index = 0; index < INVENTORY_ROWS * INVENTORY_COLS; index++){
             InventoryButton button = this.inventoryButtons.get(index);
 
             if (button.isInBorder(e)){
-                currentItemName.setText(inventory.getItemList().get(index).getDisplayName());
+                ArrayList<String> names = inventory.getItemList().get(index).getDisplayNames();
+                currentItemName.setText(names.get(language));
                 insideBound = true;
             }
         }
@@ -237,5 +240,12 @@ public class InventoryManager {
             // other item classes
             default -> inventory.addItem(new GenericItem(itemID));
         }
+    }
+
+    public boolean isInInventory(String item) {
+        if (inventory.contains(new GenericItem(item)))
+            return true;
+        else
+            return false;
     }
 }
