@@ -1,7 +1,9 @@
 package playerclasses.ui;
 
 import gamestates.Playing;
+import main.Game;
 import main.GameModel;
+import npcs.NPC;
 import utilities.Load;
 
 import javax.imageio.ImageIO;
@@ -30,6 +32,10 @@ public class PlayingUI {
     private boolean messageOn = false;
     private String message = "";
     private int messageCount = 0;
+
+    private boolean dialogue = false;
+    private String[] dialogueString;
+    private int dialogueInd = 0;
 
     private Graphics g;
 
@@ -65,6 +71,13 @@ public class PlayingUI {
             drawMessage();
         if (inventoryOn)
             playing.getInventoryManager().draw(g);
+        if (dialogue) {
+            if (dialogueString[dialogueInd] == null) {
+                dialogueInd = 0;
+            }
+            drawWindow(GameModel.tileSize * 2, GameModel.tileSize/2,
+                    (GameModel.screenWidth - GameModel.tileSize * 4), GameModel.tileSize * 2);
+        }
         if (playing.isPaused()) {
             g.setColor(new Color(0, 0, 0, 150));
             g.fillRect(0, 0, GameModel.screenWidth, GameModel.screenHeight);
@@ -250,6 +263,30 @@ public class PlayingUI {
     public void resetAll() {
         statsOn = false;
         inventoryOn = false;
+    }
+
+    public void loadDialogue(NPC npc) {
+        dialogueString = null;
+        dialogueString = npc.getDialogues();
+    }
+
+    public void progressDialogue() {
+        if (dialogueString != null) {
+            if (!dialogue) {
+                dialogue = true;
+                return;
+            }
+            dialogueInd++;
+            if (dialogueString[dialogueInd] == null) {
+                dialogueInd = 0;
+                closeDialogue();
+            }
+        }
+    }
+
+    public void closeDialogue() {
+        if (dialogue)
+            dialogue = false;
     }
 
     public void keyReleased(KeyEvent e) {

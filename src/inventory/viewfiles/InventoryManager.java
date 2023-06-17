@@ -72,7 +72,8 @@ public class InventoryManager {
         this.inventory.addListeners(new InventoryPropertyListener(this));
 
         loadInventoryImage();
-        this.currentItemName = new GameButton((GameModel.screenWidth / 2 + invWidth / 2), (GameModel.screenHeight / 2), 150, 75);
+        this.currentItemName = new GameButton((GameModel.screenWidth / 2 + invWidth / 2),
+                (invY + invHeight /2),150, 75);
         this.currentItemName.setText(" ");
         this.inventoryButtons = new ArrayList<>(INVENTORY_ROWS * INVENTORY_COLS);
         updateButtons();

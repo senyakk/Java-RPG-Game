@@ -136,7 +136,7 @@ public class Playing extends State {
     @Override
     public void draw(Graphics g) {
         levelView.draw(g);
-        eventChecker.draw(g);
+        //eventChecker.draw(g);
         objectView.drawObjects(g);
         playerRenderer.render(g);
         ui.draw(g);

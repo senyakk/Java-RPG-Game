@@ -43,9 +43,12 @@ public class ObjectManager {
      * Update the status of objects
      */
     public void update() {
+        gameObjects = playing.getLevelManager().getCurrentLevel().getObjects();
         for (GameObject k : gameObjects) {
             if (k.checkActive()) {
                 k.update();
+                if (!k.isActive)
+                    k = null;
             }
         }
     }
@@ -57,4 +60,5 @@ public class ObjectManager {
         gameObjects.clear();
         placeObject();
     }
+
 }
