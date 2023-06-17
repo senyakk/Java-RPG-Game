@@ -39,11 +39,11 @@ public class ClassSelection extends State {
     private void loadSprites() {
         switch (gameModel.getLanguage()) {
             case ENGLISH -> {
-                backgroundImage = Load.GetSpriteImg("UI/EnglishButtons/StartscreenSelectClass.png");
+                backgroundImage = Load.GetSpriteImg("UI/English/StartscreenSelectClass.png");
             }
             case DUTCH -> {
                 // Dutch background here
-                backgroundImage = Load.GetSpriteImg("UI/EnglishButtons/StartscreenSelectClass.png");
+                backgroundImage = Load.GetSpriteImg("UI/English/StartscreenSelectClass.png");
             }
         }
     }

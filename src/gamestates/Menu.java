@@ -27,7 +27,7 @@ public class Menu extends State {
     }
 
     private void loadSprites() {
-        backgroundImage = Load.GetSpriteImg("UI/EnglishButtons/Startscreen.png");
+        backgroundImage = Load.GetSpriteImg("UI/English/Startscreen.png");
     }
 
     private void addButtons(int language) {

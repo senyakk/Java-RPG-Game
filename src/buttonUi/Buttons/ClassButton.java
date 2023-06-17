@@ -39,17 +39,17 @@ public class ClassButton extends GameButton {
     private void loadImages() {
         switch(language) {
             case ENGLISH -> {
-                warrior = Load.GetSpriteImg("UI/EnglishButtons/ClassButtons/WarriorButton.png");
+                warrior = Load.GetSpriteImg("UI/English/ClassButtons/WarriorButton.png");
                 EngImages[0][0] = warrior;
-                warAct = Load.GetSpriteImg("UI/EnglishButtons/ClassButtons/WarriorActivatedButton.png");
+                warAct = Load.GetSpriteImg("UI/English/ClassButtons/WarriorActivatedButton.png");
                 EngImages[0][1] = warAct;
-                archer = Load.GetSpriteImg("UI/EnglishButtons/ClassButtons/ArcherButton.png");
+                archer = Load.GetSpriteImg("UI/English/ClassButtons/ArcherButton.png");
                 EngImages[1][0] = archer;
-                archAct = Load.GetSpriteImg("UI/EnglishButtons/ClassButtons/ArcherActivatedButton.png");
+                archAct = Load.GetSpriteImg("UI/English/ClassButtons/ArcherActivatedButton.png");
                 EngImages[1][1] = archAct;
-                bard = Load.GetSpriteImg("UI/EnglishButtons/ClassButtons/BardButton.png");
+                bard = Load.GetSpriteImg("UI/English/ClassButtons/BardButton.png");
                 EngImages[2][0] = bard;
-                bardAct = Load.GetSpriteImg("UI/EnglishButtons/ClassButtons/BardActivatedButton.png");
+                bardAct = Load.GetSpriteImg("UI/English/ClassButtons/BardActivatedButton.png");
                 EngImages[2][1] = bardAct;
             }
             case DUTCH -> {
