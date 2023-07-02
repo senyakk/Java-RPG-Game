@@ -4,5 +4,6 @@ An RPG 2D pixel-art Game project in Java which my group developed as the univers
 Authors of some visual and audio assets:
 - RyiSnow - https://www.youtube.com/@RyiSnow/about
 - Kaaring Gaming - https://www.youtube.com/@KaarinGaming/about
-Authors of audio tracks:
+
+Author of audio tracks:
 - AlkaKrab - https://www.youtube.com/@alkakrab/about
