@@ -1,6 +1,11 @@
  # Java RPG Game 🛡️
  
  A compact 2D RPG (Role‑Playing Game) built in Java — featuring simple inventory, map exploration, and basic NPC AI.
+
+ <img width="951" alt="Screenshot 2025-06-09 at 16 50 20" src="https://github.com/user-attachments/assets/c2a68b98-a30e-4d16-a17b-9daa37e72270" />
+<img width="945" alt="Screenshot 2025-06-09 at 16 50 50" src="https://github.com/user-attachments/assets/9212f94b-5487-4229-b861-aa7e307c78a3" />
+<img width="757" alt="Screenshot 2025-06-09 at 16 52 37" src="https://github.com/user-attachments/assets/3e6d3879-1780-4ad2-a05e-0ee80b778f18" />
+
   
 - **Explorative World:**  
   Navigate through multiple rooms and zones, each with unique layouts and challenges.
