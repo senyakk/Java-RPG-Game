@@ -1,16 +1,8 @@
  # Java RPG Game 🛡️
- 
- A compact 2D RPG (Role‑Playing Game) built in Java — featuring simple inventory, map exploration, and basic NPC AI.
 
-<img src="https://github.com/user-attachments/assets/c2a68b98-a30e-4d16-a17b-9daa37e72270" width="500" />
-<br>
-<img src="https://github.com/user-attachments/assets/9212f94b-5487-4229-b861-aa7e307c78a3" width="500" />
-<br>
-<img src="https://github.com/user-attachments/assets/3e6d3879-1780-4ad2-a05e-0ee80b778f18" width="500" />
+  A compact 2D RPG (Role‑Playing Game) built in Java — featuring simple inventory, map exploration, and basic NPC AI.
 
-
-  
-- **Explorative World:**  
+ - **Explorative World:**  
   Navigate through multiple rooms and zones, each with unique layouts and challenges.
 - **Inventory System:**  
   Collect, equip, and manage items such as weapons, armor, and consumables.
@@ -26,6 +18,15 @@
   Play in English or Dutch, with dynamic UI button language switching.
 - **Easily Extendable:**  
   Add new weapons, enemies, levels, and features with a modular codebase.
+
+**Screenshots**:
+ 
+<img src="https://github.com/user-attachments/assets/c2a68b98-a30e-4d16-a17b-9daa37e72270" width="500" />
+<br>
+<img src="https://github.com/user-attachments/assets/9212f94b-5487-4229-b861-aa7e307c78a3" width="500" />
+<br>
+<img src="https://github.com/user-attachments/assets/3e6d3879-1780-4ad2-a05e-0ee80b778f18" width="500" />
+
 
  ---
  
