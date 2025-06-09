@@ -43,6 +43,37 @@
 - Esc: Pause or open menu
  ---
 
+
+## Project Structure
+
+```
+│ ├── resources/ # Game assets (audio, images, maps, etc.)
+│ ├── audio/ # All audio files
+│ │ ├── music/ # Background music tracks
+│ │ └── sfx/ # Sound effects
+│ ├── characters/ # Character sprites (player, NPCs, monsters)
+│ ├── items/ # Item icons and inventory images
+│ ├── locations/ # Location-specific images or data
+│ ├── maps/ # Map layout files (text-based, e.g., 1.txt, 4.txt, etc.)
+│ ├── saves/ # Saved game files
+│ ├── tiles/ # Tile images for map rendering
+│ └── UI/ # User interface images (buttons, menus, overlays)
+│ └── src/ # Java source code
+├── buttonUi/ # UI button logic and classes
+│ └── Buttons/ # Specific button implementations (e.g., MenuButton.java)
+├── gamestates/ # Game state management (menus, pause, gameplay, etc.)
+├── inventory/ # Inventory system logic and classes
+├── locations/ # Classes for different locations/rooms in the game
+├── main/ # Main entry point and core game loop
+├── npcs/ # Non-player character logic and classes
+├── objects/ # In-game objects (items, obstacles, etc.)
+├── playerclasses/ # Player character classes (warrior, mage, etc.)
+└── utilities/ # Utility classes (constants, asset loading, helpers)
+```
+
+---
+
+
 ## 🛠️ Extending the Game
 
 - Add new items:
