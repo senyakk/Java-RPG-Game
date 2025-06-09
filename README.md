@@ -17,6 +17,7 @@ A compact 2D RPG (Role‑Playing Game) built in Java — featuring simple invent
 ```bash
 git clone https://github.com/senyakk/Java-RPG-Game.git
 cd Java-RPG-Game
+```
 
 ---
 
