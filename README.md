@@ -54,12 +54,12 @@ Edit dialogue scripts or add new NPCs in the entities/ and dialogue/ directories
 - Support more languages:
 Add new button images and update language constants.
 ---
- ## 📄 License
- 
+## 📄 License
+
  This project is licensed under the MIT License. See LICENSE for details.
+
 ---
- 
- ## Acknowledgements
+## Acknowledgements
  
  Authors of some visual and audio assets:
  - [RyiSnow](https://www.youtube.com/@RyiSnow/about)
